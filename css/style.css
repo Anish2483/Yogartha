@@ -326,6 +326,21 @@ ul { list-style: none; }
 .badge-num { display: block; font-family: var(--font-display); font-size: 2rem; font-weight: 700; }
 .badge-lbl { display: block; font-size: 0.75rem; letter-spacing: 0.1em; opacity: 0.9; }
 .about-text p { color: var(--text-light); margin-bottom: 20px; font-size: 1rem; }
+.about-mission {
+  background: linear-gradient(135deg, rgba(212,120,42,0.06), rgba(184,130,42,0.04));
+  border-left: 3px solid var(--saffron);
+  padding: 16px 20px;
+  border-radius: 0 10px 10px 0;
+  font-size: 0.97rem !important;
+}
+.mission-label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--saffron);
+}
 .about-stats {
   display: flex;
   gap: 32px;
@@ -432,6 +447,7 @@ ul { list-style: none; }
 
 /* ===== GURU ===== */
 .guru-section { background: var(--cream); }
+.guru-grid { align-items: flex-start; }
 .guru-img-wrap { position: relative; }
 .guru-frame {
   border-radius: var(--radius);
@@ -440,7 +456,7 @@ ul { list-style: none; }
   position: relative;
   z-index: 2;
 }
-.guru-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+.guru-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 20%; }
 .guru-doodle {
   position: absolute;
   bottom: -40px; right: -40px;
@@ -457,6 +473,27 @@ ul { list-style: none; }
   letter-spacing: 0.05em;
 }
 .guru-text p { color: var(--text-light); margin-bottom: 16px; }
+.reeta-personal-note {
+  position: relative;
+  background: linear-gradient(135deg, rgba(212,120,42,0.05), rgba(184,130,42,0.03));
+  border: 1px solid rgba(212,120,42,0.18);
+  border-radius: var(--radius);
+  padding: 20px 20px 20px 52px;
+  margin: 20px 0;
+}
+.reeta-personal-note p {
+  margin-bottom: 0 !important;
+  font-size: 0.93rem !important;
+  font-style: italic;
+  color: var(--text-light);
+}
+.personal-note-icon {
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  font-size: 1.4rem;
+  line-height: 1;
+}
 .guru-credentials {
   display: grid;
   grid-template-columns: 1fr 1fr;
