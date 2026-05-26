@@ -714,6 +714,7 @@ ul { list-style: none; }
 }
 @media (max-width: 768px) {
   .grid-2 { grid-template-columns: 1fr; gap: 40px; }
+  .guru-grid { align-items: stretch; }
   .offerings-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .guru-credentials { grid-template-columns: 1fr; }
