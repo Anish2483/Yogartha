@@ -456,7 +456,7 @@ ul { list-style: none; }
   position: relative;
   z-index: 2;
 }
-.guru-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 20%; }
+.guru-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; }
 .guru-doodle {
   position: absolute;
   bottom: -40px; right: -40px;
