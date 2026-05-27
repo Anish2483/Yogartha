@@ -392,7 +392,7 @@ ul { list-style: none; }
 .offerings-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 24px;
 }
 .offering-card {
   background: var(--white);
