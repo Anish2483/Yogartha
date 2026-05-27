@@ -40,7 +40,7 @@
   <!-- ===== HERO ===== -->
   <section id="home" class="hero">
     <div class="hero-bg">
-      <img src="images/adiyogi_hero.jpg" alt="Adiyogi — The First Yogi" class="hero-img" />
+      <img src="images/adiyogi_hero.jpg" alt="Adiyogi — The First Yogi" class="hero-img" fetchpriority="high" decoding="async" />
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-top-bar"></div>
@@ -97,10 +97,6 @@
         <h2 class="section-title">Bringing Isha's Classical<br/>Hatha Yoga to Dehradun</h2>
         <p>Yogartha is a Classical Hatha Yoga studio rooted in the heart of Dehradun — a space where the ancient science of yoga is not diluted, not decorative, but delivered in its purest form. Led by a certified teacher trained under the prestigious Sadhguru Gurukulam, every session here is a faithful transmission of a tradition that has endured for thousands of years.</p>
         <p class="about-mission"><span class="mission-label">Our Mission</span> — To nurture holistic well-being by offering Classical Hatha Yoga exactly as Sadhguru has structured it. We walk with each student on a deeply personal journey toward physical vitality, mental clarity, and spiritual balance — empowering them to discover the transformative power that lives within their own body and breath.</p>
-        <div class="isha-tag">
-          <img src="images/isha_hatha_symbol.png" alt="Isha Hatha" class="isha-tag-img" />
-          <span>Isha Hatha Yoga — Inspired Practice</span>
-        </div>
         <div class="about-stats">
           <div class="stat"><span class="stat-num">2000+</span><span class="stat-lbl">Students Guided</span></div>
           <div class="stat"><span class="stat-num">50+</span><span class="stat-lbl">Programs Done</span></div>
@@ -149,16 +145,16 @@
         <div class="offering-card reveal" id="card-hatha">
           <div class="card-icon-wrap"><img src="images/isha_hatha_symbol.png" alt="" class="card-symbol" /></div>
           <h3>Classical Hatha Yoga</h3>
-          <p>Six powerful yogic systems — Upa Yoga, Surya Kriya, Yogasanas, Angamardana, Bhuta Shuddhi & Surya Shakti — taught in their full classical depth and purity.</p>
-          <ul><li>All Levels Welcome</li><li>Daily 6 AM & 6 PM</li><li>Group & Private Batches</li></ul>
+          <p>Six powerful yogic systems — Upa Yoga, Surya Kriya, Yogasanas, Angamardana, Bhuta Shuddhi &amp; Surya Shakti — delivered in their full classical depth and purity.</p>
+          <ul><li>All Levels Welcome</li><li>Group &amp; Private Batches</li><li>Certified Teacher</li></ul>
           <a href="programs/hatha-yoga.html" class="card-link" id="enroll-hatha">Learn More →</a>
         </div>
 
         <div class="offering-card reveal" id="card-surya">
           <div class="card-icon">☀️</div>
           <h3>Surya Kriya</h3>
-          <p>A potent 21-step yogic practice of immense antiquity. Activates the solar plexus, builds physical and mental stability. A complete spiritual sadhana in itself.</p>
-          <ul><li>Intermediate Level</li><li>Weekend Intensive</li><li>Certification Available</li></ul>
+          <p>A potent 21-step yogic practice of immense antiquity. Activates the solar plexus, balances the energy channels, and builds remarkable inner stability.</p>
+          <ul><li>Complete Spiritual Sadhana</li><li>Intermediate Level</li><li>Certification Available</li></ul>
           <a href="programs/surya-kriya.html" class="card-link" id="enroll-surya">Learn More →</a>
         </div>
 
@@ -166,39 +162,71 @@
           <div class="card-icon">🧘</div>
           <h3>Yogasanas</h3>
           <p>36 classical postures practiced with meditative awareness and energetic precision — aligning body, mind, and prana for deep inner transformation.</p>
-          <ul><li>All Levels</li><li>Daily Sessions</li><li>Precise Alignment</li></ul>
+          <ul><li>All Levels</li><li>Precise Alignment</li><li>Pranic Body Work</li></ul>
           <a href="programs/yogasanas.html" class="card-link" id="enroll-yogasanas">Learn More →</a>
+        </div>
+
+        <div class="offering-card reveal" id="card-angamardhana">
+          <div class="card-icon">⚡</div>
+          <h3>Angamardhana</h3>
+          <p>A full-body vigor system using only body weight — 31 dynamic processes that revitalize every muscle and joint, building peak physical fitness with no equipment.</p>
+          <ul><li>No Equipment Needed</li><li>All Fitness Levels</li><li>High Energy Practice</li></ul>
+          <a href="programs/angamardhana.html" class="card-link" id="enroll-angam">Learn More →</a>
         </div>
 
         <div class="offering-card reveal" id="card-bhuta">
           <div class="card-icon">🌍</div>
           <h3>Bhuta Shuddhi</h3>
-          <p>Purification of the five elements — earth, water, fire, air, and space — within the human system. An ancient foundational practice for complete harmony.</p>
-          <ul><li>No Prerequisites</li><li>In-Person Only</li><li>~15 Min Daily Practice</li></ul>
+          <p>Purification of the five elements — earth, water, fire, air, and space — within the human system. A foundational practice for complete elemental harmony.</p>
+          <ul><li>No Prerequisites</li><li>Must Learn In-Person</li><li>Ancient Foundation</li></ul>
           <a href="programs/bhuta-shuddhi.html" class="card-link" id="enroll-bhuta">Learn More →</a>
         </div>
 
         <div class="offering-card reveal" id="card-upa">
           <div class="card-icon">🌿</div>
           <h3>Upa Yoga</h3>
-          <p>10 simple yet powerful joint-activation practices — ideal for beginners, travelers, and those with sedentary lifestyles. The perfect entry point into yoga.</p>
-          <ul><li>Absolute Beginners</li><li>Age 12+</li><li>No Equipment Needed</li></ul>
+          <p>10 simple yet powerful joint-activation practices — perfect entry point into yoga for beginners, travelers, and those with sedentary lifestyles.</p>
+          <ul><li>Absolute Beginners</li><li>No Equipment Needed</li><li>Age 12+</li></ul>
           <a href="programs/upa-yoga.html" class="card-link" id="enroll-upa">Learn More →</a>
+        </div>
+
+        <div class="offering-card reveal" id="card-shanmuki">
+          <div class="card-icon">🤫</div>
+          <h3>Shanmuki Mudra</h3>
+          <p>A powerful yogic process of sealing all seven sense openings to withdraw from external stimuli and experience profound inner silence and stillness.</p>
+          <ul><li>Deepens Meditation</li><li>Sensory Withdrawal</li><li>All Levels</li></ul>
+          <a href="programs/shanmuki-mudra.html" class="card-link" id="enroll-shanmuki">Learn More →</a>
+        </div>
+
+        <div class="offering-card reveal" id="card-jala-neti">
+          <div class="card-icon">💧</div>
+          <h3>Jala Neti</h3>
+          <p>A classical nasal cleansing practice using warm saline water — one of the most effective yogic shatkarmas (purification techniques) for respiratory and sinus health.</p>
+          <ul><li>Respiratory Health</li><li>Sinus Cleansing</li><li>Classical Kriya</li></ul>
+          <a href="programs/jala-neti.html" class="card-link" id="enroll-neti">Learn More →</a>
+        </div>
+
+        <div class="offering-card reveal" id="card-eye-care">
+          <div class="card-icon">👁️</div>
+          <h3>Eye Care Workshop</h3>
+          <p>Traditional yogic eye exercises and care practices to strengthen vision, reduce eye strain, and maintain healthy eyesight — especially vital in today's screen-heavy lives.</p>
+          <ul><li>Strengthen Vision</li><li>Reduce Eye Strain</li><li>Screen Fatigue Relief</li></ul>
+          <a href="programs/eye-care-workshop.html" class="card-link" id="enroll-eye">Learn More →</a>
         </div>
 
         <div class="offering-card reveal" id="card-wellbeing">
           <div class="card-icon">💫</div>
           <h3>Yoga for Wellbeing</h3>
-          <p>A beginner-friendly 40-minute program combining Yoga Namaskar (spine health) and Nadi Shuddhi (energy balance). Simple, daily, and profoundly effective.</p>
-          <ul><li>All Ages</li><li>No Experience Needed</li><li>5–21 Min Daily Practice</li></ul>
+          <p>A beginner-friendly program combining Yoga Namaskar (spine health) and Nadi Shuddhi (energy balance) — simple, powerful, and sustainable for everyday life.</p>
+          <ul><li>All Ages</li><li>No Experience Needed</li><li>Ideal for Beginners</li></ul>
           <a href="programs/yoga-for-wellbeing.html" class="card-link" id="enroll-wellbeing">Learn More →</a>
         </div>
 
         <div class="offering-card reveal" id="card-kids">
           <div class="card-icon">🌸</div>
           <h3>Yoga for Kids</h3>
-          <p>Specially tailored Isha Hatha Yoga for children aged 4–13. Fun, safe, and holistic — building health, focus, coordination, and inner joy from an early age.</p>
-          <ul><li>Ages 4–13</li><li>Weekend Batches</li><li>Fun & Engaging</li></ul>
+          <p>Specially tailored Isha Hatha Yoga for children aged 4–13 — fun, safe, and holistic, building health, focus, coordination, and inner joy from an early age.</p>
+          <ul><li>Ages 4–13</li><li>Developmentally Safe</li><li>Fun &amp; Engaging</li></ul>
           <a href="programs/yoga-for-kids.html" class="card-link" id="enroll-kids">Learn More →</a>
         </div>
 
@@ -206,14 +234,14 @@
           <div class="card-icon">🤰</div>
           <h3>Yoga for Mothers</h3>
           <p>Holistic prenatal yoga rooted in ancient Indian wisdom — adapted asanas, pranayama, and meditation for a conscious, joyful, and healthy pregnancy.</p>
-          <ul><li>Expectant Mothers</li><li>3rd Month Onwards</li><li>Doctor Clearance Required</li></ul>
+          <ul><li>Expectant Mothers</li><li>Adapted Practices</li><li>Doctor Clearance Needed</li></ul>
           <a href="programs/yoga-for-pregnant-women.html" class="card-link" id="enroll-prenatal">Learn More →</a>
         </div>
 
         <div class="offering-card reveal" id="card-retreat">
           <div class="card-icon">🌙</div>
           <h3>Himalayan Retreats</h3>
-          <p>3-day and 7-day immersive retreats in the Dehradun foothills. Deep practice, silence, nature walks and inner journeys in the Himalayas.</p>
+          <p>3-day and 7-day immersive retreats in the Dehradun foothills — deep practice, silence, nature walks, and inner journeys in the heart of the Himalayas.</p>
           <ul><li>Seasonal Programs</li><li>Himalayan Locations</li><li>All Inclusive</li></ul>
           <a href="#contact" class="card-link" id="enroll-retreat">Register →</a>
         </div>
@@ -221,6 +249,8 @@
       </div>
     </div>
   </section>
+
+
 
   <!-- ===== GURU (REETA) ===== -->
   <section id="guru" class="guru-section section-pad">

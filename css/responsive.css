@@ -4,6 +4,25 @@
    Breakpoints: 1024px | 768px | 480px | 360px
    ============================================= */
 
+/* ===== GLOBAL OVERFLOW FIX (prevents horizontal slide on all devices) ===== */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: relative;
+}
+/* Prevent any child from causing overflow */
+.hero, .marquee-strip, .sadhguru-section, .about, .offerings,
+.guru-section, .experience-section, .schedule-section, .testimonials,
+.quote-banner, .contact, .footer {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+/* Ensure the hero background image never overflows */
+.hero-bg, .hero-img { max-width: 100%; }
+/* Ensure hero content never creates horizontal scroll */
+.hero-content { max-width: 100%; box-sizing: border-box; }
+
 /* ===== TABLET (≤1024px) ===== */
 @media (max-width: 1024px) {
 
@@ -114,7 +133,7 @@
   .guru-img-wrap { order: 1; }
   .guru-text { order: 2; }
   .guru-grid { gap: 32px; }
-  .guru-img { aspect-ratio: 4/3; object-fit: cover; object-position: top; }
+  .guru-img { aspect-ratio: 4/3; object-fit: cover; object-position: center 25%; }
   .guru-credentials { grid-template-columns: 1fr 1fr; gap: 10px; }
   .cred { font-size: 0.8rem; padding: 10px 12px; }
   .guru-doodle { display: none; }
