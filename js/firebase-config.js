@@ -14,3 +14,10 @@ const FIREBASE_CONFIG = {
 
 // Admin login email (set this to the owner's Gmail)
 const ADMIN_EMAIL = "yogartha.yoga@gmail.com";
+
+// Initialize Firebase if loaded and keys are provided
+if (typeof firebase !== "undefined" && !firebase.apps.length) {
+  if (FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY") {
+    firebase.initializeApp(FIREBASE_CONFIG);
+  }
+}

@@ -74,9 +74,10 @@
     .form-group { margin-bottom:16px; }
 
     /* ===== BUTTONS ===== */
-    .btn { padding:10px 22px; border-radius:8px; font-family:var(--font); font-size:.88rem; font-weight:600; cursor:pointer; transition:all .2s; border:none; }
+    .btn { padding:10px 22px; border-radius:8px; font-family:var(--font); font-size:.88rem; font-weight:600; cursor:pointer; transition:all .2s; border:none; display:inline-flex; align-items:center; justify-content:center; gap:8px;}
     .btn-primary { background:linear-gradient(135deg,var(--saffron),var(--gold)); color:#fff; }
     .btn-primary:hover { opacity:.9; }
+    .btn-primary:disabled { opacity:.5; cursor:not-allowed; }
     .btn-ghost { background:transparent; border:1px solid var(--border); color:var(--muted); }
     .btn-ghost:hover { border-color:var(--saffron); color:var(--saffron); }
     .btn-danger { background:rgba(192,57,43,.2); border:1px solid rgba(192,57,43,.3); color:#f87171; }
@@ -105,20 +106,19 @@
     .btn-del-col { background:none; border:none; color:var(--danger); cursor:pointer; font-size:1rem; padding:2px 4px; }
 
     /* ===== GALLERY ===== */
-    .gallery-url-row { display:flex; gap:10px; align-items:flex-end; margin-bottom:14px; }
-    .gallery-url-row .form-group { flex:1; margin-bottom:0; }
-    .gallery-preview-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:16px; }
-    .gallery-preview-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1;
-      background:var(--surface2); border:1px solid var(--border); }
-    .gallery-preview-item img { width:100%; height:100%; object-fit:cover; display:block; }
-    .gallery-preview-caption { position:absolute; bottom:0; left:0; right:0;
-      background:linear-gradient(to top,rgba(0,0,0,.85),transparent);
-      padding:8px 10px; font-size:.73rem; color:#fff; }
-    .gallery-preview-del { position:absolute; top:6px; right:6px; background:rgba(192,57,43,.9);
-      border:none; border-radius:6px; color:#fff; font-size:.8rem; padding:3px 8px; cursor:pointer; }
-    .tip-box { background:rgba(232,114,42,.08); border:1px solid rgba(232,114,42,.2);
-      border-radius:10px; padding:14px 16px; font-size:.82rem; color:var(--muted); line-height:1.7; margin-bottom:16px; }
-    .tip-box strong { color:var(--gold-lt); }
+    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; margin-bottom:16px; }
+    .gallery-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1; background:var(--surface2); border:1px solid var(--border); }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    .gallery-item-caption { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,.8),transparent); padding:8px 10px; font-size:.75rem; color:#fff; }
+    .gallery-item-del { position:absolute; top:6px; right:6px; background:rgba(192,57,43,.85); border:none; border-radius:6px; color:#fff; font-size:.8rem; padding:4px 8px; cursor:pointer; }
+    .gallery-drop { border:2px dashed var(--border); border-radius:12px; padding:40px 20px; text-align:center; cursor:pointer; transition:all .2s; position:relative; }
+    .gallery-drop:hover, .gallery-drop.dragover { border-color:var(--saffron); background:rgba(232,114,42,.05); }
+    .gallery-drop input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .gallery-drop svg { width:40px; height:40px; color:var(--muted); margin:0 auto 12px; display:block; }
+    .gallery-drop p { color:var(--muted); font-size:.88rem; }
+    .gallery-drop strong { color:var(--saffron); }
+    .upload-progress { height:4px; background:var(--surface2); border-radius:100px; margin-top:12px; overflow:hidden; display:none; }
+    .upload-progress-bar { height:100%; background:linear-gradient(90deg,var(--saffron),var(--gold)); border-radius:100px; width:0; transition:width .3s; }
 
     /* ===== TESTIMONIALS ===== */
     .testi-item { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:12px; }
@@ -129,6 +129,12 @@
       display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem; color:#fff; flex-shrink:0; }
     .testi-name { font-weight:600; font-size:.92rem; }
     .testi-role { font-size:.78rem; color:var(--muted); margin-top:2px; }
+
+    .photo-upload-area { border:2px dashed var(--border); border-radius:10px; padding:20px; text-align:center; cursor:pointer; transition:border .2s; position:relative; margin-bottom:12px; }
+    .photo-upload-area:hover { border-color:var(--saffron); }
+    .photo-upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .photo-preview { width:70px; height:70px; border-radius:50%; object-fit:cover; border:2px solid var(--saffron); margin:0 auto 8px; display:block; }
+    .photo-upload-icon { width:36px; height:36px; margin:0 auto 8px; color:var(--muted); }
 
     /* ===== TOGGLE ===== */
     .toggle-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
@@ -150,6 +156,12 @@
     @media(max-width:768px) { .sidebar{width:200px;} .main{margin-left:200px;padding:24px 20px;} .form-row{grid-template-columns:1fr;} }
     @media(max-width:600px) { .sidebar{display:none;} .main{margin-left:0;padding:20px 16px;} }
   </style>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 </head>
 <body>
 
@@ -221,38 +233,31 @@
 
     <!-- ===== GALLERY ===== -->
     <div class="panel" id="panel-gallery">
-      <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Add and manage photos shown on the website</div></div>
+      <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Upload and manage photos shown in the gallery section</div></div>
 
       <div class="card">
-        <div class="card-title">Add New Photo</div>
-
-        <div class="tip-box">
-          <strong>How to get a photo URL from Google Photos:</strong><br>
-          1. Open Google Photos → open the photo<br>
-          2. Tap the <strong>⋮ Share</strong> button → <strong>Create link</strong><br>
-          3. Copy the link and paste it below<br><br>
-          <strong>Or from WhatsApp:</strong> Send the photo to yourself on WhatsApp Web → right-click → Copy image address
+        <div class="card-title">Upload New Photos</div>
+        
+        <!-- Drag & Drop Upload Zone -->
+        <div class="gallery-drop" id="gallery-drop">
+          <input type="file" id="gallery-file-input" accept="image/*" multiple onchange="handleGalleryUpload(this.files)" />
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="4" y="10" width="36" height="28" rx="3"/><circle cx="14" cy="19" r="3"/><path d="M4 30 l10-10 8 8 6-6 10 8"/>
+            <path d="M30 4 L30 14 M26 8 L30 4 L34 8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p><strong>Click to upload</strong> or drag &amp; drop photos here</p>
+          <p style="font-size:.78rem;margin-top:6px;">JPG, PNG, WEBP — automatically uploaded to Firebase Storage</p>
         </div>
 
-        <div class="gallery-url-row">
-          <div class="form-group">
-            <label>Photo URL</label>
-            <input type="url" id="gallery-url" placeholder="https://... paste image link here" />
-          </div>
-          <div class="form-group">
-            <label>Caption (optional)</label>
-            <input type="text" id="gallery-caption" placeholder="e.g. Morning Surya Kriya class" />
-          </div>
-          <button class="btn btn-primary" style="margin-bottom:16px;" onclick="addGalleryPhoto()">Add Photo</button>
-        </div>
+        <div class="upload-progress" id="upload-progress"><div class="upload-progress-bar" id="upload-bar"></div></div>
       </div>
 
       <div class="card">
-        <div class="card-title">Gallery Photos (<span id="gallery-count">0</span>)</div>
-        <div class="gallery-preview-grid" id="gallery-grid">
-          <p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Add one above.</p>
+        <div class="card-title">Current Gallery (<span id="gallery-count">0</span>)</div>
+        <div class="gallery-grid" id="gallery-grid">
+          <p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Upload some above.</p>
         </div>
-        <button class="btn btn-primary" onclick="saveGallery()">Save &amp; Publish Gallery</button>
+        <button class="btn btn-primary" onclick="saveGallery()">Save Gallery Ordering &amp; Captions</button>
       </div>
     </div>
 
@@ -262,20 +267,25 @@
 
       <div class="card">
         <div class="card-title">Add New Testimonial</div>
+        
+        <label>Student Photo <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+        <div class="photo-upload-area" id="testi-photo-area" onclick="document.getElementById('testi-photo-file').click()">
+          <img id="testi-photo-preview" class="photo-preview" src="" alt="" style="display:none;" />
+          <svg class="photo-upload-icon" id="testi-photo-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="22" cy="16" r="7"/><path d="M6 38 C6 30 12 26 22 26 C32 26 38 30 38 38"/>
+            <path d="M32 8 L32 16 M28 12 L32 8 L36 12" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p style="color:var(--muted);font-size:.82rem;" id="testi-photo-label">Click to upload student photo</p>
+        </div>
+        <input type="file" id="testi-photo-file" accept="image/*" style="display:none;" onchange="previewTestiPhoto(this)" />
+
         <div class="form-row">
           <div class="form-group"><label>Student Name</label><input type="text" id="new-testi-name" placeholder="e.g. Ananya Sharma" /></div>
           <div class="form-group"><label>Role / Location</label><input type="text" id="new-testi-role" placeholder="e.g. Software Engineer, Dehradun" /></div>
         </div>
-        <div class="form-group">
-          <label>Student Photo URL <span style="color:var(--muted);font-weight:400;">(optional — paste Google Photos or WhatsApp link)</span></label>
-          <input type="url" id="new-testi-photo" placeholder="https://... student photo link (optional)" />
-        </div>
-        <div id="testi-photo-preview-wrap" style="display:none;margin-bottom:14px;">
-          <img id="testi-photo-preview" src="" alt="Preview" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--saffron);" />
-          <span style="font-size:.78rem;color:var(--muted);margin-left:10px;vertical-align:middle;">Photo preview</span>
-        </div>
+        
         <div class="form-group"><label>Review</label><textarea id="new-testi-review" placeholder="What did they say about their experience?"></textarea></div>
-        <button class="btn btn-primary" onclick="addTestimonial()">Add Testimonial</button>
+        <button class="btn btn-primary" onclick="addTestimonial()" id="btn-add-testi">Add Testimonial</button>
       </div>
 
       <div class="card">
@@ -328,10 +338,13 @@
 </div>
 
 <div id="toast"></div>
+
+<!-- Custom Config (Sets FIREBASE_CONFIG) -->
 <script src="js/firebase-config.js"></script>
+
 <script>
 // ============================================
-// YOGARTHA ADMIN — v3 (URL-only, no Storage)
+// YOGARTHA ADMIN — v4 (With Firebase Storage)
 // ============================================
 
 let schedule = {
@@ -359,21 +372,24 @@ let gallery = [];
 let announcement = {active:false, text:""};
 let isFirebase = false;
 
+// Variables for testimonial photo upload
+let currentTestiFile = null;
+
 // ---- LOGIN ----
 function doLogin() {
   const email = document.getElementById("login-email").value;
   const pass  = document.getElementById("login-pass").value;
   const err   = document.getElementById("login-err");
   if (!email) { err.textContent = "Please enter your email."; return; }
-  try {
-    if (typeof firebase !== "undefined" && firebase.auth) {
-      firebase.auth().signInWithEmailAndPassword(email, pass)
-        .then(() => enterDash(true))
-        .catch(e => { err.textContent = e.message; });
-      return;
-    }
-  } catch(e) {}
-  enterDash(false);
+  
+  if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
+    firebase.auth().signInWithEmailAndPassword(email, pass)
+      .then(() => enterDash(true))
+      .catch(e => { err.textContent = e.message; });
+  } else {
+    // Demo Mode if Firebase isn't configured
+    enterDash(false);
+  }
 }
 
 function enterDash(fb) {
@@ -390,21 +406,14 @@ function enterDash(fb) {
 }
 
 function doLogout() {
-  try { if (typeof firebase !== "undefined") firebase.auth().signOut(); } catch(e) {}
+  if (isFirebase) firebase.auth().signOut();
   document.getElementById("dashboard").style.display = "none";
   document.getElementById("login-screen").style.display = "flex";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-pass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
-  // Live photo preview for testimonial
-  document.getElementById("new-testi-photo").addEventListener("input", function() {
-    const url = this.value.trim();
-    const wrap = document.getElementById("testi-photo-preview-wrap");
-    const img  = document.getElementById("testi-photo-preview");
-    if (url) { img.src = url; wrap.style.display = "block"; }
-    else      { wrap.style.display = "none"; }
-  });
+  setupGalleryDrop();
 });
 
 // ---- PANELS ----
@@ -443,36 +452,107 @@ function saveSchedule(){
   else toast("Demo mode — connect Firebase to publish live");
 }
 
-// ---- GALLERY ----
-function addGalleryPhoto() {
-  const url = document.getElementById("gallery-url").value.trim();
-  const cap = document.getElementById("gallery-caption").value.trim();
-  if (!url) { toast("Please paste a photo URL", true); return; }
-  gallery.push({id: Date.now(), url, caption: cap});
-  document.getElementById("gallery-url").value = "";
-  document.getElementById("gallery-caption").value = "";
-  renderGallery();
-  toast("Photo added!");
+// ---- GALLERY (FIREBASE STORAGE) ----
+function setupGalleryDrop(){
+  const drop=document.getElementById("gallery-drop");
+  drop.addEventListener("dragover",e=>{e.preventDefault();drop.classList.add("dragover");});
+  drop.addEventListener("dragleave",()=>drop.classList.remove("dragover"));
+  drop.addEventListener("drop",e=>{e.preventDefault();drop.classList.remove("dragover");handleGalleryUpload(e.dataTransfer.files);});
 }
-function delGallery(id) { gallery = gallery.filter(g => g.id !== id); renderGallery(); }
+
+async function handleGalleryUpload(files) {
+  if (!isFirebase) {
+    toast("Firebase Storage requires a connected project. Demo mode adds placeholders.", true);
+    Array.from(files).forEach(f => {
+      const url = URL.createObjectURL(f);
+      gallery.push({id: Date.now()+Math.random(), url, caption: ""});
+    });
+    renderGallery();
+    return;
+  }
+
+  const progWrap = document.getElementById("upload-progress");
+  const progBar = document.getElementById("upload-bar");
+  progWrap.style.display = "block";
+  progBar.style.width = "10%";
+
+  const storageRef = firebase.storage().ref();
+  
+  let uploadedCount = 0;
+  const total = files.length;
+  
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (!file.type.startsWith("image/")) continue;
+
+    const fileRef = storageRef.child(`gallery/${Date.now()}_${file.name}`);
+    try {
+      await fileRef.put(file);
+      const downloadURL = await fileRef.getDownloadURL();
+      gallery.push({id: Date.now()+Math.random(), url: downloadURL, caption: ""});
+      uploadedCount++;
+      progBar.style.width = Math.floor(10 + (uploadedCount/total * 90)) + "%";
+    } catch(e) {
+      console.error(e);
+      toast("Error uploading photo: " + file.name, true);
+    }
+  }
+
+  progWrap.style.display = "none";
+  if (uploadedCount > 0) {
+    saveGallery(); // auto save on upload
+    renderGallery();
+    toast(`${uploadedCount} photos uploaded!`);
+  }
+}
+
+function updateGalleryCaption(id, val) {
+  const idx = gallery.findIndex(g => g.id == id);
+  if (idx !== -1) gallery[idx].caption = val;
+}
+
+function delGallery(id) { 
+  gallery = gallery.filter(g => g.id != id); 
+  renderGallery(); 
+  saveGallery();
+}
+
 function renderGallery() {
   const grid = document.getElementById("gallery-grid");
   const cnt  = document.getElementById("gallery-count");
   cnt.textContent = gallery.length;
-  if (!gallery.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Add one above.</p>'; return; }
+  if (!gallery.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Upload some above.</p>'; return; }
   grid.innerHTML = gallery.map(g => `
-    <div class="gallery-preview-item">
+    <div class="gallery-item">
       <img src="${g.url}" alt="${g.caption}" onerror="this.src=''" loading="lazy" />
-      ${g.caption ? `<div class="gallery-preview-caption">${g.caption}</div>` : ""}
-      <button class="gallery-preview-del" onclick="delGallery(${g.id})">&times;</button>
+      <div style="position:absolute; bottom:0; left:0; width:100%; background:rgba(0,0,0,0.7); padding:4px;">
+        <input type="text" value="${g.caption||""}" onchange="updateGalleryCaption(${g.id}, this.value)" placeholder="Add caption..." style="width:100%; font-size:0.75rem; padding:4px; background:transparent; border:none; color:#fff;" />
+      </div>
+      <button class="gallery-item-del" onclick="delGallery(${g.id})">&times;</button>
     </div>`).join("");
 }
+
 function saveGallery() {
-  if(isFirebase) firebase.database().ref("gallery").set(gallery).then(()=>toast("Gallery live on website!")).catch(()=>toast("Error",true));
+  if(isFirebase) firebase.database().ref("gallery").set(gallery).then(()=>toast("Gallery saved!")).catch(()=>toast("Error",true));
   else toast("Demo mode — connect Firebase to publish live");
 }
 
-// ---- TESTIMONIALS ----
+// ---- TESTIMONIALS (FIREBASE STORAGE) ----
+function previewTestiPhoto(input){
+  const file = input.files[0];
+  if(!file) return;
+  currentTestiFile = file;
+  
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById("testi-photo-preview").src = e.target.result;
+    document.getElementById("testi-photo-preview").style.display = "block";
+    document.getElementById("testi-photo-icon").style.display = "none";
+    document.getElementById("testi-photo-label").textContent = "Photo selected ✓";
+  };
+  reader.readAsDataURL(file);
+}
+
 function renderTestiList() {
   const list = document.getElementById("testi-list");
   if (!testimonials.length) { list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">No testimonials yet.</p>'; return; }
@@ -490,23 +570,58 @@ function renderTestiList() {
       <p style="font-size:.86rem;color:var(--muted);line-height:1.6;">"${t.review}"</p>
     </div>`).join("");
 }
-function addTestimonial() {
+
+async function addTestimonial() {
   const name   = document.getElementById("new-testi-name").value.trim();
   const role   = document.getElementById("new-testi-role").value.trim();
-  const photo  = document.getElementById("new-testi-photo").value.trim();
   const review = document.getElementById("new-testi-review").value.trim();
+  const btn    = document.getElementById("btn-add-testi");
+  
   if (!name || !review) { toast("Name and review are required", true); return; }
-  const t = {id:Date.now(), name, role, photo, review};
+  
+  btn.disabled = true;
+  btn.textContent = "Uploading...";
+
+  let photoUrl = "";
+  if (currentTestiFile && isFirebase) {
+    try {
+      const fileRef = firebase.storage().ref(`testimonials/${Date.now()}_${currentTestiFile.name}`);
+      await fileRef.put(currentTestiFile);
+      photoUrl = await fileRef.getDownloadURL();
+    } catch(e) {
+      console.error(e);
+      toast("Error uploading photo", true);
+    }
+  } else if (currentTestiFile && !isFirebase) {
+    photoUrl = URL.createObjectURL(currentTestiFile); // demo mode
+  }
+  
+  const t = {id:Date.now(), name, role, photo: photoUrl, review};
   testimonials.push(t);
-  if(isFirebase) firebase.database().ref("testimonials/"+t.id).set(t).then(()=>toast("Testimonial live!")).catch(()=>toast("Error",true));
-  else toast("Added in demo mode — connect Firebase to publish");
+  
+  if(isFirebase) {
+    try {
+      await firebase.database().ref("testimonials/"+t.id).set(t);
+      toast("Testimonial live!");
+    } catch(e) { toast("Error saving", true); }
+  } else {
+    toast("Added in demo mode");
+  }
+  
   document.getElementById("new-testi-name").value="";
   document.getElementById("new-testi-role").value="";
-  document.getElementById("new-testi-photo").value="";
   document.getElementById("new-testi-review").value="";
-  document.getElementById("testi-photo-preview-wrap").style.display="none";
+  document.getElementById("testi-photo-file").value="";
+  document.getElementById("testi-photo-preview").style.display="none";
+  document.getElementById("testi-photo-icon").style.display="block";
+  document.getElementById("testi-photo-label").textContent="Click to upload student photo";
+  currentTestiFile = null;
+  
+  btn.disabled = false;
+  btn.textContent = "Add Testimonial";
   renderTestiList();
 }
+
 function delTesti(id) {
   testimonials = testimonials.filter(t => t.id !== id);
   if(isFirebase) firebase.database().ref("testimonials/"+id).remove();
