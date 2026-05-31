@@ -348,6 +348,7 @@ ul { list-style: none; }
   box-shadow: var(--shadow);
   aspect-ratio: 4/5;
   object-fit: cover;
+  object-position: center center;
 }
 .about-badge {
   position: absolute;

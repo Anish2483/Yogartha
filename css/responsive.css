@@ -135,7 +135,7 @@ html, body {
   .marquee-track span { font-size: 0.72rem; }
 
   /* ---------- ABOUT ---------- */
-  .about-img { aspect-ratio: 16/10; object-fit: cover; }
+  .about-img { aspect-ratio: 16/10; object-fit: cover; object-position: center center; }
   .about-badge {
     bottom: -14px; right: 12px;
     padding: 14px 20px;
