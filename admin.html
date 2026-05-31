@@ -106,19 +106,20 @@
     .btn-del-col { background:none; border:none; color:var(--danger); cursor:pointer; font-size:1rem; padding:2px 4px; }
 
     /* ===== GALLERY ===== */
-    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; margin-bottom:16px; }
-    .gallery-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1; background:var(--surface2); border:1px solid var(--border); }
-    .gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
-    .gallery-item-caption { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,.8),transparent); padding:8px 10px; font-size:.75rem; color:#fff; }
-    .gallery-item-del { position:absolute; top:6px; right:6px; background:rgba(192,57,43,.85); border:none; border-radius:6px; color:#fff; font-size:.8rem; padding:4px 8px; cursor:pointer; }
-    .gallery-drop { border:2px dashed var(--border); border-radius:12px; padding:40px 20px; text-align:center; cursor:pointer; transition:all .2s; position:relative; }
-    .gallery-drop:hover, .gallery-drop.dragover { border-color:var(--saffron); background:rgba(232,114,42,.05); }
-    .gallery-drop input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-    .gallery-drop svg { width:40px; height:40px; color:var(--muted); margin:0 auto 12px; display:block; }
-    .gallery-drop p { color:var(--muted); font-size:.88rem; }
-    .gallery-drop strong { color:var(--saffron); }
-    .upload-progress { height:4px; background:var(--surface2); border-radius:100px; margin-top:12px; overflow:hidden; display:none; }
-    .upload-progress-bar { height:100%; background:linear-gradient(90deg,var(--saffron),var(--gold)); border-radius:100px; width:0; transition:width .3s; }
+    .gallery-url-row { display:flex; gap:10px; align-items:flex-end; margin-bottom:14px; }
+    .gallery-url-row .form-group { flex:1; margin-bottom:0; }
+    .gallery-preview-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:16px; }
+    .gallery-preview-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1;
+      background:var(--surface2); border:1px solid var(--border); }
+    .gallery-preview-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    .gallery-preview-caption { position:absolute; bottom:0; left:0; right:0;
+      background:linear-gradient(to top,rgba(0,0,0,.85),transparent);
+      padding:8px 10px; font-size:.73rem; color:#fff; }
+    .gallery-preview-del { position:absolute; top:6px; right:6px; background:rgba(192,57,43,.9);
+      border:none; border-radius:6px; color:#fff; font-size:.8rem; padding:3px 8px; cursor:pointer; }
+    .tip-box { background:rgba(232,114,42,.08); border:1px solid rgba(232,114,42,.2);
+      border-radius:10px; padding:14px 16px; font-size:.82rem; color:var(--muted); line-height:1.7; margin-bottom:16px; }
+    .tip-box strong { color:var(--gold-lt); }
 
     /* ===== TESTIMONIALS ===== */
     .testi-item { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:12px; }
@@ -129,12 +130,6 @@
       display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem; color:#fff; flex-shrink:0; }
     .testi-name { font-weight:600; font-size:.92rem; }
     .testi-role { font-size:.78rem; color:var(--muted); margin-top:2px; }
-
-    .photo-upload-area { border:2px dashed var(--border); border-radius:10px; padding:20px; text-align:center; cursor:pointer; transition:border .2s; position:relative; margin-bottom:12px; }
-    .photo-upload-area:hover { border-color:var(--saffron); }
-    .photo-upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-    .photo-preview { width:70px; height:70px; border-radius:50%; object-fit:cover; border:2px solid var(--saffron); margin:0 auto 8px; display:block; }
-    .photo-upload-icon { width:36px; height:36px; margin:0 auto 8px; color:var(--muted); }
 
     /* ===== TOGGLE ===== */
     .toggle-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
@@ -157,11 +152,10 @@
     @media(max-width:600px) { .sidebar{display:none;} .main{margin-left:0;padding:20px 16px;} }
   </style>
 
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDKs (ONLY App, Auth, Database - NO Storage) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 </head>
 <body>
 
@@ -193,11 +187,11 @@
       <button class="nav-item" onclick="showPanel('testimonials',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Testimonials
       </button>
-      <button class="nav-item" onclick="showPanel('announcement',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>Announcement
-      </button>
       <button class="nav-item" onclick="showPanel('images',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>Site Images
+      </button>
+      <button class="nav-item" onclick="showPanel('announcement',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>Announcement
       </button>
       <button class="nav-item" onclick="showPanel('contact',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3 1.07h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact Info
@@ -234,66 +228,106 @@
       </div>
     </div>
 
-    <!-- ===== GALLERY ===== -->
+    <!-- ===== GALLERY (URL ONLY) ===== -->
     <div class="panel" id="panel-gallery">
-      <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Upload and manage photos shown in the gallery section</div></div>
+      <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Add photos via links (Google Photos, WhatsApp, Drive)</div></div>
 
       <div class="card">
-        <div class="card-title">Upload New Photos</div>
+        <div class="card-title">Add New Photo Link</div>
         
-        <!-- Drag & Drop Upload Zone -->
-        <div class="gallery-drop" id="gallery-drop">
-          <input type="file" id="gallery-file-input" accept="image/*" multiple onchange="handleGalleryUpload(this.files)" />
-          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
-            <rect x="4" y="10" width="36" height="28" rx="3"/><circle cx="14" cy="19" r="3"/><path d="M4 30 l10-10 8 8 6-6 10 8"/>
-            <path d="M30 4 L30 14 M26 8 L30 4 L34 8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <p><strong>Click to upload</strong> or drag &amp; drop photos here</p>
-          <p style="font-size:.78rem;margin-top:6px;">JPG, PNG, WEBP — automatically uploaded to Firebase Storage</p>
+        <div class="tip-box">
+          <strong>How to get a photo URL from Google Photos:</strong><br>
+          1. Open Google Photos → open the photo<br>
+          2. Tap the <strong>⋮ Share</strong> button → <strong>Create link</strong><br>
+          3. Copy the link and paste it below<br><br>
+          <strong>Or from WhatsApp:</strong> Send the photo to yourself on WhatsApp Web → right-click → Copy image address
         </div>
 
-        <div class="upload-progress" id="upload-progress"><div class="upload-progress-bar" id="upload-bar"></div></div>
+        <div class="gallery-url-row">
+          <div class="form-group">
+            <label>Photo URL</label>
+            <input type="url" id="gallery-url" placeholder="https://... paste image link here" />
+          </div>
+          <div class="form-group">
+            <label>Caption (optional)</label>
+            <input type="text" id="gallery-caption" placeholder="e.g. Morning Surya Kriya class" />
+          </div>
+          <button class="btn btn-primary" style="margin-bottom:16px;" onclick="addGalleryPhoto()">Add Photo</button>
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Current Gallery (<span id="gallery-count">0</span>)</div>
-        <div class="gallery-grid" id="gallery-grid">
-          <p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Upload some above.</p>
+        <div class="card-title">Gallery Photos (<span id="gallery-count">0</span>)</div>
+        <div class="gallery-preview-grid" id="gallery-grid">
+          <p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Add one above.</p>
         </div>
-        <button class="btn btn-primary" onclick="saveGallery()">Save Gallery Ordering &amp; Captions</button>
+        <button class="btn btn-primary" onclick="saveGallery()">Save &amp; Publish Gallery</button>
       </div>
     </div>
 
-    <!-- ===== TESTIMONIALS ===== -->
+    <!-- ===== TESTIMONIALS (URL ONLY) ===== -->
     <div class="panel" id="panel-testimonials">
       <div class="page-header"><div class="page-title">Student Testimonials</div><div class="page-desc">Add, edit or remove student reviews</div></div>
 
       <div class="card">
         <div class="card-title">Add New Testimonial</div>
-        
-        <label>Student Photo <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-        <div class="photo-upload-area" id="testi-photo-area" onclick="document.getElementById('testi-photo-file').click()">
-          <img id="testi-photo-preview" class="photo-preview" src="" alt="" style="display:none;" />
-          <svg class="photo-upload-icon" id="testi-photo-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
-            <circle cx="22" cy="16" r="7"/><path d="M6 38 C6 30 12 26 22 26 C32 26 38 30 38 38"/>
-            <path d="M32 8 L32 16 M28 12 L32 8 L36 12" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <p style="color:var(--muted);font-size:.82rem;" id="testi-photo-label">Click to upload student photo</p>
-        </div>
-        <input type="file" id="testi-photo-file" accept="image/*" style="display:none;" onchange="previewTestiPhoto(this)" />
-
         <div class="form-row">
           <div class="form-group"><label>Student Name</label><input type="text" id="new-testi-name" placeholder="e.g. Ananya Sharma" /></div>
           <div class="form-group"><label>Role / Location</label><input type="text" id="new-testi-role" placeholder="e.g. Software Engineer, Dehradun" /></div>
         </div>
-        
+        <div class="form-group">
+          <label>Student Photo URL <span style="color:var(--muted);font-weight:400;">(optional — paste Google Photos or WhatsApp link)</span></label>
+          <input type="url" id="new-testi-photo" placeholder="https://... student photo link (optional)" />
+        </div>
+        <div id="testi-photo-preview-wrap" style="display:none;margin-bottom:14px;">
+          <img id="testi-photo-preview" src="" alt="Preview" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--saffron);" />
+          <span style="font-size:.78rem;color:var(--muted);margin-left:10px;vertical-align:middle;">Photo preview</span>
+        </div>
         <div class="form-group"><label>Review</label><textarea id="new-testi-review" placeholder="What did they say about their experience?"></textarea></div>
-        <button class="btn btn-primary" onclick="addTestimonial()" id="btn-add-testi">Add Testimonial</button>
+        <button class="btn btn-primary" onclick="addTestimonial()">Add Testimonial</button>
       </div>
 
       <div class="card">
         <div class="card-title">Current Testimonials</div>
         <div id="testi-list"></div>
+      </div>
+    </div>
+
+    <!-- ===== SITE IMAGES (URL ONLY) ===== -->
+    <div class="panel" id="panel-images">
+      <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Update main photos on the website using links</div></div>
+      
+      <div class="card">
+        <div class="card-title">Main Hero Background</div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <img id="prev-img-hero" src="images/adiyogi_hero.jpg" style="width:120px;height:70px;object-fit:cover;border-radius:8px;border:1px solid var(--border);" alt="Hero" />
+          <div style="flex:1;">
+            <input type="url" id="url-img-hero" placeholder="Paste image link here" />
+            <button class="btn btn-ghost" style="margin-top:8px;" onclick="updateSiteImg('hero')">Update Hero Image</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">About Section Image</div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <img id="prev-img-about" src="images/ashram_courtyard.png" style="width:100px;height:100px;object-fit:cover;border-radius:8px;border:1px solid var(--border);" alt="About" />
+          <div style="flex:1;">
+            <input type="url" id="url-img-about" placeholder="Paste image link here" />
+            <button class="btn btn-ghost" style="margin-top:8px;" onclick="updateSiteImg('about')">Update About Image</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Teacher Portrait</div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <img id="prev-img-guru" src="images/reeta_yoga_teacher.png" style="width:100px;height:100px;object-fit:cover;border-radius:50%;border:1px solid var(--border);" alt="Teacher" />
+          <div style="flex:1;">
+            <input type="url" id="url-img-guru" placeholder="Paste image link here" />
+            <button class="btn btn-ghost" style="margin-top:8px;" onclick="updateSiteImg('guru')">Update Portrait</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -316,47 +350,6 @@
           <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Studio closed 15th Aug — Happy Independence Day!</button>
           <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Special Surya Kriya workshop this Sunday — Limited seats</button>
           <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Diwali special: Free trial class on 20th Oct — Book now!</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== SITE IMAGES ===== -->
-    <div class="panel" id="panel-images">
-      <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Update main photos on the website</div></div>
-      
-      <div class="card">
-        <div class="card-title">Main Hero Background</div>
-        <div style="display:flex;gap:16px;align-items:center;">
-          <img id="prev-img-hero" src="images/adiyogi_hero.jpg" style="width:120px;height:70px;object-fit:cover;border-radius:8px;border:1px solid var(--border);" alt="Hero" />
-          <div style="flex:1;">
-            <input type="file" id="file-img-hero" accept="image/*" style="display:none;" onchange="uploadSiteImg('hero', this.files[0])" />
-            <button class="btn btn-ghost" onclick="document.getElementById('file-img-hero').click()">Upload New Hero Image</button>
-            <p style="font-size:0.75rem;color:var(--muted);margin-top:6px;">Landscape photo, at least 1920x1080px recommended.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">About Section Image</div>
-        <div style="display:flex;gap:16px;align-items:center;">
-          <img id="prev-img-about" src="images/ashram_courtyard.png" style="width:100px;height:100px;object-fit:cover;border-radius:8px;border:1px solid var(--border);" alt="About" />
-          <div style="flex:1;">
-            <input type="file" id="file-img-about" accept="image/*" style="display:none;" onchange="uploadSiteImg('about', this.files[0])" />
-            <button class="btn btn-ghost" onclick="document.getElementById('file-img-about').click()">Upload New About Image</button>
-            <p style="font-size:0.75rem;color:var(--muted);margin-top:6px;">Square or portrait photo of the studio.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Teacher Portrait</div>
-        <div style="display:flex;gap:16px;align-items:center;">
-          <img id="prev-img-guru" src="images/reeta_yoga_teacher.png" style="width:100px;height:100px;object-fit:cover;border-radius:50%;border:1px solid var(--border);" alt="Teacher" />
-          <div style="flex:1;">
-            <input type="file" id="file-img-guru" accept="image/*" style="display:none;" onchange="uploadSiteImg('guru', this.files[0])" />
-            <button class="btn btn-ghost" onclick="document.getElementById('file-img-guru').click()">Upload New Portrait</button>
-            <p style="font-size:0.75rem;color:var(--muted);margin-top:6px;">Clear photo showing the face.</p>
-          </div>
         </div>
       </div>
     </div>
@@ -388,7 +381,7 @@
 
 <script>
 // ============================================
-// YOGARTHA ADMIN — v4 (With Firebase Storage)
+// YOGARTHA ADMIN — v5 (URL ONLY - NO FIREBASE STORAGE REQUIRED)
 // ============================================
 
 let schedule = {
@@ -416,9 +409,6 @@ let gallery = [];
 let announcement = {active:false, text:""};
 let isFirebase = false;
 
-// Variables for testimonial photo upload
-let currentTestiFile = null;
-
 // ---- LOGIN ----
 function doLogin() {
   const email = document.getElementById("login-email").value;
@@ -431,7 +421,6 @@ function doLogin() {
       .then(() => enterDash(true))
       .catch(e => { err.textContent = e.message; });
   } else {
-    // Demo Mode if Firebase isn't configured
     enterDash(false);
   }
 }
@@ -457,7 +446,15 @@ function doLogout() {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-pass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
-  setupGalleryDrop();
+  
+  // Live photo preview for testimonial
+  document.getElementById("new-testi-photo").addEventListener("input", function() {
+    const url = this.value.trim();
+    const wrap = document.getElementById("testi-photo-preview-wrap");
+    const img  = document.getElementById("testi-photo-preview");
+    if (url) { img.src = url; wrap.style.display = "block"; }
+    else      { wrap.style.display = "none"; }
+  });
 });
 
 // ---- PANELS ----
@@ -496,107 +493,36 @@ function saveSchedule(){
   else toast("Demo mode — connect Firebase to publish live");
 }
 
-// ---- GALLERY (FIREBASE STORAGE) ----
-function setupGalleryDrop(){
-  const drop=document.getElementById("gallery-drop");
-  drop.addEventListener("dragover",e=>{e.preventDefault();drop.classList.add("dragover");});
-  drop.addEventListener("dragleave",()=>drop.classList.remove("dragover"));
-  drop.addEventListener("drop",e=>{e.preventDefault();drop.classList.remove("dragover");handleGalleryUpload(e.dataTransfer.files);});
+// ---- GALLERY (URL ONLY) ----
+function addGalleryPhoto() {
+  const url = document.getElementById("gallery-url").value.trim();
+  const cap = document.getElementById("gallery-caption").value.trim();
+  if (!url) { toast("Please paste a photo URL", true); return; }
+  gallery.push({id: Date.now(), url, caption: cap});
+  document.getElementById("gallery-url").value = "";
+  document.getElementById("gallery-caption").value = "";
+  renderGallery();
+  toast("Photo added!");
 }
-
-async function handleGalleryUpload(files) {
-  if (!isFirebase) {
-    toast("Firebase Storage requires a connected project. Demo mode adds placeholders.", true);
-    Array.from(files).forEach(f => {
-      const url = URL.createObjectURL(f);
-      gallery.push({id: Date.now()+Math.random(), url, caption: ""});
-    });
-    renderGallery();
-    return;
-  }
-
-  const progWrap = document.getElementById("upload-progress");
-  const progBar = document.getElementById("upload-bar");
-  progWrap.style.display = "block";
-  progBar.style.width = "10%";
-
-  const storageRef = firebase.storage().ref();
-  
-  let uploadedCount = 0;
-  const total = files.length;
-  
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    if (!file.type.startsWith("image/")) continue;
-
-    const fileRef = storageRef.child(`gallery/${Date.now()}_${file.name}`);
-    try {
-      await fileRef.put(file);
-      const downloadURL = await fileRef.getDownloadURL();
-      gallery.push({id: Date.now()+Math.random(), url: downloadURL, caption: ""});
-      uploadedCount++;
-      progBar.style.width = Math.floor(10 + (uploadedCount/total * 90)) + "%";
-    } catch(e) {
-      console.error(e);
-      toast("Error uploading photo: " + file.name, true);
-    }
-  }
-
-  progWrap.style.display = "none";
-  if (uploadedCount > 0) {
-    saveGallery(); // auto save on upload
-    renderGallery();
-    toast(`${uploadedCount} photos uploaded!`);
-  }
-}
-
-function updateGalleryCaption(id, val) {
-  const idx = gallery.findIndex(g => g.id == id);
-  if (idx !== -1) gallery[idx].caption = val;
-}
-
-function delGallery(id) { 
-  gallery = gallery.filter(g => g.id != id); 
-  renderGallery(); 
-  saveGallery();
-}
-
+function delGallery(id) { gallery = gallery.filter(g => g.id !== id); renderGallery(); }
 function renderGallery() {
   const grid = document.getElementById("gallery-grid");
   const cnt  = document.getElementById("gallery-count");
   cnt.textContent = gallery.length;
-  if (!gallery.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Upload some above.</p>'; return; }
+  if (!gallery.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Add one above.</p>'; return; }
   grid.innerHTML = gallery.map(g => `
-    <div class="gallery-item">
+    <div class="gallery-preview-item">
       <img src="${g.url}" alt="${g.caption}" onerror="this.src=''" loading="lazy" />
-      <div style="position:absolute; bottom:0; left:0; width:100%; background:rgba(0,0,0,0.7); padding:4px;">
-        <input type="text" value="${g.caption||""}" onchange="updateGalleryCaption(${g.id}, this.value)" placeholder="Add caption..." style="width:100%; font-size:0.75rem; padding:4px; background:transparent; border:none; color:#fff;" />
-      </div>
-      <button class="gallery-item-del" onclick="delGallery(${g.id})">&times;</button>
+      ${g.caption ? `<div class="gallery-preview-caption">${g.caption}</div>` : ""}
+      <button class="gallery-preview-del" onclick="delGallery(${g.id})">&times;</button>
     </div>`).join("");
 }
-
 function saveGallery() {
-  if(isFirebase) firebase.database().ref("gallery").set(gallery).then(()=>toast("Gallery saved!")).catch(()=>toast("Error",true));
+  if(isFirebase) firebase.database().ref("gallery").set(gallery).then(()=>toast("Gallery live on website!")).catch(()=>toast("Error",true));
   else toast("Demo mode — connect Firebase to publish live");
 }
 
-// ---- TESTIMONIALS (FIREBASE STORAGE) ----
-function previewTestiPhoto(input){
-  const file = input.files[0];
-  if(!file) return;
-  currentTestiFile = file;
-  
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById("testi-photo-preview").src = e.target.result;
-    document.getElementById("testi-photo-preview").style.display = "block";
-    document.getElementById("testi-photo-icon").style.display = "none";
-    document.getElementById("testi-photo-label").textContent = "Photo selected ✓";
-  };
-  reader.readAsDataURL(file);
-}
-
+// ---- TESTIMONIALS (URL ONLY) ----
 function renderTestiList() {
   const list = document.getElementById("testi-list");
   if (!testimonials.length) { list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">No testimonials yet.</p>'; return; }
@@ -614,62 +540,50 @@ function renderTestiList() {
       <p style="font-size:.86rem;color:var(--muted);line-height:1.6;">"${t.review}"</p>
     </div>`).join("");
 }
-
-async function addTestimonial() {
+function addTestimonial() {
   const name   = document.getElementById("new-testi-name").value.trim();
   const role   = document.getElementById("new-testi-role").value.trim();
+  const photo  = document.getElementById("new-testi-photo").value.trim();
   const review = document.getElementById("new-testi-review").value.trim();
-  const btn    = document.getElementById("btn-add-testi");
-  
   if (!name || !review) { toast("Name and review are required", true); return; }
   
-  btn.disabled = true;
-  btn.textContent = "Uploading...";
-
-  let photoUrl = "";
-  if (currentTestiFile && isFirebase) {
-    try {
-      const fileRef = firebase.storage().ref(`testimonials/${Date.now()}_${currentTestiFile.name}`);
-      await fileRef.put(currentTestiFile);
-      photoUrl = await fileRef.getDownloadURL();
-    } catch(e) {
-      console.error(e);
-      toast("Error uploading photo", true);
-    }
-  } else if (currentTestiFile && !isFirebase) {
-    photoUrl = URL.createObjectURL(currentTestiFile); // demo mode
-  }
-  
-  const t = {id:Date.now(), name, role, photo: photoUrl, review};
+  const t = {id:Date.now(), name, role, photo, review};
   testimonials.push(t);
   
-  if(isFirebase) {
-    try {
-      await firebase.database().ref("testimonials/"+t.id).set(t);
-      toast("Testimonial live!");
-    } catch(e) { toast("Error saving", true); }
-  } else {
-    toast("Added in demo mode");
-  }
+  if(isFirebase) firebase.database().ref("testimonials/"+t.id).set(t).then(()=>toast("Testimonial live!")).catch(()=>toast("Error",true));
+  else toast("Added in demo mode — connect Firebase to publish");
   
   document.getElementById("new-testi-name").value="";
   document.getElementById("new-testi-role").value="";
+  document.getElementById("new-testi-photo").value="";
   document.getElementById("new-testi-review").value="";
-  document.getElementById("testi-photo-file").value="";
-  document.getElementById("testi-photo-preview").style.display="none";
-  document.getElementById("testi-photo-icon").style.display="block";
-  document.getElementById("testi-photo-label").textContent="Click to upload student photo";
-  currentTestiFile = null;
-  
-  btn.disabled = false;
-  btn.textContent = "Add Testimonial";
+  document.getElementById("testi-photo-preview-wrap").style.display="none";
   renderTestiList();
 }
-
 function delTesti(id) {
   testimonials = testimonials.filter(t => t.id !== id);
   if(isFirebase) firebase.database().ref("testimonials/"+id).remove();
   toast("Removed"); renderTestiList();
+}
+
+// ---- SITE IMAGES (URL ONLY) ----
+async function updateSiteImg(type) {
+  const url = document.getElementById("url-img-" + type).value.trim();
+  if(!url) { toast("Please paste an image URL first", true); return; }
+
+  if(isFirebase) {
+    try {
+      await firebase.database().ref("siteImages/" + type).set(url);
+      toast("Image updated live!");
+    } catch(e) {
+      toast("Error updating image", true);
+    }
+  } else {
+    toast("Image updated (Demo Mode)");
+  }
+  
+  document.getElementById("prev-img-" + type).src = url;
+  document.getElementById("url-img-" + type).value = "";
 }
 
 // ---- ANNOUNCEMENT ----
@@ -697,37 +611,6 @@ function saveContact() {
   };
   if(isFirebase) firebase.database().ref("contact").set(d).then(()=>toast("Contact info live!")).catch(()=>toast("Error",true));
   else toast("Demo mode — connect Firebase to publish");
-}
-
-// ---- SITE IMAGES ----
-async function uploadSiteImg(type, file) {
-  if(!file) return;
-  const btn = event.target.tagName === 'BUTTON' ? event.target : event.target.previousElementSibling || event.target.nextElementSibling;
-  const oldText = btn ? btn.textContent : "Uploading...";
-  if(btn) { btn.disabled = true; btn.textContent = "Uploading..."; }
-
-  let url = "";
-  if (isFirebase) {
-    try {
-      const ref = firebase.storage().ref(`siteImages/${type}_${Date.now()}_${file.name}`);
-      await ref.put(file);
-      url = await ref.getDownloadURL();
-      await firebase.database().ref("siteImages/" + type).set(url);
-      toast("Image updated live!");
-    } catch(e) {
-      console.error(e);
-      toast("Error uploading image", true);
-    }
-  } else {
-    url = URL.createObjectURL(file);
-    toast("Image updated (Demo Mode)");
-  }
-
-  if(url) {
-    document.getElementById("prev-img-" + type).src = url;
-  }
-  
-  if(btn) { btn.disabled = false; btn.textContent = oldText; }
 }
 
 // ---- FIREBASE LOAD ----
