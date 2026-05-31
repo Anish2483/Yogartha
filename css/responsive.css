@@ -75,15 +75,59 @@ html, body {
   .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* ---------- HERO ---------- */
-  .hero { min-height: 100svh; }
-  .hero-content { padding: 0 20px; }
-  .hero-symbol-wrap { margin-bottom: 10px; }
-  .hero-symbol { width: 48px; height: 48px; }
-  .hero-logo-img { width: clamp(180px, 50vw, 280px); margin-bottom: 6px; }
-  .hero-subtitle { font-size: 0.62rem; letter-spacing: 0.18em; margin-bottom: 6px; }
-  .hero-desc { font-size: 0.82rem; margin-bottom: 20px; line-height: 1.5; }
-  .hero-btns { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; }
-  .hero-btns .btn { width: auto; padding: 11px 20px; font-size: 0.82rem; }
+  .hero {
+    min-height: 100svh;
+    height: 100svh;
+    /* Use column layout to distribute space naturally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px; /* top: clear navbar, bottom: clear scroll hint */
+    gap: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  /* Small eyebrow text */
+  .hero-subtitle {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+  /* Logo — centered, good breathing room */
+  .hero-logo-img {
+    width: clamp(220px, 70vw, 320px);
+    margin: 0 auto 24px;
+  }
+  /* Description — compact, 2 lines max feel */
+  .hero-desc {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 320px;
+    color: rgba(255,255,255,0.75);
+  }
+  /* Buttons — side by side, smaller */
+  .hero-btns {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .hero-btns .btn {
+    padding: 11px 22px;
+    font-size: 0.82rem;
+    min-height: unset;
+    flex: 1 1 auto;
+    max-width: 160px;
+  }
   .hero-scroll-hint { display: none; }
 
   /* ---------- MARQUEE ---------- */
@@ -200,11 +244,10 @@ html, body {
   .section-pad { padding: 56px 0; }
 
   /* Hero */
-  .hero-logo-img { width: clamp(140px, 38vw, 200px); }
-  .hero-subtitle { font-size: 0.6rem; letter-spacing: 0.15em; }
-  .hero-desc { font-size: 0.84rem; margin-bottom: 18px; }
-  .hero-content { padding-bottom: 36px; }
-  .hero-top-bar { height: 3px; }
+  .hero-logo-img { width: clamp(180px, 60vw, 260px); }
+  .hero-subtitle { font-size: 0.58rem; }
+  .hero-desc { font-size: 0.82rem; margin-bottom: 22px; }
+  .hero-btns .btn { max-width: 145px; font-size: 0.8rem; }
 
   /* About */
   .about-stats { flex-direction: column; gap: 0; }
