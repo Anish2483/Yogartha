@@ -108,6 +108,14 @@
         if (s.val()) renderTestimonials(Object.values(s.val()));
       }).catch(() => {});
       db.ref("announcement").once("value").then(s => { if (s.val()) renderAnnouncement(s.val()); }).catch(() => {});
+      db.ref("siteImages").once("value").then(s => {
+        const imgs = s.val();
+        if (imgs) {
+          if (imgs.hero) { const h = document.querySelector(".hero-img"); if (h) h.src = imgs.hero; }
+          if (imgs.about) { const a = document.querySelector(".about-img"); if (a) a.src = imgs.about; }
+          if (imgs.guru) { const g = document.querySelector(".guru-img"); if (g) g.src = imgs.guru; }
+        }
+      }).catch(() => {});
       return true;
     } catch (e) { return false; }
   }
