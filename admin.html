@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yogartha Admin — Owner Dashboard</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #0d0c0a;
+      --surface:  #161410;
+      --surface2: #1e1b16;
+      --border:   rgba(255,255,255,0.08);
+      --saffron:  #e8722a;
+      --gold:     #d4a44c;
+      --gold-lt:  #f0c96e;
+      --cream:    #f5f0e8;
+      --text:     rgba(255,255,255,0.88);
+      --muted:    rgba(255,255,255,0.45);
+      --danger:   #c0392b;
+      --success:  #27ae60;
+      --radius:   12px;
+      --font:     'Inter', sans-serif;
+      --serif:    'Cormorant Garamond', serif;
+    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); }
+
+    /* ===== LOGIN SCREEN ===== */
+    #login-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(ellipse at 50% 40%, rgba(232,114,42,0.12) 0%, transparent 70%);
+    }
+    .login-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%; max-width: 420px;
+      text-align: center;
+    }
+    .login-logo { font-family: var(--serif); font-size: 2.4rem; color: var(--gold-lt); letter-spacing: 0.05em; margin-bottom: 6px; }
+    .login-sub  { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 36px; }
+    .login-box input {
+      width: 100%; padding: 14px 16px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text); font-family: var(--font);
+      font-size: 0.95rem; margin-bottom: 14px; outline: none;
+      transition: border 0.2s;
+    }
+    .login-box input:focus { border-color: var(--saffron); }
+    .login-box input::placeholder { color: var(--muted); }
+    .btn-login {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--saffron), var(--gold));
+      border: none; border-radius: 10px;
+      color: #fff; font-family: var(--font); font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-login:hover { opacity: 0.9; }
+    .login-error { color: #f87171; font-size: 0.85rem; margin-top: 12px; min-height: 20px; }
+
+    /* ===== MAIN DASHBOARD ===== */
+    #dashboard { display: none; min-height: 100vh; }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0;
+      width: 240px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      z-index: 100;
+    }
+    .sidebar-logo { padding: 28px 24px 20px; border-bottom: 1px solid var(--border); }
+    .sidebar-logo span { font-family: var(--serif); font-size: 1.6rem; color: var(--gold-lt); }
+    .sidebar-logo small { display: block; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; }
+    .sidebar-nav { flex: 1; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; border-radius: 10px;
+      font-size: 0.88rem; font-weight: 500; color: var(--muted);
+      cursor: pointer; transition: all 0.2s; border: none; background: none; text-align: left; width: 100%;
+    }
+    .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .nav-item:hover { background: var(--surface2); color: var(--text); }
+    .nav-item.active { background: rgba(232,114,42,0.15); color: var(--saffron); }
+    .sidebar-footer { padding: 16px 12px; border-top: 1px solid var(--border); }
+    .btn-logout {
+      width: 100%; padding: 10px 14px;
+      background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.3);
+      border-radius: 10px; color: #f87171; font-size: 0.85rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-logout:hover { background: rgba(192,57,43,0.25); }
+
+    /* Main Content */
+    .main { margin-left: 240px; padding: 36px 40px; }
+    .page-header { margin-bottom: 32px; }
+    .page-title { font-family: var(--serif); font-size: 2rem; color: var(--cream); margin-bottom: 6px; }
+    .page-desc { font-size: 0.88rem; color: var(--muted); }
+
+    /* Panels */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--saffron); margin-bottom: 20px;
+    }
+
+    /* Form Elements */
+    label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
+    input[type="text"], input[type="time"], input[type="email"],
+    input[type="tel"], textarea, select {
+      width: 100%; padding: 11px 14px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-family: var(--font);
+      font-size: 0.9rem; outline: none; transition: border 0.2s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--saffron); }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    textarea { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { margin-bottom: 16px; }
+
+    /* Buttons */
+    .btn {
+      padding: 10px 22px; border-radius: 8px;
+      font-family: var(--font); font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; border: none;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--saffron), var(--gold)); color: #fff; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+    .btn-ghost:hover { border-color: var(--saffron); color: var(--saffron); }
+    .btn-danger { background: rgba(192,57,43,0.2); border: 1px solid rgba(192,57,43,0.3); color: #f87171; }
+    .btn-danger:hover { background: rgba(192,57,43,0.35); }
+    .btn-sm { padding: 7px 14px; font-size: 0.8rem; }
+    .btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+    /* ===== SCHEDULE EDITOR ===== */
+    .schedule-editor-wrap { overflow-x: auto; }
+    .schedule-edit-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .schedule-edit-table th {
+      background: rgba(232,114,42,0.1); color: var(--saffron);
+      padding: 12px; text-align: center; font-size: 0.75rem;
+      letter-spacing: 0.08em; border-bottom: 1px solid var(--border);
+    }
+    .schedule-edit-table td { padding: 8px 6px; text-align: center; border-bottom: 1px solid var(--border); }
+    .schedule-edit-table td:first-child { font-weight: 600; color: var(--gold-lt); width: 100px; }
+    .schedule-edit-table input {
+      padding: 8px 10px; text-align: center;
+      font-size: 0.82rem; border-radius: 6px; width: 100%; min-width: 110px;
+    }
+    .col-time { display: flex; align-items: center; gap: 6px; }
+    .col-time input[type="time"] { flex: 1; }
+    .btn-del-col { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1rem; padding: 2px 4px; }
+
+    /* ===== TESTIMONIALS ===== */
+    .testi-item {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px 20px; margin-bottom: 12px;
+    }
+    .testi-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .testi-name { font-weight: 600; font-size: 0.92rem; }
+    .testi-role { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    /* ===== ANNOUNCEMENT ===== */
+    .toggle-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .toggle {
+      position: relative; width: 44px; height: 24px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 100px; cursor: pointer; transition: background 0.3s;
+    }
+    .toggle.on { background: var(--saffron); border-color: var(--saffron); }
+    .toggle::after {
+      content: ""; position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      background: #fff; border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .toggle.on::after { transform: translateX(20px); }
+    .toggle-label { font-size: 0.88rem; color: var(--text); }
+
+    /* ===== CONTACT ===== */
+
+    /* ===== TOAST ===== */
+    #toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      background: var(--success); color: #fff;
+      padding: 12px 28px; border-radius: 100px;
+      font-size: 0.88rem; font-weight: 600;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 9999;
+    }
+    #toast.show { opacity: 1; }
+
+    /* ===== STATUS BAR ===== */
+    .status-bar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px; border-radius: 8px;
+      font-size: 0.82rem; margin-bottom: 20px;
+    }
+    .status-bar.connected { background: rgba(39,174,96,0.15); color: #6ee89a; border: 1px solid rgba(39,174,96,0.25); }
+    .status-bar.demo     { background: rgba(212,164,76,0.15); color: var(--gold-lt); border: 1px solid rgba(212,164,76,0.25); }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .status-bar.connected .status-dot { background: #6ee89a; }
+    .status-bar.demo     .status-dot { background: var(--gold-lt); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { width: 200px; }
+      .main { margin-left: 200px; padding: 24px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Yogartha</div>
+    <div class="login-sub">Owner Dashboard</div>
+    <input type="email" id="login-email" placeholder="Email address" value="yogartha.yoga@gmail.com" />
+    <input type="password" id="login-pass" placeholder="Password" />
+    <button class="btn-login" onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="login-err"></div>
+    <p style="font-size:0.75rem;color:var(--muted);margin-top:20px;">
+      Demo mode: click Sign In with any password to preview the dashboard
+    </p>
+  </div>
+</div>
+
+<!-- ===================== DASHBOARD ===================== -->
+<div id="dashboard">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <span>Yogartha</span>
+      <small>Admin Panel</small>
+    </div>
+    <div class="sidebar-nav">
+      <button class="nav-item active" onclick="showPanel('schedule',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Schedule
+      </button>
+      <button class="nav-item" onclick="showPanel('testimonials',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Testimonials
+      </button>
+      <button class="nav-item" onclick="showPanel('announcement',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Announcement
+      </button>
+      <button class="nav-item" onclick="showPanel('contact',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3 1.07h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Contact Info
+      </button>
+    </div>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="doLogout()">Sign Out</button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- ===== SCHEDULE PANEL ===== -->
+    <div class="panel active" id="panel-schedule">
+      <div class="page-header">
+        <div class="page-title">Weekly Schedule</div>
+        <div class="page-desc">Edit class timings and programs for each day</div>
+      </div>
+
+      <div id="firebase-status" class="status-bar demo">
+        <div class="status-dot"></div>
+        <span>Demo mode — connect Firebase to save changes live to the website</span>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Class Timetable</div>
+        <div class="schedule-editor-wrap">
+          <table class="schedule-edit-table" id="schedule-table">
+            <thead>
+              <tr id="schedule-head">
+                <th>Day</th>
+                <!-- columns injected by JS -->
+              </tr>
+            </thead>
+            <tbody id="schedule-body">
+              <!-- rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="btn-row" style="margin-top:20px;">
+          <button class="btn btn-primary" onclick="saveSchedule()">Save Schedule</button>
+          <button class="btn btn-ghost" onclick="addColumn()">+ Add Time Slot</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Schedule Note</div>
+        <div class="form-group">
+          <label>Footer note below the table</label>
+          <input type="text" id="schedule-note" value="*Reeta teaches all weekday morning batches. Guest instructors on evenings &amp; weekends." />
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TESTIMONIALS PANEL ===== -->
+    <div class="panel" id="panel-testimonials">
+      <div class="page-header">
+        <div class="page-title">Student Testimonials</div>
+        <div class="page-desc">Add, edit or remove student reviews shown on the website</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Add New Testimonial</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Student Name</label>
+            <input type="text" id="new-testi-name" placeholder="e.g. Ananya Sharma" />
+          </div>
+          <div class="form-group">
+            <label>Role / Location</label>
+            <input type="text" id="new-testi-role" placeholder="e.g. Software Engineer, Dehradun" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Review</label>
+          <textarea id="new-testi-review" placeholder="What did they say about their experience?"></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="addTestimonial()">Add Testimonial</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Current Testimonials</div>
+        <div id="testi-list"><!-- injected --></div>
+      </div>
+    </div>
+
+    <!-- ===== ANNOUNCEMENT PANEL ===== -->
+    <div class="panel" id="panel-announcement">
+      <div class="page-header">
+        <div class="page-title">Announcement Banner</div>
+        <div class="page-desc">Show a banner at the top of the website for special notices</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Banner Settings</div>
+        <div class="toggle-row">
+          <div class="toggle" id="ann-toggle" onclick="toggleAnnouncement()"></div>
+          <span class="toggle-label" id="ann-toggle-label">Banner is OFF</span>
+        </div>
+        <div class="form-group">
+          <label>Announcement Text</label>
+          <input type="text" id="ann-text" placeholder="e.g. Studio closed on 15th August — Independence Day" />
+        </div>
+        <button class="btn btn-primary" onclick="saveAnnouncement()">Save &amp; Publish</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Examples</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="btn btn-ghost btn-sm" onclick="setAnnExample(this)">🎉 New batch starting 1st July — Enroll now!</button>
+          <button class="btn btn-ghost btn-sm" onclick="setAnnExample(this)">📢 Studio closed 15th Aug — Happy Independence Day!</button>
+          <button class="btn btn-ghost btn-sm" onclick="setAnnExample(this)">🧘 Special Surya Kriya workshop this Sunday — Limited seats</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONTACT PANEL ===== -->
+    <div class="panel" id="panel-contact">
+      <div class="page-header">
+        <div class="page-title">Contact Information</div>
+        <div class="page-desc">Update the studio address, phone, and email shown on the website</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Studio Details</div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="contact-phone" value="+91 78200 96554" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="contact-email" value="yogartha.yoga@gmail.com" />
+        </div>
+        <div class="form-group">
+          <label>Studio Address</label>
+          <textarea id="contact-address">12, Shanti Vihar Colony, Rajpur Road, Dehradun, Uttarakhand — 248001</textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Opening Time (Mon–Sat)</label>
+            <input type="time" id="contact-open" value="05:30" />
+          </div>
+          <div class="form-group">
+            <label>Closing Time (Mon–Sat)</label>
+            <input type="time" id="contact-close" value="21:00" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Landmark</label>
+          <input type="text" id="contact-landmark" value="Near Mindrolling Monastery, Dehradun" />
+        </div>
+        <button class="btn btn-primary" onclick="saveContact()">Save Contact Info</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div id="toast">✓ Saved successfully</div>
+
+<!-- Firebase SDKs (loaded when credentials are set) -->
+<script src="js/firebase-config.js"></script>
+
+<script>
+// =====================================================
+// YOGARTHA ADMIN — Dashboard Logic
+// =====================================================
+
+// ---- Schedule Data ----
+let schedule = {
+  columns: ["6:00 AM", "8:00 AM", "5:30 PM", "7:00 PM"],
+  rows: [
+    { day: "Monday",    slots: ["Hatha Yoga","Pranayama","Hatha Yoga","Meditation"] },
+    { day: "Tuesday",   slots: ["Surya Kriya","Angamardhana","Upa Yoga","Pranayama"] },
+    { day: "Wednesday", slots: ["Hatha Yoga","Pranayama","Hatha Yoga","Meditation"] },
+    { day: "Thursday",  slots: ["Surya Kriya","Angamardhana","Upa Yoga","Hatha Yoga"] },
+    { day: "Friday",    slots: ["Hatha Yoga","Pranayama","Surya Kriya","Meditation"] },
+    { day: "Saturday",  slots: ["Surya Kriya","Hatha Yoga","Angamardhana","Meditation"] },
+    { day: "Sunday",    slots: ["Deep Meditation","Hatha Yoga","—","—"] }
+  ],
+  note: "*Reeta teaches all weekday morning batches. Guest instructors on evenings & weekends."
+};
+
+let testimonials = [
+  { id: 1, name: "Ananya Sharma", role: "Software Engineer, Dehradun", review: "Reeta's Hatha Yoga classes are unlike anything I've experienced. My back pain of 5 years is gone." },
+  { id: 2, name: "Rahul Mehta", role: "Entrepreneur, Haridwar", review: "I came skeptical and left transformed. The Surya Kriya program changed my energy levels completely." },
+  { id: 3, name: "Priya Nair", role: "Educator, Mussoorie", review: "The Himalayan retreat was the most profound experience of my life. I returned completely renewed." },
+  { id: 4, name: "Vikram Joshi", role: "Architect, Rishikesh", review: "Finding Yogartha in Dehradun was a blessing. Reeta brings the authentic depth of the Isha tradition." }
+];
+
+let announcement = { active: false, text: "" };
+let isFirebaseConnected = false;
+
+// ---- LOGIN ----
+function doLogin() {
+  const email = document.getElementById("login-email").value;
+  const pass  = document.getElementById("login-pass").value;
+  const err   = document.getElementById("login-err");
+
+  if (!email) { err.textContent = "Please enter your email."; return; }
+
+  // Try Firebase Auth first
+  try {
+    if (typeof firebase !== "undefined" && firebase.auth) {
+      firebase.auth().signInWithEmailAndPassword(email, pass)
+        .then(() => { enterDashboard(true); })
+        .catch(e => { err.textContent = e.message; });
+      return;
+    }
+  } catch(e) {}
+
+  // Demo mode — any password works
+  enterDashboard(false);
+}
+
+function enterDashboard(firebaseOn) {
+  isFirebaseConnected = firebaseOn;
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+
+  const bar = document.getElementById("firebase-status");
+  if (firebaseOn) {
+    bar.className = "status-bar connected";
+    bar.innerHTML = '<div class="status-dot"></div><span>Connected to Firebase — changes save live to the website</span>';
+    loadFromFirebase();
+  }
+
+  renderScheduleTable();
+  renderTestiList();
+}
+
+function doLogout() {
+  try { if (typeof firebase !== "undefined") firebase.auth().signOut(); } catch(e) {}
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("login-screen").style.display = "flex";
+}
+
+// Allow Enter key on login
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("login-pass").addEventListener("keydown", e => {
+    if (e.key === "Enter") doLogin();
+  });
+});
+
+// ---- PANEL NAVIGATION ----
+function showPanel(name, btn) {
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  document.getElementById("panel-" + name).classList.add("active");
+  btn.classList.add("active");
+}
+
+// ---- SCHEDULE TABLE ----
+function renderScheduleTable() {
+  const head = document.getElementById("schedule-head");
+  const body = document.getElementById("schedule-body");
+
+  // Header
+  head.innerHTML = "<th>Day</th>";
+  schedule.columns.forEach((col, ci) => {
+    head.innerHTML += `
+      <th>
+        <div class="col-time">
+          <input type="time" value="${timeToInput(col)}" onchange="updateColTime(${ci},this.value)" style="flex:1;padding:6px 8px;font-size:0.78rem;" />
+          <button class="btn-del-col" onclick="deleteColumn(${ci})" title="Remove">&times;</button>
+        </div>
+      </th>`;
+  });
+
+  // Rows
+  body.innerHTML = "";
+  schedule.rows.forEach((row, ri) => {
+    let tr = `<tr><td>${row.day}</td>`;
+    schedule.columns.forEach((_, ci) => {
+      tr += `<td><input type="text" value="${row.slots[ci] || ""}" onchange="updateSlot(${ri},${ci},this.value)" placeholder="—" /></td>`;
+    });
+    tr += `</tr>`;
+    body.innerHTML += tr;
+  });
+
+  // Note
+  document.getElementById("schedule-note").value = schedule.note;
+}
+
+function timeToInput(str) {
+  const m = str.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if (!m) return "06:00";
+  let h = parseInt(m[1]);
+  const min = m[2];
+  const ap = m[3].toUpperCase();
+  if (ap === "PM" && h !== 12) h += 12;
+  if (ap === "AM" && h === 12) h = 0;
+  return `${String(h).padStart(2,"0")}:${min}`;
+}
+
+function inputToTime(val) {
+  const [h, m] = val.split(":").map(Number);
+  const ap = h < 12 ? "AM" : "PM";
+  const h12 = h % 12 || 12;
+  return `${h12}:${String(m).padStart(2,"0")} ${ap}`;
+}
+
+function updateColTime(ci, val) { schedule.columns[ci] = inputToTime(val); }
+function updateSlot(ri, ci, val) { schedule.rows[ri].slots[ci] = val; }
+
+function addColumn() {
+  schedule.columns.push("9:00 AM");
+  schedule.rows.forEach(r => r.slots.push(""));
+  renderScheduleTable();
+}
+
+function deleteColumn(ci) {
+  if (schedule.columns.length <= 1) { showToast("Need at least 1 column", true); return; }
+  schedule.columns.splice(ci, 1);
+  schedule.rows.forEach(r => r.slots.splice(ci, 1));
+  renderScheduleTable();
+}
+
+function saveSchedule() {
+  schedule.note = document.getElementById("schedule-note").value;
+  if (isFirebaseConnected) {
+    firebase.database().ref("schedule").set(schedule)
+      .then(() => showToast("Schedule saved & live on website!"))
+      .catch(() => showToast("Error saving. Try again.", true));
+  } else {
+    showToast("Demo mode — connect Firebase to publish live");
+  }
+}
+
+// ---- TESTIMONIALS ----
+function renderTestiList() {
+  const list = document.getElementById("testi-list");
+  if (testimonials.length === 0) {
+    list.innerHTML = `<p style="color:var(--muted);font-size:0.88rem;">No testimonials yet. Add one above.</p>`;
+    return;
+  }
+  list.innerHTML = testimonials.map(t => `
+    <div class="testi-item">
+      <div class="testi-item-header">
+        <div>
+          <div class="testi-name">${t.name}</div>
+          <div class="testi-role">${t.role}</div>
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="deleteTestimonial(${t.id})">Remove</button>
+      </div>
+      <p style="font-size:0.86rem;color:var(--muted);line-height:1.6;">"${t.review}"</p>
+    </div>`).join("");
+}
+
+function addTestimonial() {
+  const name   = document.getElementById("new-testi-name").value.trim();
+  const role   = document.getElementById("new-testi-role").value.trim();
+  const review = document.getElementById("new-testi-review").value.trim();
+  if (!name || !review) { showToast("Name and review are required", true); return; }
+
+  const newT = { id: Date.now(), name, role, review };
+  testimonials.push(newT);
+
+  if (isFirebaseConnected) {
+    firebase.database().ref("testimonials/" + newT.id).set(newT)
+      .then(() => showToast("Testimonial added & live!"))
+      .catch(() => showToast("Error saving", true));
+  } else {
+    showToast("Added in demo mode — connect Firebase to publish");
+  }
+
+  document.getElementById("new-testi-name").value = "";
+  document.getElementById("new-testi-role").value = "";
+  document.getElementById("new-testi-review").value = "";
+  renderTestiList();
+}
+
+function deleteTestimonial(id) {
+  testimonials = testimonials.filter(t => t.id !== id);
+  if (isFirebaseConnected) {
+    firebase.database().ref("testimonials/" + id).remove();
+    showToast("Testimonial removed");
+  } else {
+    showToast("Removed in demo mode");
+  }
+  renderTestiList();
+}
+
+// ---- ANNOUNCEMENT ----
+function toggleAnnouncement() {
+  announcement.active = !announcement.active;
+  const tog = document.getElementById("ann-toggle");
+  const lbl = document.getElementById("ann-toggle-label");
+  tog.className = "toggle" + (announcement.active ? " on" : "");
+  lbl.textContent = announcement.active ? "Banner is ON" : "Banner is OFF";
+}
+
+function saveAnnouncement() {
+  announcement.text = document.getElementById("ann-text").value.trim();
+  if (isFirebaseConnected) {
+    firebase.database().ref("announcement").set(announcement)
+      .then(() => showToast(announcement.active ? "Banner is now LIVE on website!" : "Banner hidden from website"))
+      .catch(() => showToast("Error saving", true));
+  } else {
+    showToast("Demo mode — connect Firebase to publish");
+  }
+}
+
+function setAnnExample(btn) {
+  document.getElementById("ann-text").value = btn.textContent.replace(/^[^\w]*/, "");
+}
+
+// ---- CONTACT ----
+function saveContact() {
+  const data = {
+    phone:    document.getElementById("contact-phone").value,
+    email:    document.getElementById("contact-email").value,
+    address:  document.getElementById("contact-address").value,
+    open:     inputToTime(document.getElementById("contact-open").value),
+    close:    inputToTime(document.getElementById("contact-close").value),
+    landmark: document.getElementById("contact-landmark").value
+  };
+  if (isFirebaseConnected) {
+    firebase.database().ref("contact").set(data)
+      .then(() => showToast("Contact info saved & live!"))
+      .catch(() => showToast("Error saving", true));
+  } else {
+    showToast("Demo mode — connect Firebase to publish");
+  }
+}
+
+// ---- FIREBASE LOAD ----
+function loadFromFirebase() {
+  const db = firebase.database();
+  db.ref("schedule").once("value").then(s => { if (s.val()) { schedule = s.val(); renderScheduleTable(); } });
+  db.ref("testimonials").once("value").then(s => { if (s.val()) { testimonials = Object.values(s.val()); renderTestiList(); } });
+  db.ref("announcement").once("value").then(s => {
+    if (s.val()) {
+      announcement = s.val();
+      document.getElementById("ann-text").value = announcement.text || "";
+      if (announcement.active) toggleAnnouncement();
+    }
+  });
+}
+
+// ---- TOAST ----
+function showToast(msg, isError) {
+  const t = document.getElementById("toast");
+  t.textContent = (isError ? "⚠ " : "✓ ") + msg;
+  t.style.background = isError ? "#c0392b" : "var(--success)";
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3000);
+}
+</script>
+</body>
+</html>
