@@ -99,7 +99,7 @@
 #loader {
   position: fixed;
   inset: 0;
-  background: var(--charcoal);
+  background: radial-gradient(ellipse at center, #1A1208 0%, #0D0C0A 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,24 +108,27 @@
   transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 #loader.hidden { opacity: 0; visibility: hidden; }
-.loader-om {
-  font-size: 5rem;
-  color: var(--saffron);
-  animation: float 2s ease infinite;
-  margin-bottom: 16px;
+/* Yogartha logo in the loader */
+.loader-logo-img {
+  width: clamp(200px, 55vw, 400px);
+  height: auto;
+  margin-bottom: 40px;
+  /* Convert black text to a warm cream-gold so it glows on dark bg */
+  filter: invert(1) sepia(1) saturate(0.5) brightness(1.8)
+          drop-shadow(0 0 30px rgba(212,120,42,0.6))
+          drop-shadow(0 0 60px rgba(184,130,42,0.3));
+  animation: logoFadeIn 0.8s ease both;
 }
-.loader-text {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  color: var(--white);
-  letter-spacing: 0.15em;
+@keyframes logoFadeIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
 }
 .loader-bar {
   width: 200px;
   height: 2px;
   background: rgba(255,255,255,0.1);
   border-radius: 2px;
-  margin-top: 24px;
+  margin-top: 0;
   overflow: hidden;
 }
 .loader-bar-fill {

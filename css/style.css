@@ -1,4 +1,4 @@
-﻿/* ===== TOKENS ===== */
+/* ===== TOKENS ===== */
 :root {
   --saffron: #D4782A;
   --saffron-light: #F09040;
@@ -128,6 +128,17 @@ ul { list-style: none; }
   align-items: center;
   gap: 10px;
 }
+/* Nav logo image — slightly taller, with glow to show on dark nav */
+.nav-custom-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  /* invert to white for dark navbar visibility */
+  filter: invert(1) sepia(1) saturate(0.3) brightness(2.0)
+          drop-shadow(0 1px 6px rgba(0,0,0,0.5));
+  transition: opacity 0.3s;
+}
+.nav-custom-logo:hover { opacity: 0.85; }
 .custom-logo {
   height: 48px;
   width: auto;
@@ -251,13 +262,23 @@ ul { list-style: none; }
   margin-bottom: 16px;
 }
 .hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 10vw, 8rem);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  line-height: 1;
   margin-bottom: 16px;
-  text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  line-height: 1;
+}
+/* Hero Yogartha logo image — large, prominent, with glow */
+.hero-logo-img {
+  display: block;
+  width: clamp(260px, 60vw, 580px);
+  height: auto;
+  margin: 0 auto 16px;
+  /* Convert dark text to cream/white so it shows on dark hero bg */
+  filter: invert(1) sepia(1) saturate(0.3) brightness(2.0)
+          drop-shadow(0 4px 24px rgba(0,0,0,0.7));
+  animation: fadeSlideUp 1.2s ease both;
+}
+@keyframes fadeSlideUp {
+  from { opacity:0; transform: translateY(30px); }
+  to   { opacity:1; transform: translateY(0); }
 }
 .hero-tagline {
   font-family: var(--font-serif);

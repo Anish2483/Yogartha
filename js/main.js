@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
   const loader = document.createElement('div');
   loader.id = 'loader';
   loader.innerHTML = `
-    <div class="loader-text" style="font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 20px; color: #d4af37; letter-spacing: 2px;">Yogartha</div>
+    <img src="images/yogartha_logo.png" alt="Yogartha" class="loader-logo-img" />
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>
   `;
   document.body.prepend(loader);
