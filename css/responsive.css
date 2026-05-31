@@ -75,15 +75,15 @@ html, body {
   .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* ---------- HERO ---------- */
-  .hero { min-height: 100svh; align-items: flex-end; }
-  .hero-content { padding-bottom: 48px; padding-top: 0; }
+  .hero { min-height: 100svh; }
+  .hero-content { padding: 0 20px; }
   .hero-symbol-wrap { margin-bottom: 10px; }
   .hero-symbol { width: 48px; height: 48px; }
-  .hero-logo-img { width: clamp(160px, 42vw, 260px); margin-bottom: 8px; }
-  .hero-subtitle { font-size: 0.62rem; margin-bottom: 8px; }
-  .hero-desc { font-size: 0.88rem; margin-bottom: 24px; line-height: 1.6; }
+  .hero-logo-img { width: clamp(180px, 50vw, 280px); margin-bottom: 6px; }
+  .hero-subtitle { font-size: 0.62rem; letter-spacing: 0.18em; margin-bottom: 6px; }
+  .hero-desc { font-size: 0.82rem; margin-bottom: 20px; line-height: 1.5; }
   .hero-btns { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; }
-  .hero-btns .btn { width: auto; padding: 12px 22px; font-size: 0.82rem; }
+  .hero-btns .btn { width: auto; padding: 11px 20px; font-size: 0.82rem; }
   .hero-scroll-hint { display: none; }
 
   /* ---------- MARQUEE ---------- */
