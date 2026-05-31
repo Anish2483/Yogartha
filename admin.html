@@ -15,155 +15,145 @@
       --muted:rgba(255,255,255,0.45); --danger:#c0392b; --success:#27ae60;
       --radius:12px; --font:'Inter',sans-serif; --serif:'Cormorant Garamond',serif;
     }
-    html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);}
+    html,body { height:100%; background:var(--bg); color:var(--text); font-family:var(--font); }
 
-    /* LOGIN */
-    #login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;
-      background:radial-gradient(ellipse at 50% 40%,rgba(232,114,42,0.12) 0%,transparent 70%);}
-    .login-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;
-      padding:48px 40px;width:100%;max-width:420px;text-align:center;}
-    .login-logo{font-family:var(--serif);font-size:2.4rem;color:var(--gold-lt);letter-spacing:.05em;margin-bottom:6px;}
-    .login-sub{font-size:.8rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:36px;}
-    .login-box input{width:100%;padding:14px 16px;background:var(--surface2);border:1px solid var(--border);
-      border-radius:10px;color:var(--text);font-family:var(--font);font-size:.95rem;margin-bottom:14px;outline:none;transition:border .2s;}
-    .login-box input:focus{border-color:var(--saffron);}
-    .login-box input::placeholder{color:var(--muted);}
-    .btn-login{width:100%;padding:14px;background:linear-gradient(135deg,var(--saffron),var(--gold));
-      border:none;border-radius:10px;color:#fff;font-family:var(--font);font-size:1rem;font-weight:600;cursor:pointer;transition:opacity .2s;}
-    .btn-login:hover{opacity:.9;}
-    .login-error{color:#f87171;font-size:.85rem;margin-top:12px;min-height:20px;}
+    /* ===== LOGIN ===== */
+    #login-screen { min-height:100vh; display:flex; align-items:center; justify-content:center;
+      background:radial-gradient(ellipse at 50% 40%,rgba(232,114,42,.12) 0%,transparent 70%); }
+    .login-box { background:var(--surface); border:1px solid var(--border); border-radius:20px;
+      padding:48px 40px; width:100%; max-width:420px; text-align:center; }
+    .login-logo { font-family:var(--serif); font-size:2.4rem; color:var(--gold-lt); letter-spacing:.05em; margin-bottom:6px; }
+    .login-sub  { font-size:.8rem; color:var(--muted); letter-spacing:.15em; text-transform:uppercase; margin-bottom:36px; }
+    .login-box input { width:100%; padding:14px 16px; background:var(--surface2); border:1px solid var(--border);
+      border-radius:10px; color:var(--text); font-family:var(--font); font-size:.95rem; margin-bottom:14px; outline:none; transition:border .2s; }
+    .login-box input:focus { border-color:var(--saffron); }
+    .login-box input::placeholder { color:var(--muted); }
+    .btn-login { width:100%; padding:14px; background:linear-gradient(135deg,var(--saffron),var(--gold));
+      border:none; border-radius:10px; color:#fff; font-family:var(--font); font-size:1rem; font-weight:600; cursor:pointer; transition:opacity .2s; }
+    .btn-login:hover { opacity:.9; }
+    .login-error { color:#f87171; font-size:.85rem; margin-top:12px; min-height:20px; }
 
-    /* DASHBOARD */
-    #dashboard{display:none;min-height:100vh;}
-    .sidebar{position:fixed;top:0;left:0;bottom:0;width:240px;background:var(--surface);
-      border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;}
-    .sidebar-logo{padding:28px 24px 20px;border-bottom:1px solid var(--border);}
-    .sidebar-logo span{font-family:var(--serif);font-size:1.6rem;color:var(--gold-lt);}
-    .sidebar-logo small{display:block;font-size:.68rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:2px;}
-    .sidebar-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;}
-    .nav-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;
-      font-size:.88rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .2s;
-      border:none;background:none;text-align:left;width:100%;}
-    .nav-item svg{width:18px;height:18px;flex-shrink:0;}
-    .nav-item:hover{background:var(--surface2);color:var(--text);}
-    .nav-item.active{background:rgba(232,114,42,.15);color:var(--saffron);}
-    .sidebar-footer{padding:16px 12px;border-top:1px solid var(--border);}
-    .btn-logout{width:100%;padding:10px 14px;background:rgba(192,57,43,.15);
-      border:1px solid rgba(192,57,43,.3);border-radius:10px;color:#f87171;font-size:.85rem;cursor:pointer;transition:all .2s;}
-    .btn-logout:hover{background:rgba(192,57,43,.25);}
-    .main{margin-left:240px;padding:36px 40px;}
-    .page-header{margin-bottom:32px;}
-    .page-title{font-family:var(--serif);font-size:2rem;color:var(--cream);margin-bottom:6px;}
-    .page-desc{font-size:.88rem;color:var(--muted);}
-    .panel{display:none;} .panel.active{display:block;}
+    /* ===== DASHBOARD ===== */
+    #dashboard { display:none; min-height:100vh; }
+    .sidebar { position:fixed; top:0; left:0; bottom:0; width:240px; background:var(--surface);
+      border-right:1px solid var(--border); display:flex; flex-direction:column; z-index:100; }
+    .sidebar-logo { padding:28px 24px 20px; border-bottom:1px solid var(--border); }
+    .sidebar-logo span { font-family:var(--serif); font-size:1.6rem; color:var(--gold-lt); }
+    .sidebar-logo small { display:block; font-size:.68rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:2px; }
+    .sidebar-nav { flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:4px; overflow-y:auto; }
+    .nav-item { display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px;
+      font-size:.88rem; font-weight:500; color:var(--muted); cursor:pointer; transition:all .2s;
+      border:none; background:none; text-align:left; width:100%; }
+    .nav-item svg { width:18px; height:18px; flex-shrink:0; }
+    .nav-item:hover { background:var(--surface2); color:var(--text); }
+    .nav-item.active { background:rgba(232,114,42,.15); color:var(--saffron); }
+    .sidebar-footer { padding:16px 12px; border-top:1px solid var(--border); }
+    .btn-logout { width:100%; padding:10px 14px; background:rgba(192,57,43,.15);
+      border:1px solid rgba(192,57,43,.3); border-radius:10px; color:#f87171; font-size:.85rem; cursor:pointer; transition:all .2s; }
+    .btn-logout:hover { background:rgba(192,57,43,.25); }
+    .main { margin-left:240px; padding:36px 40px; }
+    .page-header { margin-bottom:32px; }
+    .page-title { font-family:var(--serif); font-size:2rem; color:var(--cream); margin-bottom:6px; }
+    .page-desc { font-size:.88rem; color:var(--muted); }
+    .panel { display:none; } .panel.active { display:block; }
 
-    /* CARDS */
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:20px;}
-    .card-title{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--saffron);margin-bottom:20px;}
+    /* ===== CARDS ===== */
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; margin-bottom:20px; }
+    .card-title { font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--saffron); margin-bottom:20px; }
 
-    /* FORMS */
-    label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:6px;font-weight:500;}
-    input[type="text"],input[type="time"],input[type="email"],input[type="tel"],
-    input[type="url"],textarea,select{width:100%;padding:11px 14px;background:var(--surface2);
-      border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);
-      font-size:.9rem;outline:none;transition:border .2s;}
-    input:focus,textarea:focus,select:focus{border-color:var(--saffron);}
-    input::placeholder,textarea::placeholder{color:var(--muted);}
-    textarea{resize:vertical;min-height:80px;}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-    .form-group{margin-bottom:16px;}
+    /* ===== FORMS ===== */
+    label { display:block; font-size:.82rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
+    input[type="text"], input[type="time"], input[type="email"],
+    input[type="tel"], input[type="url"], textarea, select {
+      width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border);
+      border-radius:8px; color:var(--text); font-family:var(--font); font-size:.9rem; outline:none; transition:border .2s; }
+    input:focus, textarea:focus, select:focus { border-color:var(--saffron); }
+    input::placeholder, textarea::placeholder { color:var(--muted); }
+    textarea { resize:vertical; min-height:80px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    .form-group { margin-bottom:16px; }
 
-    /* BUTTONS */
-    .btn{padding:10px 22px;border-radius:8px;font-family:var(--font);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s;border:none;}
-    .btn-primary{background:linear-gradient(135deg,var(--saffron),var(--gold));color:#fff;}
-    .btn-primary:hover{opacity:.9;}
-    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);}
-    .btn-ghost:hover{border-color:var(--saffron);color:var(--saffron);}
-    .btn-danger{background:rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.3);color:#f87171;}
-    .btn-danger:hover{background:rgba(192,57,43,.35);}
-    .btn-sm{padding:7px 14px;font-size:.8rem;}
-    .btn-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+    /* ===== BUTTONS ===== */
+    .btn { padding:10px 22px; border-radius:8px; font-family:var(--font); font-size:.88rem; font-weight:600; cursor:pointer; transition:all .2s; border:none; }
+    .btn-primary { background:linear-gradient(135deg,var(--saffron),var(--gold)); color:#fff; }
+    .btn-primary:hover { opacity:.9; }
+    .btn-ghost { background:transparent; border:1px solid var(--border); color:var(--muted); }
+    .btn-ghost:hover { border-color:var(--saffron); color:var(--saffron); }
+    .btn-danger { background:rgba(192,57,43,.2); border:1px solid rgba(192,57,43,.3); color:#f87171; }
+    .btn-danger:hover { background:rgba(192,57,43,.35); }
+    .btn-sm { padding:7px 14px; font-size:.8rem; }
+    .btn-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 
-    /* STATUS */
-    .status-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;font-size:.82rem;margin-bottom:20px;}
-    .status-bar.connected{background:rgba(39,174,96,.15);color:#6ee89a;border:1px solid rgba(39,174,96,.25);}
-    .status-bar.demo{background:rgba(212,164,76,.15);color:var(--gold-lt);border:1px solid rgba(212,164,76,.25);}
-    .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-    .status-bar.connected .status-dot{background:#6ee89a;}
-    .status-bar.demo .status-dot{background:var(--gold-lt);}
+    /* ===== STATUS BAR ===== */
+    .status-bar { display:flex; align-items:center; gap:8px; padding:10px 14px; border-radius:8px; font-size:.82rem; margin-bottom:20px; }
+    .status-bar.connected { background:rgba(39,174,96,.15); color:#6ee89a; border:1px solid rgba(39,174,96,.25); }
+    .status-bar.demo { background:rgba(212,164,76,.15); color:var(--gold-lt); border:1px solid rgba(212,164,76,.25); }
+    .status-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .status-bar.connected .status-dot { background:#6ee89a; }
+    .status-bar.demo .status-dot { background:var(--gold-lt); }
 
-    /* SCHEDULE */
-    .schedule-editor-wrap{overflow-x:auto;}
-    .schedule-edit-table{width:100%;border-collapse:collapse;font-size:.88rem;}
-    .schedule-edit-table th{background:rgba(232,114,42,.1);color:var(--saffron);padding:12px;text-align:center;font-size:.75rem;letter-spacing:.08em;border-bottom:1px solid var(--border);}
-    .schedule-edit-table td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--border);}
-    .schedule-edit-table td:first-child{font-weight:600;color:var(--gold-lt);width:100px;}
-    .schedule-edit-table input{padding:8px 10px;text-align:center;font-size:.82rem;border-radius:6px;width:100%;min-width:110px;}
-    .col-time{display:flex;align-items:center;gap:6px;}
-    .col-time input[type="time"]{flex:1;}
-    .btn-del-col{background:none;border:none;color:var(--danger);cursor:pointer;font-size:1rem;padding:2px 4px;}
+    /* ===== SCHEDULE ===== */
+    .schedule-editor-wrap { overflow-x:auto; }
+    .schedule-edit-table { width:100%; border-collapse:collapse; font-size:.88rem; }
+    .schedule-edit-table th { background:rgba(232,114,42,.1); color:var(--saffron); padding:12px; text-align:center;
+      font-size:.75rem; letter-spacing:.08em; border-bottom:1px solid var(--border); }
+    .schedule-edit-table td { padding:8px 6px; text-align:center; border-bottom:1px solid var(--border); }
+    .schedule-edit-table td:first-child { font-weight:600; color:var(--gold-lt); width:100px; }
+    .schedule-edit-table input { padding:8px 10px; text-align:center; font-size:.82rem; border-radius:6px; width:100%; min-width:110px; }
+    .col-time { display:flex; align-items:center; gap:6px; }
+    .col-time input[type="time"] { flex:1; }
+    .btn-del-col { background:none; border:none; color:var(--danger); cursor:pointer; font-size:1rem; padding:2px 4px; }
 
-    /* TESTIMONIALS */
-    .testi-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:12px;}
-    .testi-item-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
-    .testi-meta{display:flex;align-items:center;gap:12px;}
-    .testi-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--saffron);flex-shrink:0;}
-    .testi-avatar-placeholder{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--saffron),var(--gold));
-      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:#fff;flex-shrink:0;}
-    .testi-name{font-weight:600;font-size:.92rem;}
-    .testi-role{font-size:.78rem;color:var(--muted);margin-top:2px;}
+    /* ===== GALLERY ===== */
+    .gallery-url-row { display:flex; gap:10px; align-items:flex-end; margin-bottom:14px; }
+    .gallery-url-row .form-group { flex:1; margin-bottom:0; }
+    .gallery-preview-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:16px; }
+    .gallery-preview-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1;
+      background:var(--surface2); border:1px solid var(--border); }
+    .gallery-preview-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    .gallery-preview-caption { position:absolute; bottom:0; left:0; right:0;
+      background:linear-gradient(to top,rgba(0,0,0,.85),transparent);
+      padding:8px 10px; font-size:.73rem; color:#fff; }
+    .gallery-preview-del { position:absolute; top:6px; right:6px; background:rgba(192,57,43,.9);
+      border:none; border-radius:6px; color:#fff; font-size:.8rem; padding:3px 8px; cursor:pointer; }
+    .tip-box { background:rgba(232,114,42,.08); border:1px solid rgba(232,114,42,.2);
+      border-radius:10px; padding:14px 16px; font-size:.82rem; color:var(--muted); line-height:1.7; margin-bottom:16px; }
+    .tip-box strong { color:var(--gold-lt); }
 
-    /* PHOTO UPLOAD */
-    .photo-upload-area{border:2px dashed var(--border);border-radius:10px;padding:20px;text-align:center;
-      cursor:pointer;transition:border .2s;position:relative;margin-bottom:12px;}
-    .photo-upload-area:hover{border-color:var(--saffron);}
-    .photo-upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-    .photo-preview{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid var(--saffron);margin:0 auto 8px;display:block;}
-    .photo-upload-icon{width:36px;height:36px;margin:0 auto 8px;color:var(--muted);}
-    .photo-or{font-size:.78rem;color:var(--muted);margin:8px 0;}
+    /* ===== TESTIMONIALS ===== */
+    .testi-item { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:12px; }
+    .testi-item-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+    .testi-meta { display:flex; align-items:center; gap:12px; }
+    .testi-avatar-img { width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--saffron); flex-shrink:0; }
+    .testi-avatar-letter { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--saffron),var(--gold));
+      display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem; color:#fff; flex-shrink:0; }
+    .testi-name { font-weight:600; font-size:.92rem; }
+    .testi-role { font-size:.78rem; color:var(--muted); margin-top:2px; }
 
-    /* GALLERY */
-    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:16px;}
-    .gallery-item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:var(--surface2);border:1px solid var(--border);}
-    .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
-    .gallery-item-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);
-      padding:8px 10px;font-size:.75rem;color:#fff;}
-    .gallery-item-del{position:absolute;top:6px;right:6px;background:rgba(192,57,43,.85);border:none;
-      border-radius:6px;color:#fff;font-size:.8rem;padding:4px 8px;cursor:pointer;}
-    .gallery-drop{border:2px dashed var(--border);border-radius:12px;padding:40px 20px;text-align:center;
-      cursor:pointer;transition:all .2s;position:relative;}
-    .gallery-drop:hover,.gallery-drop.dragover{border-color:var(--saffron);background:rgba(232,114,42,.05);}
-    .gallery-drop input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-    .gallery-drop svg{width:40px;height:40px;color:var(--muted);margin:0 auto 12px;display:block;}
-    .gallery-drop p{color:var(--muted);font-size:.88rem;}
-    .gallery-drop strong{color:var(--saffron);}
-    .upload-progress{height:4px;background:var(--surface2);border-radius:100px;margin-top:12px;overflow:hidden;display:none;}
-    .upload-progress-bar{height:100%;background:linear-gradient(90deg,var(--saffron),var(--gold));border-radius:100px;width:0;transition:width .3s;}
+    /* ===== TOGGLE ===== */
+    .toggle-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+    .toggle { position:relative; width:44px; height:24px; background:var(--surface2);
+      border:1px solid var(--border); border-radius:100px; cursor:pointer; transition:background .3s; }
+    .toggle.on { background:var(--saffron); border-color:var(--saffron); }
+    .toggle::after { content:""; position:absolute; top:3px; left:3px; width:16px; height:16px;
+      background:#fff; border-radius:50%; transition:transform .3s; }
+    .toggle.on::after { transform:translateX(20px); }
+    .toggle-label { font-size:.88rem; color:var(--text); }
 
-    /* TOGGLE */
-    .toggle-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
-    .toggle{position:relative;width:44px;height:24px;background:var(--surface2);
-      border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:background .3s;}
-    .toggle.on{background:var(--saffron);border-color:var(--saffron);}
-    .toggle::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;
-      background:#fff;border-radius:50%;transition:transform .3s;}
-    .toggle.on::after{transform:translateX(20px);}
-    .toggle-label{font-size:.88rem;color:var(--text);}
+    /* ===== TOAST ===== */
+    #toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+      background:var(--success); color:#fff; padding:12px 28px; border-radius:100px;
+      font-size:.88rem; font-weight:600; opacity:0; pointer-events:none; transition:opacity .3s; z-index:9999; }
+    #toast.show { opacity:1; }
 
-    /* TOAST */
-    #toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
-      background:var(--success);color:#fff;padding:12px 28px;border-radius:100px;
-      font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity .3s;z-index:9999;}
-    #toast.show{opacity:1;}
-
-    /* RESPONSIVE */
-    @media(max-width:768px){.sidebar{width:200px;}.main{margin-left:200px;padding:24px 20px;}.form-row{grid-template-columns:1fr;}}
-    @media(max-width:600px){.sidebar{display:none;}.main{margin-left:0;padding:20px 16px;}}
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:768px) { .sidebar{width:200px;} .main{margin-left:200px;padding:24px 20px;} .form-row{grid-template-columns:1fr;} }
+    @media(max-width:600px) { .sidebar{display:none;} .main{margin-left:0;padding:20px 16px;} }
   </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ===== LOGIN ===== -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Yogartha</div>
@@ -172,12 +162,13 @@
     <input type="password" id="login-pass" placeholder="Password" />
     <button class="btn-login" onclick="doLogin()">Sign In</button>
     <div class="login-error" id="login-err"></div>
-    <p style="font-size:.75rem;color:var(--muted);margin-top:20px;">Demo mode: enter any password to preview the dashboard</p>
+    <p style="font-size:.75rem;color:var(--muted);margin-top:20px;">Demo mode: enter any password to preview</p>
   </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- ===== DASHBOARD ===== -->
 <div id="dashboard">
+
   <nav class="sidebar">
     <div class="sidebar-logo"><span>Yogartha</span><small>Admin Panel</small></div>
     <div class="sidebar-nav">
@@ -205,11 +196,11 @@
     <!-- ===== SCHEDULE ===== -->
     <div class="panel active" id="panel-schedule">
       <div class="page-header"><div class="page-title">Weekly Schedule</div><div class="page-desc">Edit class timings and programs for each day</div></div>
-      <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode — connect Firebase to save changes live</span></div>
+      <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode — connect Firebase to save changes live to the website</span></div>
       <div class="card">
         <div class="card-title">Class Timetable</div>
         <div class="schedule-editor-wrap">
-          <table class="schedule-edit-table" id="schedule-table">
+          <table class="schedule-edit-table">
             <thead><tr id="schedule-head"><th>Day</th></tr></thead>
             <tbody id="schedule-body"></tbody>
           </table>
@@ -230,72 +221,58 @@
 
     <!-- ===== GALLERY ===== -->
     <div class="panel" id="panel-gallery">
-      <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Upload and manage photos shown in the gallery section on the website</div></div>
+      <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Add and manage photos shown on the website</div></div>
 
       <div class="card">
-        <div class="card-title">Upload New Photos</div>
+        <div class="card-title">Add New Photo</div>
 
-        <!-- Drag & Drop Upload Zone -->
-        <div class="gallery-drop" id="gallery-drop">
-          <input type="file" id="gallery-file-input" accept="image/*" multiple onchange="handleGalleryFiles(this.files)" />
-          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
-            <rect x="4" y="10" width="36" height="28" rx="3"/><circle cx="14" cy="19" r="3"/><path d="M4 30 l10-10 8 8 6-6 10 8"/>
-            <path d="M30 4 L30 14 M26 8 L30 4 L34 8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <p><strong>Click to upload</strong> or drag &amp; drop photos here</p>
-          <p style="font-size:.78rem;margin-top:6px;">JPG, PNG, WEBP — multiple photos at once OK</p>
+        <div class="tip-box">
+          <strong>How to get a photo URL from Google Photos:</strong><br>
+          1. Open Google Photos → open the photo<br>
+          2. Tap the <strong>⋮ Share</strong> button → <strong>Create link</strong><br>
+          3. Copy the link and paste it below<br><br>
+          <strong>Or from WhatsApp:</strong> Send the photo to yourself on WhatsApp Web → right-click → Copy image address
         </div>
 
-        <!-- URL fallback -->
-        <div style="margin-top:16px;">
-          <p style="font-size:.78rem;color:var(--muted);margin-bottom:10px;">Or add a photo by URL (Google Photos, Drive public link, etc.)</p>
-          <div style="display:flex;gap:10px;">
-            <input type="url" id="gallery-url-input" placeholder="https://... (paste public image URL)" style="flex:1;" />
-            <input type="text" id="gallery-url-caption" placeholder="Caption (optional)" style="flex:1;" />
-            <button class="btn btn-ghost" onclick="addGalleryByUrl()">Add</button>
+        <div class="gallery-url-row">
+          <div class="form-group">
+            <label>Photo URL</label>
+            <input type="url" id="gallery-url" placeholder="https://... paste image link here" />
           </div>
+          <div class="form-group">
+            <label>Caption (optional)</label>
+            <input type="text" id="gallery-caption" placeholder="e.g. Morning Surya Kriya class" />
+          </div>
+          <button class="btn btn-primary" style="margin-bottom:16px;" onclick="addGalleryPhoto()">Add Photo</button>
         </div>
-        <div class="upload-progress" id="upload-progress"><div class="upload-progress-bar" id="upload-bar"></div></div>
       </div>
 
       <div class="card">
-        <div class="card-title">Current Gallery (<span id="gallery-count">0</span> photos)</div>
-        <div class="gallery-grid" id="gallery-grid">
-          <p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Upload some above.</p>
+        <div class="card-title">Gallery Photos (<span id="gallery-count">0</span>)</div>
+        <div class="gallery-preview-grid" id="gallery-grid">
+          <p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Add one above.</p>
         </div>
-        <div class="btn-row" style="margin-top:4px;">
-          <button class="btn btn-primary" onclick="saveGallery()">Save Gallery</button>
-        </div>
+        <button class="btn btn-primary" onclick="saveGallery()">Save &amp; Publish Gallery</button>
       </div>
     </div>
 
     <!-- ===== TESTIMONIALS ===== -->
     <div class="panel" id="panel-testimonials">
-      <div class="page-header"><div class="page-title">Student Testimonials</div><div class="page-desc">Add, edit or remove student reviews shown on the website</div></div>
+      <div class="page-header"><div class="page-title">Student Testimonials</div><div class="page-desc">Add, edit or remove student reviews</div></div>
 
       <div class="card">
         <div class="card-title">Add New Testimonial</div>
-
-        <!-- Photo upload for student -->
-        <label>Student Photo <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-        <div class="photo-upload-area" id="testi-photo-area" onclick="document.getElementById('testi-photo-file').click()">
-          <img id="testi-photo-preview" class="photo-preview" src="" alt="" style="display:none;" />
-          <svg class="photo-upload-icon" id="testi-photo-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2">
-            <circle cx="22" cy="16" r="7"/><path d="M6 38 C6 30 12 26 22 26 C32 26 38 30 38 38"/>
-            <path d="M32 8 L32 16 M28 12 L32 8 L36 12" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <p style="color:var(--muted);font-size:.82rem;" id="testi-photo-label">Click to upload student photo</p>
-        </div>
-        <input type="file" id="testi-photo-file" accept="image/*" style="display:none;" onchange="previewTestiPhoto(this)" />
-
-        <p class="photo-or">— or paste a photo URL —</p>
-        <div class="form-group">
-          <input type="url" id="new-testi-photo" placeholder="https://... student photo URL" />
-        </div>
-
         <div class="form-row">
           <div class="form-group"><label>Student Name</label><input type="text" id="new-testi-name" placeholder="e.g. Ananya Sharma" /></div>
           <div class="form-group"><label>Role / Location</label><input type="text" id="new-testi-role" placeholder="e.g. Software Engineer, Dehradun" /></div>
+        </div>
+        <div class="form-group">
+          <label>Student Photo URL <span style="color:var(--muted);font-weight:400;">(optional — paste Google Photos or WhatsApp link)</span></label>
+          <input type="url" id="new-testi-photo" placeholder="https://... student photo link (optional)" />
+        </div>
+        <div id="testi-photo-preview-wrap" style="display:none;margin-bottom:14px;">
+          <img id="testi-photo-preview" src="" alt="Preview" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--saffron);" />
+          <span style="font-size:.78rem;color:var(--muted);margin-left:10px;vertical-align:middle;">Photo preview</span>
         </div>
         <div class="form-group"><label>Review</label><textarea id="new-testi-review" placeholder="What did they say about their experience?"></textarea></div>
         <button class="btn btn-primary" onclick="addTestimonial()">Add Testimonial</button>
@@ -309,29 +286,30 @@
 
     <!-- ===== ANNOUNCEMENT ===== -->
     <div class="panel" id="panel-announcement">
-      <div class="page-header"><div class="page-title">Announcement Banner</div><div class="page-desc">Show a banner at the top of the website for special notices</div></div>
+      <div class="page-header"><div class="page-title">Announcement Banner</div><div class="page-desc">Show a notice at the top of the website</div></div>
       <div class="card">
         <div class="card-title">Banner Settings</div>
         <div class="toggle-row">
-          <div class="toggle" id="ann-toggle" onclick="toggleAnnouncement()"></div>
-          <span class="toggle-label" id="ann-toggle-label">Banner is OFF</span>
+          <div class="toggle" id="ann-toggle" onclick="toggleAnn()"></div>
+          <span class="toggle-label" id="ann-label">Banner is OFF</span>
         </div>
         <div class="form-group"><label>Announcement Text</label><input type="text" id="ann-text" placeholder="e.g. Studio closed on 15th August — Independence Day" /></div>
         <button class="btn btn-primary" onclick="saveAnnouncement()">Save &amp; Publish</button>
       </div>
       <div class="card">
-        <div class="card-title">Quick Examples</div>
+        <div class="card-title">Quick Examples — click to use</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <button class="btn btn-ghost btn-sm" onclick="setAnnEx(this)">New batch starting 1st July — Enroll now!</button>
-          <button class="btn btn-ghost btn-sm" onclick="setAnnEx(this)">Studio closed 15th Aug — Happy Independence Day!</button>
-          <button class="btn btn-ghost btn-sm" onclick="setAnnEx(this)">Special Surya Kriya workshop this Sunday — Limited seats</button>
+          <button class="btn btn-ghost btn-sm" onclick="setEx(this)">New batch starting 1st July — Enroll now!</button>
+          <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Studio closed 15th Aug — Happy Independence Day!</button>
+          <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Special Surya Kriya workshop this Sunday — Limited seats</button>
+          <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Diwali special: Free trial class on 20th Oct — Book now!</button>
         </div>
       </div>
     </div>
 
     <!-- ===== CONTACT ===== -->
     <div class="panel" id="panel-contact">
-      <div class="page-header"><div class="page-title">Contact Information</div><div class="page-desc">Update the studio address, phone, and email shown on the website</div></div>
+      <div class="page-header"><div class="page-title">Contact Information</div><div class="page-desc">Update the studio address, phone, and timings</div></div>
       <div class="card">
         <div class="card-title">Studio Details</div>
         <div class="form-group"><label>Phone Number</label><input type="tel" id="contact-phone" value="+91 78200 96554" /></div>
@@ -352,9 +330,9 @@
 <div id="toast"></div>
 <script src="js/firebase-config.js"></script>
 <script>
-// =============================================
-// YOGARTHA ADMIN — Full Dashboard Logic v2
-// =============================================
+// ============================================
+// YOGARTHA ADMIN — v3 (URL-only, no Storage)
+// ============================================
 
 let schedule = {
   columns:["6:00 AM","8:00 AM","5:30 PM","7:00 PM"],
@@ -377,269 +355,209 @@ let testimonials = [
   {id:4,name:"Vikram Joshi",role:"Architect, Rishikesh",photo:"",review:"Finding Yogartha in Dehradun was a blessing. Reeta brings the authentic depth of the Isha tradition."}
 ];
 
-let gallery = []; // [{id, url, caption}]
-let announcement = {active:false,text:""};
-let isFirebaseConnected = false;
-let currentTestiPhotoBase64 = "";
+let gallery = [];
+let announcement = {active:false, text:""};
+let isFirebase = false;
 
 // ---- LOGIN ----
 function doLogin() {
   const email = document.getElementById("login-email").value;
   const pass  = document.getElementById("login-pass").value;
   const err   = document.getElementById("login-err");
-  if (!email) { err.textContent="Please enter your email."; return; }
+  if (!email) { err.textContent = "Please enter your email."; return; }
   try {
-    if (typeof firebase!=="undefined" && firebase.auth) {
-      firebase.auth().signInWithEmailAndPassword(email,pass)
-        .then(()=>enterDashboard(true))
-        .catch(e=>{ err.textContent=e.message; });
+    if (typeof firebase !== "undefined" && firebase.auth) {
+      firebase.auth().signInWithEmailAndPassword(email, pass)
+        .then(() => enterDash(true))
+        .catch(e => { err.textContent = e.message; });
       return;
     }
-  } catch(e){}
-  enterDashboard(false);
+  } catch(e) {}
+  enterDash(false);
 }
 
-function enterDashboard(fbOn) {
-  isFirebaseConnected = fbOn;
-  document.getElementById("login-screen").style.display="none";
-  document.getElementById("dashboard").style.display="block";
+function enterDash(fb) {
+  isFirebase = fb;
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
   const bar = document.getElementById("firebase-status");
-  if (fbOn) {
-    bar.className="status-bar connected";
-    bar.innerHTML='<div class="status-dot"></div><span>Connected to Firebase — changes save live to the website</span>';
-    loadFromFirebase();
+  if (fb) {
+    bar.className = "status-bar connected";
+    bar.innerHTML = '<div class="status-dot"></div><span>Connected to Firebase — changes publish live to the website instantly</span>';
+    loadFirebase();
   }
-  renderScheduleTable(); renderTestiList(); renderGalleryGrid();
+  renderSchedule(); renderTestiList(); renderGallery();
 }
 
 function doLogout() {
-  try { if (typeof firebase!=="undefined") firebase.auth().signOut(); } catch(e){}
-  document.getElementById("dashboard").style.display="none";
-  document.getElementById("login-screen").style.display="flex";
+  try { if (typeof firebase !== "undefined") firebase.auth().signOut(); } catch(e) {}
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("login-screen").style.display = "flex";
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
-  document.getElementById("login-pass").addEventListener("keydown",e=>{ if(e.key==="Enter") doLogin(); });
-  setupGalleryDrop();
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("login-pass").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+  // Live photo preview for testimonial
+  document.getElementById("new-testi-photo").addEventListener("input", function() {
+    const url = this.value.trim();
+    const wrap = document.getElementById("testi-photo-preview-wrap");
+    const img  = document.getElementById("testi-photo-preview");
+    if (url) { img.src = url; wrap.style.display = "block"; }
+    else      { wrap.style.display = "none"; }
+  });
 });
 
 // ---- PANELS ----
-function showPanel(name,btn) {
-  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
-  document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
-  document.getElementById("panel-"+name).classList.add("active");
+function showPanel(name, btn) {
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  document.getElementById("panel-" + name).classList.add("active");
   btn.classList.add("active");
 }
 
 // ---- SCHEDULE ----
-function renderScheduleTable() {
-  const head=document.getElementById("schedule-head");
-  const body=document.getElementById("schedule-body");
-  head.innerHTML="<th>Day</th>";
-  schedule.columns.forEach((col,ci)=>{
-    head.innerHTML+=`<th><div class="col-time"><input type="time" value="${timeToInput(col)}" onchange="updateColTime(${ci},this.value)" style="flex:1;padding:6px 8px;font-size:.78rem;"/><button class="btn-del-col" onclick="deleteColumn(${ci})">&times;</button></div></th>`;
+function renderSchedule() {
+  const head = document.getElementById("schedule-head");
+  const body = document.getElementById("schedule-body");
+  head.innerHTML = "<th>Day</th>";
+  schedule.columns.forEach((col, ci) => {
+    head.innerHTML += `<th><div class="col-time"><input type="time" value="${t2i(col)}" onchange="schedule.columns[${ci}]=i2t(this.value)" style="flex:1;padding:6px 8px;font-size:.78rem;"/><button class="btn-del-col" onclick="delCol(${ci})">&times;</button></div></th>`;
   });
-  body.innerHTML="";
-  schedule.rows.forEach((row,ri)=>{
-    let tr=`<tr><td>${row.day}</td>`;
-    schedule.columns.forEach((_,ci)=>{
-      tr+=`<td><input type="text" value="${row.slots[ci]||""}" onchange="updateSlot(${ri},${ci},this.value)" placeholder="—"/></td>`;
+  body.innerHTML = "";
+  schedule.rows.forEach((row, ri) => {
+    let tr = `<tr><td>${row.day}</td>`;
+    schedule.columns.forEach((_, ci) => {
+      tr += `<td><input type="text" value="${row.slots[ci]||""}" onchange="schedule.rows[${ri}].slots[${ci}]=this.value" placeholder="—"/></td>`;
     });
-    tr+=`</tr>`; body.innerHTML+=tr;
+    body.innerHTML += tr + `</tr>`;
   });
-  document.getElementById("schedule-note").value=schedule.note;
+  document.getElementById("schedule-note").value = schedule.note;
 }
-function timeToInput(s){const m=s.match(/(\d+):(\d+)\s*(AM|PM)/i);if(!m)return"06:00";let h=parseInt(m[1]);const ap=m[3].toUpperCase();if(ap==="PM"&&h!==12)h+=12;if(ap==="AM"&&h===12)h=0;return`${String(h).padStart(2,"0")}:${m[2]}`;}
-function inputToTime(v){const[h,m]=v.split(":").map(Number);const ap=h<12?"AM":"PM";return`${h%12||12}:${String(m).padStart(2,"0")} ${ap}`;}
-function updateColTime(ci,v){schedule.columns[ci]=inputToTime(v);}
-function updateSlot(ri,ci,v){schedule.rows[ri].slots[ci]=v;}
-function addColumn(){schedule.columns.push("9:00 AM");schedule.rows.forEach(r=>r.slots.push(""));renderScheduleTable();}
-function deleteColumn(ci){if(schedule.columns.length<=1){showToast("Need at least 1 column",true);return;}schedule.columns.splice(ci,1);schedule.rows.forEach(r=>r.slots.splice(ci,1));renderScheduleTable();}
+function t2i(s){const m=s.match(/(\d+):(\d+)\s*(AM|PM)/i);if(!m)return"06:00";let h=parseInt(m[1]);const ap=m[3].toUpperCase();if(ap==="PM"&&h!==12)h+=12;if(ap==="AM"&&h===12)h=0;return`${String(h).padStart(2,"0")}:${m[2]}`;}
+function i2t(v){const[h,m]=v.split(":").map(Number);return`${h%12||12}:${String(m).padStart(2,"0")} ${h<12?"AM":"PM"}`;}
+function addColumn(){schedule.columns.push("9:00 AM");schedule.rows.forEach(r=>r.slots.push(""));renderSchedule();}
+function delCol(ci){if(schedule.columns.length<=1){toast("Need at least 1 column",true);return;}schedule.columns.splice(ci,1);schedule.rows.forEach(r=>r.slots.splice(ci,1));renderSchedule();}
 function saveSchedule(){
-  schedule.note=document.getElementById("schedule-note").value;
-  if(isFirebaseConnected){firebase.database().ref("schedule").set(schedule).then(()=>showToast("Schedule saved & live!")).catch(()=>showToast("Error saving",true));}
-  else showToast("Demo mode — connect Firebase to publish live");
+  schedule.note = document.getElementById("schedule-note").value;
+  if(isFirebase) firebase.database().ref("schedule").set(schedule).then(()=>toast("Schedule saved & live!")).catch(()=>toast("Error saving",true));
+  else toast("Demo mode — connect Firebase to publish live");
 }
 
 // ---- GALLERY ----
-function setupGalleryDrop(){
-  const drop=document.getElementById("gallery-drop");
-  drop.addEventListener("dragover",e=>{e.preventDefault();drop.classList.add("dragover");});
-  drop.addEventListener("dragleave",()=>drop.classList.remove("dragover"));
-  drop.addEventListener("drop",e=>{e.preventDefault();drop.classList.remove("dragover");handleGalleryFiles(e.dataTransfer.files);});
+function addGalleryPhoto() {
+  const url = document.getElementById("gallery-url").value.trim();
+  const cap = document.getElementById("gallery-caption").value.trim();
+  if (!url) { toast("Please paste a photo URL", true); return; }
+  gallery.push({id: Date.now(), url, caption: cap});
+  document.getElementById("gallery-url").value = "";
+  document.getElementById("gallery-caption").value = "";
+  renderGallery();
+  toast("Photo added!");
 }
-
-function handleGalleryFiles(files){
-  Array.from(files).forEach(file=>{
-    if(!file.type.startsWith("image/")) return;
-    const reader=new FileReader();
-    reader.onload=e=>{
-      gallery.push({id:Date.now()+Math.random(),url:e.target.result,caption:file.name.replace(/\.[^.]+$/,"")});
-      renderGalleryGrid();
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-function addGalleryByUrl(){
-  const url=document.getElementById("gallery-url-input").value.trim();
-  const cap=document.getElementById("gallery-url-caption").value.trim();
-  if(!url){showToast("Please enter an image URL",true);return;}
-  gallery.push({id:Date.now(),url,caption:cap||""});
-  document.getElementById("gallery-url-input").value="";
-  document.getElementById("gallery-url-caption").value="";
-  renderGalleryGrid();
-  showToast("Photo added!");
-}
-
-function deleteGalleryItem(id){
-  gallery=gallery.filter(g=>g.id!==id);
-  renderGalleryGrid();
-}
-
-function renderGalleryGrid(){
-  const grid=document.getElementById("gallery-grid");
-  const count=document.getElementById("gallery-count");
-  count.textContent=gallery.length;
-  if(gallery.length===0){
-    grid.innerHTML='<p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Upload some above.</p>';
-    return;
-  }
-  grid.innerHTML=gallery.map(g=>`
-    <div class="gallery-item">
-      <img src="${g.url}" alt="${g.caption}" loading="lazy" />
-      ${g.caption?`<div class="gallery-item-caption">${g.caption}</div>`:""}
-      <button class="gallery-item-del" onclick="deleteGalleryItem('${g.id}')">&times;</button>
+function delGallery(id) { gallery = gallery.filter(g => g.id !== id); renderGallery(); }
+function renderGallery() {
+  const grid = document.getElementById("gallery-grid");
+  const cnt  = document.getElementById("gallery-count");
+  cnt.textContent = gallery.length;
+  if (!gallery.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet. Add one above.</p>'; return; }
+  grid.innerHTML = gallery.map(g => `
+    <div class="gallery-preview-item">
+      <img src="${g.url}" alt="${g.caption}" onerror="this.src=''" loading="lazy" />
+      ${g.caption ? `<div class="gallery-preview-caption">${g.caption}</div>` : ""}
+      <button class="gallery-preview-del" onclick="delGallery(${g.id})">&times;</button>
     </div>`).join("");
 }
-
-function saveGallery(){
-  if(isFirebaseConnected){
-    // Store URLs + captions only (not base64 for large images)
-    const toSave=gallery.map(g=>({id:g.id,url:g.url,caption:g.caption}));
-    firebase.database().ref("gallery").set(toSave)
-      .then(()=>showToast("Gallery saved & live on website!"))
-      .catch(()=>showToast("Error saving. For large images, use URL method.",true));
-  } else {
-    showToast("Demo mode — connect Firebase to publish live");
-  }
+function saveGallery() {
+  if(isFirebase) firebase.database().ref("gallery").set(gallery).then(()=>toast("Gallery live on website!")).catch(()=>toast("Error",true));
+  else toast("Demo mode — connect Firebase to publish live");
 }
 
 // ---- TESTIMONIALS ----
-function previewTestiPhoto(input){
-  const file=input.files[0];
-  if(!file) return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    currentTestiPhotoBase64=e.target.result;
-    document.getElementById("testi-photo-preview").src=e.target.result;
-    document.getElementById("testi-photo-preview").style.display="block";
-    document.getElementById("testi-photo-icon").style.display="none";
-    document.getElementById("testi-photo-label").textContent="Photo selected ✓";
-  };
-  reader.readAsDataURL(file);
-}
-
-function renderTestiList(){
-  const list=document.getElementById("testi-list");
-  if(testimonials.length===0){list.innerHTML='<p style="color:var(--muted);font-size:.88rem;">No testimonials yet.</p>';return;}
-  list.innerHTML=testimonials.map(t=>`
+function renderTestiList() {
+  const list = document.getElementById("testi-list");
+  if (!testimonials.length) { list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">No testimonials yet.</p>'; return; }
+  list.innerHTML = testimonials.map(t => `
     <div class="testi-item">
       <div class="testi-item-header">
         <div class="testi-meta">
           ${t.photo
-            ?`<img class="testi-avatar" src="${t.photo}" alt="${t.name}" />`
-            :`<div class="testi-avatar-placeholder">${(t.name||"?")[0].toUpperCase()}</div>`}
+            ? `<img class="testi-avatar-img" src="${t.photo}" alt="${t.name}" />`
+            : `<div class="testi-avatar-letter">${(t.name||"?")[0].toUpperCase()}</div>`}
           <div><div class="testi-name">${t.name}</div><div class="testi-role">${t.role}</div></div>
         </div>
-        <button class="btn btn-danger btn-sm" onclick="deleteTestimonial(${t.id})">Remove</button>
+        <button class="btn btn-danger btn-sm" onclick="delTesti(${t.id})">Remove</button>
       </div>
       <p style="font-size:.86rem;color:var(--muted);line-height:1.6;">"${t.review}"</p>
     </div>`).join("");
 }
-
-function addTestimonial(){
-  const name=document.getElementById("new-testi-name").value.trim();
-  const role=document.getElementById("new-testi-role").value.trim();
-  const review=document.getElementById("new-testi-review").value.trim();
-  const urlPhoto=document.getElementById("new-testi-photo").value.trim();
-  if(!name||!review){showToast("Name and review are required",true);return;}
-  const photo=urlPhoto||currentTestiPhotoBase64||"";
-  const newT={id:Date.now(),name,role,photo,review};
-  testimonials.push(newT);
-  if(isFirebaseConnected){
-    firebase.database().ref("testimonials/"+newT.id).set(newT)
-      .then(()=>showToast("Testimonial added & live!"))
-      .catch(()=>showToast("Error saving",true));
-  } else showToast("Added in demo mode — connect Firebase to publish");
-  // Reset form
+function addTestimonial() {
+  const name   = document.getElementById("new-testi-name").value.trim();
+  const role   = document.getElementById("new-testi-role").value.trim();
+  const photo  = document.getElementById("new-testi-photo").value.trim();
+  const review = document.getElementById("new-testi-review").value.trim();
+  if (!name || !review) { toast("Name and review are required", true); return; }
+  const t = {id:Date.now(), name, role, photo, review};
+  testimonials.push(t);
+  if(isFirebase) firebase.database().ref("testimonials/"+t.id).set(t).then(()=>toast("Testimonial live!")).catch(()=>toast("Error",true));
+  else toast("Added in demo mode — connect Firebase to publish");
   document.getElementById("new-testi-name").value="";
   document.getElementById("new-testi-role").value="";
-  document.getElementById("new-testi-review").value="";
   document.getElementById("new-testi-photo").value="";
-  document.getElementById("testi-photo-preview").style.display="none";
-  document.getElementById("testi-photo-icon").style.display="block";
-  document.getElementById("testi-photo-label").textContent="Click to upload student photo";
-  currentTestiPhotoBase64="";
+  document.getElementById("new-testi-review").value="";
+  document.getElementById("testi-photo-preview-wrap").style.display="none";
   renderTestiList();
 }
-
-function deleteTestimonial(id){
-  testimonials=testimonials.filter(t=>t.id!==id);
-  if(isFirebaseConnected){firebase.database().ref("testimonials/"+id).remove();showToast("Removed");}
-  else showToast("Removed in demo mode");
-  renderTestiList();
+function delTesti(id) {
+  testimonials = testimonials.filter(t => t.id !== id);
+  if(isFirebase) firebase.database().ref("testimonials/"+id).remove();
+  toast("Removed"); renderTestiList();
 }
 
 // ---- ANNOUNCEMENT ----
-function toggleAnnouncement(){
-  announcement.active=!announcement.active;
-  document.getElementById("ann-toggle").className="toggle"+(announcement.active?" on":"");
-  document.getElementById("ann-toggle-label").textContent=announcement.active?"Banner is ON":"Banner is OFF";
+function toggleAnn() {
+  announcement.active = !announcement.active;
+  document.getElementById("ann-toggle").className = "toggle" + (announcement.active ? " on" : "");
+  document.getElementById("ann-label").textContent = announcement.active ? "Banner is ON" : "Banner is OFF";
 }
-function saveAnnouncement(){
-  announcement.text=document.getElementById("ann-text").value.trim();
-  if(isFirebaseConnected){
-    firebase.database().ref("announcement").set(announcement)
-      .then(()=>showToast(announcement.active?"Banner is now LIVE!":"Banner hidden"))
-      .catch(()=>showToast("Error saving",true));
-  } else showToast("Demo mode — connect Firebase to publish");
+function saveAnnouncement() {
+  announcement.text = document.getElementById("ann-text").value.trim();
+  if(isFirebase) firebase.database().ref("announcement").set(announcement).then(()=>toast(announcement.active?"Banner LIVE!":"Banner hidden")).catch(()=>toast("Error",true));
+  else toast("Demo mode — connect Firebase to publish");
 }
-function setAnnEx(btn){document.getElementById("ann-text").value=btn.textContent.trim();}
+function setEx(btn) { document.getElementById("ann-text").value = btn.textContent.trim(); }
 
 // ---- CONTACT ----
-function saveContact(){
-  const data={
-    phone:document.getElementById("contact-phone").value,
-    email:document.getElementById("contact-email").value,
-    address:document.getElementById("contact-address").value,
-    open:inputToTime(document.getElementById("contact-open").value),
-    close:inputToTime(document.getElementById("contact-close").value),
-    landmark:document.getElementById("contact-landmark").value
+function saveContact() {
+  const d = {
+    phone:    document.getElementById("contact-phone").value,
+    email:    document.getElementById("contact-email").value,
+    address:  document.getElementById("contact-address").value,
+    open:     i2t(document.getElementById("contact-open").value),
+    close:    i2t(document.getElementById("contact-close").value),
+    landmark: document.getElementById("contact-landmark").value
   };
-  if(isFirebaseConnected){
-    firebase.database().ref("contact").set(data).then(()=>showToast("Contact info saved & live!")).catch(()=>showToast("Error",true));
-  } else showToast("Demo mode — connect Firebase to publish");
+  if(isFirebase) firebase.database().ref("contact").set(d).then(()=>toast("Contact info live!")).catch(()=>toast("Error",true));
+  else toast("Demo mode — connect Firebase to publish");
 }
 
 // ---- FIREBASE LOAD ----
-function loadFromFirebase(){
-  const db=firebase.database();
-  db.ref("schedule").once("value").then(s=>{if(s.val()){schedule=s.val();renderScheduleTable();}});
-  db.ref("testimonials").once("value").then(s=>{if(s.val()){testimonials=Object.values(s.val());renderTestiList();}});
-  db.ref("gallery").once("value").then(s=>{if(s.val()){gallery=Array.isArray(s.val())?s.val():Object.values(s.val());renderGalleryGrid();}});
+function loadFirebase() {
+  const db = firebase.database();
+  db.ref("schedule").once("value").then(s=>{ if(s.val()){schedule=s.val();renderSchedule();}});
+  db.ref("testimonials").once("value").then(s=>{ if(s.val()){testimonials=Object.values(s.val());renderTestiList();}});
+  db.ref("gallery").once("value").then(s=>{ if(s.val()){gallery=Array.isArray(s.val())?s.val():Object.values(s.val());renderGallery();}});
   db.ref("announcement").once("value").then(s=>{
-    if(s.val()){announcement=s.val();document.getElementById("ann-text").value=announcement.text||"";if(announcement.active)toggleAnnouncement();}
+    if(s.val()){ announcement=s.val(); document.getElementById("ann-text").value=announcement.text||""; if(announcement.active)toggleAnn(); }
   });
 }
 
 // ---- TOAST ----
-function showToast(msg,isError){
-  const t=document.getElementById("toast");
-  t.textContent=(isError?"⚠ ":"✓ ")+msg;
-  t.style.cssText=`position:fixed;bottom:30px;left:50%;transform:translateX(-50%);color:#fff;padding:12px 28px;border-radius:100px;font-size:.88rem;font-weight:600;opacity:1;z-index:9999;background:${isError?"#c0392b":"#27ae60"};transition:opacity .3s;`;
-  t.style.opacity="1";
-  setTimeout(()=>{t.style.opacity="0";},3000);
+function toast(msg, isErr) {
+  const t = document.getElementById("toast");
+  t.textContent = (isErr ? "⚠ " : "✓ ") + msg;
+  t.style.background = isErr ? "#c0392b" : "#27ae60";
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 3000);
 }
 </script>
 </body>
