@@ -1148,3 +1148,44 @@ cite.sadhguru-attr { font-style: normal; }
   background-clip: text;
 }
 
+
+/* ===== GALLERY SECTION ===== */
+.gallery-section { background: var(--cream-dark); }
+.gallery-masonry {
+  columns: 4 220px;
+  column-gap: 14px;
+}
+.gallery-masonry-item {
+  break-inside: avoid;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.gallery-masonry-item img {
+  width: 100%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.gallery-masonry-item:hover img { transform: scale(1.04); }
+.gallery-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(10,8,4,0.8), transparent);
+  color: rgba(255,255,255,0.9);
+  font-size: 0.78rem;
+  padding: 18px 12px 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gallery-masonry-item:hover .gallery-caption { opacity: 1; }
+
+/* ===== TESTIMONIAL PHOTO ===== */
+.author-avatar-img {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--saffron);
+  flex-shrink: 0;
+}
