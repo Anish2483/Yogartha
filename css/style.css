@@ -451,7 +451,26 @@ ul { list-style: none; }
 }
 .offering-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
 .offering-card:hover::before { transform: scaleX(1); }
-.card-icon { font-size: 2.5rem; margin-bottom: 20px; }
+.card-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 22px;
+  color: var(--saffron);
+  transition: color 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.card-icon svg {
+  width: 44px;
+  height: 44px;
+  display: block;
+}
+.offering-card:hover .card-icon {
+  color: var(--saffron-light);
+  filter: drop-shadow(0 0 8px rgba(240,144,64,0.5));
+  transform: translateY(-2px);
+}
 .offering-card h3 {
   font-family: var(--font-serif);
   font-size: 1.4rem;
