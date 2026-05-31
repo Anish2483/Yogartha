@@ -75,12 +75,15 @@ html, body {
   .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* ---------- HERO ---------- */
-  .hero { min-height: 100svh; }
-  .hero-title { font-size: 3.8rem; }
-  .hero-tagline { font-size: 1.05rem; }
-  .hero-desc { font-size: 0.92rem; }
-  .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
-  .hero-btns .btn { width: 220px; justify-content: center; }
+  .hero { min-height: 100svh; align-items: flex-end; }
+  .hero-content { padding-bottom: 48px; padding-top: 0; }
+  .hero-symbol-wrap { margin-bottom: 10px; }
+  .hero-symbol { width: 48px; height: 48px; }
+  .hero-logo-img { width: clamp(160px, 42vw, 260px); margin-bottom: 8px; }
+  .hero-subtitle { font-size: 0.62rem; margin-bottom: 8px; }
+  .hero-desc { font-size: 0.88rem; margin-bottom: 24px; line-height: 1.6; }
+  .hero-btns { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .hero-btns .btn { width: auto; padding: 12px 22px; font-size: 0.82rem; }
   .hero-scroll-hint { display: none; }
 
   /* ---------- MARQUEE ---------- */
@@ -197,9 +200,10 @@ html, body {
   .section-pad { padding: 56px 0; }
 
   /* Hero */
-  .hero-title { font-size: 3rem; letter-spacing: 0.03em; }
-  .hero-subtitle { font-size: 0.65rem; letter-spacing: 0.2em; }
-  .hero-tagline { font-size: 0.95rem; }
+  .hero-logo-img { width: clamp(140px, 38vw, 200px); }
+  .hero-subtitle { font-size: 0.6rem; letter-spacing: 0.15em; }
+  .hero-desc { font-size: 0.84rem; margin-bottom: 18px; }
+  .hero-content { padding-bottom: 36px; }
   .hero-top-bar { height: 3px; }
 
   /* About */
