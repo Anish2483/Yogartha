@@ -1,4 +1,4 @@
-/* ===== TOKENS ===== */
+﻿/* ===== TOKENS ===== */
 :root {
   --saffron: #D4782A;
   --saffron-light: #F09040;
@@ -128,10 +128,21 @@ ul { list-style: none; }
   align-items: center;
   gap: 10px;
 }
+.custom-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
+}
+.footer-custom-logo {
+  height: 60px;
+  margin-bottom: 8px;
+}
 .nav-symbol {
   width: 36px;
   height: 36px;
   object-fit: contain;
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
   filter: brightness(1.2);
 }
 .logo-text {
@@ -216,6 +227,7 @@ ul { list-style: none; }
   width: 80px;
   height: 80px;
   object-fit: contain;
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
   filter: drop-shadow(0 0 20px rgba(212,120,42,0.6));
   animation: floatSymbol 4s ease-in-out infinite;
 }
@@ -432,7 +444,7 @@ ul { list-style: none; }
   position: relative;
 }
 .offering-card li::before {
-  content: '—';
+  content: 'â€”';
   position: absolute; left: 0;
   color: var(--saffron);
 }
@@ -849,6 +861,7 @@ ul { list-style: none; }
 .isha-tag-img {
   width: 28px; height: 28px;
   object-fit: contain;
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
 }
 .isha-tag span {
   font-size: 0.82rem;
@@ -866,6 +879,7 @@ ul { list-style: none; }
 .section-symbol img {
   width: 60px; height: 60px;
   object-fit: contain;
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
   opacity: 0.7;
   animation: rotateSlow 20s linear infinite;
 }
@@ -877,6 +891,7 @@ ul { list-style: none; }
 .card-symbol {
   width: 48px; height: 48px;
   object-fit: contain;
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
   opacity: 0.75;
 }
 
@@ -927,6 +942,7 @@ ul { list-style: none; }
 .footer-symbol {
   width: 40px; height: 40px;
   object-fit: contain;
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
   opacity: 0.85;
 }
 .footer-tagline {
@@ -1035,6 +1051,7 @@ ul { list-style: none; }
 .sdiv-symbol {
   width: 32px; height: 32px;
   object-fit: contain;
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
   animation: rotateSlow 15s linear infinite;
 }
 
@@ -1056,3 +1073,4 @@ cite.sadhguru-attr { font-style: normal; }
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
