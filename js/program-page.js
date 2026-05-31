@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
   const loader = document.createElement('div');
   loader.id = 'loader';
   loader.innerHTML = `
-    <div class="loader-text" style="font-size: 2rem; margin-bottom: 20px;">Yogartha</div>
+    <img src="../images/yogartha_logo.png" alt="Yogartha" class="loader-logo-img" />
     <div class="loader-bar"><div class="loader-bar-fill"></div></div>
   `;
   document.body.prepend(loader);
@@ -32,7 +32,7 @@ navLinks?.querySelectorAll('a').forEach(link => {
 // ===== SCROLL TO TOP =====
 const scrollTopBtn = document.createElement('button');
 scrollTopBtn.id = 'scrollTop';
-scrollTopBtn.innerHTML = '↑';
+scrollTopBtn.innerHTML = '&#8593;';
 scrollTopBtn.setAttribute('aria-label', 'Scroll to top');
 scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 document.body.appendChild(scrollTopBtn);

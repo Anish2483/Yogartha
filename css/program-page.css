@@ -101,6 +101,16 @@ ul { list-style: none; }
   color: var(--white);
   letter-spacing: 0.05em;
 }
+/* Custom logo image in nav - with glow filter for dark background */
+.custom-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: invert(1) sepia(1) saturate(0.3) brightness(2.0)
+          drop-shadow(0 1px 6px rgba(0,0,0,0.5));
+  transition: opacity 0.3s;
+}
+.custom-logo:hover { opacity: 0.85; }
 .nav-links {
   display: flex;
   align-items: center;
@@ -479,13 +489,18 @@ ul { list-style: none; }
   flex-wrap: wrap;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.footer-logo-wrap { display: flex; align-items: center; gap: 10px; }
-.footer-symbol { width: 36px; height: 36px; object-fit: contain; opacity: 0.85; }
-.footer-logo-text {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: var(--white);
-  letter-spacing: 0.05em;
+.footer-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Footer logo image - warm glow on dark footer */
+.footer-custom-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  filter: invert(1) sepia(1) saturate(0.3) brightness(2.0)
+          drop-shadow(0 1px 8px rgba(0,0,0,0.4));
 }
 .footer-nav { display: flex; gap: 24px; flex-wrap: wrap; }
 .footer-nav a {
@@ -536,7 +551,7 @@ ul { list-style: none; }
 #loader {
   position: fixed;
   inset: 0;
-  background: var(--dark-bg);
+  background: radial-gradient(ellipse at center, #1A1208 0%, #0D0C0A 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -545,6 +560,20 @@ ul { list-style: none; }
   transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 #loader.hidden { opacity: 0; visibility: hidden; }
+/* Logo image in loader */
+.loader-logo-img {
+  width: clamp(180px, 50vw, 360px);
+  height: auto;
+  margin-bottom: 36px;
+  filter: invert(1) sepia(1) saturate(0.5) brightness(1.8)
+          drop-shadow(0 0 30px rgba(212,120,42,0.6))
+          drop-shadow(0 0 60px rgba(184,130,42,0.3));
+  animation: logoFadeIn 0.8s ease both;
+}
+@keyframes logoFadeIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
 .loader-text {
   font-family: var(--font-display);
   color: var(--saffron-light);
@@ -556,7 +585,7 @@ ul { list-style: none; }
   background: rgba(255,255,255,0.1);
   border-radius: 2px;
   overflow: hidden;
-  margin-top: 16px;
+  margin-top: 0;
 }
 .loader-bar-fill {
   height: 100%;
