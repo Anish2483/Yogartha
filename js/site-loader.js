@@ -111,9 +111,19 @@
       db.ref("siteImages").once("value").then(s => {
         const imgs = s.val();
         if (imgs) {
-          if (imgs.hero) { const h = document.querySelector(".hero-img"); if (h) h.src = imgs.hero; }
-          if (imgs.about) { const a = document.querySelector(".about-img"); if (a) a.src = imgs.about; }
-          if (imgs.guru) { const g = document.querySelector(".guru-img"); if (g) g.src = imgs.guru; }
+          if (imgs.hero)   { const h = document.querySelector(".hero-img");  if (h) h.src = imgs.hero; }
+          if (imgs.about)  { const a = document.querySelector(".about-img"); if (a) a.src = imgs.about; }
+          if (imgs.guru)   { const g = document.querySelector(".guru-img");  if (g) g.src = imgs.guru; }
+          if (imgs.banner) { const b = document.querySelector(".banner-img");if (b) b.src = imgs.banner; }
+        }
+      }).catch(() => {});
+      db.ref("teacher").once("value").then(s => {
+        const t = s.val();
+        if (t) {
+          if (t.name)  { const el = document.querySelector(".guru-name");  if (el) el.textContent = t.name; }
+          if (t.title) { const el = document.querySelector(".guru-title"); if (el) el.textContent = t.title; }
+          if (t.intro) { const el = document.querySelector(".guru-intro"); if (el) el.textContent = t.intro; }
+          if (t.bio)   { const el = document.querySelector(".guru-bio");   if (el) el.textContent = t.bio; }
         }
       }).catch(() => {});
       return true;
