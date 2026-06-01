@@ -55,11 +55,14 @@
       return;
     }
 
-    grid.innerHTML = items.map(item => `
+    const galleryHtml = items.map(item => `
       <div class="gallery-masonry-item">
         <img src="${item.url}" alt="${item.caption || 'Yogartha'}" loading="lazy" />
         ${item.caption ? `<div class="gallery-caption">${item.caption}</div>` : ""}
       </div>`).join("");
+
+    // Output twice inside the track for seamless infinite scrolling
+    grid.innerHTML = `<div class="gallery-track">${galleryHtml}${galleryHtml}</div>`;
 
     section.style.display = "block";       // Show gallery section
     if (navLi) navLi.style.display = "";   // Show Gallery nav link
