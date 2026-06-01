@@ -140,3 +140,66 @@
   });
 
 })();
+
+// =====================================================
+// CONTACT FORM — Firebase Enquiry Submission
+// Saves to Firebase Realtime DB under /enquiries
+// =====================================================
+function submitEnquiry(e) {
+  e.preventDefault();
+
+  const btn  = document.getElementById("submitBtn");
+  const note = document.getElementById("form-note");
+  const form = document.getElementById("contactForm");
+
+  const data = {
+    name:      document.getElementById("name").value.trim(),
+    email:     document.getElementById("email").value.trim(),
+    phone:     document.getElementById("phone").value.trim(),
+    program:   document.getElementById("program").value,
+    message:   document.getElementById("message").value.trim(),
+    timestamp: new Date().toISOString(),
+    read:      false
+  };
+
+  // --- Loading state ---
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+  note.style.color = "";
+  note.textContent = "Please wait…";
+
+  // --- Check Firebase is live ---
+  if (typeof firebase === "undefined" || !firebase.app) {
+    // Firebase not connected — show friendly message, don't lose the lead
+    btn.disabled = false;
+    btn.textContent = "Send Enquiry →";
+    note.style.color = "#e07020";
+    note.textContent = "⚠️ Could not connect right now. Please WhatsApp or call us directly!";
+    return;
+  }
+
+  firebase.database().ref("enquiries").push(data)
+    .then(() => {
+      // Success state
+      form.reset();
+      btn.textContent = "Sent! 🙏";
+      btn.style.background = "linear-gradient(135deg,#2E7D32,#43A047)";
+      note.style.color = "#43A047";
+      note.textContent = "✓ Your enquiry has been received. Reeta will reach out within 24 hours. Namaste!";
+      // Reset button after 5 seconds
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = "Send Enquiry →";
+        btn.style.background = "";
+        note.style.color = "";
+        note.textContent = "Reeta personally responds within 24 hours. Namaste!";
+      }, 5000);
+    })
+    .catch((err) => {
+      console.error("Enquiry error:", err);
+      btn.disabled = false;
+      btn.textContent = "Send Enquiry →";
+      note.style.color = "#c0392b";
+      note.textContent = "Something went wrong. Please try again or contact us directly.";
+    });
+}

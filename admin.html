@@ -370,6 +370,9 @@
       <button class="nav-item" onclick="showPanel('contact',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3 1.07h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Contact Info</span>
       </button>
+      <button class="nav-item" onclick="showPanel('enquiries',this)" id="nav-enquiries">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Enquiries <span id="enquiry-badge" style="display:none;background:#F26722;color:#fff;border-radius:50px;font-size:.65rem;padding:1px 7px;margin-left:4px;font-weight:700;"></span></span>
+      </button>
       <button class="nav-item" onclick="showPanel('imgbb',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Image API Setup</span>
       </button>
@@ -664,6 +667,18 @@
       </div>
     </div>
 
+    <!-- ===== ENQUIRIES ===== -->
+    <div class="panel" id="panel-enquiries">
+      <div class="page-header"><div class="page-title">Enquiries</div><div class="page-desc">Contact form submissions from your website</div></div>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <div class="card-title" style="margin:0;">All Submissions <span id="enquiry-count" style="font-size:.8rem;color:var(--muted);font-weight:400;"></span></div>
+          <button class="btn btn-ghost btn-sm" onclick="loadEnquiries()">↻ Refresh</button>
+        </div>
+        <div id="enquiry-list"><p style="color:var(--muted);font-size:.88rem;">Loading enquiries…</p></div>
+      </div>
+    </div>
+
     <!-- ===== IMGBB SETUP ===== -->
     <div class="panel" id="panel-imgbb">
       <div class="page-header"><div class="page-title">Image API Setup</div><div class="page-desc">One-time setup for direct photo uploads</div></div>
@@ -753,6 +768,7 @@ function showPanel(name, btn) {
   if (btn) btn.classList.add("active");
   closeSidebar();
   window.scrollTo({top:0, behavior:"smooth"});
+  if (name === 'enquiries') loadEnquiries();
 }
 
 // ---- IMGBB ----
@@ -830,6 +846,61 @@ function enterDash(fb) {
   }
   updateImgbbStatus(); renderSchedule(); renderTestiList(); renderGallery();
 }
+// ===== ENQUIRIES =====
+function loadEnquiries() {
+  const list = document.getElementById('enquiry-list');
+  const count = document.getElementById('enquiry-count');
+  if (!list) return;
+  if (!isFirebase) {
+    list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">Firebase not connected. Enquiries will appear here once connected.</p>';
+    return;
+  }
+  list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">Loading…</p>';
+  firebase.database().ref('enquiries').orderByChild('timestamp').once('value').then(snap => {
+    const raw = snap.val();
+    if (!raw) {
+      list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">No enquiries yet. Share your website link to get started!</p>';
+      count.textContent = '';
+      return;
+    }
+    const entries = Object.entries(raw).reverse(); // newest first
+    count.textContent = `(${entries.length} total)`;
+    let unread = 0;
+    list.innerHTML = entries.map(([key, e]) => {
+      const isUnread = !e.read;
+      if (isUnread) unread++;
+      const dt = e.timestamp ? new Date(e.timestamp).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'}) : '';
+      return `<div style="border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;background:${isUnread?'rgba(242,103,34,0.05)':'var(--surface2)'};position:relative;">
+        ${isUnread ? '<span style="position:absolute;top:12px;right:12px;background:#F26722;color:#fff;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:50px;">NEW</span>' : ''}
+        <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:4px;">${e.name || '—'}</div>
+        <div style="font-size:.82rem;color:var(--muted);margin-bottom:8px;">${dt}</div>
+        <div style="font-size:.84rem;color:var(--text-mid);display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+          ${e.email ? `<span>✉ ${e.email}</span>` : ''}
+          ${e.phone ? `<span>📞 ${e.phone}</span>` : ''}
+          ${e.program ? `<span>🧘 ${e.program}</span>` : ''}
+        </div>
+        ${e.message ? `<div style="font-size:.88rem;color:var(--text);border-left:3px solid var(--saffron);padding-left:10px;margin-bottom:10px;font-style:italic;">"${e.message}"</div>` : ''}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          ${isUnread ? `<button class="btn btn-ghost btn-sm" onclick="markEnquiryRead('${key}')">Mark as Read</button>` : ''}
+          <button class="btn btn-danger btn-sm" onclick="deleteEnquiry('${key}')">Delete</button>
+        </div>
+      </div>`;
+    }).join('');
+    // Update badge
+    const badge = document.getElementById('enquiry-badge');
+    if (badge) { badge.textContent = unread; badge.style.display = unread > 0 ? 'inline' : 'none'; }
+  }).catch(() => {
+    list.innerHTML = '<p style="color:var(--danger);font-size:.88rem;">Could not load enquiries. Check your Firebase connection.</p>';
+  });
+}
+function markEnquiryRead(key) {
+  firebase.database().ref('enquiries/' + key + '/read').set(true).then(loadEnquiries);
+}
+function deleteEnquiry(key) {
+  if (!confirm('Delete this enquiry?')) return;
+  firebase.database().ref('enquiries/' + key).remove().then(loadEnquiries);
+}
+
 function doLogout() {
   if(isFirebase)firebase.auth().signOut();
   document.getElementById("dashboard").style.display="none";
