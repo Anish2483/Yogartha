@@ -14,16 +14,29 @@
     body {
       background-color: #120d0a;
       color: #eaeaea;
-      /* Background fades into black as you scroll down */
-      background-image: linear-gradient(to bottom, rgba(18,13,10,0.3) 0%, rgba(18,13,10,1) 800px), url('../images/thefirstyogi.webp');
-      background-size: 100% auto;
-      background-position: top center;
-      background-repeat: no-repeat;
     }
+    
+    .lineage-hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 900px;
+      background-image: url('../images/thefirstyogi.webp');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      z-index: 0;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+    }
+
     .lineage-header {
       padding: 240px 20px 100px;
       text-align: center;
-      background: transparent;
+      position: relative;
+      z-index: 2;
     }
     .lineage-title {
       font-family: 'Cinzel', serif;
@@ -162,17 +175,24 @@
       color: #a09080;
     }
     @media (max-width: 768px) {
-      body { background-size: cover; }
-      .lineage-header { padding-top: 180px; }
-      .lineage-title { font-size: 2.8rem; }
+      .lineage-hero-bg { height: 600px; }
+      .lineage-header { padding: 180px 20px 60px; }
+      .lineage-title { font-size: 2.5rem; letter-spacing: 2px; }
+      .lineage-subtitle { font-size: 1.3rem; }
       .lineage-section, .lineage-section.reverse {
         flex-direction: column;
-        gap: 50px;
-        padding: 60px 20px;
+        gap: 40px;
+        padding: 50px 20px;
       }
-      .l-quote-text { font-size: 1.8rem; }
+      .lineage-content h2 { font-size: 2.2rem; margin-bottom: 16px; }
+      .lineage-content { font-size: 1.05rem; line-height: 1.6; text-align: justify; }
+      .lineage-image::before, .lineage-section.reverse .lineage-image::before {
+        left: -10px; right: 10px; top: -10px; bottom: 10px;
+      }
+      .lineage-quote { padding: 80px 20px; }
+      .l-quote-text { font-size: 1.6rem; }
       .l-quote-text::before { display: none; }
-      .watermark { display: none; } /* Hide watermarks on mobile to keep it clean */
+      .watermark { display: none; } /* Hide watermarks on mobile */
     }
     @keyframes fadeIn {
       0% { opacity: 0; transform: translateY(20px); }
@@ -195,6 +215,8 @@
       </ul>
     </div>
   </nav>
+
+  <div class="lineage-hero-bg"></div>
 
   <header class="lineage-header">
     <h1 class="lineage-title">The Lineage</h1>
@@ -237,7 +259,7 @@
       <span class="l-quote-attr">- Sadhguru</span>
     </section>
 
-    <footer class="footer" style="background:#120d0a;">
+    <footer class="footer">
       <div class="footer-mandala"><img src="../images/isha_hatha_symbol.png" alt="" class="site-symbol" /></div>
       <div class="container footer-grid">
         <div class="footer-col brand-col">
