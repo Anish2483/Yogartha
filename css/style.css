@@ -865,31 +865,53 @@ ul { list-style: none; }
   align-items: center;
 }
 
-/* ---- Portrait Frame (yoga-like: clean, soft, minimal) ---- */
+/* ---- Portrait: no frame, dissolves into dark background ---- */
 .sadhguru-photo-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
+  position: relative;
 }
 .sg-portrait-frame {
   position: relative;
-  width: 240px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(212,120,42,0.22);
-  box-shadow:
-    0 0 0 8px rgba(212,120,42,0.04),
-    0 24px 64px rgba(0,0,0,0.5);
+  width: 260px;
+}
+/* Warm aura glow behind the figure */
+.sg-portrait-frame::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 60%,
+    rgba(212,120,42,0.18) 0%,
+    rgba(107,16,32,0.08) 40%,
+    transparent 70%);
+  z-index: 0;
+  pointer-events: none;
 }
 .sadhguru-photo {
   width: 100%;
-  height: 320px;
+  height: 360px;
   object-fit: cover;
   object-position: top center;
   display: block;
+  position: relative;
+  z-index: 1;
+  /* Dissolve edges into the dark background */
+  mask-image: radial-gradient(
+    ellipse 85% 90% at 50% 40%,
+    black 35%,
+    rgba(0,0,0,0.8) 55%,
+    transparent 80%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 85% 90% at 50% 40%,
+    black 35%,
+    rgba(0,0,0,0.8) 55%,
+    transparent 80%
+  );
 }
-/* no overlay — let the image breathe */
 .sg-portrait-glow { display: none; }
 
 /* ---- Name & sub below portrait ---- */
@@ -1070,12 +1092,12 @@ ul { list-style: none; }
 @media (max-width: 768px) {
   .sadhguru-inner {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 10px;
     text-align: center;
   }
   .sadhguru-photo-wrap { align-items: center; }
-  .sg-portrait-frame { width: 190px; }
-  .sadhguru-photo { height: 250px; }
+  .sg-portrait-frame { width: 200px; }
+  .sadhguru-photo { height: 260px; }
   .sadhguru-quote { font-size: clamp(1.25rem, 5vw, 1.6rem); padding-left: 0; }
   .sadhguru-quote::before { display: none; }
   .sadhguru-text { text-align: center; }
