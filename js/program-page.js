@@ -45,3 +45,31 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 reveals.forEach(el => observer.observe(el));
+
+// ===== FIREBASE IMAGE LOADER =====
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof firebase !== 'undefined' && firebase.app) {
+    const db = firebase.database();
+    
+    // Get program ID from URL (e.g. "surya-kriya" from "/programs/surya-kriya.html")
+    let pathname = window.location.pathname;
+    let filename = pathname.split('/').pop() || '';
+    let programId = filename.replace('.html', '');
+    
+    if (programId && programId !== 'index' && programId !== 'admin') {
+      db.ref("programs/" + programId + "/images").once("value").then(s => {
+        const imgs = s.val();
+        if (imgs) {
+          if (imgs.hero) {
+            const h = document.querySelector(".program-hero-bg img");
+            if (h) h.src = imgs.hero;
+          }
+          if (imgs.overview) {
+            const o = document.querySelector(".overview-image img");
+            if (o) o.src = imgs.overview;
+          }
+        }
+      }).catch(e => console.log("Firebase image load error:", e));
+    }
+  }
+});

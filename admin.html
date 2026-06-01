@@ -576,24 +576,7 @@
         </div>
       </div>
 
-      <!-- Logo -->
-      <div class="card">
-        <div class="card-title">Main Logo</div>
-        <div class="site-img-card">
-          <img id="prev-img-logo" src="images/yogartha_logo.png" style="width:100px;height:100px;object-fit:contain;" class="site-img-preview" alt="Logo" />
-          <div class="site-img-actions">
-            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-logo').click()">
-              <input type="file" id="file-img-logo" accept="image/*" style="display:none;" onchange="uploadSiteImg('logo',this.files[0],'prev-img-logo')" />
-              <p style="font-size:.82rem;"><strong>Tap to upload logo</strong></p>
-            </div>
-            <div class="or-divider">or paste URL</div>
-            <div style="display:flex;gap:8px;">
-              <input type="url" id="url-img-logo" placeholder="Image URL…" style="flex:1;" />
-              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('logo')">Set</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       <!-- Sadhguru -->
       <div class="card">
@@ -647,6 +630,70 @@
             <div style="display:flex;gap:8px;">
               <input type="url" id="url-img-symbol" placeholder="Image URL…" style="flex:1;" />
               <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('symbol')">Set</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PROGRAM IMAGES ===== -->
+    <div class="panel" id="panel-programs">
+      <div class="page-header"><div class="page-title">Program Images</div><div class="page-desc">Update images for specific program pages</div></div>
+      <div class="card">
+        <label>Select Program:</label>
+        <select id="program-select" onchange="loadProgramImages()" class="form-input" style="background:#fff; border:1px solid #ddd; margin-top: 8px;">
+          <option value="">-- Choose a Program --</option>
+          <option value="surya-kriya">Surya Kriya</option>
+          <option value="hatha-yoga">Hatha Yoga</option>
+          <option value="yogasanas">Yogasanas</option>
+          <option value="angamardhana">Angamardhana</option>
+          <option value="bhuta-shuddhi">Bhuta Shuddhi</option>
+          <option value="upa-yoga">Upa Yoga</option>
+          <option value="shanmuki-mudra">Shanmukhi Mudra</option>
+          <option value="jala-neti">Jala Neti</option>
+          <option value="eye-care-workshop">Eye Care Workshop</option>
+          <option value="yoga-for-kids">Yoga for Kids</option>
+          <option value="yoga-for-pregnant-women">Pregnancy Yoga</option>
+          <option value="yoga-for-wellbeing">Yoga for Wellbeing</option>
+          <option value="bhastrika">Bhastrika</option>
+        </select>
+      </div>
+
+      <!-- Program Hero -->
+      <div class="card">
+        <div class="card-title">Program Hero Image</div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">The large banner at the top of the program page.</p>
+        <div class="site-img-card">
+          <img id="prev-prog-hero" src="images/placeholder.png" style="width:130px;height:80px;object-fit:cover;" class="site-img-preview" alt="Hero" />
+          <div class="site-img-actions">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-prog-hero').click()">
+              <input type="file" id="file-prog-hero" accept="image/*" style="display:none;" onchange="uploadProgramImg('hero',this.files[0],'prev-prog-hero')" />
+              <p style="font-size:.82rem;"><strong>Tap to upload hero photo</strong></p>
+            </div>
+            <div class="or-divider">or paste URL</div>
+            <div style="display:flex;gap:8px;">
+              <input type="url" id="url-prog-hero" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateProgramImgUrl('hero')">Set</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Program Overview -->
+      <div class="card">
+        <div class="card-title">Program Overview Image</div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">The image shown next to the text description.</p>
+        <div class="site-img-card">
+          <img id="prev-prog-overview" src="images/placeholder.png" style="width:100px;height:100px;object-fit:cover;" class="site-img-preview" alt="Overview" />
+          <div class="site-img-actions">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-prog-overview').click()">
+              <input type="file" id="file-prog-overview" accept="image/*" style="display:none;" onchange="uploadProgramImg('overview',this.files[0],'prev-prog-overview')" />
+              <p style="font-size:.82rem;"><strong>Tap to upload overview photo</strong></p>
+            </div>
+            <div class="or-divider">or paste URL</div>
+            <div style="display:flex;gap:8px;">
+              <input type="url" id="url-prog-overview" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateProgramImgUrl('overview')">Set</button>
             </div>
           </div>
         </div>
@@ -1127,6 +1174,49 @@ async function saveSiteImgToDb(type,url){
   if(isFirebase)await firebase.database().ref("siteImages/"+type).set(url).catch(()=>toast("DB error",true));
 }
 
+// ---- PROGRAM IMAGES ----
+function loadProgramImages() {
+  const pId = document.getElementById('program-select').value;
+  document.getElementById('prev-prog-hero').src = 'images/placeholder.png';
+  document.getElementById('prev-prog-overview').src = 'images/placeholder.png';
+  if(pId && isFirebase) {
+    firebase.database().ref("programs/"+pId+"/images").once("value").then(s=>{
+      if(s.val()) {
+         const i = s.val();
+         if(i.hero) document.getElementById('prev-prog-hero').src = i.hero;
+         if(i.overview) document.getElementById('prev-prog-overview').src = i.overview;
+      }
+    });
+  }
+}
+
+async function uploadProgramImg(type, file, previewId) {
+  if(!file) return;
+  const pId = document.getElementById('program-select').value;
+  if(!pId) return toast("Select a program first",true);
+  toast("Uploading program image...");
+  try {
+    const url = await uploadToImgbb(file, ()=>{});
+    if(url){
+      document.getElementById(previewId).src = url;
+      if(isFirebase) await firebase.database().ref("programs/"+pId+"/images/"+type).set(url);
+      toast("Program image updated!");
+    } else toast("Upload failed", true);
+  } catch(e) { toast("Error uploading", true); }
+}
+
+function updateProgramImgUrl(type) {
+  const pId = document.getElementById('program-select').value;
+  if(!pId) return toast("Select a program first",true);
+  const url = document.getElementById(`url-prog-${type}`).value.trim();
+  if(!url) return toast("Please enter a valid URL", true);
+  document.getElementById(`prev-prog-${type}`).src = url;
+  if(isFirebase) firebase.database().ref("programs/"+pId+"/images/"+type).set(url).then(()=>{
+    toast("Program image updated!");
+    document.getElementById(`url-prog-${type}`).value = '';
+  });
+}
+
 // ---- TEACHER ----
 function saveTeacherInfo(){
   const d={
@@ -1177,7 +1267,6 @@ function loadFirebase(){
   });
   db.ref("siteImages").once("value").then(s=>{
     if(s.val()){const i=s.val();
-      if(i.logo) { const el = document.getElementById("prev-img-logo"); if(el) el.src=i.logo; }
       if(i.hero) { const el = document.getElementById("prev-img-hero"); if(el) el.src=i.hero; }
       if(i.about) { const el = document.getElementById("prev-img-about"); if(el) el.src=i.about; }
       if(i.sadhguru) { const el = document.getElementById("prev-img-sadhguru"); if(el) el.src=i.sadhguru; }
