@@ -320,6 +320,37 @@ ul { list-style: none; }
   .hero-scroll-hint { display: none; } /* Hide on short screens to prevent overlap with buttons */
 }
 
+/* ===== ELEGANT MARQUEE ===== */
+.marquee-elegant {
+  background: var(--cream);
+  padding: 16px 0;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(212,120,42,0.15); /* very subtle saffron line */
+}
+.marquee-track-elegant {
+  display: flex;
+  gap: 36px;
+  white-space: nowrap;
+  animation: marquee-slow 40s linear infinite;
+  align-items: center;
+}
+.marquee-track-elegant span {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--charcoal);
+  letter-spacing: 0.05em;
+}
+.marquee-track-elegant .sep {
+  font-style: normal;
+  font-size: 0.8rem;
+  color: rgba(212,120,42,0.4); /* Saffron tint */
+}
+@keyframes marquee-slow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ===== ABOUT ===== */
 .about { background: var(--cream); }
 .about-img-wrap { position: relative; }
