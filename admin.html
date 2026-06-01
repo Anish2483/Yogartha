@@ -361,9 +361,6 @@
       <button class="nav-item" onclick="showPanel('images',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg><span>Site Images</span>
       </button>
-      <button class="nav-item" onclick="showPanel('programs',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg><span>Program Images</span>
-      </button>
       <button class="nav-item" onclick="showPanel('teacher',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>About Teacher</span>
       </button>
@@ -637,11 +634,12 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ===== PROGRAM IMAGES ===== -->
-    <div class="panel" id="panel-programs">
-      <div class="page-header"><div class="page-title">Program Images</div><div class="page-desc">Update images for specific program pages</div></div>
+      <div style="margin-top:40px; margin-bottom:20px; border-bottom:1px solid rgba(0,0,0,0.1); padding-bottom:10px;">
+        <h3 style="font-size:1.1rem; color:var(--text); margin:0;">Program Pages Images</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Select a program below to change its specific header and overview photos.</p>
+      </div>
+
       <div class="card">
         <label>Select Program:</label>
         <select id="program-select" onchange="loadProgramImages()" class="form-input" style="background:#fff; border:1px solid #ddd; margin-top: 8px;">
