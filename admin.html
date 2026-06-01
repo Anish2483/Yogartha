@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yogartha Admin — Owner Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Yogartha Admin</title>
   <meta name="robots" content="noindex, nofollow" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,175 +16,285 @@
       --gold-lt:#f0c96e; --cream:#f5f0e8; --text:rgba(255,255,255,0.88);
       --muted:rgba(255,255,255,0.45); --danger:#c0392b; --success:#27ae60;
       --radius:12px; --font:'Inter',sans-serif; --serif:'Cormorant Garamond',serif;
+      --sidebar-w:244px; --topbar-h:60px; --bottomnav-h:64px;
     }
-    html,body { height:100%; background:var(--bg); color:var(--text); font-family:var(--font); }
+    html, body { height:100%; background:var(--bg); color:var(--text); font-family:var(--font); overflow-x:hidden; }
 
-    /* ===== LOGIN ===== */
-    #login-screen { min-height:100vh; display:flex; align-items:center; justify-content:center;
-      background:radial-gradient(ellipse at 50% 40%,rgba(232,114,42,.12) 0%,transparent 70%); }
-    .login-box { background:var(--surface); border:1px solid var(--border); border-radius:20px;
-      padding:48px 40px; width:100%; max-width:420px; text-align:center; }
-    .login-logo { font-family:var(--serif); font-size:2.4rem; color:var(--gold-lt); letter-spacing:.05em; margin-bottom:6px; }
-    .login-sub { font-size:.8rem; color:var(--muted); letter-spacing:.15em; text-transform:uppercase; margin-bottom:36px; }
-    .login-box input { width:100%; padding:14px 16px; background:var(--surface2); border:1px solid var(--border);
-      border-radius:10px; color:var(--text); font-family:var(--font); font-size:.95rem; margin-bottom:14px; outline:none; transition:border .2s; }
-    .login-box input:focus { border-color:var(--saffron); }
-    .login-box input::placeholder { color:var(--muted); }
-    .btn-login { width:100%; padding:14px; background:linear-gradient(135deg,var(--saffron),var(--gold));
-      border:none; border-radius:10px; color:#fff; font-family:var(--font); font-size:1rem; font-weight:600; cursor:pointer; transition:opacity .2s; }
-    .btn-login:hover { opacity:.9; }
+    /* ===================== LOGIN ===================== */
+    #login-screen {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      background:radial-gradient(ellipse at 50% 40%,rgba(232,114,42,.14) 0%,transparent 70%);
+      padding:20px;
+    }
+    .login-box {
+      background:var(--surface); border:1px solid var(--border); border-radius:20px;
+      padding:44px 36px; width:100%; max-width:400px; text-align:center;
+    }
+    .login-logo { font-family:var(--serif); font-size:2.6rem; color:var(--gold-lt); letter-spacing:.05em; margin-bottom:4px; }
+    .login-sub { font-size:.78rem; color:var(--muted); letter-spacing:.16em; text-transform:uppercase; margin-bottom:36px; }
+    .login-field {
+      width:100%; padding:15px 16px; background:var(--surface2); border:1px solid var(--border);
+      border-radius:10px; color:var(--text); font-family:var(--font); font-size:1rem;
+      margin-bottom:12px; outline:none; transition:border .2s; -webkit-appearance:none;
+    }
+    .login-field:focus { border-color:var(--saffron); }
+    .login-field::placeholder { color:var(--muted); }
+    .btn-login {
+      width:100%; padding:15px; background:linear-gradient(135deg,var(--saffron),var(--gold));
+      border:none; border-radius:10px; color:#fff; font-family:var(--font); font-size:1rem;
+      font-weight:600; cursor:pointer; transition:opacity .2s; margin-top:4px;
+    }
+    .btn-login:active { opacity:.85; }
     .login-error { color:#f87171; font-size:.85rem; margin-top:12px; min-height:20px; }
 
-    /* ===== DASHBOARD ===== */
-    #dashboard { display:none; min-height:100vh; }
-    .sidebar { position:fixed; top:0; left:0; bottom:0; width:244px; background:var(--surface);
-      border-right:1px solid var(--border); display:flex; flex-direction:column; z-index:100; }
-    .sidebar-logo { padding:28px 24px 20px; border-bottom:1px solid var(--border); }
-    .sidebar-logo span { font-family:var(--serif); font-size:1.6rem; color:var(--gold-lt); }
-    .sidebar-logo small { display:block; font-size:.68rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:2px; }
-    .sidebar-nav { flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:4px; overflow-y:auto; }
-    .nav-item { display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px;
-      font-size:.88rem; font-weight:500; color:var(--muted); cursor:pointer; transition:all .2s;
-      border:none; background:none; text-align:left; width:100%; }
+    /* ===================== DASHBOARD ===================== */
+    #dashboard { display:none; }
+
+    /* ---- DESKTOP SIDEBAR ---- */
+    .sidebar {
+      position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w);
+      background:var(--surface); border-right:1px solid var(--border);
+      display:flex; flex-direction:column; z-index:200; transition:transform .3s ease;
+    }
+    .sidebar-logo { padding:26px 24px 18px; border-bottom:1px solid var(--border); }
+    .sidebar-logo span { font-family:var(--serif); font-size:1.55rem; color:var(--gold-lt); }
+    .sidebar-logo small { display:block; font-size:.67rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; margin-top:2px; }
+    .sidebar-nav { flex:1; padding:14px 10px; display:flex; flex-direction:column; gap:3px; overflow-y:auto; }
+    .nav-item {
+      display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px;
+      font-size:.875rem; font-weight:500; color:var(--muted); cursor:pointer; transition:all .18s;
+      border:none; background:none; text-align:left; width:100%; -webkit-tap-highlight-color:transparent;
+    }
     .nav-item svg { width:18px; height:18px; flex-shrink:0; }
     .nav-item:hover { background:var(--surface2); color:var(--text); }
     .nav-item.active { background:rgba(232,114,42,.15); color:var(--saffron); }
-    .sidebar-footer { padding:16px 12px; border-top:1px solid var(--border); }
-    .btn-logout { width:100%; padding:10px 14px; background:rgba(192,57,43,.15);
-      border:1px solid rgba(192,57,43,.3); border-radius:10px; color:#f87171; font-size:.85rem; cursor:pointer; transition:all .2s; }
+    .sidebar-footer { padding:14px 10px; border-top:1px solid var(--border); }
+    .btn-logout {
+      width:100%; padding:10px 14px; background:rgba(192,57,43,.15);
+      border:1px solid rgba(192,57,43,.3); border-radius:10px; color:#f87171;
+      font-size:.85rem; cursor:pointer; transition:all .2s; font-family:var(--font);
+    }
     .btn-logout:hover { background:rgba(192,57,43,.25); }
-    .main { margin-left:244px; padding:36px 40px; min-height:100vh; }
-    .page-header { margin-bottom:32px; }
+
+    /* ---- MOBILE TOPBAR ---- */
+    .mobile-topbar {
+      display:none; position:fixed; top:0; left:0; right:0; height:var(--topbar-h);
+      background:var(--surface); border-bottom:1px solid var(--border);
+      align-items:center; justify-content:space-between; padding:0 18px; z-index:300;
+    }
+    .mobile-logo { font-family:var(--serif); font-size:1.4rem; color:var(--gold-lt); }
+    .hamburger {
+      width:40px; height:40px; display:flex; flex-direction:column; justify-content:center;
+      align-items:center; gap:5px; background:none; border:none; cursor:pointer; padding:4px;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .hamburger span {
+      display:block; width:22px; height:2px; background:var(--text);
+      border-radius:2px; transition:all .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    /* ---- MOBILE DRAWER OVERLAY ---- */
+    .sidebar-overlay {
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,.6);
+      z-index:150; backdrop-filter:blur(2px);
+    }
+    .sidebar-overlay.show { display:block; }
+
+    /* ---- MOBILE BOTTOM NAV ---- */
+    .bottom-nav {
+      display:none; position:fixed; bottom:0; left:0; right:0; height:var(--bottomnav-h);
+      background:var(--surface); border-top:1px solid var(--border);
+      align-items:center; justify-content:space-around; z-index:200;
+      padding-bottom:env(safe-area-inset-bottom);
+    }
+    .bottom-nav-item {
+      display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 6px;
+      background:none; border:none; cursor:pointer; color:var(--muted); font-size:.6rem;
+      font-weight:600; letter-spacing:.05em; text-transform:uppercase; flex:1;
+      transition:color .2s; -webkit-tap-highlight-color:transparent; font-family:var(--font);
+    }
+    .bottom-nav-item svg { width:20px; height:20px; }
+    .bottom-nav-item.active { color:var(--saffron); }
+
+    /* ---- MAIN CONTENT ---- */
+    .main { margin-left:var(--sidebar-w); padding:36px 40px; min-height:100vh; }
+    .page-header { margin-bottom:28px; }
     .page-title { font-family:var(--serif); font-size:2rem; color:var(--cream); margin-bottom:6px; }
-    .page-desc { font-size:.88rem; color:var(--muted); }
+    .page-desc { font-size:.875rem; color:var(--muted); }
     .panel { display:none; } .panel.active { display:block; }
 
-    /* ===== CARDS ===== */
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; margin-bottom:20px; }
-    .card-title { font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--saffron); margin-bottom:20px; }
+    /* ---- CARDS ---- */
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:18px; }
+    .card-title { font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--saffron); margin-bottom:18px; }
 
-    /* ===== FORMS ===== */
+    /* ---- FORMS ---- */
     label { display:block; font-size:.82rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
     input[type="text"], input[type="time"], input[type="email"],
     input[type="tel"], input[type="url"], input[type="password"], textarea, select {
-      width:100%; padding:11px 14px; background:var(--surface2); border:1px solid var(--border);
-      border-radius:8px; color:var(--text); font-family:var(--font); font-size:.9rem; outline:none; transition:border .2s; }
+      width:100%; padding:12px 14px; background:var(--surface2); border:1px solid var(--border);
+      border-radius:8px; color:var(--text); font-family:var(--font); font-size:.95rem;
+      outline:none; transition:border .2s; -webkit-appearance:none;
+    }
     input:focus, textarea:focus, select:focus { border-color:var(--saffron); }
     input::placeholder, textarea::placeholder { color:var(--muted); }
     textarea { resize:vertical; min-height:80px; }
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-    .form-group { margin-bottom:16px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .form-group { margin-bottom:14px; }
 
-    /* ===== BUTTONS ===== */
-    .btn { padding:10px 22px; border-radius:8px; font-family:var(--font); font-size:.88rem; font-weight:600; cursor:pointer; transition:all .2s; border:none; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+    /* ---- BUTTONS ---- */
+    .btn {
+      padding:12px 22px; border-radius:9px; font-family:var(--font); font-size:.9rem;
+      font-weight:600; cursor:pointer; transition:all .2s; border:none;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      -webkit-tap-highlight-color:transparent; min-height:44px;
+    }
     .btn-primary { background:linear-gradient(135deg,var(--saffron),var(--gold)); color:#fff; }
-    .btn-primary:hover { opacity:.9; }
+    .btn-primary:active { opacity:.85; }
     .btn-primary:disabled { opacity:.5; cursor:not-allowed; }
     .btn-ghost { background:transparent; border:1px solid var(--border); color:var(--muted); }
-    .btn-ghost:hover { border-color:var(--saffron); color:var(--saffron); }
+    .btn-ghost:active { border-color:var(--saffron); color:var(--saffron); }
     .btn-danger { background:rgba(192,57,43,.2); border:1px solid rgba(192,57,43,.3); color:#f87171; }
-    .btn-danger:hover { background:rgba(192,57,43,.35); }
-    .btn-sm { padding:7px 14px; font-size:.8rem; }
+    .btn-danger:active { background:rgba(192,57,43,.35); }
+    .btn-sm { padding:8px 14px; font-size:.82rem; min-height:36px; }
+    .btn-full { width:100%; }
     .btn-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 
-    /* ===== STATUS BAR ===== */
-    .status-bar { display:flex; align-items:center; gap:8px; padding:10px 14px; border-radius:8px; font-size:.82rem; margin-bottom:20px; }
+    /* ---- STATUS BAR ---- */
+    .status-bar { display:flex; align-items:center; gap:8px; padding:10px 14px; border-radius:8px; font-size:.82rem; margin-bottom:18px; }
     .status-bar.connected { background:rgba(39,174,96,.15); color:#6ee89a; border:1px solid rgba(39,174,96,.25); }
     .status-bar.demo { background:rgba(212,164,76,.15); color:var(--gold-lt); border:1px solid rgba(212,164,76,.25); }
     .status-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
     .status-bar.connected .status-dot { background:#6ee89a; }
     .status-bar.demo .status-dot { background:var(--gold-lt); }
 
-    /* ===== IMGBB STATUS ===== */
-    .imgbb-bar { display:flex; align-items:center; gap:8px; padding:10px 14px; border-radius:8px; font-size:.82rem; margin-bottom:16px; }
+    /* ---- IMGBB STATUS ---- */
+    .imgbb-bar { display:flex; align-items:center; gap:8px; padding:10px 14px; border-radius:8px; font-size:.82rem; margin-bottom:14px; }
     .imgbb-bar.ready { background:rgba(39,174,96,.12); color:#6ee89a; border:1px solid rgba(39,174,96,.2); }
     .imgbb-bar.notset { background:rgba(212,164,76,.12); color:var(--gold-lt); border:1px solid rgba(212,164,76,.2); }
 
-    /* ===== SCHEDULE ===== */
-    .schedule-editor-wrap { overflow-x:auto; }
-    .schedule-edit-table { width:100%; border-collapse:collapse; font-size:.88rem; }
-    .schedule-edit-table th { background:rgba(232,114,42,.1); color:var(--saffron); padding:12px; text-align:center;
-      font-size:.75rem; letter-spacing:.08em; border-bottom:1px solid var(--border); }
-    .schedule-edit-table td { padding:8px 6px; text-align:center; border-bottom:1px solid var(--border); }
-    .schedule-edit-table td:first-child { font-weight:600; color:var(--gold-lt); width:100px; }
-    .schedule-edit-table input { padding:8px 10px; text-align:center; font-size:.82rem; border-radius:6px; width:100%; min-width:110px; }
-    .col-time { display:flex; align-items:center; gap:6px; }
-    .col-time input[type="time"] { flex:1; }
-    .btn-del-col { background:none; border:none; color:var(--danger); cursor:pointer; font-size:1rem; padding:2px 4px; }
+    /* ---- SCHEDULE ---- */
+    .schedule-editor-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .schedule-edit-table { width:100%; border-collapse:collapse; font-size:.85rem; }
+    .schedule-edit-table th { background:rgba(232,114,42,.1); color:var(--saffron); padding:10px; text-align:center; font-size:.72rem; letter-spacing:.08em; border-bottom:1px solid var(--border); }
+    .schedule-edit-table td { padding:7px 5px; text-align:center; border-bottom:1px solid var(--border); }
+    .schedule-edit-table td:first-child { font-weight:600; color:var(--gold-lt); width:90px; font-size:.82rem; }
+    .schedule-edit-table input { padding:8px; text-align:center; font-size:.8rem; border-radius:6px; width:100%; min-width:100px; }
+    .col-time { display:flex; align-items:center; gap:4px; }
+    .col-time input[type="time"] { flex:1; font-size:.78rem; }
+    .btn-del-col { background:none; border:none; color:var(--danger); cursor:pointer; font-size:1.1rem; padding:2px 6px; }
 
-    /* ===== UPLOAD DROP ZONE ===== */
-    .upload-zone { border:2px dashed var(--border); border-radius:12px; padding:32px 20px; text-align:center;
-      cursor:pointer; transition:all .25s; position:relative; }
-    .upload-zone:hover, .upload-zone.dragging { border-color:var(--saffron); background:rgba(232,114,42,.05); }
+    /* ---- UPLOAD DROP ZONE ---- */
+    .upload-zone {
+      border:2px dashed var(--border); border-radius:12px; padding:28px 16px; text-align:center;
+      cursor:pointer; transition:all .25s; position:relative; -webkit-tap-highlight-color:transparent;
+    }
+    .upload-zone:active, .upload-zone.dragging { border-color:var(--saffron); background:rgba(232,114,42,.05); }
     .upload-zone input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-    .upload-zone-icon { font-size:2.5rem; margin-bottom:10px; }
-    .upload-zone p { font-size:.88rem; color:var(--muted); line-height:1.6; }
+    .upload-zone-icon { font-size:2.2rem; margin-bottom:8px; }
+    .upload-zone p { font-size:.875rem; color:var(--muted); line-height:1.6; }
     .upload-zone p strong { color:var(--text); }
-    .upload-zone small { font-size:.75rem; color:var(--muted); opacity:.7; }
+    .upload-zone small { font-size:.73rem; color:var(--muted); opacity:.7; }
 
-    /* ===== PROGRESS BAR ===== */
-    .upload-progress { display:none; margin-top:14px; }
+    /* ---- PROGRESS ---- */
+    .upload-progress { display:none; margin-top:12px; }
     .upload-progress.show { display:block; }
-    .progress-bar-wrap { background:var(--surface2); border-radius:100px; overflow:hidden; height:6px; margin-top:6px; }
+    .progress-bar-wrap { background:var(--surface2); border-radius:100px; overflow:hidden; height:5px; margin-top:6px; }
     .progress-bar-fill { height:100%; border-radius:100px; background:linear-gradient(90deg,var(--saffron),var(--gold)); transition:width .3s; }
     .upload-status-text { font-size:.78rem; color:var(--muted); margin-bottom:4px; }
 
-    /* ===== GALLERY GRID ===== */
-    .gallery-preview-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; margin-bottom:16px; }
-    .gallery-preview-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1;
-      background:var(--surface2); border:1px solid var(--border); }
+    /* ---- GALLERY ---- */
+    .gallery-preview-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; margin-bottom:16px; }
+    .gallery-preview-item { position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1; background:var(--surface2); border:1px solid var(--border); }
     .gallery-preview-item img { width:100%; height:100%; object-fit:cover; display:block; }
-    .gallery-preview-caption { position:absolute; bottom:0; left:0; right:0;
-      background:linear-gradient(to top,rgba(0,0,0,.85),transparent);
-      padding:8px 10px; font-size:.73rem; color:#fff; }
-    .gallery-preview-del { position:absolute; top:6px; right:6px; background:rgba(192,57,43,.9);
-      border:none; border-radius:6px; color:#fff; font-size:.8rem; padding:3px 8px; cursor:pointer; }
+    .gallery-preview-caption { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,.85),transparent); padding:6px 8px; font-size:.7rem; color:#fff; }
+    .gallery-preview-del { position:absolute; top:5px; right:5px; background:rgba(192,57,43,.9); border:none; border-radius:6px; color:#fff; font-size:.8rem; padding:4px 8px; cursor:pointer; }
 
-    /* ===== TESTIMONIALS ===== */
-    .testi-item { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:12px; }
+    /* ---- TESTIMONIALS ---- */
+    .testi-item { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:10px; }
     .testi-item-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
     .testi-meta { display:flex; align-items:center; gap:12px; }
-    .testi-avatar-img { width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--saffron); flex-shrink:0; }
-    .testi-avatar-letter { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--saffron),var(--gold));
-      display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem; color:#fff; flex-shrink:0; }
-    .testi-name { font-weight:600; font-size:.92rem; }
-    .testi-role { font-size:.78rem; color:var(--muted); margin-top:2px; }
+    .testi-avatar-img { width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid var(--saffron); flex-shrink:0; }
+    .testi-avatar-letter { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--saffron),var(--gold)); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem; color:#fff; flex-shrink:0; }
+    .testi-name { font-weight:600; font-size:.9rem; }
+    .testi-role { font-size:.76rem; color:var(--muted); margin-top:2px; }
 
-    /* ===== SITE IMAGE CARD ===== */
-    .site-img-card { display:flex; gap:20px; align-items:flex-start; }
+    /* ---- SITE IMAGE CARD ---- */
+    .site-img-card { display:flex; gap:16px; align-items:flex-start; }
     .site-img-preview { border-radius:10px; object-fit:cover; border:1px solid var(--border); flex-shrink:0; }
-    .site-img-actions { flex:1; display:flex; flex-direction:column; gap:10px; }
-    .or-divider { text-align:center; font-size:.75rem; color:var(--muted); position:relative; margin:4px 0; }
-    .or-divider::before, .or-divider::after { content:""; position:absolute; top:50%; width:40%; height:1px; background:var(--border); }
+    .site-img-actions { flex:1; display:flex; flex-direction:column; gap:8px; min-width:0; }
+    .or-divider { text-align:center; font-size:.72rem; color:var(--muted); position:relative; margin:4px 0; }
+    .or-divider::before, .or-divider::after { content:""; position:absolute; top:50%; width:38%; height:1px; background:var(--border); }
     .or-divider::before { left:0; } .or-divider::after { right:0; }
 
-    /* ===== TOGGLE ===== */
+    /* ---- TOGGLE ---- */
     .toggle-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
-    .toggle { position:relative; width:44px; height:24px; background:var(--surface2);
-      border:1px solid var(--border); border-radius:100px; cursor:pointer; transition:background .3s; }
+    .toggle { position:relative; width:46px; height:26px; background:var(--surface2); border:1px solid var(--border); border-radius:100px; cursor:pointer; transition:background .3s; flex-shrink:0; }
     .toggle.on { background:var(--saffron); border-color:var(--saffron); }
-    .toggle::after { content:""; position:absolute; top:3px; left:3px; width:16px; height:16px;
-      background:#fff; border-radius:50%; transition:transform .3s; }
+    .toggle::after { content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; background:#fff; border-radius:50%; transition:transform .3s; }
     .toggle.on::after { transform:translateX(20px); }
-    .toggle-label { font-size:.88rem; color:var(--text); }
+    .toggle-label { font-size:.9rem; color:var(--text); }
 
-    /* ===== TOAST ===== */
-    #toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(10px);
-      background:var(--success); color:#fff; padding:12px 28px; border-radius:100px;
-      font-size:.88rem; font-weight:600; opacity:0; pointer-events:none; transition:all .3s; z-index:9999; white-space:nowrap; }
-    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-
-    /* ===== TIP BOX ===== */
-    .tip-box { background:rgba(232,114,42,.08); border:1px solid rgba(232,114,42,.2);
-      border-radius:10px; padding:14px 16px; font-size:.82rem; color:var(--muted); line-height:1.7; margin-bottom:16px; }
+    /* ---- TIP BOX ---- */
+    .tip-box { background:rgba(232,114,42,.08); border:1px solid rgba(232,114,42,.2); border-radius:10px; padding:14px 16px; font-size:.82rem; color:var(--muted); line-height:1.7; margin-bottom:14px; }
     .tip-box strong { color:var(--gold-lt); }
 
-    /* ===== RESPONSIVE ===== */
-    @media(max-width:768px) { .sidebar{width:200px;} .main{margin-left:200px;padding:24px 20px;} .form-row{grid-template-columns:1fr;} }
-    @media(max-width:600px) { .sidebar{display:none;} .main{margin-left:0;padding:20px 16px;} }
+    /* ---- TOAST ---- */
+    #toast {
+      position:fixed; bottom:calc(var(--bottomnav-h) + 12px); left:50%; transform:translateX(-50%) translateY(8px);
+      background:var(--success); color:#fff; padding:12px 24px; border-radius:100px;
+      font-size:.875rem; font-weight:600; opacity:0; pointer-events:none; transition:all .3s; z-index:9999; white-space:nowrap; max-width:90vw; text-align:center;
+    }
+    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    /* ===================== RESPONSIVE BREAKPOINTS ===================== */
+
+    /* Tablet: collapse sidebar to icon-only on 900px */
+    @media (max-width:900px) {
+      :root { --sidebar-w:64px; }
+      .sidebar-logo, .nav-item span, .sidebar-footer .btn-logout span { display:none; }
+      .nav-item { justify-content:center; padding:14px; }
+      .nav-item svg { width:22px; height:22px; }
+      .sidebar-footer { padding:10px 8px; }
+      .btn-logout { width:44px; height:44px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; padding:0; }
+      .main { padding:28px 24px; }
+    }
+
+    /* Mobile: full drawer + bottom nav on 640px */
+    @media (max-width:640px) {
+      .sidebar {
+        transform:translateX(-100%); width:260px !important;
+      }
+      .sidebar.open { transform:translateX(0); }
+      .sidebar-logo { display:flex !important; flex-direction:column; }
+      .nav-item { justify-content:flex-start !important; padding:14px 16px !important; }
+      .nav-item svg { width:20px !important; height:20px !important; }
+      .nav-item span { display:inline !important; }
+      .sidebar-footer { padding:14px 12px; }
+      .btn-logout { width:100% !important; height:auto !important; font-size:.85rem !important; }
+
+      .mobile-topbar { display:flex; }
+      .bottom-nav { display:flex; }
+      .main {
+        margin-left:0 !important;
+        padding:16px 14px;
+        padding-top:calc(var(--topbar-h) + 16px);
+        padding-bottom:calc(var(--bottomnav-h) + 16px);
+      }
+      .form-row { grid-template-columns:1fr; }
+      .page-title { font-size:1.6rem; }
+      .site-img-card { flex-direction:column; }
+      .site-img-preview { width:100% !important; height:160px !important; border-radius:10px; }
+      #toast { bottom:calc(var(--bottomnav-h) + 10px); }
+      .gallery-preview-grid { grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); }
+      .schedule-edit-table th, .schedule-edit-table td { padding:6px 4px; }
+      .btn-row { gap:8px; }
+      .btn-row .btn { flex:1; }
+    }
   </style>
 
-  <!-- Firebase SDKs (No Storage needed — using ImgBB for images) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -194,54 +306,87 @@
   <div class="login-box">
     <div class="login-logo">Yogartha</div>
     <div class="login-sub">Owner Dashboard</div>
-    <input type="email" id="login-email" placeholder="Email address" value="yogartha.yoga@gmail.com" />
-    <input type="password" id="login-pass" placeholder="Password" />
+    <input class="login-field" type="email" id="login-email" placeholder="Email address" autocomplete="email" />
+    <input class="login-field" type="password" id="login-pass" placeholder="Password" autocomplete="current-password" />
     <button class="btn-login" onclick="doLogin()">Sign In</button>
     <div class="login-error" id="login-err"></div>
-    <p style="font-size:.75rem;color:var(--muted);margin-top:20px;">Demo mode: enter any password to preview</p>
   </div>
 </div>
 
 <!-- ===== DASHBOARD ===== -->
 <div id="dashboard">
 
-  <nav class="sidebar">
+  <!-- Mobile Topbar -->
+  <div class="mobile-topbar">
+    <div class="mobile-logo">Yogartha</div>
+    <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Sidebar Overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
     <div class="sidebar-logo"><span>Yogartha</span><small>Admin Panel</small></div>
-    <div class="sidebar-nav">
+    <div class="sidebar-nav" id="sidebar-nav">
       <button class="nav-item active" onclick="showPanel('schedule',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Schedule
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Schedule</span>
       </button>
       <button class="nav-item" onclick="showPanel('gallery',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Gallery
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Gallery</span>
       </button>
       <button class="nav-item" onclick="showPanel('testimonials',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Testimonials
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Testimonials</span>
       </button>
       <button class="nav-item" onclick="showPanel('images',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>Site Images
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg><span>Site Images</span>
       </button>
       <button class="nav-item" onclick="showPanel('teacher',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>About Teacher
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>About Teacher</span>
       </button>
       <button class="nav-item" onclick="showPanel('announcement',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>Announcement
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Announcement</span>
       </button>
       <button class="nav-item" onclick="showPanel('contact',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3 1.07h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact Info
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3 1.07h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Contact Info</span>
       </button>
       <button class="nav-item" onclick="showPanel('imgbb',this)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Image API Setup
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Image API Setup</span>
       </button>
     </div>
-    <div class="sidebar-footer"><button class="btn-logout" onclick="doLogout()">Sign Out</button></div>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="doLogout()"><span>Sign Out</span></button>
+    </div>
   </nav>
 
+  <!-- Bottom Nav (Mobile) -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="bottom-nav-item active" id="bn-schedule" onclick="showPanel('schedule',document.querySelector('[onclick*=schedule]'));setBottomNav('schedule')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Schedule
+    </button>
+    <button class="bottom-nav-item" id="bn-gallery" onclick="showPanel('gallery',document.querySelectorAll('.nav-item')[1]);setBottomNav('gallery')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Gallery
+    </button>
+    <button class="bottom-nav-item" id="bn-testimonials" onclick="showPanel('testimonials',document.querySelectorAll('.nav-item')[2]);setBottomNav('testimonials')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Reviews
+    </button>
+    <button class="bottom-nav-item" id="bn-images" onclick="showPanel('images',document.querySelectorAll('.nav-item')[3]);setBottomNav('images')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>Images
+    </button>
+    <button class="bottom-nav-item" id="bn-more" onclick="toggleSidebar()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>More
+    </button>
+  </nav>
+
+  <!-- Main Content -->
   <main class="main">
 
     <!-- ===== SCHEDULE ===== -->
     <div class="panel active" id="panel-schedule">
-      <div class="page-header"><div class="page-title">Weekly Schedule</div><div class="page-desc">Edit class timings and programs for each day</div></div>
-      <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode — connect Firebase to save changes live to the website</span></div>
+      <div class="page-header"><div class="page-title">Weekly Schedule</div><div class="page-desc">Edit class timings for each day</div></div>
+      <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode — connect Firebase to save changes live</span></div>
       <div class="card">
         <div class="card-title">Class Timetable</div>
         <div class="schedule-editor-wrap">
@@ -250,9 +395,9 @@
             <tbody id="schedule-body"></tbody>
           </table>
         </div>
-        <div class="btn-row" style="margin-top:20px;">
+        <div class="btn-row" style="margin-top:18px;">
           <button class="btn btn-primary" onclick="saveSchedule()">Save Schedule</button>
-          <button class="btn btn-ghost" onclick="addColumn()">+ Add Time Slot</button>
+          <button class="btn btn-ghost" onclick="addColumn()">+ Add Slot</button>
         </div>
       </div>
       <div class="card">
@@ -267,23 +412,21 @@
 
     <!-- ===== GALLERY ===== -->
     <div class="panel" id="panel-gallery">
-      <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Upload photos directly or add via link</div></div>
-
+      <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Upload or link photos for the gallery</div></div>
       <div class="imgbb-bar notset" id="gallery-imgbb-bar">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span id="gallery-imgbb-msg">ImgBB API not set — direct upload disabled. Go to "Image API Setup" to enable it.</span>
+        <span id="gallery-imgbb-msg">ImgBB not set — go to "Image API Setup" to enable direct uploads</span>
       </div>
-
       <div class="card">
-        <div class="card-title">Upload Photos Directly</div>
+        <div class="card-title">Upload Photos</div>
         <div class="upload-zone" id="gallery-drop-zone"
           ondragover="event.preventDefault();this.classList.add('dragging')"
           ondragleave="this.classList.remove('dragging')"
           ondrop="handleGalleryDrop(event)">
           <input type="file" id="gallery-file-input" accept="image/*" multiple onchange="handleGalleryFiles(this.files)" />
           <div class="upload-zone-icon">🖼️</div>
-          <p><strong>Click to upload or drag & drop photos here</strong></p>
-          <p>You can select multiple photos at once</p>
+          <p><strong>Tap to choose or drag photos here</strong></p>
+          <p>You can pick multiple at once</p>
           <small>JPG, PNG, WEBP • Max 10MB each</small>
         </div>
         <div class="upload-progress" id="gallery-progress">
@@ -291,73 +434,59 @@
           <div class="progress-bar-wrap"><div class="progress-bar-fill" id="gallery-progress-bar" style="width:0%"></div></div>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-title">Or Add via Photo URL</div>
-        <div style="display:flex;gap:10px;align-items:flex-end;">
-          <div class="form-group" style="flex:2;margin:0;"><label>Image URL</label><input type="url" id="gallery-url" placeholder="Paste Google Photos or any image link" /></div>
-          <div class="form-group" style="flex:2;margin:0;"><label>Caption (optional)</label><input type="text" id="gallery-caption" placeholder="e.g. Morning Surya Kriya" /></div>
-          <button class="btn btn-ghost" style="margin-bottom:0;" onclick="addGalleryByUrl()">Add</button>
-        </div>
+        <div class="card-title">Or Add via Link</div>
+        <div class="form-group"><label>Image URL</label><input type="url" id="gallery-url" placeholder="Paste Google Photos or any image link" /></div>
+        <div class="form-group"><label>Caption (optional)</label><input type="text" id="gallery-caption" placeholder="e.g. Morning Surya Kriya" /></div>
+        <button class="btn btn-ghost btn-full" onclick="addGalleryByUrl()">Add Photo Link</button>
       </div>
-
       <div class="card">
         <div class="card-title">Gallery Photos (<span id="gallery-count">0</span>)</div>
         <div class="gallery-preview-grid" id="gallery-grid">
           <p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet.</p>
         </div>
-        <button class="btn btn-primary" onclick="saveGallery()">Save &amp; Publish Gallery</button>
+        <button class="btn btn-primary btn-full" onclick="saveGallery()">Save &amp; Publish Gallery</button>
       </div>
     </div>
 
     <!-- ===== TESTIMONIALS ===== -->
     <div class="panel" id="panel-testimonials">
-      <div class="page-header"><div class="page-title">Student Testimonials</div><div class="page-desc">Add reviews with optional student photos</div></div>
-
+      <div class="page-header"><div class="page-title">Testimonials</div><div class="page-desc">Add student reviews with optional photos</div></div>
       <div class="card">
         <div class="card-title">Add New Testimonial</div>
-
         <div class="form-row">
           <div class="form-group"><label>Student Name</label><input type="text" id="new-testi-name" placeholder="e.g. Ananya Sharma" /></div>
-          <div class="form-group"><label>Role / Location</label><input type="text" id="new-testi-role" placeholder="e.g. Software Engineer, Dehradun" /></div>
+          <div class="form-group"><label>Role / Location</label><input type="text" id="new-testi-role" placeholder="e.g. Engineer, Dehradun" /></div>
         </div>
-        <div class="form-group"><label>Review</label><textarea id="new-testi-review" placeholder="What did they say about their experience?"></textarea></div>
-
-        <label style="margin-bottom:12px;">Student Photo <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+        <div class="form-group"><label>Review</label><textarea id="new-testi-review" placeholder="What did they say?"></textarea></div>
         
-        <!-- Upload tab -->
+        <label style="margin-bottom:10px;">Student Photo <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
         <div class="upload-zone" id="testi-drop-zone" style="margin-bottom:10px;"
           ondragover="event.preventDefault();this.classList.add('dragging')"
           ondragleave="this.classList.remove('dragging')"
           ondrop="handleTestiDrop(event)">
           <input type="file" id="testi-photo-file" accept="image/*" onchange="handleTestiFile(this.files[0])" />
           <div class="upload-zone-icon">🧑</div>
-          <p><strong>Click to upload student photo</strong> or drag here</p>
+          <p><strong>Tap to upload student photo</strong></p>
           <small>JPG, PNG • Max 5MB</small>
         </div>
         <div class="upload-progress" id="testi-progress">
           <div class="upload-status-text" id="testi-progress-text">Uploading…</div>
           <div class="progress-bar-wrap"><div class="progress-bar-fill" id="testi-progress-bar" style="width:0%"></div></div>
         </div>
-        
-        <div class="or-divider">or paste a URL</div>
-        <div class="form-group" style="margin-top:10px;">
+        <div class="or-divider" style="margin:10px 0;">or paste a URL</div>
+        <div class="form-group">
           <input type="url" id="new-testi-photo" placeholder="https://... student photo link" />
         </div>
-
-        <!-- Preview -->
-        <div id="testi-photo-preview-wrap" style="display:none;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
-          <img id="testi-photo-preview" src="" alt="Preview" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--saffron);" />
+        <div id="testi-photo-preview-wrap" style="display:none;margin-bottom:14px;align-items:center;gap:12px;">
+          <img id="testi-photo-preview" src="" alt="Preview" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--saffron);" />
           <div>
             <div style="font-size:.82rem;color:var(--text);" id="testi-preview-name">Photo ready</div>
             <button class="btn btn-sm btn-danger" style="margin-top:4px;" onclick="clearTestiPhoto()">Remove</button>
           </div>
         </div>
-        <div id="testi-photo-preview-wrap" style="display:none;"></div>
-        
-        <button class="btn btn-primary" onclick="addTestimonial()" id="btn-add-testi">Add Testimonial</button>
+        <button class="btn btn-primary btn-full" onclick="addTestimonial()">Add Testimonial</button>
       </div>
-
       <div class="card">
         <div class="card-title">Current Testimonials</div>
         <div id="testi-list"></div>
@@ -366,22 +495,23 @@
 
     <!-- ===== SITE IMAGES ===== -->
     <div class="panel" id="panel-images">
-      <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Update the main photos displayed on the website</div></div>
-
+      <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Update main photos on the website</div></div>
+      
       <!-- Hero -->
       <div class="card">
-        <div class="card-title">Hero Background Image</div>
+        <div class="card-title">Hero Background</div>
         <div class="site-img-card">
-          <img id="prev-img-hero" src="images/adiyogi_hero.jpg" style="width:140px;height:84px;" class="site-img-preview" alt="Hero" />
+          <img id="prev-img-hero" src="images/adiyogi_hero.jpg" style="width:130px;height:80px;" class="site-img-preview" alt="Hero" />
           <div class="site-img-actions">
-            <div class="upload-zone" style="padding:16px;" onclick="document.getElementById('file-img-hero').click()">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-hero').click()">
               <input type="file" id="file-img-hero" accept="image/*" style="display:none;" onchange="uploadSiteImg('hero',this.files[0],'prev-img-hero')" />
-              <p style="font-size:.82rem;"><strong>Click to upload new hero photo</strong> (landscape, 1920×1080)</p>
+              <p style="font-size:.82rem;"><strong>Tap to upload hero photo</strong></p>
+              <small>Landscape, 1920×1080 recommended</small>
             </div>
-            <div class="or-divider">or paste a URL</div>
+            <div class="or-divider">or paste URL</div>
             <div style="display:flex;gap:8px;">
-              <input type="url" id="url-img-hero" placeholder="https://... image URL" style="flex:1;" />
-              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('hero')">Update</button>
+              <input type="url" id="url-img-hero" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('hero')">Set</button>
             </div>
           </div>
         </div>
@@ -393,14 +523,14 @@
         <div class="site-img-card">
           <img id="prev-img-about" src="images/ashram_courtyard.png" style="width:100px;height:100px;" class="site-img-preview" alt="About" />
           <div class="site-img-actions">
-            <div class="upload-zone" style="padding:16px;" onclick="document.getElementById('file-img-about').click()">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-about').click()">
               <input type="file" id="file-img-about" accept="image/*" style="display:none;" onchange="uploadSiteImg('about',this.files[0],'prev-img-about')" />
-              <p style="font-size:.82rem;"><strong>Click to upload studio photo</strong></p>
+              <p style="font-size:.82rem;"><strong>Tap to upload studio photo</strong></p>
             </div>
-            <div class="or-divider">or paste a URL</div>
+            <div class="or-divider">or paste URL</div>
             <div style="display:flex;gap:8px;">
-              <input type="url" id="url-img-about" placeholder="https://... image URL" style="flex:1;" />
-              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('about')">Update</button>
+              <input type="url" id="url-img-about" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('about')">Set</button>
             </div>
           </div>
         </div>
@@ -412,34 +542,34 @@
         <div class="site-img-card">
           <img id="prev-img-guru" src="images/reeta_yoga_teacher.png" style="width:100px;height:100px;border-radius:50%;" class="site-img-preview" alt="Teacher" />
           <div class="site-img-actions">
-            <div class="upload-zone" style="padding:16px;" onclick="document.getElementById('file-img-guru').click()">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-guru').click()">
               <input type="file" id="file-img-guru" accept="image/*" style="display:none;" onchange="uploadSiteImg('guru',this.files[0],'prev-img-guru')" />
-              <p style="font-size:.82rem;"><strong>Click to upload teacher portrait</strong></p>
+              <p style="font-size:.82rem;"><strong>Tap to upload portrait</strong></p>
             </div>
-            <div class="or-divider">or paste a URL</div>
+            <div class="or-divider">or paste URL</div>
             <div style="display:flex;gap:8px;">
-              <input type="url" id="url-img-guru" placeholder="https://... image URL" style="flex:1;" />
-              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru')">Update</button>
+              <input type="url" id="url-img-guru" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru')">Set</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Extra Banner -->
+      <!-- Banner -->
       <div class="card">
         <div class="card-title">Extra Banner / Promo Image</div>
-        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;">A second customisable photo slot — use it for workshops, events, or any extra image on the page.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">Extra photo slot — workshops, events, or any promo.</p>
         <div class="site-img-card">
           <img id="prev-img-banner" src="images/isha_hatha_symbol.png" style="width:100px;height:100px;" class="site-img-preview" alt="Banner" />
           <div class="site-img-actions">
-            <div class="upload-zone" style="padding:16px;" onclick="document.getElementById('file-img-banner').click()">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-banner').click()">
               <input type="file" id="file-img-banner" accept="image/*" style="display:none;" onchange="uploadSiteImg('banner',this.files[0],'prev-img-banner')" />
-              <p style="font-size:.82rem;"><strong>Click to upload promo photo</strong></p>
+              <p style="font-size:.82rem;"><strong>Tap to upload promo photo</strong></p>
             </div>
-            <div class="or-divider">or paste a URL</div>
+            <div class="or-divider">or paste URL</div>
             <div style="display:flex;gap:8px;">
-              <input type="url" id="url-img-banner" placeholder="https://... image URL" style="flex:1;" />
-              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('banner')">Update</button>
+              <input type="url" id="url-img-banner" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('banner')">Set</button>
             </div>
           </div>
         </div>
@@ -448,51 +578,37 @@
 
     <!-- ===== ABOUT TEACHER ===== -->
     <div class="panel" id="panel-teacher">
-      <div class="page-header"><div class="page-title">About the Teacher</div><div class="page-desc">Update Reeta's bio and profile photo shown on the website</div></div>
-
+      <div class="page-header"><div class="page-title">About Teacher</div><div class="page-desc">Update your profile photo and bio</div></div>
       <div class="card">
-        <div class="card-title">Teacher Profile Photo</div>
+        <div class="card-title">Profile Photo</div>
         <div class="site-img-card">
-          <img id="prev-teacher-photo" src="images/reeta_yoga_teacher.png" style="width:100px;height:100px;border-radius:50%;" class="site-img-preview" alt="Teacher" />
+          <img id="prev-teacher-photo" src="images/reeta_yoga_teacher.png" style="width:90px;height:90px;border-radius:50%;" class="site-img-preview" alt="Teacher" />
           <div class="site-img-actions">
-            <div class="upload-zone" style="padding:16px;" onclick="document.getElementById('file-teacher-photo').click()">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-teacher-photo').click()">
               <input type="file" id="file-teacher-photo" accept="image/*" style="display:none;" onchange="uploadSiteImg('guru',this.files[0],'prev-teacher-photo')" />
-              <p style="font-size:.82rem;"><strong>Click to upload your profile photo</strong></p>
+              <p style="font-size:.82rem;"><strong>Tap to upload your photo</strong></p>
             </div>
-            <div class="or-divider">or paste a URL</div>
+            <div class="or-divider">or paste URL</div>
             <div style="display:flex;gap:8px;">
-              <input type="url" id="url-teacher-photo" placeholder="https://... photo URL" style="flex:1;" />
-              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru','prev-teacher-photo','url-teacher-photo')">Update</button>
+              <input type="url" id="url-teacher-photo" placeholder="Photo URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru','prev-teacher-photo','url-teacher-photo')">Set</button>
             </div>
           </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="card-title">Bio & Introduction</div>
-        <div class="form-group">
-          <label>Teacher Name</label>
-          <input type="text" id="teacher-name" value="Reeta" />
-        </div>
-        <div class="form-group">
-          <label>Title / Certification</label>
-          <input type="text" id="teacher-title" value="Isha Hatha Yoga Teacher" />
-        </div>
-        <div class="form-group">
-          <label>Short Introduction (shown on homepage)</label>
-          <textarea id="teacher-intro" rows="4" placeholder="Write a short introduction about Reeta…">Reeta is a certified Isha Hatha Yoga teacher with over 10 years of practice. She trained at the Isha Yoga Center, Coimbatore under the guidance of Sadhguru, and has been guiding students in Dehradun since 2018.</textarea>
-        </div>
-        <div class="form-group">
-          <label>Full Bio (for the About section)</label>
-          <textarea id="teacher-bio" rows="6" placeholder="Full biography…">Reeta's journey into yoga began as a personal transformation that led her to the Isha Yoga Center. After completing her teacher training, she established Yogartha as a dedicated space for authentic Hatha Yoga practice in the Himalayan foothills of Dehradun. Her teaching is rooted in the classical Isha tradition, combining physical postures, pranayama, and meditative practices to create a holistic experience for each student.</textarea>
-        </div>
-        <button class="btn btn-primary" onclick="saveTeacherInfo()">Save Bio & Publish</button>
+        <div class="card-title">Bio &amp; Introduction</div>
+        <div class="form-group"><label>Teacher Name</label><input type="text" id="teacher-name" value="Reeta" /></div>
+        <div class="form-group"><label>Title / Certification</label><input type="text" id="teacher-title" value="Isha Hatha Yoga Teacher" /></div>
+        <div class="form-group"><label>Short Introduction</label><textarea id="teacher-intro" rows="3">Reeta is a certified Isha Hatha Yoga teacher with over 10 years of practice. She trained at the Isha Yoga Center, Coimbatore under the guidance of Sadhguru, and has been guiding students in Dehradun since 2018.</textarea></div>
+        <div class="form-group"><label>Full Bio</label><textarea id="teacher-bio" rows="5">Reeta's journey into yoga began as a personal transformation that led her to the Isha Yoga Center. After completing her teacher training, she established Yogartha as a dedicated space for authentic Hatha Yoga practice in the Himalayan foothills of Dehradun.</textarea></div>
+        <button class="btn btn-primary btn-full" onclick="saveTeacherInfo()">Save &amp; Publish Bio</button>
       </div>
     </div>
 
     <!-- ===== ANNOUNCEMENT ===== -->
     <div class="panel" id="panel-announcement">
-      <div class="page-header"><div class="page-title">Announcement Banner</div><div class="page-desc">Show a notice at the top of the website</div></div>
+      <div class="page-header"><div class="page-title">Announcement</div><div class="page-desc">Show a notice banner at the top of the website</div></div>
       <div class="card">
         <div class="card-title">Banner Settings</div>
         <div class="toggle-row">
@@ -500,57 +616,56 @@
           <span class="toggle-label" id="ann-label">Banner is OFF</span>
         </div>
         <div class="form-group"><label>Announcement Text</label><input type="text" id="ann-text" placeholder="e.g. Studio closed on 15th August — Independence Day" /></div>
-        <button class="btn btn-primary" onclick="saveAnnouncement()">Save &amp; Publish</button>
+        <button class="btn btn-primary btn-full" onclick="saveAnnouncement()">Save &amp; Publish</button>
       </div>
       <div class="card">
-        <div class="card-title">Quick Examples — click to use</div>
+        <div class="card-title">Quick Examples</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <button class="btn btn-ghost btn-sm" onclick="setEx(this)">New batch starting 1st July — Enroll now!</button>
           <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Studio closed 15th Aug — Happy Independence Day!</button>
           <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Special Surya Kriya workshop this Sunday — Limited seats</button>
-          <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Diwali special: Free trial class on 20th Oct — Book now!</button>
+          <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Diwali special: Free trial class on 20th Oct!</button>
         </div>
       </div>
     </div>
 
     <!-- ===== CONTACT ===== -->
     <div class="panel" id="panel-contact">
-      <div class="page-header"><div class="page-title">Contact Information</div><div class="page-desc">Update the studio address, phone, and timings</div></div>
+      <div class="page-header"><div class="page-title">Contact Info</div><div class="page-desc">Update studio address, phone and timings</div></div>
       <div class="card">
         <div class="card-title">Studio Details</div>
         <div class="form-group"><label>Phone Number</label><input type="tel" id="contact-phone" value="+91 78200 96554" /></div>
         <div class="form-group"><label>Email Address</label><input type="email" id="contact-email" value="yogartha.yoga@gmail.com" /></div>
         <div class="form-group"><label>Studio Address</label><textarea id="contact-address">12, Shanti Vihar Colony, Rajpur Road, Dehradun, Uttarakhand — 248001</textarea></div>
         <div class="form-row">
-          <div class="form-group"><label>Opening Time (Mon–Sat)</label><input type="time" id="contact-open" value="05:30" /></div>
-          <div class="form-group"><label>Closing Time (Mon–Sat)</label><input type="time" id="contact-close" value="21:00" /></div>
+          <div class="form-group"><label>Opening Time</label><input type="time" id="contact-open" value="05:30" /></div>
+          <div class="form-group"><label>Closing Time</label><input type="time" id="contact-close" value="21:00" /></div>
         </div>
         <div class="form-group"><label>Landmark</label><input type="text" id="contact-landmark" value="Near Mindrolling Monastery, Dehradun" /></div>
-        <button class="btn btn-primary" onclick="saveContact()">Save Contact Info</button>
+        <button class="btn btn-primary btn-full" onclick="saveContact()">Save Contact Info</button>
       </div>
     </div>
 
-    <!-- ===== IMAGE API SETUP ===== -->
+    <!-- ===== IMGBB SETUP ===== -->
     <div class="panel" id="panel-imgbb">
-      <div class="page-header"><div class="page-title">Image API Setup</div><div class="page-desc">One-time setup to enable direct photo uploads</div></div>
-
+      <div class="page-header"><div class="page-title">Image API Setup</div><div class="page-desc">One-time setup for direct photo uploads</div></div>
       <div class="card">
         <div class="card-title">ImgBB — Free Image Hosting</div>
         <div class="tip-box">
           <strong>What is this?</strong><br>
-          ImgBB is a free image hosting service. When you upload a photo in the Gallery or Testimonials section, this app sends it to ImgBB and stores the link in your database. <strong>It is completely free — no credit card needed.</strong><br><br>
+          ImgBB is a free image hosting service. When you upload a photo, this app sends it to ImgBB and stores the link. <strong>Completely free — no credit card needed.</strong><br><br>
           <strong>How to get your free API key:</strong><br>
           1. Go to <strong>imgbb.com</strong> → Sign Up (free)<br>
-          2. After logging in, go to <strong>imgbb.com/api</strong><br>
+          2. Go to <strong>api.imgbb.com</strong><br>
           3. Click <strong>"Get API Key"</strong><br>
-          4. Copy the key and paste it below
+          4. Copy and paste the key below
         </div>
         <div class="form-group">
           <label>Your ImgBB API Key</label>
-          <input type="password" id="imgbb-key-input" placeholder="Paste your API key here…" />
+          <input type="password" id="imgbb-key-input" placeholder="Paste your key here…" />
         </div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="saveImgbbKey()">Save API Key</button>
+          <button class="btn btn-primary" onclick="saveImgbbKey()">Save Key</button>
           <button class="btn btn-ghost" onclick="testImgbbKey()">Test Connection</button>
         </div>
         <div id="imgbb-test-result" style="margin-top:12px;font-size:.82rem;"></div>
@@ -562,13 +677,9 @@
 
 <div id="toast"></div>
 
-<!-- Custom Config (Sets FIREBASE_CONFIG) -->
 <script src="js/firebase-config.js"></script>
-
 <script>
-// ============================================
-// YOGARTHA ADMIN v6 — ImgBB + Firebase (no Storage)
-// ============================================
+// ============ YOGARTHA ADMIN v7 — Mobile + Desktop ============
 
 let schedule = {
   columns:["6:00 AM","8:00 AM","5:30 PM","7:00 PM"],
@@ -595,409 +706,358 @@ let isFirebase = false;
 let imgbbKey = "";
 let pendingTestiPhotoUrl = "";
 
-// ---- IMGBB ----
-function getImgbbKey() { return imgbbKey || localStorage.getItem("yogartha_imgbb_key") || ""; }
-
-function saveImgbbKey() {
-  const k = document.getElementById("imgbb-key-input").value.trim();
-  if (!k) { toast("Please enter your API key", true); return; }
-  imgbbKey = k;
-  localStorage.setItem("yogartha_imgbb_key", k);
-  if (isFirebase) firebase.database().ref("config/imgbbKey").set(k).catch(()=>{});
-  toast("API key saved!");
-  updateImgbbStatus();
+// ---- MOBILE NAV ----
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebar-overlay");
+  const btn = document.getElementById("hamburger-btn");
+  const isOpen = sidebar.classList.contains("open");
+  sidebar.classList.toggle("open", !isOpen);
+  overlay.classList.toggle("show", !isOpen);
+  btn.classList.toggle("open", !isOpen);
 }
-
-function testImgbbKey() {
-  const k = getImgbbKey();
-  const res = document.getElementById("imgbb-test-result");
-  if (!k) { res.style.color="#f87171"; res.textContent="No API key saved yet."; return; }
-  res.style.color = "var(--muted)";
-  res.textContent = "Testing…";
-  // Create a tiny 1x1 test image (base64 red pixel)
-  const tiny = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==";
-  const fd = new FormData();
-  fd.append("image", tiny);
-  fetch(`https://api.imgbb.com/1/upload?key=${k}`, {method:"POST",body:fd})
-    .then(r => r.json())
-    .then(d => {
-      if (d.success) { res.style.color="#6ee89a"; res.textContent="✓ Connection successful! Uploads are enabled."; updateImgbbStatus(); }
-      else { res.style.color="#f87171"; res.textContent="✗ Invalid key. Please check and try again."; }
-    })
-    .catch(() => { res.style.color="#f87171"; res.textContent="✗ Network error. Check your internet connection."; });
+function closeSidebar() {
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("sidebar-overlay").classList.remove("show");
+  document.getElementById("hamburger-btn").classList.remove("open");
 }
-
-function updateImgbbStatus() {
-  const k = getImgbbKey();
-  const bar = document.getElementById("gallery-imgbb-bar");
-  const msg = document.getElementById("gallery-imgbb-msg");
-  if (k) {
-    bar.className = "imgbb-bar ready";
-    msg.textContent = "✓ ImgBB connected — direct photo upload is enabled!";
-  } else {
-    bar.className = "imgbb-bar notset";
-    msg.textContent = 'ImgBB API not set — direct upload disabled. Go to "Image API Setup" to enable it.';
-  }
-  if (document.getElementById("imgbb-key-input").value === "") {
-    document.getElementById("imgbb-key-input").value = k;
-  }
+function setBottomNav(name) {
+  document.querySelectorAll(".bottom-nav-item").forEach(b => b.classList.remove("active"));
+  const el = document.getElementById("bn-" + name);
+  if (el) el.classList.add("active");
 }
-
-async function uploadToImgbb(file, onProgress) {
-  const k = getImgbbKey();
-  if (!k) { toast("Please set up your ImgBB API key first (go to Image API Setup tab)", true); return null; }
-  if (file.size > 10 * 1024 * 1024) { toast("File too large — max 10MB", true); return null; }
-
-  return new Promise((resolve, reject) => {
-    const fd = new FormData();
-    fd.append("image", file);
-    const xhr = new XMLHttpRequest();
-    xhr.upload.addEventListener("progress", e => {
-      if (e.lengthComputable) onProgress && onProgress(Math.round(e.loaded/e.total*90));
-    });
-    xhr.onload = () => {
-      try {
-        const d = JSON.parse(xhr.responseText);
-        if (d.success) { onProgress && onProgress(100); resolve(d.data.url); }
-        else reject(d.error?.message || "Upload failed");
-      } catch(e) { reject("Upload failed"); }
-    };
-    xhr.onerror = () => reject("Network error");
-    xhr.open("POST", `https://api.imgbb.com/1/upload?key=${k}`);
-    xhr.send(fd);
-  });
-}
-
-// ---- LOGIN ----
-function doLogin() {
-  const email = document.getElementById("login-email").value;
-  const pass  = document.getElementById("login-pass").value;
-  const err   = document.getElementById("login-err");
-  if (!email) { err.textContent = "Please enter your email."; return; }
-  if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
-    firebase.auth().signInWithEmailAndPassword(email, pass)
-      .then(() => enterDash(true))
-      .catch(e => { err.textContent = e.message; });
-  } else {
-    enterDash(false);
-  }
-}
-function enterDash(fb) {
-  isFirebase = fb;
-  document.getElementById("login-screen").style.display = "none";
-  document.getElementById("dashboard").style.display = "block";
-  const bar = document.getElementById("firebase-status");
-  if (fb) {
-    bar.className = "status-bar connected";
-    bar.innerHTML = '<div class="status-dot"></div><span>Connected to Firebase — changes publish live instantly</span>';
-    loadFirebase();
-  }
-  updateImgbbStatus();
-  renderSchedule(); renderTestiList(); renderGallery();
-}
-function doLogout() {
-  if (isFirebase) firebase.auth().signOut();
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("login-screen").style.display = "flex";
-}
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("login-pass").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
-  document.getElementById("new-testi-photo").addEventListener("input", function() {
-    const url = this.value.trim();
-    if (url) { pendingTestiPhotoUrl = url; showTestiPhotoPreview(url, "URL"); }
-    else if (!pendingTestiPhotoUrl) clearTestiPhoto();
-  });
-});
 
 // ---- PANELS ----
 function showPanel(name, btn) {
   document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
   document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
   document.getElementById("panel-"+name).classList.add("active");
-  btn.classList.add("active");
+  if (btn) btn.classList.add("active");
+  closeSidebar();
+  window.scrollTo({top:0, behavior:"smooth"});
 }
+
+// ---- IMGBB ----
+function getImgbbKey() { return imgbbKey || localStorage.getItem("yogartha_imgbb_key") || ""; }
+function saveImgbbKey() {
+  const k = document.getElementById("imgbb-key-input").value.trim();
+  if (!k) { toast("Please enter your API key", true); return; }
+  imgbbKey = k; localStorage.setItem("yogartha_imgbb_key", k);
+  if (isFirebase) firebase.database().ref("config/imgbbKey").set(k).catch(()=>{});
+  toast("API key saved!"); updateImgbbStatus();
+}
+function testImgbbKey() {
+  const k = getImgbbKey();
+  const res = document.getElementById("imgbb-test-result");
+  if (!k) { res.style.color="#f87171"; res.textContent="No API key saved yet."; return; }
+  res.style.color="var(--muted)"; res.textContent="Testing…";
+  const tiny="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==";
+  const fd=new FormData(); fd.append("image",tiny);
+  fetch(`https://api.imgbb.com/1/upload?key=${k}`,{method:"POST",body:fd})
+    .then(r=>r.json()).then(d=>{
+      if(d.success){res.style.color="#6ee89a";res.textContent="✓ Connected! Uploads enabled.";updateImgbbStatus();}
+      else{res.style.color="#f87171";res.textContent="✗ Invalid key. Please check.";}
+    }).catch(()=>{res.style.color="#f87171";res.textContent="✗ Network error.";});
+}
+function updateImgbbStatus() {
+  const k=getImgbbKey();
+  const bar=document.getElementById("gallery-imgbb-bar");
+  const msg=document.getElementById("gallery-imgbb-msg");
+  if(k){bar.className="imgbb-bar ready";msg.textContent="✓ ImgBB connected — direct photo upload enabled!";}
+  else{bar.className="imgbb-bar notset";msg.textContent='ImgBB not set — go to "Image API Setup" to enable direct uploads.';}
+  if(!document.getElementById("imgbb-key-input").value) document.getElementById("imgbb-key-input").value=k;
+}
+async function uploadToImgbb(file, onProgress) {
+  const k=getImgbbKey();
+  if(!k){toast("Set up ImgBB key first (Image API Setup tab)",true);return null;}
+  if(file.size>10*1024*1024){toast("File too large — max 10MB",true);return null;}
+  return new Promise((resolve,reject)=>{
+    const fd=new FormData(); fd.append("image",file);
+    const xhr=new XMLHttpRequest();
+    xhr.upload.addEventListener("progress",e=>{if(e.lengthComputable)onProgress&&onProgress(Math.round(e.loaded/e.total*90));});
+    xhr.onload=()=>{
+      try{const d=JSON.parse(xhr.responseText);if(d.success){onProgress&&onProgress(100);resolve(d.data.url);}else reject(d.error?.message||"Upload failed");}
+      catch(e){reject("Upload failed");}
+    };
+    xhr.onerror=()=>reject("Network error");
+    xhr.open("POST",`https://api.imgbb.com/1/upload?key=${k}`);
+    xhr.send(fd);
+  });
+}
+
+// ---- LOGIN ----
+function doLogin() {
+  const email=document.getElementById("login-email").value;
+  const pass=document.getElementById("login-pass").value;
+  const err=document.getElementById("login-err");
+  if(!email){err.textContent="Please enter your email.";return;}
+  if(typeof firebase!=="undefined"&&firebase.apps.length>0){
+    firebase.auth().signInWithEmailAndPassword(email,pass)
+      .then(()=>enterDash(true))
+      .catch(e=>{err.textContent=e.message;});
+  } else {
+    if(!pass){err.textContent="Please enter a password.";return;}
+    enterDash(false);
+  }
+}
+function enterDash(fb) {
+  isFirebase=fb;
+  document.getElementById("login-screen").style.display="none";
+  document.getElementById("dashboard").style.display="block";
+  const bar=document.getElementById("firebase-status");
+  if(fb){
+    bar.className="status-bar connected";
+    bar.innerHTML='<div class="status-dot"></div><span>Connected to Firebase — changes publish live instantly</span>';
+    loadFirebase();
+  }
+  updateImgbbStatus(); renderSchedule(); renderTestiList(); renderGallery();
+}
+function doLogout() {
+  if(isFirebase)firebase.auth().signOut();
+  document.getElementById("dashboard").style.display="none";
+  document.getElementById("login-screen").style.display="flex";
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("login-pass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+  document.getElementById("new-testi-photo").addEventListener("input",function(){
+    const url=this.value.trim();
+    if(url){pendingTestiPhotoUrl=url;showTestiPhotoPreview(url,"URL photo");}
+  });
+});
 
 // ---- SCHEDULE ----
 function t2i(s){const m=s.match(/(\d+):(\d+)\s*(AM|PM)/i);if(!m)return"06:00";let h=parseInt(m[1]);const ap=m[3].toUpperCase();if(ap==="PM"&&h!==12)h+=12;if(ap==="AM"&&h===12)h=0;return`${String(h).padStart(2,"0")}:${m[2]}`;}
 function i2t(v){const[h,m]=v.split(":").map(Number);return`${h%12||12}:${String(m).padStart(2,"0")} ${h<12?"AM":"PM"}`;}
-function renderSchedule() {
-  const head = document.getElementById("schedule-head");
-  const body = document.getElementById("schedule-body");
-  head.innerHTML = "<th>Day</th>";
-  schedule.columns.forEach((col, ci) => {
-    head.innerHTML += `<th><div class="col-time"><input type="time" value="${t2i(col)}" onchange="schedule.columns[${ci}]=i2t(this.value)" style="flex:1;padding:6px 8px;font-size:.78rem;"/><button class="btn-del-col" onclick="delCol(${ci})">&times;</button></div></th>`;
+function renderSchedule(){
+  const head=document.getElementById("schedule-head");
+  const body=document.getElementById("schedule-body");
+  head.innerHTML="<th>Day</th>";
+  schedule.columns.forEach((col,ci)=>{
+    head.innerHTML+=`<th><div class="col-time"><input type="time" value="${t2i(col)}" onchange="schedule.columns[${ci}]=i2t(this.value)" style="flex:1;padding:6px 8px;font-size:.75rem;"/><button class="btn-del-col" onclick="delCol(${ci})">&times;</button></div></th>`;
   });
-  body.innerHTML = "";
-  schedule.rows.forEach((row, ri) => {
-    let tr = `<tr><td>${row.day}</td>`;
-    schedule.columns.forEach((_, ci) => {
-      tr += `<td><input type="text" value="${row.slots[ci]||""}" onchange="schedule.rows[${ri}].slots[${ci}]=this.value" placeholder="—"/></td>`;
-    });
-    body.innerHTML += tr + `</tr>`;
+  body.innerHTML="";
+  schedule.rows.forEach((row,ri)=>{
+    let tr=`<tr><td>${row.day}</td>`;
+    schedule.columns.forEach((_,ci)=>{tr+=`<td><input type="text" value="${row.slots[ci]||""}" onchange="schedule.rows[${ri}].slots[${ci}]=this.value" placeholder="—"/></td>`;});
+    body.innerHTML+=tr+`</tr>`;
   });
-  document.getElementById("schedule-note").value = schedule.note;
+  document.getElementById("schedule-note").value=schedule.note;
 }
 function addColumn(){schedule.columns.push("9:00 AM");schedule.rows.forEach(r=>r.slots.push(""));renderSchedule();}
 function delCol(ci){if(schedule.columns.length<=1){toast("Need at least 1 column",true);return;}schedule.columns.splice(ci,1);schedule.rows.forEach(r=>r.slots.splice(ci,1));renderSchedule();}
 function saveSchedule(){
-  schedule.note = document.getElementById("schedule-note").value;
-  if(isFirebase) firebase.database().ref("schedule").set(schedule).then(()=>toast("Schedule live!")).catch(()=>toast("Error",true));
-  else toast("Demo mode — connect Firebase to publish live");
+  schedule.note=document.getElementById("schedule-note").value;
+  if(isFirebase)firebase.database().ref("schedule").set(schedule).then(()=>toast("Schedule live!")).catch(()=>toast("Error",true));
+  else toast("Demo mode — connect Firebase to publish");
 }
 
 // ---- GALLERY ----
-function handleGalleryDrop(e) {
-  e.preventDefault();
-  document.getElementById("gallery-drop-zone").classList.remove("dragging");
-  handleGalleryFiles(e.dataTransfer.files);
-}
-async function handleGalleryFiles(files) {
-  if (!files || !files.length) return;
-  if (!getImgbbKey()) { toast("Set up ImgBB API key first (Image API Setup tab)", true); return; }
-  const prog = document.getElementById("gallery-progress");
-  const progBar = document.getElementById("gallery-progress-bar");
-  const progText = document.getElementById("gallery-progress-text");
+function handleGalleryDrop(e){e.preventDefault();document.getElementById("gallery-drop-zone").classList.remove("dragging");handleGalleryFiles(e.dataTransfer.files);}
+async function handleGalleryFiles(files){
+  if(!files||!files.length)return;
+  if(!getImgbbKey()){toast("Set up ImgBB API key first",true);return;}
+  const prog=document.getElementById("gallery-progress");
+  const progBar=document.getElementById("gallery-progress-bar");
+  const progText=document.getElementById("gallery-progress-text");
   prog.classList.add("show");
-  let done = 0;
-  for (const file of files) {
-    progText.textContent = `Uploading ${file.name}… (${done+1}/${files.length})`;
-    try {
-      const url = await uploadToImgbb(file, pct => {
-        const overall = Math.round(((done + pct/100) / files.length) * 100);
-        progBar.style.width = overall + "%";
-      });
-      if (url) gallery.push({id:Date.now()+done, url, caption:""});
-    } catch(e) { toast("Error uploading " + file.name, true); }
+  let done=0;
+  for(const file of files){
+    progText.textContent=`Uploading ${done+1}/${files.length}…`;
+    try{
+      const url=await uploadToImgbb(file,pct=>{progBar.style.width=Math.round(((done+pct/100)/files.length)*100)+"%";});
+      if(url)gallery.push({id:Date.now()+done,url,caption:""});
+    }catch(e){toast("Error: "+file.name,true);}
     done++;
   }
-  prog.classList.remove("show");
-  progBar.style.width = "0%";
-  renderGallery();
-  toast(done > 1 ? `${done} photos added!` : "Photo added!");
+  prog.classList.remove("show");progBar.style.width="0%";
+  renderGallery();toast(done>1?`${done} photos added!`:"Photo added!");
 }
-function addGalleryByUrl() {
-  const url = document.getElementById("gallery-url").value.trim();
-  const cap = document.getElementById("gallery-caption").value.trim();
-  if (!url) { toast("Please paste a photo URL", true); return; }
-  gallery.push({id:Date.now(), url, caption:cap});
-  document.getElementById("gallery-url").value="";
-  document.getElementById("gallery-caption").value="";
-  renderGallery(); toast("Photo added!");
+function addGalleryByUrl(){
+  const url=document.getElementById("gallery-url").value.trim();
+  const cap=document.getElementById("gallery-caption").value.trim();
+  if(!url){toast("Please paste a photo URL",true);return;}
+  gallery.push({id:Date.now(),url,caption:cap});
+  document.getElementById("gallery-url").value="";document.getElementById("gallery-caption").value="";
+  renderGallery();toast("Photo added!");
 }
-function delGallery(id) { gallery = gallery.filter(g=>g.id!==id); renderGallery(); }
-function renderGallery() {
-  const grid = document.getElementById("gallery-grid");
-  document.getElementById("gallery-count").textContent = gallery.length;
-  if (!gallery.length) { grid.innerHTML='<p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet.</p>'; return; }
-  grid.innerHTML = gallery.map(g=>`
+function delGallery(id){gallery=gallery.filter(g=>g.id!==id);renderGallery();}
+function renderGallery(){
+  const grid=document.getElementById("gallery-grid");
+  document.getElementById("gallery-count").textContent=gallery.length;
+  if(!gallery.length){grid.innerHTML='<p style="color:var(--muted);font-size:.88rem;grid-column:1/-1;">No photos yet.</p>';return;}
+  grid.innerHTML=gallery.map(g=>`
     <div class="gallery-preview-item">
       <img src="${g.url}" alt="${g.caption}" onerror="this.style.opacity='.3'" loading="lazy"/>
       ${g.caption?`<div class="gallery-preview-caption">${g.caption}</div>`:""}
       <button class="gallery-preview-del" onclick="delGallery(${g.id})">&times;</button>
     </div>`).join("");
 }
-function saveGallery() {
-  if(isFirebase) firebase.database().ref("gallery").set(gallery).then(()=>toast("Gallery live!")).catch(()=>toast("Error",true));
-  else toast("Demo mode — connect Firebase to publish live");
+function saveGallery(){
+  if(isFirebase)firebase.database().ref("gallery").set(gallery).then(()=>toast("Gallery live!")).catch(()=>toast("Error",true));
+  else toast("Demo mode — connect Firebase to publish");
 }
 
 // ---- TESTIMONIALS ----
-function handleTestiDrop(e) {
-  e.preventDefault();
-  document.getElementById("testi-drop-zone").classList.remove("dragging");
-  if(e.dataTransfer.files[0]) handleTestiFile(e.dataTransfer.files[0]);
+function handleTestiDrop(e){e.preventDefault();document.getElementById("testi-drop-zone").classList.remove("dragging");if(e.dataTransfer.files[0])handleTestiFile(e.dataTransfer.files[0]);}
+async function handleTestiFile(file){
+  if(!file)return;
+  if(!getImgbbKey()){const url=URL.createObjectURL(file);pendingTestiPhotoUrl=url;showTestiPhotoPreview(url,file.name);toast("Demo: ImgBB not set. Preview only.");return;}
+  const prog=document.getElementById("testi-progress");
+  const progBar=document.getElementById("testi-progress-bar");
+  const progText=document.getElementById("testi-progress-text");
+  prog.classList.add("show");progText.textContent="Uploading…";
+  try{
+    const url=await uploadToImgbb(file,pct=>{progBar.style.width=pct+"%";progText.textContent=`Uploading… ${pct}%`;});
+    if(url){pendingTestiPhotoUrl=url;showTestiPhotoPreview(url,file.name);toast("Photo uploaded!");}
+  }catch(e){toast("Upload failed",true);}
+  prog.classList.remove("show");progBar.style.width="0%";
 }
-async function handleTestiFile(file) {
-  if (!file) return;
-  if (!getImgbbKey()) {
-    // fallback: create object URL for demo
-    const url = URL.createObjectURL(file);
-    pendingTestiPhotoUrl = url;
-    showTestiPhotoPreview(url, file.name);
-    toast("Demo mode: ImgBB not set. Photo preview only.");
-    return;
-  }
-  const prog = document.getElementById("testi-progress");
-  const progBar = document.getElementById("testi-progress-bar");
-  const progText = document.getElementById("testi-progress-text");
-  prog.classList.add("show");
-  progText.textContent = "Uploading photo…";
-  try {
-    const url = await uploadToImgbb(file, pct => {
-      progBar.style.width = pct + "%";
-      progText.textContent = `Uploading… ${pct}%`;
-    });
-    if (url) {
-      pendingTestiPhotoUrl = url;
-      showTestiPhotoPreview(url, file.name);
-      toast("Photo uploaded!");
-    }
-  } catch(e) { toast("Upload failed — " + e, true); }
-  prog.classList.remove("show");
-  progBar.style.width = "0%";
+function showTestiPhotoPreview(url,name){
+  const wrap=document.getElementById("testi-photo-preview-wrap");
+  document.getElementById("testi-photo-preview").src=url;
+  document.getElementById("testi-preview-name").textContent=name||"Photo ready";
+  wrap.style.display="flex";
 }
-function showTestiPhotoPreview(url, name) {
-  const wrap = document.getElementById("testi-photo-preview-wrap");
-  document.getElementById("testi-photo-preview").src = url;
-  document.getElementById("testi-preview-name").textContent = name || "Photo ready";
-  wrap.style.display = "flex";
+function clearTestiPhoto(){
+  pendingTestiPhotoUrl="";
+  document.getElementById("new-testi-photo").value="";
+  document.getElementById("testi-photo-preview-wrap").style.display="none";
 }
-function clearTestiPhoto() {
-  pendingTestiPhotoUrl = "";
-  document.getElementById("new-testi-photo").value = "";
-  document.getElementById("testi-photo-preview-wrap").style.display = "none";
-}
-function addTestimonial() {
-  const name   = document.getElementById("new-testi-name").value.trim();
-  const role   = document.getElementById("new-testi-role").value.trim();
-  const review = document.getElementById("new-testi-review").value.trim();
-  const photo  = pendingTestiPhotoUrl || document.getElementById("new-testi-photo").value.trim();
-  if (!name || !review) { toast("Name and review are required", true); return; }
-  const t = {id:Date.now(), name, role, photo, review};
+function addTestimonial(){
+  const name=document.getElementById("new-testi-name").value.trim();
+  const role=document.getElementById("new-testi-role").value.trim();
+  const review=document.getElementById("new-testi-review").value.trim();
+  const photo=pendingTestiPhotoUrl||document.getElementById("new-testi-photo").value.trim();
+  if(!name||!review){toast("Name and review required",true);return;}
+  const t={id:Date.now(),name,role,photo,review};
   testimonials.push(t);
-  if(isFirebase) firebase.database().ref("testimonials/"+t.id).set(t).then(()=>toast("Testimonial live!")).catch(()=>toast("Error",true));
+  if(isFirebase)firebase.database().ref("testimonials/"+t.id).set(t).then(()=>toast("Testimonial live!")).catch(()=>toast("Error",true));
   else toast("Added (Demo Mode)");
   document.getElementById("new-testi-name").value="";
   document.getElementById("new-testi-role").value="";
   document.getElementById("new-testi-review").value="";
-  clearTestiPhoto();
-  renderTestiList();
+  clearTestiPhoto();renderTestiList();
 }
-function delTesti(id) {
-  testimonials = testimonials.filter(t=>t.id!==id);
-  if(isFirebase) firebase.database().ref("testimonials/"+id).remove();
-  toast("Removed"); renderTestiList();
+function delTesti(id){
+  testimonials=testimonials.filter(t=>t.id!==id);
+  if(isFirebase)firebase.database().ref("testimonials/"+id).remove();
+  toast("Removed");renderTestiList();
 }
-function renderTestiList() {
-  const list = document.getElementById("testi-list");
-  if (!testimonials.length) { list.innerHTML='<p style="color:var(--muted);font-size:.88rem;">No testimonials yet.</p>'; return; }
-  list.innerHTML = testimonials.map(t=>`
+function renderTestiList(){
+  const list=document.getElementById("testi-list");
+  if(!testimonials.length){list.innerHTML='<p style="color:var(--muted);font-size:.88rem;">No testimonials yet.</p>';return;}
+  list.innerHTML=testimonials.map(t=>`
     <div class="testi-item">
       <div class="testi-item-header">
         <div class="testi-meta">
-          ${t.photo
-            ? `<img class="testi-avatar-img" src="${t.photo}" alt="${t.name}"/>`
-            : `<div class="testi-avatar-letter">${(t.name||"?")[0].toUpperCase()}</div>`}
+          ${t.photo?`<img class="testi-avatar-img" src="${t.photo}" alt="${t.name}"/>`:`<div class="testi-avatar-letter">${(t.name||"?")[0].toUpperCase()}</div>`}
           <div><div class="testi-name">${t.name}</div><div class="testi-role">${t.role}</div></div>
         </div>
         <button class="btn btn-danger btn-sm" onclick="delTesti(${t.id})">Remove</button>
       </div>
-      <p style="font-size:.86rem;color:var(--muted);line-height:1.6;">"${t.review}"</p>
+      <p style="font-size:.84rem;color:var(--muted);line-height:1.6;">"${t.review}"</p>
     </div>`).join("");
 }
 
 // ---- SITE IMAGES ----
-async function uploadSiteImg(type, file, previewId) {
-  if (!file) return;
-  if (!getImgbbKey()) {
-    // demo mode — just preview
-    const url = URL.createObjectURL(file);
-    document.getElementById(previewId).src = url;
-    toast("Demo mode: ImgBB not set. Preview only.");
-    return;
-  }
+async function uploadSiteImg(type,file,previewId){
+  if(!file)return;
+  if(!getImgbbKey()){document.getElementById(previewId).src=URL.createObjectURL(file);toast("Demo mode — ImgBB not set. Preview only.");return;}
   toast("Uploading…");
-  try {
-    const url = await uploadToImgbb(file, ()=>{});
-    if (url) {
-      document.getElementById(previewId).src = url;
-      await saveSiteImgToDb(type, url);
-      toast("Image updated live!");
-    }
-  } catch(e) { toast("Upload failed", true); }
+  try{
+    const url=await uploadToImgbb(file,()=>{});
+    if(url){document.getElementById(previewId).src=url;await saveSiteImgToDb(type,url);toast("Image updated live!");}
+  }catch(e){toast("Upload failed",true);}
 }
-async function updateSiteImgUrl(type, previewId, inputId) {
-  const pid   = previewId || "prev-img-" + type;
-  const iid   = inputId   || "url-img-"  + type;
-  const url   = document.getElementById(iid).value.trim();
-  if (!url) { toast("Please paste an image URL first", true); return; }
-  document.getElementById(pid).src = url;
-  document.getElementById(iid).value = "";
-  await saveSiteImgToDb(type, url);
-  toast(isFirebase ? "Image updated live!" : "Image updated (Demo Mode)");
+async function updateSiteImgUrl(type,previewId,inputId){
+  const pid=previewId||"prev-img-"+type;
+  const iid=inputId||"url-img-"+type;
+  const url=document.getElementById(iid).value.trim();
+  if(!url){toast("Paste an image URL first",true);return;}
+  document.getElementById(pid).src=url;document.getElementById(iid).value="";
+  await saveSiteImgToDb(type,url);
+  toast(isFirebase?"Image updated live!":"Image updated (Demo Mode)");
 }
-async function saveSiteImgToDb(type, url) {
-  if (isFirebase) await firebase.database().ref("siteImages/"+type).set(url).catch(()=>toast("DB error",true));
+async function saveSiteImgToDb(type,url){
+  if(isFirebase)await firebase.database().ref("siteImages/"+type).set(url).catch(()=>toast("DB error",true));
 }
 
-// ---- TEACHER BIO ----
-function saveTeacherInfo() {
-  const d = {
-    name:   document.getElementById("teacher-name").value.trim(),
-    title:  document.getElementById("teacher-title").value.trim(),
-    intro:  document.getElementById("teacher-intro").value.trim(),
-    bio:    document.getElementById("teacher-bio").value.trim()
+// ---- TEACHER ----
+function saveTeacherInfo(){
+  const d={
+    name:document.getElementById("teacher-name").value.trim(),
+    title:document.getElementById("teacher-title").value.trim(),
+    intro:document.getElementById("teacher-intro").value.trim(),
+    bio:document.getElementById("teacher-bio").value.trim()
   };
-  if (isFirebase) firebase.database().ref("teacher").set(d).then(()=>toast("Bio saved & live!")).catch(()=>toast("Error",true));
-  else toast("Demo mode — connect Firebase to publish live");
+  if(isFirebase)firebase.database().ref("teacher").set(d).then(()=>toast("Bio saved & live!")).catch(()=>toast("Error",true));
+  else toast("Demo mode — connect Firebase to publish");
 }
 
 // ---- ANNOUNCEMENT ----
-function toggleAnn() {
-  announcement.active = !announcement.active;
-  document.getElementById("ann-toggle").className = "toggle"+(announcement.active?" on":"");
-  document.getElementById("ann-label").textContent = announcement.active ? "Banner is ON" : "Banner is OFF";
+function toggleAnn(){
+  announcement.active=!announcement.active;
+  document.getElementById("ann-toggle").className="toggle"+(announcement.active?" on":"");
+  document.getElementById("ann-label").textContent=announcement.active?"Banner is ON":"Banner is OFF";
 }
-function saveAnnouncement() {
-  announcement.text = document.getElementById("ann-text").value.trim();
-  if(isFirebase) firebase.database().ref("announcement").set(announcement).then(()=>toast(announcement.active?"Banner LIVE!":"Banner hidden")).catch(()=>toast("Error",true));
-  else toast("Demo mode — connect Firebase to publish");
+function saveAnnouncement(){
+  announcement.text=document.getElementById("ann-text").value.trim();
+  if(isFirebase)firebase.database().ref("announcement").set(announcement).then(()=>toast(announcement.active?"Banner LIVE!":"Banner hidden")).catch(()=>toast("Error",true));
+  else toast("Demo mode — connect Firebase");
 }
-function setEx(btn) { document.getElementById("ann-text").value = btn.textContent.trim(); }
+function setEx(btn){document.getElementById("ann-text").value=btn.textContent.trim();}
 
 // ---- CONTACT ----
-function saveContact() {
-  const d = {
-    phone:    document.getElementById("contact-phone").value,
-    email:    document.getElementById("contact-email").value,
-    address:  document.getElementById("contact-address").value,
-    open:     i2t(document.getElementById("contact-open").value),
-    close:    i2t(document.getElementById("contact-close").value),
-    landmark: document.getElementById("contact-landmark").value
+function saveContact(){
+  const d={
+    phone:document.getElementById("contact-phone").value,
+    email:document.getElementById("contact-email").value,
+    address:document.getElementById("contact-address").value,
+    open:i2t(document.getElementById("contact-open").value),
+    close:i2t(document.getElementById("contact-close").value),
+    landmark:document.getElementById("contact-landmark").value
   };
-  if(isFirebase) firebase.database().ref("contact").set(d).then(()=>toast("Contact info live!")).catch(()=>toast("Error",true));
-  else toast("Demo mode — connect Firebase to publish");
+  if(isFirebase)firebase.database().ref("contact").set(d).then(()=>toast("Contact info live!")).catch(()=>toast("Error",true));
+  else toast("Demo mode — connect Firebase");
 }
 
 // ---- FIREBASE LOAD ----
-function loadFirebase() {
-  const db = firebase.database();
-  db.ref("schedule").once("value").then(s=>{ if(s.val()){schedule=s.val();renderSchedule();}});
-  db.ref("testimonials").once("value").then(s=>{ if(s.val()){testimonials=Object.values(s.val());renderTestiList();}});
-  db.ref("gallery").once("value").then(s=>{ if(s.val()){gallery=Array.isArray(s.val())?s.val():Object.values(s.val());renderGallery();}});
+function loadFirebase(){
+  const db=firebase.database();
+  db.ref("schedule").once("value").then(s=>{if(s.val()){schedule=s.val();renderSchedule();}});
+  db.ref("testimonials").once("value").then(s=>{if(s.val()){testimonials=Object.values(s.val());renderTestiList();}});
+  db.ref("gallery").once("value").then(s=>{if(s.val()){gallery=Array.isArray(s.val())?s.val():Object.values(s.val());renderGallery();}});
   db.ref("announcement").once("value").then(s=>{
-    if(s.val()){ announcement=s.val(); document.getElementById("ann-text").value=announcement.text||""; if(announcement.active)toggleAnn(); }
+    if(s.val()){announcement=s.val();document.getElementById("ann-text").value=announcement.text||"";if(announcement.active)toggleAnn();}
   });
   db.ref("siteImages").once("value").then(s=>{
-    if(s.val()){
-      const i=s.val();
-      if(i.hero)  document.getElementById("prev-img-hero").src=i.hero;
-      if(i.about) document.getElementById("prev-img-about").src=i.about;
-      if(i.guru)  { document.getElementById("prev-img-guru").src=i.guru; document.getElementById("prev-teacher-photo").src=i.guru; }
+    if(s.val()){const i=s.val();
+      if(i.hero)document.getElementById("prev-img-hero").src=i.hero;
+      if(i.about)document.getElementById("prev-img-about").src=i.about;
+      if(i.guru){document.getElementById("prev-img-guru").src=i.guru;document.getElementById("prev-teacher-photo").src=i.guru;}
       if(i.banner)document.getElementById("prev-img-banner").src=i.banner;
     }
   });
   db.ref("teacher").once("value").then(s=>{
-    if(s.val()){
-      const t=s.val();
-      if(t.name)  document.getElementById("teacher-name").value=t.name;
-      if(t.title) document.getElementById("teacher-title").value=t.title;
-      if(t.intro) document.getElementById("teacher-intro").value=t.intro;
-      if(t.bio)   document.getElementById("teacher-bio").value=t.bio;
+    if(s.val()){const t=s.val();
+      if(t.name)document.getElementById("teacher-name").value=t.name;
+      if(t.title)document.getElementById("teacher-title").value=t.title;
+      if(t.intro)document.getElementById("teacher-intro").value=t.intro;
+      if(t.bio)document.getElementById("teacher-bio").value=t.bio;
     }
   });
   db.ref("config/imgbbKey").once("value").then(s=>{
-    if(s.val()){ imgbbKey=s.val(); localStorage.setItem("yogartha_imgbb_key",s.val()); updateImgbbStatus(); }
+    if(s.val()){imgbbKey=s.val();localStorage.setItem("yogartha_imgbb_key",s.val());updateImgbbStatus();}
   });
 }
 
 // ---- TOAST ----
-function toast(msg, isErr) {
-  const t = document.getElementById("toast");
-  t.textContent = (isErr?"⚠ ":"✓ ")+msg;
-  t.style.background = isErr?"#c0392b":"#27ae60";
+function toast(msg,isErr){
+  const t=document.getElementById("toast");
+  t.textContent=(isErr?"⚠ ":"✓ ")+msg;
+  t.style.background=isErr?"#c0392b":"#27ae60";
   t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"), 3000);
+  setTimeout(()=>t.classList.remove("show"),3000);
 }
 </script>
 </body>
