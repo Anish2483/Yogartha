@@ -84,12 +84,15 @@
     if (existing) existing.remove();
     const bar = document.createElement("div");
     bar.id = "yogartha-announcement";
+    // Modern floating bottom banner to avoid menu interference
     bar.style.cssText = `background:linear-gradient(90deg,var(--maroon),var(--saffron));color:#fff;text-align:center;
-      padding:10px 20px;font-size:.88rem;font-family:var(--font-sans);letter-spacing:.05em;position:relative;z-index:1000;`;
-    bar.innerHTML = `<strong>${data.text}</strong>
-      <button onclick="this.parentElement.remove()" style="background:none;border:none;color:#fff;font-size:1.1rem;
-        cursor:pointer;position:absolute;right:16px;top:50%;transform:translateY(-50%);opacity:.7;">&times;</button>`;
-    document.body.insertBefore(bar, document.body.firstChild);
+      padding:14px 48px 14px 24px;font-size:.95rem;font-family:var(--font-sans, sans-serif);letter-spacing:.05em;
+      position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:90%;max-width:500px;
+      border-radius:50px;box-shadow:0 8px 32px rgba(0,0,0,0.25);z-index:9999;font-weight:500;`;
+    bar.innerHTML = `<span>${data.text}</span>
+      <button onclick="document.getElementById('yogartha-announcement').remove()" aria-label="Close Announcement" style="background:none;border:none;color:#fff;font-size:1.5rem;
+        cursor:pointer;position:absolute;right:16px;top:50%;transform:translateY(-50%);opacity:.9;line-height:1;padding:4px;">&times;</button>`;
+    document.body.appendChild(bar);
   }
 
   // ---- Try Firebase ----
