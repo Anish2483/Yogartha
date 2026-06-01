@@ -1,23 +1,20 @@
 // =====================================================
 // YOGARTHA — Firebase Configuration
-// Replace the values below with your Firebase project
 // =====================================================
 const FIREBASE_CONFIG = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT.firebaseapp.com",
-  databaseURL:       "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+  apiKey:            "AIzaSyA9KaRPByf5gYAdwn5OVrrGzKWZnCqljb4",
+  authDomain:        "yogartha-3a5cd.firebaseapp.com",
+  databaseURL:       "https://yogartha-3a5cd-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:         "yogartha-3a5cd",
+  storageBucket:     "yogartha-3a5cd.firebasestorage.app",
+  messagingSenderId: "368140864352",
+  appId:             "1:368140864352:web:3e61f21dd17209ebc16c05"
 };
 
-// Admin login email (set this to the owner's Gmail)
+// Admin login email
 const ADMIN_EMAIL = "yogartha.yoga@gmail.com";
 
-// Initialize Firebase if loaded and keys are provided
+// Initialize Firebase (using compat SDK v8 — no import needed)
 if (typeof firebase !== "undefined" && !firebase.apps.length) {
-  if (FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY") {
-    firebase.initializeApp(FIREBASE_CONFIG);
-  }
+  firebase.initializeApp(FIREBASE_CONFIG);
 }
