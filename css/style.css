@@ -852,64 +852,116 @@ ul { list-style: none; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(212,120,42,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 50%, rgba(107,16,32,0.12) 0%, transparent 60%);
+    radial-gradient(ellipse at 15% 60%, rgba(212,120,42,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 40%, rgba(107,16,32,0.08) 0%, transparent 55%);
+  pointer-events: none;
 }
 .sadhguru-inner {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 260px 1fr;
   gap: 80px;
   align-items: center;
 }
+
+/* ---- Portrait Frame (editorial, not circle) ---- */
 .sadhguru-photo-wrap {
-  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
-/* Sadhguru ring animation removed — simplified design */
-.sadhguru-ring { display: none; }
-.sadhguru-photo {
-  width: 280px;
-  height: 280px;
-  object-fit: cover;
-  object-position: top;
-  border-radius: 50%;
-  border: 4px solid rgba(212,120,42,0.5);
-  box-shadow: 0 0 60px rgba(212,120,42,0.2), 0 20px 60px rgba(0,0,0,0.6);
+.sg-portrait-frame {
   position: relative;
-  z-index: 2;
+  width: 240px;
+  /* tall portrait shape */
+  border-radius: 120px 120px 12px 12px;
+  overflow: hidden;
+  border: 1px solid rgba(212,120,42,0.28);
+  box-shadow:
+    0 0 0 6px rgba(212,120,42,0.05),
+    0 20px 60px rgba(0,0,0,0.55);
 }
-.quote-mark {
-  font-family: var(--font-serif);
-  font-size: 8rem;
+.sadhguru-photo {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+/* subtle bottom gradient fade */
+.sg-portrait-glow {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(to top, rgba(17,16,8,0.75), transparent);
+  pointer-events: none;
+}
+
+/* ---- Name & sub below portrait ---- */
+.sadhguru-name-tag {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--saffron-light);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.sadhguru-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.38);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+/* ---- Quote Column ---- */
+.sg-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
   color: var(--saffron);
-  opacity: 0.25;
-  line-height: 0.6;
-  margin-bottom: 8px;
+  opacity: 0.7;
+  margin-bottom: 20px;
 }
 .sadhguru-quote {
-  font-family: var(--font-serif);
-  font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
   font-style: italic;
-  color: var(--cream);
-  line-height: 1.6;
-  margin-bottom: 28px;
   font-weight: 300;
+  color: var(--cream);
+  line-height: 1.75;
+  margin-bottom: 24px;
+  /* Opening quotation mark as a subtle pseudo-element */
+  position: relative;
+  padding-left: 20px;
+}
+.sadhguru-quote::before {
+  content: '\201C';
+  position: absolute;
+  left: -4px;
+  top: -12px;
+  font-size: 4.5rem;
+  line-height: 1;
+  color: var(--saffron);
+  opacity: 0.2;
+  font-style: normal;
 }
 .sadhguru-attr {
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1rem;
+  font-style: normal;
   color: var(--saffron-light);
   letter-spacing: 0.05em;
-  margin-bottom: 4px;
+  display: block;
+  margin-bottom: 0;
 }
 .sadhguru-attr strong { font-weight: 600; }
-.sadhguru-sub {
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.08em;
-}
+
 
 /* ===== ISHA TAG ===== */
 .isha-tag {
@@ -1025,12 +1077,16 @@ ul { list-style: none; }
 @media (max-width: 768px) {
   .sadhguru-inner {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
     text-align: center;
   }
-  .sadhguru-photo-wrap { justify-content: center; }
-  .sadhguru-photo { width: 220px; height: 220px; }
-  .quote-mark { font-size: 5rem; }
+  .sadhguru-photo-wrap { align-items: center; }
+  .sg-portrait-frame { width: 190px; }
+  .sadhguru-photo { height: 250px; }
+  .sadhguru-quote { font-size: clamp(1.25rem, 5vw, 1.6rem); padding-left: 0; }
+  .sadhguru-quote::before { display: none; }
+  .sadhguru-text { text-align: center; }
+  .sadhguru-divider { justify-content: center; }
 }
 
 /* ===== ADIYOGI HERO PORTRAIT ===== */
@@ -1083,30 +1139,13 @@ ul { list-style: none; }
 }
 
 /* ===== SADHGURU SECTION EXTRAS ===== */
-.sadhguru-name-tag {
-  text-align: center;
-  margin-top: 14px;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  color: var(--saffron-light);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-.sadhguru-quote {
-  font-family: var(--font-quote) !important;
-  font-size: clamp(1.3rem, 2.5vw, 1.9rem);
-  font-style: italic;
-  color: var(--cream);
-  line-height: 1.7;
-  margin-bottom: 28px;
-  font-weight: 400;
-}
+/* (legacy name-tag/quote styles removed — now handled above) */
 .sadhguru-divider {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-top: 28px;
-  opacity: 0.5;
+  opacity: 0.55;
 }
 .sadhguru-divider::before,
 .sadhguru-divider::after {
@@ -1118,15 +1157,10 @@ ul { list-style: none; }
 .sdiv-symbol {
   width: 36px; height: 36px;
   object-fit: contain;
-  opacity: 0.6;
-  /* No rotation — static, calm */
+  opacity: 0.7;
 }
 
 /* ===== UPDATED QUOTE FONT ===== */
-.sadhguru-attr {
-  font-style: normal;
-  display: block;
-}
 cite.sadhguru-attr { font-style: normal; }
 
 /* ===== SECTION-TITLE FONT UPDATE ===== */
