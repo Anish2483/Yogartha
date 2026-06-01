@@ -322,35 +322,36 @@ ul { list-style: none; }
 
 /* ===== ELEGANT MARQUEE ===== */
 .marquee-elegant {
-  background: rgba(242, 103, 34, 0.04); /* Subtle saffron tint over cream */
-  padding: 16px 0;
+  background: var(--charcoal); /* Deep anchoring color */
+  padding: 18px 0;
   overflow: hidden;
-  border-bottom: 1px solid rgba(212,120,42,0.15); 
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 3px solid var(--saffron);
 }
 .marquee-track-elegant {
   display: flex;
-  gap: 40px;
+  gap: 48px;
   white-space: nowrap;
   animation: marquee-slow 40s linear infinite;
   align-items: center;
 }
 .marquee-track-elegant span {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--charcoal);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--cream);
   display: flex;
   align-items: center;
 }
 .marquee-track-elegant .icon {
-  font-family: var(--font-sans); /* keep icons standard */
-  font-size: 1.1rem;
-  color: rgba(212,120,42,0.6);
-  margin-right: 12px;
-  font-weight: 300;
+  font-size: 1.2rem;
+  color: var(--saffron);
+  margin-right: 16px;
 }
 .marquee-track-elegant .sep {
-  display: none; /* Removed the stars in favor of icons */
+  display: none;
 }
 @keyframes marquee-slow {
   0% { transform: translateX(0); }
