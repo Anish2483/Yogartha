@@ -22,15 +22,28 @@ window.addEventListener('scroll', () => {
 // ===== HAMBURGER =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
+
+function openNav() {
+  navLinks.classList.add('open');
+  hamburger.classList.add('active');
+  document.body.style.overflow = 'hidden'; // prevent background scroll
+}
+function closeNav() {
+  navLinks.classList.remove('open');
+  hamburger.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 hamburger?.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  hamburger.classList.toggle('active');
+  navLinks.classList.contains('open') ? closeNav() : openNav();
 });
+// Close when tapping a link
 navLinks?.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    hamburger.classList.remove('active');
-  });
+  link.addEventListener('click', closeNav);
+});
+// Close when tapping the dark overlay area (outside the menu items)
+navLinks?.addEventListener('click', (e) => {
+  if (e.target === navLinks) closeNav();
 });
 
 // ===== SCROLL TO TOP =====
