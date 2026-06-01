@@ -42,10 +42,18 @@
 
   // ---- Render Gallery ----
   function renderGallery(items) {
-    if (!items || items.length === 0) return;
     const section = document.getElementById("gallery");
     const grid = document.getElementById("gallery-masonry");
+    const navLi = document.getElementById("nav-gallery-li");
+
     if (!section || !grid) return;
+
+    if (!items || items.length === 0) {
+      // No photos — hide section and nav link
+      section.style.display = "none";
+      if (navLi) navLi.style.display = "none";
+      return;
+    }
 
     grid.innerHTML = items.map(item => `
       <div class="gallery-masonry-item">
@@ -53,7 +61,8 @@
         ${item.caption ? `<div class="gallery-caption">${item.caption}</div>` : ""}
       </div>`).join("");
 
-    section.style.display = "block"; // Show the section
+    section.style.display = "block";       // Show gallery section
+    if (navLi) navLi.style.display = "";   // Show Gallery nav link
   }
 
   // ---- Render Testimonials ----
