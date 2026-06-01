@@ -13,33 +13,33 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      /* ---- Complementary palette (warm parchment, bright, airy) ---- */
-      --bg:        #F7F0E3;        /* warm parchment — main site's cream family */
-      --surface:   #FDFAF4;        /* almost white ivory */
-      --surface2:  #EFE6D0;        /* slightly deeper parchment for inputs */
-      --border:    rgba(107,16,32,0.12);  /* maroon-tinted border */
-      --saffron:   #C96A20;        /* rich saffron (slightly deeper for light bg) */
-      --saffron-lt:#E8843A;        /* lighter saffron hover */
-      --gold:      #A87220;        /* warm gold */
-      --gold-lt:   #D4A040;        /* light gold */
-      --maroon:    #6B1020;        /* main site's maroon — primary accent */
-      --maroon-lt: #8B1A2A;
-      --cream:     #F5EED8;        /* exact main site cream */
-      --text:      #2A1A0E;        /* rich dark brown — readable on light bg */
-      --text-mid:  #5A3A20;        /* medium brown */
-      --muted:     #9A7A60;        /* warm muted brown */
-      --danger:    #B03020;
-      --success:   #2D7A45;
-      --radius:    12px;
+      /* ---- Isha Foundation Theme ---- */
+      --bg:        #FDFCFB;
+      --surface:   #FFFFFF;
+      --surface2:  #F7F3EE;
+      --border:    rgba(0,0,0,0.08);
+      --saffron:   #F26722;
+      --saffron-lt:#FF7A38;
+      --gold:      #C25318;
+      --gold-lt:   #E35205;
+      --maroon:    #2C2C2C;
+      --maroon-lt: #3C3C3C;
+      --cream:     #FDFCFB;
+      --text:      #212121;
+      --text-mid:  #555555;
+      --muted:     #888888;
+      --danger:    #D32F2F;
+      --success:   #2E7D32;
+      --radius:    8px;
       --font:      'Jost', sans-serif;
-      --serif:     'Cinzel', serif;          /* SAME as main site logo display font */
+      --serif:     'Cinzel', serif;
       --font-body: 'Cormorant Garamond', Georgia, serif;
       --sidebar-w: 252px;
       --topbar-h:  60px;
       --bottomnav-h: 64px;
-      /* Shadows for light theme */
-      --shadow-sm: 0 2px 8px rgba(107,16,32,0.08);
-      --shadow-md: 0 4px 24px rgba(107,16,32,0.12);
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.08);
     }
     html, body { height:100%; background:var(--bg); color:var(--text); font-family:var(--font); overflow-x:hidden; }
 
@@ -69,7 +69,7 @@
     .login-field:focus { border-color:var(--maroon); box-shadow:0 0 0 3px rgba(107,16,32,0.08); }
     .login-field::placeholder { color:var(--muted); }
     .btn-login {
-      width:100%; padding:14px; background:linear-gradient(135deg,var(--maroon),var(--saffron));
+      width:100%; padding:14px; background:linear-gradient(135deg,var(--saffron),var(--gold));
       border:none; border-radius:10px; color:#fff; font-family:var(--serif); font-size:.95rem;
       font-weight:600; letter-spacing:.08em; cursor:pointer; transition:opacity .2s; margin-top:4px;
     }
@@ -323,8 +323,7 @@
 <!-- ===== LOGIN ===== -->
 <div id="login-screen">
   <div class="login-box">
-    <div class="login-logo">Yogartha</div>
-    <div class="login-sub">Owner Dashboard</div>
+    <img src="images/yogartha_logo.png" alt="Yogartha" style="width:180px; height:auto; margin:0 auto 24px; display:block;" />
     <input class="login-field" type="email" id="login-email" placeholder="Email address" autocomplete="email" />
     <input class="login-field" type="password" id="login-pass" placeholder="Password" autocomplete="current-password" />
     <button class="btn-login" onclick="doLogin()">Sign In</button>
@@ -337,7 +336,7 @@
 
   <!-- Mobile Topbar -->
   <div class="mobile-topbar">
-    <div class="mobile-logo">Yogartha</div>
+    <img src="images/yogartha_logo.png" alt="Yogartha" style="height:36px; width:auto; filter:brightness(0) invert(1);" />
     <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()">
       <span></span><span></span><span></span>
     </button>
@@ -348,7 +347,7 @@
 
   <!-- Sidebar -->
   <nav class="sidebar" id="sidebar">
-    <div class="sidebar-logo"><span>Yogartha</span><small>Admin Panel</small></div>
+    <div class="sidebar-logo"><img src="images/yogartha_logo.png" alt="Yogartha" style="width:150px; height:auto; margin-bottom:6px; filter:brightness(0) invert(1);" /><small>Admin Panel</small></div>
     <div class="sidebar-nav" id="sidebar-nav">
       <button class="nav-item active" onclick="showPanel('schedule',this)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Schedule</span>
@@ -654,7 +653,7 @@
       <div class="card">
         <div class="card-title">Studio Details</div>
         <div class="form-group"><label>Phone Number</label><input type="tel" id="contact-phone" value="+91 78200 96554" /></div>
-        <div class="form-group"><label>Email Address</label><input type="email" id="contact-email" value="yogartha.yoga@gmail.com" /></div>
+        <div class="form-group"><label>Email Address</label><input type="email" id="contact-email" placeholder="e.g. contact@yogartha.com" /></div>
         <div class="form-group"><label>Studio Address</label><textarea id="contact-address">12, Shanti Vihar Colony, Rajpur Road, Dehradun, Uttarakhand — 248001</textarea></div>
         <div class="form-row">
           <div class="form-group"><label>Opening Time</label><input type="time" id="contact-open" value="05:30" /></div>
