@@ -865,7 +865,7 @@ ul { list-style: none; }
   align-items: center;
 }
 
-/* ---- Portrait Frame (editorial, not circle) ---- */
+/* ---- Portrait Frame (yoga-like: clean, soft, minimal) ---- */
 .sadhguru-photo-wrap {
   display: flex;
   flex-direction: column;
@@ -875,13 +875,12 @@ ul { list-style: none; }
 .sg-portrait-frame {
   position: relative;
   width: 240px;
-  /* tall portrait shape */
-  border-radius: 120px 120px 12px 12px;
+  border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(212,120,42,0.28);
+  border: 1px solid rgba(212,120,42,0.22);
   box-shadow:
-    0 0 0 6px rgba(212,120,42,0.05),
-    0 20px 60px rgba(0,0,0,0.55);
+    0 0 0 8px rgba(212,120,42,0.04),
+    0 24px 64px rgba(0,0,0,0.5);
 }
 .sadhguru-photo {
   width: 100%;
@@ -890,14 +889,8 @@ ul { list-style: none; }
   object-position: top center;
   display: block;
 }
-/* subtle bottom gradient fade */
-.sg-portrait-glow {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 80px;
-  background: linear-gradient(to top, rgba(17,16,8,0.75), transparent);
-  pointer-events: none;
-}
+/* no overlay — let the image breathe */
+.sg-portrait-glow { display: none; }
 
 /* ---- Name & sub below portrait ---- */
 .sadhguru-name-tag {
