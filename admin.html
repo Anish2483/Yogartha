@@ -576,21 +576,77 @@
         </div>
       </div>
 
-      <!-- Banner -->
+      <!-- Logo -->
       <div class="card">
-        <div class="card-title">Extra Banner / Promo Image</div>
-        <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">Extra photo slot — workshops, events, or any promo.</p>
+        <div class="card-title">Main Logo</div>
         <div class="site-img-card">
-          <img id="prev-img-banner" src="images/isha_hatha_symbol.png" style="width:100px;height:100px;" class="site-img-preview" alt="Banner" />
+          <img id="prev-img-logo" src="images/yogartha_logo.png" style="width:100px;height:100px;object-fit:contain;" class="site-img-preview" alt="Logo" />
           <div class="site-img-actions">
-            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-banner').click()">
-              <input type="file" id="file-img-banner" accept="image/*" style="display:none;" onchange="uploadSiteImg('banner',this.files[0],'prev-img-banner')" />
-              <p style="font-size:.82rem;"><strong>Tap to upload promo photo</strong></p>
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-logo').click()">
+              <input type="file" id="file-img-logo" accept="image/*" style="display:none;" onchange="uploadSiteImg('logo',this.files[0],'prev-img-logo')" />
+              <p style="font-size:.82rem;"><strong>Tap to upload logo</strong></p>
             </div>
             <div class="or-divider">or paste URL</div>
             <div style="display:flex;gap:8px;">
-              <input type="url" id="url-img-banner" placeholder="Image URL…" style="flex:1;" />
-              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('banner')">Set</button>
+              <input type="url" id="url-img-logo" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('logo')">Set</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sadhguru -->
+      <div class="card">
+        <div class="card-title">Sadhguru Portrait</div>
+        <div class="site-img-card">
+          <img id="prev-img-sadhguru" src="images/sadhguru_portrait.png" style="width:100px;height:100px;" class="site-img-preview" alt="Sadhguru" />
+          <div class="site-img-actions">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-sadhguru').click()">
+              <input type="file" id="file-img-sadhguru" accept="image/*" style="display:none;" onchange="uploadSiteImg('sadhguru',this.files[0],'prev-img-sadhguru')" />
+              <p style="font-size:.82rem;"><strong>Tap to upload photo</strong></p>
+            </div>
+            <div class="or-divider">or paste URL</div>
+            <div style="display:flex;gap:8px;">
+              <input type="url" id="url-img-sadhguru" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('sadhguru')">Set</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shala / Experience -->
+      <div class="card">
+        <div class="card-title">Class / Experience Photo</div>
+        <div class="site-img-card">
+          <img id="prev-img-shala" src="images/yoga_class_shala.png" style="width:100px;height:100px;" class="site-img-preview" alt="Shala" />
+          <div class="site-img-actions">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-shala').click()">
+              <input type="file" id="file-img-shala" accept="image/*" style="display:none;" onchange="uploadSiteImg('shala',this.files[0],'prev-img-shala')" />
+              <p style="font-size:.82rem;"><strong>Tap to upload photo</strong></p>
+            </div>
+            <div class="or-divider">or paste URL</div>
+            <div style="display:flex;gap:8px;">
+              <input type="url" id="url-img-shala" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('shala')">Set</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Symbol -->
+      <div class="card">
+        <div class="card-title">Decorative Symbol</div>
+        <div class="site-img-card">
+          <img id="prev-img-symbol" src="images/isha_hatha_symbol.png" style="width:100px;height:100px;object-fit:contain;" class="site-img-preview" alt="Symbol" />
+          <div class="site-img-actions">
+            <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-symbol').click()">
+              <input type="file" id="file-img-symbol" accept="image/*" style="display:none;" onchange="uploadSiteImg('symbol',this.files[0],'prev-img-symbol')" />
+              <p style="font-size:.82rem;"><strong>Tap to upload symbol</strong></p>
+            </div>
+            <div class="or-divider">or paste URL</div>
+            <div style="display:flex;gap:8px;">
+              <input type="url" id="url-img-symbol" placeholder="Image URL…" style="flex:1;" />
+              <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('symbol')">Set</button>
             </div>
           </div>
         </div>
@@ -1121,10 +1177,16 @@ function loadFirebase(){
   });
   db.ref("siteImages").once("value").then(s=>{
     if(s.val()){const i=s.val();
-      if(i.hero)document.getElementById("prev-img-hero").src=i.hero;
-      if(i.about)document.getElementById("prev-img-about").src=i.about;
-      if(i.guru){document.getElementById("prev-img-guru").src=i.guru;document.getElementById("prev-teacher-photo").src=i.guru;}
-      if(i.banner)document.getElementById("prev-img-banner").src=i.banner;
+      if(i.logo) { const el = document.getElementById("prev-img-logo"); if(el) el.src=i.logo; }
+      if(i.hero) { const el = document.getElementById("prev-img-hero"); if(el) el.src=i.hero; }
+      if(i.about) { const el = document.getElementById("prev-img-about"); if(el) el.src=i.about; }
+      if(i.sadhguru) { const el = document.getElementById("prev-img-sadhguru"); if(el) el.src=i.sadhguru; }
+      if(i.guru) { 
+        const el1 = document.getElementById("prev-img-guru"); if(el1) el1.src=i.guru;
+        const el2 = document.getElementById("prev-teacher-photo"); if(el2) el2.src=i.guru;
+      }
+      if(i.shala) { const el = document.getElementById("prev-img-shala"); if(el) el.src=i.shala; }
+      if(i.symbol) { const el = document.getElementById("prev-img-symbol"); if(el) el.src=i.symbol; }
     }
   });
   db.ref("teacher").once("value").then(s=>{
