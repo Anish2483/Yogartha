@@ -851,6 +851,13 @@ ul { list-style: none; }
   .hamburger { display: flex; z-index: 1001; position: relative; }
   .about-badge { bottom: -10px; right: -10px; }
   .guru-doodle { display: none; }
+  
+  /* Fix: backdrop-filter creates a containing block that traps position:fixed children. 
+     We remove it on mobile so the full-screen menu can cover the viewport properly. */
+  .navbar.scrolled {
+    backdrop-filter: none;
+    background: rgba(26,18,9,0.99);
+  }
 }
 @media (max-width: 480px) {
   .section-pad { padding: 64px 0; }
