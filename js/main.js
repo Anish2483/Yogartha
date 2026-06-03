@@ -1,14 +1,10 @@
 // ===== PAGE LOADER =====
 window.addEventListener('load', () => {
-  const loader = document.createElement('div');
-  loader.id = 'loader';
-  loader.innerHTML = `
-    <img src="images/yogartha_logo.png" alt="Yogartha" class="loader-logo-img" />
-    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-  `;
-  document.body.prepend(loader);
-  setTimeout(() => loader.classList.add('hidden'), 1600);
-  setTimeout(() => loader.remove(), 2200);
+  const loader = document.getElementById('loader');
+  if (loader) {
+    setTimeout(() => loader.classList.add('hidden'), 800); // Shorter delay since it was already visible
+    setTimeout(() => loader.remove(), 1400);
+  }
 });
 
 // ===== NAVBAR SCROLL =====
