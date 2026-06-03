@@ -62,10 +62,97 @@
       </div>`).join("");
 
     // Output twice inside the track for seamless infinite scrolling
-    grid.innerHTML = `<div class="gallery-track">${galleryHtml}${galleryHtml}</div>`;
+    grid.innerHTML = `<div class="gallery-track" id="gallery-track">${galleryHtml}${galleryHtml}</div>`;
 
     section.style.display = "block";       // Show gallery section
     if (navLi) navLi.style.display = "";   // Show Gallery nav link
+
+    // ---- Drag / Swipe / Auto-scroll on gallery ----
+    initGalleryInteraction();
+  }
+
+  function initGalleryInteraction() {
+    const container = document.getElementById("gallery-masonry");
+    const track = document.getElementById("gallery-track");
+    if (!container || !track) return;
+
+    // Remove CSS animation — we control scroll via JS
+    track.style.animation = "none";
+    container.style.overflowX = "auto";
+    container.style.scrollBehavior = "auto";
+    container.style.cursor = "grab";
+    // Hide scrollbar but keep functionality
+    container.style.scrollbarWidth = "none";
+    container.style.msOverflowStyle = "none";
+
+    let isDown = false, startX = 0, scrollLeft = 0;
+    let autoScrollId = null;
+    let isPaused = false;
+
+    // Auto-scroll
+    function startAutoScroll() {
+      if (autoScrollId) return;
+      autoScrollId = setInterval(() => {
+        if (isPaused) return;
+        container.scrollLeft += 1;
+        // Seamless loop: when we reach half, jump back
+        if (container.scrollLeft >= track.scrollWidth / 2) {
+          container.scrollLeft = 0;
+        }
+      }, 16);
+    }
+
+    function pauseAutoScroll(ms) {
+      isPaused = true;
+      clearTimeout(window._galleryResumeTimer);
+      window._galleryResumeTimer = setTimeout(() => { isPaused = false; }, ms || 1500);
+    }
+
+    startAutoScroll();
+
+    // ---- Mouse drag ----
+    container.addEventListener("mousedown", e => {
+      isDown = true;
+      container.style.cursor = "grabbing";
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+      isPaused = true;
+    });
+    container.addEventListener("mouseleave", () => {
+      if (isDown) { isDown = false; container.style.cursor = "grab"; pauseAutoScroll(1500); }
+    });
+    container.addEventListener("mouseup", () => {
+      isDown = false; container.style.cursor = "grab"; pauseAutoScroll(1500);
+    });
+    container.addEventListener("mousemove", e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      container.scrollLeft = scrollLeft - walk;
+      // Seamless loop
+      if (container.scrollLeft >= track.scrollWidth / 2) container.scrollLeft = 0;
+      if (container.scrollLeft < 0) container.scrollLeft = track.scrollWidth / 2;
+    });
+
+    // ---- Touch swipe ----
+    container.addEventListener("touchstart", e => {
+      startX = e.touches[0].pageX;
+      scrollLeft = container.scrollLeft;
+      isPaused = true;
+    }, { passive: true });
+    container.addEventListener("touchmove", e => {
+      const x = e.touches[0].pageX;
+      const walk = (startX - x) * 1.2;
+      container.scrollLeft = scrollLeft + walk;
+      if (container.scrollLeft >= track.scrollWidth / 2) container.scrollLeft = 0;
+      if (container.scrollLeft < 0) container.scrollLeft = track.scrollWidth / 2;
+    }, { passive: true });
+    container.addEventListener("touchend", () => pauseAutoScroll(2000));
+
+    // Pause on hover (desktop)
+    container.addEventListener("mouseenter", () => { isPaused = true; });
+    container.addEventListener("mouseleave", () => { if (!isDown) isPaused = false; });
   }
 
   // ---- Render Testimonials ----
@@ -77,13 +164,17 @@
       const avatarHtml = t.photo
         ? `<img class="author-avatar-img" src="${t.photo}" alt="${t.name}" />`
         : `<span class="author-avatar">${(t.name || "?")[0].toUpperCase()}</span>`;
+      const stars = parseInt(t.stars) || 5;
+      const starHtml = Array(stars).fill('&#9733;').join('') + Array(5 - stars).fill('&#9734;').join('');
+      const sourceBadge = (t.source === 'google') ? `<div class="review-source-badge"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Google Review</div>` : '';
       return `
         <div class="testi-card reveal">
-          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          ${sourceBadge}
+          <div class="stars">${starHtml}</div>
           <p>"${t.review}"</p>
           <div class="testi-author">
             ${avatarHtml}
-            <div><strong>${t.name}</strong><small>${t.role}</small></div>
+            <div><strong>${t.name}</strong><small>${t.role || ''}</small></div>
           </div>
         </div>`;
     }).join("");
@@ -119,9 +210,9 @@
           renderGallery(items);
         }
       }).catch(() => {});
-      db.ref("testimonials").once("value").then(s => {
+      db.ref("testimonials").on("value", s => {
         if (s.val()) renderTestimonials(Object.values(s.val()));
-      }).catch(() => {});
+      });
       db.ref("announcement").once("value").then(s => { if (s.val()) renderAnnouncement(s.val()); }).catch(() => {});
       db.ref("siteImages").once("value").then(s => {
         const imgs = s.val();
