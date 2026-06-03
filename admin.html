@@ -472,15 +472,44 @@
 
     <!-- ===== TESTIMONIALS ===== -->
     <div class="panel" id="panel-testimonials">
-      <div class="page-header"><div class="page-title">Testimonials</div><div class="page-desc">Add student reviews with optional photos</div></div>
+      <div class="page-header"><div class="page-title">Testimonials</div><div class="page-desc">Add student reviews or Google reviews — all appear live on the site</div></div>
+
+      <!-- Google Reviews Card -->
+      <div class="card google-review-card">
+        <div class="card-title" style="display:flex;align-items:center;gap:10px;">
+          <svg viewBox="0 0 24 24" width="20" height="20" style="flex-shrink:0"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Add Google Review
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">Open the Google review, copy the details and paste them here. It will appear on the site with a Google badge.</p>
+        <div class="form-group">
+          <label>Google Review Link <span style="color:var(--muted);font-weight:400;">(for your reference)</span></label>
+          <input type="url" id="g-review-link" placeholder="https://maps.app.goo.gl/..." />
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Reviewer Name</label><input type="text" id="g-review-name" placeholder="e.g. Rahul Sharma" /></div>
+          <div class="form-group">
+            <label>Star Rating</label>
+            <select id="g-review-stars" style="width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.9rem;">
+              <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; &mdash; 5 Stars</option>
+              <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; &mdash; 4 Stars</option>
+              <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; &mdash; 3 Stars</option>
+              <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; &mdash; 2 Stars</option>
+              <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; &mdash; 1 Star</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Review Text</label><textarea id="g-review-text" placeholder="Copy and paste the review text from Google..." style="min-height:100px;"></textarea></div>
+        <button class="btn btn-full" onclick="addGoogleReview()" style="background:linear-gradient(135deg,#4285F4,#34A853);color:#fff;border:none;">Add Google Review to Site</button>
+      </div>
+
+      <!-- Manual Testimonial Card -->
       <div class="card">
-        <div class="card-title">Add New Testimonial</div>
+        <div class="card-title">Add Manual Testimonial</div>
         <div class="form-row">
           <div class="form-group"><label>Student Name</label><input type="text" id="new-testi-name" placeholder="e.g. Ananya Sharma" /></div>
           <div class="form-group"><label>Role / Location</label><input type="text" id="new-testi-role" placeholder="e.g. Engineer, Dehradun" /></div>
         </div>
         <div class="form-group"><label>Review</label><textarea id="new-testi-review" placeholder="What did they say?"></textarea></div>
-        
         <label style="margin-bottom:10px;">Student Photo <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
         <div class="upload-zone" id="testi-drop-zone" style="margin-bottom:10px;"
           ondragover="event.preventDefault();this.classList.add('dragging')"
@@ -509,7 +538,7 @@
         <button class="btn btn-primary btn-full" onclick="addTestimonial()">Add Testimonial</button>
       </div>
       <div class="card">
-        <div class="card-title">Current Testimonials</div>
+        <div class="card-title">All Reviews</div>
         <div id="testi-list"></div>
       </div>
     </div>
@@ -1116,13 +1145,29 @@ function clearTestiPhoto(){
   document.getElementById("new-testi-photo").value="";
   document.getElementById("testi-photo-preview-wrap").style.display="none";
 }
+function addGoogleReview(){
+  const name=document.getElementById("g-review-name").value.trim();
+  const review=document.getElementById("g-review-text").value.trim();
+  const stars=document.getElementById("g-review-stars").value;
+  const link=document.getElementById("g-review-link").value.trim();
+  if(!name||!review){toast("Name and review text required",true);return;}
+  const t={id:Date.now(),name,role:"Google Review",review,stars:parseInt(stars),source:"google",googleLink:link,photo:""};
+  testimonials.push(t);
+  if(isFirebase)firebase.database().ref("testimonials/"+t.id).set(t).then(()=>toast("Google Review live!")).catch(()=>toast("Error",true));
+  else toast("Added (Demo Mode)");
+  document.getElementById("g-review-name").value="";
+  document.getElementById("g-review-text").value="";
+  document.getElementById("g-review-link").value="";
+  document.getElementById("g-review-stars").value="5";
+  renderTestiList();
+}
 function addTestimonial(){
   const name=document.getElementById("new-testi-name").value.trim();
   const role=document.getElementById("new-testi-role").value.trim();
   const review=document.getElementById("new-testi-review").value.trim();
   const photo=pendingTestiPhotoUrl||document.getElementById("new-testi-photo").value.trim();
   if(!name||!review){toast("Name and review required",true);return;}
-  const t={id:Date.now(),name,role,photo,review};
+  const t={id:Date.now(),name,role,photo,review,source:"manual"};
   testimonials.push(t);
   if(isFirebase)firebase.database().ref("testimonials/"+t.id).set(t).then(()=>toast("Testimonial live!")).catch(()=>toast("Error",true));
   else toast("Added (Demo Mode)");
@@ -1138,13 +1183,17 @@ function delTesti(id){
 }
 function renderTestiList(){
   const list=document.getElementById("testi-list");
-  if(!testimonials.length){list.innerHTML='<p style="color:var(--muted);font-size:.88rem;">No testimonials yet.</p>';return;}
+  if(!testimonials.length){list.innerHTML='<p style="color:var(--muted);font-size:.88rem;">No reviews yet.</p>';return;}
+  const googleBadge=`<span style="display:inline-flex;align-items:center;gap:3px;font-size:.7rem;background:rgba(66,133,244,0.13);color:#4285F4;padding:2px 7px;border-radius:20px;font-weight:600;margin-left:6px;vertical-align:middle;">&#71;oogle</span>`;
   list.innerHTML=testimonials.map(t=>`
     <div class="testi-item">
       <div class="testi-item-header">
         <div class="testi-meta">
           ${t.photo?`<img class="testi-avatar-img" src="${t.photo}" alt="${t.name}"/>`:`<div class="testi-avatar-letter">${(t.name||"?")[0].toUpperCase()}</div>`}
-          <div><div class="testi-name">${t.name}</div><div class="testi-role">${t.role}</div></div>
+          <div>
+            <div class="testi-name">${t.name}${t.source==='google'?googleBadge:''}</div>
+            <div class="testi-role">${t.role||''}${t.stars?' &nbsp;'+'&#9733;'.repeat(parseInt(t.stars)):''}</div>
+          </div>
         </div>
         <button class="btn btn-danger btn-sm" onclick="delTesti(${t.id})">Remove</button>
       </div>
