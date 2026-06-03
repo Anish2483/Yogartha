@@ -617,10 +617,7 @@ ul { list-style: none; }
     gap: 32px;
     z-index: 999;
   }
-  .navbar.scrolled {
-    backdrop-filter: none;
-  }
-  }
+  .navbar.scrolled { backdrop-filter: none; }
   .nav-links.open { display: flex; }
   .nav-links a { font-size: 1.1rem; }
   .hamburger { display: flex; z-index: 1000; }
@@ -710,3 +707,17 @@ ul { list-style: none; }
   }
 }
 
+
+/* Tablet & Landscape Optimizations */
+@media (max-width: 1024px) {
+  .overview-grid { gap: 40px; }
+  .program-hero { min-height: 400px; padding-top: 100px; padding-bottom: 40px; }
+  .section-pad { padding: 60px 0; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .program-hero { min-height: auto; padding-top: 80px; padding-bottom: 20px; }
+  .program-hero-title { font-size: 2rem; margin-bottom: 10px; }
+  .program-hero-subtitle { font-size: 1rem; margin-bottom: 15px; }
+  .section-pad { padding: 40px 0; }
+  .hero-tags { margin-bottom: 15px; }
+}

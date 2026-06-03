@@ -1302,3 +1302,17 @@ cite.sadhguru-attr { font-style: normal; }
   border: 2px solid var(--saffron);
   flex-shrink: 0;
 }
+
+/* Tablet & Landscape Optimizations */
+@media (max-width: 1024px) {
+  .hero { min-height: 80vh; }
+  .section-pad { padding: 60px 0; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero { min-height: auto; padding-top: 100px; padding-bottom: 40px; }
+  .hero-title { font-size: 3rem; margin-bottom: 10px; }
+  .hero-subtitle { font-size: 1.1rem; margin-bottom: 20px; }
+  .section-pad { padding: 50px 0; }
+  .guru-section { padding-top: 50px; }
+  .philosophy-banner { padding: 50px 24px; }
+}
