@@ -76,88 +76,93 @@
     const track = document.getElementById("gallery-track");
     if (!container || !track) return;
 
-    // Remove CSS animation — we control scroll via JS
+    // JS controls scroll — disable CSS animation
     track.style.animation = "none";
     container.style.overflowX = "auto";
     container.style.scrollBehavior = "auto";
     container.style.cursor = "grab";
-    // Hide scrollbar but keep functionality
     container.style.scrollbarWidth = "none";
     container.style.msOverflowStyle = "none";
 
     let isDown = false, startX = 0, scrollLeft = 0;
-    let autoScrollId = null;
-    let isPaused = false;
+    let isDragging = false;
+    let resumeTimer = null;
+    let rafId = null;
 
-    // Auto-scroll
-    function startAutoScroll() {
-      if (autoScrollId) return;
-      autoScrollId = setInterval(() => {
-        if (isPaused) return;
-        container.scrollLeft += 1;
-        // Seamless loop: when we reach half, jump back
-        if (container.scrollLeft >= track.scrollWidth / 2) {
-          container.scrollLeft = 0;
+    // ---- Smooth auto-scroll via requestAnimationFrame ----
+    let lastTime = null;
+    const SPEED = 40; // px per second
+
+    function autoScroll(timestamp) {
+      if (!isDragging) {
+        if (lastTime !== null) {
+          const delta = ((timestamp - lastTime) / 1000) * SPEED;
+          container.scrollLeft += delta;
+          // Seamless infinite loop
+          if (container.scrollLeft >= track.scrollWidth / 2) {
+            container.scrollLeft -= track.scrollWidth / 2;
+          }
         }
-      }, 16);
+        lastTime = timestamp;
+      } else {
+        lastTime = null; // reset so no jump when drag ends
+      }
+      rafId = requestAnimationFrame(autoScroll);
     }
+    rafId = requestAnimationFrame(autoScroll);
 
-    function pauseAutoScroll(ms) {
-      isPaused = true;
-      clearTimeout(window._galleryResumeTimer);
-      window._galleryResumeTimer = setTimeout(() => { isPaused = false; }, ms || 1500);
+    function pauseDrag(resumeMs) {
+      isDragging = true;
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => { isDragging = false; lastTime = null; }, resumeMs || 1800);
     }
-
-    startAutoScroll();
 
     // ---- Mouse drag ----
     container.addEventListener("mousedown", e => {
       isDown = true;
+      isDragging = true;
+      clearTimeout(resumeTimer);
       container.style.cursor = "grabbing";
       startX = e.pageX - container.offsetLeft;
       scrollLeft = container.scrollLeft;
-      isPaused = true;
     });
-    container.addEventListener("mouseleave", () => {
-      if (isDown) { isDown = false; container.style.cursor = "grab"; pauseAutoScroll(1500); }
+    window.addEventListener("mouseup", () => {
+      if (!isDown) return;
+      isDown = false;
+      container.style.cursor = "grab";
+      pauseDrag(1800);
     });
-    container.addEventListener("mouseup", () => {
-      isDown = false; container.style.cursor = "grab"; pauseAutoScroll(1500);
-    });
-    container.addEventListener("mousemove", e => {
+    window.addEventListener("mousemove", e => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - container.offsetLeft;
-      const walk = (x - startX) * 1.5;
+      const walk = (x - startX) * 1.6;
       container.scrollLeft = scrollLeft - walk;
-      // Seamless loop
-      if (container.scrollLeft >= track.scrollWidth / 2) container.scrollLeft = 0;
-      if (container.scrollLeft < 0) container.scrollLeft = track.scrollWidth / 2;
+      if (container.scrollLeft >= track.scrollWidth / 2) container.scrollLeft -= track.scrollWidth / 2;
+      if (container.scrollLeft < 0) container.scrollLeft += track.scrollWidth / 2;
     });
 
     // ---- Touch swipe ----
     container.addEventListener("touchstart", e => {
+      isDragging = true;
+      clearTimeout(resumeTimer);
       startX = e.touches[0].pageX;
       scrollLeft = container.scrollLeft;
-      isPaused = true;
     }, { passive: true });
     container.addEventListener("touchmove", e => {
       const x = e.touches[0].pageX;
-      const walk = (startX - x) * 1.2;
+      const walk = (startX - x) * 1.4;
       container.scrollLeft = scrollLeft + walk;
-      if (container.scrollLeft >= track.scrollWidth / 2) container.scrollLeft = 0;
-      if (container.scrollLeft < 0) container.scrollLeft = track.scrollWidth / 2;
+      if (container.scrollLeft >= track.scrollWidth / 2) container.scrollLeft -= track.scrollWidth / 2;
+      if (container.scrollLeft < 0) container.scrollLeft += track.scrollWidth / 2;
     }, { passive: true });
-    container.addEventListener("touchend", () => pauseAutoScroll(2000));
-
-    // Pause on hover (desktop)
-    container.addEventListener("mouseenter", () => { isPaused = true; });
-    container.addEventListener("mouseleave", () => { if (!isDown) isPaused = false; });
+    container.addEventListener("touchend", () => pauseDrag(2000));
   }
 
   // ---- Render Testimonials ----
   function renderTestimonials(list) {
     const grid = document.querySelector(".testimonials-grid");
+    // If Firebase has no data, keep the static HTML cards intact
     if (!grid || !list || list.length === 0) return;
 
     grid.innerHTML = list.map(t => {
@@ -210,9 +215,9 @@
           renderGallery(items);
         }
       }).catch(() => {});
-      db.ref("testimonials").on("value", s => {
+      db.ref("testimonials").once("value").then(s => {
         if (s.val()) renderTestimonials(Object.values(s.val()));
-      });
+      }).catch(() => { /* keep static reviews on permission error */ });
       db.ref("announcement").once("value").then(s => { if (s.val()) renderAnnouncement(s.val()); }).catch(() => {});
       db.ref("siteImages").once("value").then(s => {
         const imgs = s.val();

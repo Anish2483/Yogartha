@@ -302,7 +302,9 @@ ul { list-style: none; }
   overflow: hidden;
   box-shadow: var(--shadow);
   aspect-ratio: 4/3;
+  max-height: 420px;
   background: var(--dark-mid);
+  align-self: start;
 }
 .overview-image img {
   width: 100%; height: 100%;
