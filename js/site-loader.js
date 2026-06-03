@@ -92,20 +92,23 @@
     // ---- Smooth auto-scroll via requestAnimationFrame ----
     let lastTime = null;
     const SPEED = 40; // px per second
+    let exactScrollLeft = 0;
 
     function autoScroll(timestamp) {
       if (!isDragging) {
         if (lastTime !== null) {
           const delta = ((timestamp - lastTime) / 1000) * SPEED;
-          container.scrollLeft += delta;
+          exactScrollLeft += delta;
           // Seamless infinite loop
-          if (container.scrollLeft >= track.scrollWidth / 2) {
-            container.scrollLeft -= track.scrollWidth / 2;
+          if (exactScrollLeft >= track.scrollWidth / 2) {
+            exactScrollLeft -= track.scrollWidth / 2;
           }
+          container.scrollLeft = exactScrollLeft;
         }
         lastTime = timestamp;
       } else {
         lastTime = null; // reset so no jump when drag ends
+        exactScrollLeft = container.scrollLeft; // sync exact position with manual drag
       }
       rafId = requestAnimationFrame(autoScroll);
     }

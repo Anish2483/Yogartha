@@ -301,8 +301,7 @@ ul { list-style: none; }
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  aspect-ratio: 4/3;
-  max-height: 420px;
+  aspect-ratio: 16/9;
   background: var(--dark-mid);
   align-self: start;
 }
