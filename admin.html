@@ -41,7 +41,7 @@
       --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
       --shadow-md: 0 4px 24px rgba(0,0,0,0.08);
     }
-    html, body { height:100%; background:var(--bg); color:var(--text); font-family:var(--font); overflow-x:hidden; }
+    html, body { height:100%; background:var(--bg); color:var(--text); font-family:var(--font); overflow-x:hidden; width:100%; position:relative; }
 
     /* ===================== LOGIN ===================== */
     #login-screen {
@@ -312,6 +312,30 @@
       #toast { bottom:calc(var(--bottomnav-h) + 10px); }
       .gallery-preview-grid { grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); }
       .btn-row .btn { flex:1; }
+    }
+
+    /* Tablets */
+    @media (max-width:1024px) {
+      .main { padding: 32px; }
+      .form-row { gap: 16px; }
+    }
+    
+    /* Phone Landscape Optimization */
+    @media (max-height:500px) and (orientation:landscape) {
+      .mobile-topbar, .bottom-nav { display: none !important; }
+      .sidebar { 
+        transform: translateX(0) !important; 
+        width: 66px !important; 
+      }
+      .sidebar-logo .logo-text, .nav-item span { display: none !important; }
+      .nav-item { justify-content: center !important; padding: 10px !important; }
+      .main { 
+        margin-left: 66px !important; 
+        padding: 16px !important; 
+      }
+      .login-box { padding: 24px; }
+      .login-logo { width: 40px; margin-bottom: 12px; }
+      #login-screen h2 { font-size: 1.4rem; margin-bottom: 16px; }
     }
   </style>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
