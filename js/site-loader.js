@@ -91,7 +91,7 @@
 
     // ---- Smooth auto-scroll via requestAnimationFrame ----
     let lastTime = null;
-    const SPEED = 40; // px per second
+    const SPEED = 25; // px per second
     let exactScrollLeft = 0;
 
     function autoScroll(timestamp) {
