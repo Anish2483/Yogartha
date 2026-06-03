@@ -691,3 +691,19 @@ ul { list-style: none; }
 .yt-facade:hover .yt-watch-label {
   opacity: 1;
 }
+
+/* Desktop: show facade, hide iframe */
+.yt-mobile-only { display: none; }
+.yt-desktop-only { display: block; }
+
+/* Mobile: show iframe, hide facade */
+@media (max-width: 768px) {
+  .yt-desktop-only { display: none; }
+  .yt-mobile-only {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+  }
+}
+
