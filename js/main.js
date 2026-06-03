@@ -9,11 +9,20 @@ window.addEventListener('load', () => {
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
+let lastScrollState = false;
 window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  const isScrolled = window.scrollY > 50;
+  if (isScrolled !== lastScrollState) {
+    if (isScrolled) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+    lastScrollState = isScrolled;
+  }
   const scrollTopBtn = document.getElementById('scrollTop');
   if (scrollTopBtn) scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
-});
+}, { passive: true });
 
 // ===== HAMBURGER =====
 const hamburger = document.getElementById('hamburger');

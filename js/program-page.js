@@ -1,23 +1,24 @@
 // ===== PAGE LOADER =====
 window.addEventListener('load', () => {
-  const loader = document.createElement('div');
-  loader.id = 'loader';
-  loader.innerHTML = `
-    <img src="../images/yogartha_logo.png" alt="Yogartha" class="loader-logo-img" />
-    <div class="loader-bar"><div class="loader-bar-fill"></div></div>
-  `;
-  document.body.prepend(loader);
-  setTimeout(() => loader.classList.add('hidden'), 1400);
-  setTimeout(() => loader.remove(), 2000);
+  const loader = document.getElementById('loader');
+  if (loader) {
+    setTimeout(() => loader.classList.add('hidden'), 800);
+    setTimeout(() => loader.remove(), 1400);
+  }
 });
 
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
+let lastScrollState = false;
 window.addEventListener('scroll', () => {
-  if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 50);
+  const isScrolled = window.scrollY > 50;
+  if (isScrolled !== lastScrollState) {
+    if (navbar) navbar.classList.toggle('scrolled', isScrolled);
+    lastScrollState = isScrolled;
+  }
   const scrollTopBtn = document.getElementById('scrollTop');
   if (scrollTopBtn) scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
-});
+}, { passive: true });
 
 // ===== HAMBURGER =====
 const hamburger = document.getElementById('hamburger');
