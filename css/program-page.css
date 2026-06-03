@@ -627,5 +627,67 @@ ul { list-style: none; }
   .program-hero-title { font-size: 2.2rem; }
 }
 
-.video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-top: 30px; margin-bottom: 30px; }
-.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+/* ===== YOUTUBE FACADE (replaces embeds blocked by Error 153) ===== */
+.video-container {
+  position: relative;
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background: #000;
+}
+.yt-facade {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  text-decoration: none;
+  overflow: hidden;
+}
+.yt-facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: brightness(0.85);
+}
+.yt-facade:hover img {
+  transform: scale(1.03);
+  filter: brightness(0.7);
+}
+.yt-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.92;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+}
+.yt-facade:hover .yt-play-btn {
+  transform: translate(-50%, -50%) scale(1.12);
+  opacity: 1;
+}
+.yt-watch-label {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  font-size: 0.78rem;
+  font-family: var(--font-sans, sans-serif);
+  letter-spacing: 0.06em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.yt-facade:hover .yt-watch-label {
+  opacity: 1;
+}
