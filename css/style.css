@@ -130,22 +130,39 @@ ul { list-style: none; }
   align-items: center;
   gap: 10px;
 }
-/* Nav logo image — slightly taller, with glow to show on dark nav */
+/* Nav logo image — bright golden-white at top, stays bright when scrolled */
 .nav-custom-logo {
   height: 44px;
   width: auto;
   object-fit: contain;
-  /* invert to white for dark navbar visibility */
-  filter: invert(1) sepia(1) saturate(0.3) brightness(2.0)
-          drop-shadow(0 1px 6px rgba(0,0,0,0.5));
-  transition: opacity 0.3s;
+  /* Invert to golden-white so it shows clearly over the dark hero */
+  filter: invert(1) sepia(1) saturate(0.4) brightness(2.2)
+          drop-shadow(0 1px 8px rgba(0,0,0,0.6))
+          drop-shadow(0 0 20px rgba(212,160,60,0.3));
+  transition: filter 0.5s ease, opacity 0.3s ease;
+}
+/* When scrolled, keep it bright but slightly warmer/softer glow */
+.navbar.scrolled .nav-custom-logo {
+  filter: invert(1) sepia(1) saturate(0.5) brightness(2.0)
+          drop-shadow(0 1px 6px rgba(0,0,0,0.5))
+          drop-shadow(0 0 12px rgba(212,160,60,0.4));
 }
 .nav-custom-logo:hover { opacity: 0.85; }
 .custom-logo {
   height: 48px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9)) drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
+  /* Same golden-bright filter used site-wide */
+  filter: invert(1) sepia(1) saturate(0.4) brightness(2.2)
+          drop-shadow(0 1px 8px rgba(0,0,0,0.6))
+          drop-shadow(0 0 20px rgba(212,160,60,0.3));
+  transition: filter 0.5s ease, opacity 0.3s ease;
+}
+/* When navbar scrolled, keep golden glow */
+.navbar.scrolled .custom-logo {
+  filter: invert(1) sepia(1) saturate(0.5) brightness(2.0)
+          drop-shadow(0 1px 6px rgba(0,0,0,0.5))
+          drop-shadow(0 0 12px rgba(212,160,60,0.4));
 }
 .footer-custom-logo {
   height: 60px;
