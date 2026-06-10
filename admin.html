@@ -259,7 +259,29 @@
  .or-divider::before,.or-divider::after { content:""; position:absolute; top:50%; width:38%; height:1px; background:var(--border); }
  .or-divider::before { left:0; }.or-divider::after { right:0; }
 
- /* ---- TOGGLE ---- */
+ /* ---- SITE IMAGE UPLOAD CARD (new style) ---- */
+ .site-img-upload-card {
+   display:flex; align-items:center; gap:16px; cursor:pointer;
+   transition:background .18s, box-shadow .18s;
+   user-select:none;
+ }
+ .site-img-upload-card:hover { background:var(--surface2); box-shadow:var(--shadow-md); }
+ .site-img-upload-card:active { transform:scale(.99); }
+ .siu-left { position:relative; flex-shrink:0; }
+ .siu-thumb { width:84px; height:84px; object-fit:cover; border:2px solid var(--border); box-shadow:var(--shadow-sm); transition:border-color .18s; }
+ .site-img-upload-card:hover .siu-thumb { border-color:var(--saffron); }
+ .siu-spinner { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.8); border-radius:6px; font-size:1.4rem; animation:spin 1s linear infinite; }
+ @keyframes spin { to { transform:rotate(360deg); } }
+ .siu-right { flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
+ .siu-title { font-weight:600; font-size:.92rem; color:var(--text); }
+ .siu-hint { font-size:.75rem; color:var(--muted); }
+ .siu-btn { display:inline-flex; align-items:center; gap:6px; margin-top:4px; padding:7px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; font-size:.8rem; font-weight:500; color:var(--text-mid); width:fit-content; transition:background .15s, border-color .15s; }
+ .site-img-upload-card:hover .siu-btn { background:var(--saffron); border-color:var(--saffron); color:#fff; }
+ .siu-url-row { display:flex; gap:6px; margin-top:6px; }
+ .siu-url-input { flex:1; padding:7px 10px; border:1px solid var(--border); border-radius:8px; font-size:.8rem; font-family:var(--font); background:var(--surface); color:var(--text); min-width:0; }
+ .siu-url-input:focus { outline:none; border-color:var(--saffron); }
+
+
  .toggle-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
  .toggle { position:relative; width:46px; height:26px; background:var(--surface2); border:1.5px solid var(--border); border-radius:100px; cursor:pointer; transition:background.3s; flex-shrink:0; }
  .toggle.on { background:var(--maroon); border-color:var(--maroon); }
@@ -571,125 +593,123 @@
  </div>
 
  <!-- ===== SITE IMAGES ===== -->
+ <!-- Hidden file inputs placed OUTSIDE click targets to avoid double-fire bug -->
+ <input type="file" id="file-img-hero"     accept="image/*" style="display:none;" onchange="uploadSiteImg('hero',    this.files[0],'prev-img-hero')"     />
+ <input type="file" id="file-img-about"    accept="image/*" style="display:none;" onchange="uploadSiteImg('about',   this.files[0],'prev-img-about')"    />
+ <input type="file" id="file-img-guru"     accept="image/*" style="display:none;" onchange="uploadSiteImg('guru',    this.files[0],'prev-img-guru')"     />
+ <input type="file" id="file-img-sadhguru" accept="image/*" style="display:none;" onchange="uploadSiteImg('sadhguru',this.files[0],'prev-img-sadhguru')" />
+ <input type="file" id="file-img-shala"    accept="image/*" style="display:none;" onchange="uploadSiteImg('shala',   this.files[0],'prev-img-shala')"    />
+ <input type="file" id="file-img-symbol"   accept="image/*" style="display:none;" onchange="uploadSiteImg('symbol',  this.files[0],'prev-img-symbol')"   />
+
  <div class="panel" id="panel-images">
- <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Update main photos on the website</div></div>
- 
+ <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Tap any card to replace a photo on the website</div></div>
+
  <!-- Hero -->
- <div class="card">
- <div class="card-title">Hero Background</div>
- <div class="site-img-card">
- <img id="prev-img-hero" src="images/adiyogi_hero.jpg" style="width:130px;height:80px;" class="site-img-preview" alt="Hero" />
- <div class="site-img-actions">
- <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-hero').click()">
- <input type="file" id="file-img-hero" accept="image/*" style="display:none;" onchange="uploadSiteImg('hero',this.files[0],'prev-img-hero')" />
- <p style="font-size:.82rem;"><strong>Tap to upload hero photo</strong></p>
- <small>Landscape, 1920×1080 recommended</small>
- </div>
- <div class="or-divider">or paste URL</div>
- <div style="display:flex;gap:8px;">
- <input type="url" id="url-img-hero" placeholder="Image URL…" style="flex:1;" />
- <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('hero')">Set</button>
- </div>
- </div>
- </div>
+ <div class="card site-img-upload-card" onclick="document.getElementById('file-img-hero').click()">
+  <div class="siu-left">
+    <img id="prev-img-hero" src="images/adiyogi_hero.jpg" class="siu-thumb" style="border-radius:6px;" alt="Hero" />
+    <span class="siu-spinner" id="spin-img-hero" style="display:none;">⏳</span>
+  </div>
+  <div class="siu-right">
+    <div class="siu-title">Hero Background</div>
+    <div class="siu-hint">Landscape · 1920×1080 recommended</div>
+    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+      <input type="url" id="url-img-hero" placeholder="…or paste a URL" class="siu-url-input" />
+      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('hero')">Set</button>
+    </div>
+  </div>
  </div>
 
  <!-- About -->
- <div class="card">
- <div class="card-title">About Section Image</div>
- <div class="site-img-card">
- <img id="prev-img-about" src="images/ashram_courtyard.png" style="width:100px;height:100px;" class="site-img-preview" alt="About" />
- <div class="site-img-actions">
- <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-about').click()">
- <input type="file" id="file-img-about" accept="image/*" style="display:none;" onchange="uploadSiteImg('about',this.files[0],'prev-img-about')" />
- <p style="font-size:.82rem;"><strong>Tap to upload studio photo</strong></p>
- </div>
- <div class="or-divider">or paste URL</div>
- <div style="display:flex;gap:8px;">
- <input type="url" id="url-img-about" placeholder="Image URL…" style="flex:1;" />
- <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('about')">Set</button>
- </div>
- </div>
- </div>
+ <div class="card site-img-upload-card" onclick="document.getElementById('file-img-about').click()">
+  <div class="siu-left">
+    <img id="prev-img-about" src="images/ashram_courtyard.png" class="siu-thumb" style="border-radius:6px;" alt="About" />
+    <span class="siu-spinner" id="spin-img-about" style="display:none;">⏳</span>
+  </div>
+  <div class="siu-right">
+    <div class="siu-title">About Section Image</div>
+    <div class="siu-hint">Any ratio works</div>
+    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+      <input type="url" id="url-img-about" placeholder="…or paste a URL" class="siu-url-input" />
+      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('about')">Set</button>
+    </div>
+  </div>
  </div>
 
  <!-- Guru -->
- <div class="card">
- <div class="card-title">Teacher Portrait</div>
- <div class="site-img-card">
- <img id="prev-img-guru" src="images/reeta_yoga_teacher.png" style="width:100px;height:100px;border-radius:50%;" class="site-img-preview" alt="Teacher" />
- <div class="site-img-actions">
- <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-guru').click()">
- <input type="file" id="file-img-guru" accept="image/*" style="display:none;" onchange="uploadSiteImg('guru',this.files[0],'prev-img-guru')" />
- <p style="font-size:.82rem;"><strong>Tap to upload portrait</strong></p>
+ <div class="card site-img-upload-card" onclick="document.getElementById('file-img-guru').click()">
+  <div class="siu-left">
+    <img id="prev-img-guru" src="images/reeta_yoga_teacher.png" class="siu-thumb" style="border-radius:50%;" alt="Teacher" />
+    <span class="siu-spinner" id="spin-img-guru" style="display:none;">⏳</span>
+  </div>
+  <div class="siu-right">
+    <div class="siu-title">Teacher Portrait</div>
+    <div class="siu-hint">Square / 1:1 recommended</div>
+    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+      <input type="url" id="url-img-guru" placeholder="…or paste a URL" class="siu-url-input" />
+      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru')">Set</button>
+    </div>
+  </div>
  </div>
- <div class="or-divider">or paste URL</div>
- <div style="display:flex;gap:8px;">
- <input type="url" id="url-img-guru" placeholder="Image URL…" style="flex:1;" />
- <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru')">Set</button>
- </div>
- </div>
- </div>
- </div>
-
-
 
  <!-- Sadhguru -->
- <div class="card">
- <div class="card-title">Sadhguru Portrait</div>
- <div class="site-img-card">
- <img id="prev-img-sadhguru" src="images/sadhguru_portrait.png" style="width:100px;height:100px;" class="site-img-preview" alt="Sadhguru" />
- <div class="site-img-actions">
- <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-sadhguru').click()">
- <input type="file" id="file-img-sadhguru" accept="image/*" style="display:none;" onchange="uploadSiteImg('sadhguru',this.files[0],'prev-img-sadhguru')" />
- <p style="font-size:.82rem;"><strong>Tap to upload photo</strong></p>
- </div>
- <div class="or-divider">or paste URL</div>
- <div style="display:flex;gap:8px;">
- <input type="url" id="url-img-sadhguru" placeholder="Image URL…" style="flex:1;" />
- <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('sadhguru')">Set</button>
- </div>
- </div>
- </div>
+ <div class="card site-img-upload-card" onclick="document.getElementById('file-img-sadhguru').click()">
+  <div class="siu-left">
+    <img id="prev-img-sadhguru" src="images/sadhguru_portrait.png" class="siu-thumb" style="border-radius:6px;" alt="Sadhguru" />
+    <span class="siu-spinner" id="spin-img-sadhguru" style="display:none;">⏳</span>
+  </div>
+  <div class="siu-right">
+    <div class="siu-title">Sadhguru Portrait</div>
+    <div class="siu-hint">Any ratio works</div>
+    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+      <input type="url" id="url-img-sadhguru" placeholder="…or paste a URL" class="siu-url-input" />
+      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('sadhguru')">Set</button>
+    </div>
+  </div>
  </div>
 
- <!-- Shala / Experience -->
- <div class="card">
- <div class="card-title">Class / Experience Photo</div>
- <div class="site-img-card">
- <img id="prev-img-shala" src="images/yoga_class_shala.png" style="width:100px;height:100px;" class="site-img-preview" alt="Shala" />
- <div class="site-img-actions">
- <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-shala').click()">
- <input type="file" id="file-img-shala" accept="image/*" style="display:none;" onchange="uploadSiteImg('shala',this.files[0],'prev-img-shala')" />
- <p style="font-size:.82rem;"><strong>Tap to upload photo</strong></p>
- </div>
- <div class="or-divider">or paste URL</div>
- <div style="display:flex;gap:8px;">
- <input type="url" id="url-img-shala" placeholder="Image URL…" style="flex:1;" />
- <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('shala')">Set</button>
- </div>
- </div>
- </div>
+ <!-- Shala -->
+ <div class="card site-img-upload-card" onclick="document.getElementById('file-img-shala').click()">
+  <div class="siu-left">
+    <img id="prev-img-shala" src="images/yoga_class_shala.png" class="siu-thumb" style="border-radius:6px;" alt="Shala" />
+    <span class="siu-spinner" id="spin-img-shala" style="display:none;">⏳</span>
+  </div>
+  <div class="siu-right">
+    <div class="siu-title">Class / Experience Photo</div>
+    <div class="siu-hint">Any ratio works</div>
+    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+      <input type="url" id="url-img-shala" placeholder="…or paste a URL" class="siu-url-input" />
+      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('shala')">Set</button>
+    </div>
+  </div>
  </div>
 
  <!-- Symbol -->
- <div class="card">
- <div class="card-title">Decorative Symbol</div>
- <div class="site-img-card">
- <img id="prev-img-symbol" src="images/isha_hatha_symbol.png" style="width:100px;height:100px;object-fit:contain;" class="site-img-preview" alt="Symbol" />
- <div class="site-img-actions">
- <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-img-symbol').click()">
- <input type="file" id="file-img-symbol" accept="image/*" style="display:none;" onchange="uploadSiteImg('symbol',this.files[0],'prev-img-symbol')" />
- <p style="font-size:.82rem;"><strong>Tap to upload symbol</strong></p>
+ <div class="card site-img-upload-card" onclick="document.getElementById('file-img-symbol').click()">
+  <div class="siu-left">
+    <img id="prev-img-symbol" src="images/isha_hatha_symbol.png" class="siu-thumb" style="border-radius:6px;object-fit:contain;" alt="Symbol" />
+    <span class="siu-spinner" id="spin-img-symbol" style="display:none;">⏳</span>
+  </div>
+  <div class="siu-right">
+    <div class="siu-title">Decorative Symbol</div>
+    <div class="siu-hint">Square recommended</div>
+    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+      <input type="url" id="url-img-symbol" placeholder="…or paste a URL" class="siu-url-input" />
+      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('symbol')">Set</button>
+    </div>
+  </div>
  </div>
- <div class="or-divider">or paste URL</div>
- <div style="display:flex;gap:8px;">
- <input type="url" id="url-img-symbol" placeholder="Image URL…" style="flex:1;" />
- <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('symbol')">Set</button>
- </div>
- </div>
- </div>
- </div>
+
+ <!-- Program file inputs outside click targets -->
+ <input type="file" id="file-prog-hero"     accept="image/*" style="display:none;" onchange="uploadProgramImg('hero',    this.files[0],'prev-prog-hero')"     />
+ <input type="file" id="file-prog-overview" accept="image/*" style="display:none;" onchange="uploadProgramImg('overview',this.files[0],'prev-prog-overview')" />
+ <input type="file" id="file-teacher-photo" accept="image/*" style="display:none;" onchange="uploadSiteImg('guru',     this.files[0],'prev-teacher-photo')" />
 
  <div style="margin-top:40px; margin-bottom:20px; border-bottom:1px solid rgba(0,0,0,0.1); padding-bottom:10px;">
  <h3 style="font-size:1.1rem; color:var(--text); margin:0;">Program Pages Images</h3>
@@ -1459,15 +1479,21 @@ async function uploadSiteImg(type,file,previewId){
 
   openCropModal(file, cfg.label, async (blob) => {
     const croppedFile = blobToFile(blob, file.name);
+    // Show spinner
+    const spinnerId = 'spin-img-' + type;
+    const spinner = document.getElementById(spinnerId);
+    if(spinner) spinner.style.display = 'flex';
+
     if(!getImgbbKey()){
       document.getElementById(previewId).src=URL.createObjectURL(croppedFile);
+      if(spinner) spinner.style.display = 'none';
       toast("Demo mode — ImgBB not set. Preview only."); return;
     }
-    toast("Uploading…");
     try{
       const url=await uploadToImgbb(croppedFile,()=>{});
       if(url){document.getElementById(previewId).src=url;await saveSiteImgToDb(type,url);toast("Image updated live!");}
     }catch(e){toast("Upload failed",true);}
+    if(spinner) spinner.style.display = 'none';
   }, cfg.ratio, cfg.isRound);
 }
 async function updateSiteImgUrl(type,previewId,inputId){
