@@ -1341,7 +1341,7 @@ async function uploadImageFile(file, _storagePath) {
     toast('⚠ Paste your ImgBB API key in "Image API Setup" to enable uploads', true);
     // Navigate user to the setup panel
     setTimeout(() => showPanel('imgbb', document.querySelector('[onclick*="imgbb"]')), 1500);
-    return null;
+    throw new Error('API key missing');
   }
   return await uploadToImgbb(file, () => {});
 }
@@ -1521,9 +1521,11 @@ async function uploadSiteImg(type, file, previewId) {
 
     try {
       const url = await uploadImageFile(uploadFile, 'siteImages/' + type + '_' + Date.now());
-      document.getElementById(previewId).src = url;
-      await saveSiteImgToDb(type, url);
-      toast('Image updated live! ✓');
+      if (url) {
+        document.getElementById(previewId).src = url;
+        await saveSiteImgToDb(type, url);
+        toast('Image updated live! ✓');
+      }
     } catch(e) {
       toast('Upload failed — ' + e, true);
     } finally {
@@ -1576,10 +1578,12 @@ async function uploadProgramImg(type, file, previewId) {
     toast('Uploading program image…');
     try {
       const url = await uploadImageFile(uploadFile, 'programs/' + pId + '/' + type + '_' + Date.now());
-      document.getElementById(previewId).src = url;
-      if (isFirebase) await firebase.database().ref('programs/' + pId + '/images/' + type).set(url);
-      toast('Program image updated! ✓');
-    } catch(e) { toast('Upload failed', true); }
+      if (url) {
+        document.getElementById(previewId).src = url;
+        if (isFirebase) await firebase.database().ref('programs/' + pId + '/images/' + type).set(url);
+        toast('Program image updated! ✓');
+      }
+    } catch(e) { if (e.message !== 'API key missing') toast('Upload failed', true); }
   }, cropRatio, false);
 }
 
