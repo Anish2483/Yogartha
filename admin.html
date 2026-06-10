@@ -1312,18 +1312,18 @@ function applyCrop() {
   if (!cropperInstance || !cropCallback) return;
   cropperInstance.getCroppedCanvas({ maxWidth: 2048, maxHeight: 2048, fillColor:'#fff' })
     .toBlob(blob => {
-      closeCropModal();
-      if (blob && cropCallback) cropCallback(blob);
+      const cb = cropCallback; // Save reference before closing
+      closeCropModal(); // This nullifies the global cropCallback
+      if (blob && cb) cb(blob);
     }, 'image/jpeg', 0.92);
 }
 
 function skipCrop() {
-  // Upload the original file without cropping
   if (!cropOriginalFile || !cropCallback) { closeCropModal(); return; }
   const file = cropOriginalFile;
-  closeCropModal();
-  // Convert original file to blob and pass to callback
-  cropCallback(file);
+  const cb = cropCallback; // Save reference before closing
+  closeCropModal(); // This nullifies the global cropCallback
+  if (cb) cb(file);
 }
 
 // Helper: converts a Blob to a File object (needed for uploads)
