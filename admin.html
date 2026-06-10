@@ -366,7 +366,6 @@
  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
 </head>
 <body>
 
@@ -1334,26 +1333,17 @@ function blobToFile(blob, originalName) {
   return new File([blob], name, { type: blob.type || 'image/jpeg' });
 }
 
-// ---- UPLOAD ENGINE: Firebase Storage first, ImgBB fallback ----
-async function uploadImageFile(file, storagePath) {
-  // Try Firebase Storage first (preferred — free, fast, no external API key needed)
-  if (isFirebase && typeof firebase.storage === 'function') {
-    try {
-      const storageRef = firebase.storage().ref(storagePath);
-      const snap = await storageRef.put(file);
-      const url = await snap.ref.getDownloadURL();
-      return url;
-    } catch(e) {
-      console.warn('Firebase Storage failed, trying ImgBB:', e);
-    }
-  }
-  // Fallback: ImgBB
+// ---- UPLOAD ENGINE: ImgBB (free, no Blaze plan needed) ----
+async function uploadImageFile(file, _storagePath) {
   const k = getImgbbKey();
-  if (k) {
-    return await uploadToImgbb(file, ()=>{});
+  if (!k) {
+    // Show a helpful nudge instead of silent fail
+    toast('⚠ Paste your ImgBB API key in "Image API Setup" to enable uploads', true);
+    // Navigate user to the setup panel
+    setTimeout(() => showPanel('imgbb', document.querySelector('[onclick*="imgbb"]')), 1500);
+    return null;
   }
-  // Last resort: local blob URL (preview only, not persisted)
-  return URL.createObjectURL(file);
+  return await uploadToImgbb(file, () => {});
 }
 
 // ---- GALLERY ----
