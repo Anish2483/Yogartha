@@ -1,41 +1,41 @@
 /* ===== KEYFRAMES ===== */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+ from { transform: translateX(0); }
+ to { transform: translateX(-50%); }
 }
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.5; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.2); }
+ 0%, 100% { opacity: 0.5; transform: scaleY(1); }
+ 50% { opacity: 1; transform: scaleY(1.2); }
 }
 @keyframes rotateSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+ from { transform: rotate(0deg); }
+ to { transform: rotate(360deg); }
 }
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+ from { opacity: 0; transform: translateY(40px); }
+ to { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeInLeft {
-  from { opacity: 0; transform: translateX(-40px); }
-  to { opacity: 1; transform: translateX(0); }
+ from { opacity: 0; transform: translateX(-40px); }
+ to { opacity: 1; transform: translateX(0); }
 }
 @keyframes fadeInRight {
-  from { opacity: 0; transform: translateX(40px); }
-  to { opacity: 1; transform: translateX(0); }
+ from { opacity: 0; transform: translateX(40px); }
+ to { opacity: 1; transform: translateX(0); }
 }
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+ 0%, 100% { transform: translateY(0); }
+ 50% { transform: translateY(-12px); }
 }
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+ 0% { background-position: -200% center; }
+ 100% { background-position: 200% center; }
 }
 
 /* ===== REVEAL CLASSES (JS-driven) ===== */
-.reveal, .reveal-left, .reveal-right {
-  opacity: 0;
-  transition: opacity 0.8s ease, transform 0.8s ease;
+.reveal,.reveal-left,.reveal-right {
+ opacity: 0;
+ transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .reveal { transform: translateY(40px); }
 .reveal-left { transform: translateX(-40px); }
@@ -46,118 +46,118 @@
 .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
 /* Stagger children */
-.offerings-grid .offering-card:nth-child(2) { transition-delay: 0.1s; }
-.offerings-grid .offering-card:nth-child(3) { transition-delay: 0.2s; }
-.offerings-grid .offering-card:nth-child(4) { transition-delay: 0.1s; }
-.offerings-grid .offering-card:nth-child(5) { transition-delay: 0.2s; }
-.offerings-grid .offering-card:nth-child(6) { transition-delay: 0.3s; }
-.testimonials-grid .testi-card:nth-child(2) { transition-delay: 0.1s; }
-.testimonials-grid .testi-card:nth-child(3) { transition-delay: 0.15s; }
-.testimonials-grid .testi-card:nth-child(4) { transition-delay: 0.2s; }
+.offerings-grid.offering-card:nth-child(2) { transition-delay: 0.1s; }
+.offerings-grid.offering-card:nth-child(3) { transition-delay: 0.2s; }
+.offerings-grid.offering-card:nth-child(4) { transition-delay: 0.1s; }
+.offerings-grid.offering-card:nth-child(5) { transition-delay: 0.2s; }
+.offerings-grid.offering-card:nth-child(6) { transition-delay: 0.3s; }
+.testimonials-grid.testi-card:nth-child(2) { transition-delay: 0.1s; }
+.testimonials-grid.testi-card:nth-child(3) { transition-delay: 0.15s; }
+.testimonials-grid.testi-card:nth-child(4) { transition-delay: 0.2s; }
 
 /* ===== FLOATING MANDALA (hero decor) ===== */
 .hero-content { animation: fadeInUp 1.2s ease both; animation-delay: 0.3s; }
 
 /* ===== CARD SHIMMER ON HOVER ===== */
 .offering-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
-  background-size: 200% 100%;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-  border-radius: inherit;
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+ background-size: 200% 100%;
+ opacity: 0;
+ transition: opacity 0.3s;
+ pointer-events: none;
+ border-radius: inherit;
 }
 .offering-card:hover::after {
-  opacity: 1;
-  animation: shimmer 1s ease forwards;
+ opacity: 1;
+ animation: shimmer 1s ease forwards;
 }
 
 /* ===== FORM SUCCESS STATE ===== */
 .form-success {
-  text-align: center;
-  padding: 48px;
-  animation: fadeInUp 0.6s ease;
+ text-align: center;
+ padding: 48px;
+ animation: fadeInUp 0.6s ease;
 }
-.form-success .success-icon {
-  font-size: 4rem;
-  margin-bottom: 16px;
-  display: block;
-  animation: float 3s ease infinite;
+.form-success.success-icon {
+ font-size: 4rem;
+ margin-bottom: 16px;
+ display: block;
+ animation: float 3s ease infinite;
 }
 .form-success h3 {
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
-  color: var(--charcoal);
-  margin-bottom: 12px;
+ font-family: var(--font-serif);
+ font-size: 1.8rem;
+ color: var(--charcoal);
+ margin-bottom: 12px;
 }
 .form-success p { color: var(--text-light); }
 
 /* ===== PAGE LOADER ===== */
 #loader {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at center, #1A1208 0%, #0D0C0A 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+ position: fixed;
+ inset: 0;
+ background: radial-gradient(ellipse at center, #1A1208 0%, #0D0C0A 100%);
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ z-index: 9999;
+ transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 #loader.hidden { opacity: 0; visibility: hidden; }
 /* Yogartha logo in the loader */
 .loader-logo-img {
-  width: clamp(200px, 55vw, 400px);
-  height: auto;
-  margin-bottom: 40px;
-  /* Convert black text to a warm cream-gold so it glows on dark bg */
-  filter: invert(1) sepia(1) saturate(0.5) brightness(1.8)
-          drop-shadow(0 0 30px rgba(212,120,42,0.6))
-          drop-shadow(0 0 60px rgba(184,130,42,0.3));
-  animation: logoFadeIn 0.8s ease both;
+ width: clamp(200px, 55vw, 400px);
+ height: auto;
+ margin-bottom: 40px;
+ /* Convert black text to a warm cream-gold so it glows on dark bg */
+ filter: invert(1) sepia(1) saturate(0.5) brightness(1.8)
+ drop-shadow(0 0 30px rgba(212,120,42,0.6))
+ drop-shadow(0 0 60px rgba(184,130,42,0.3));
+ animation: logoFadeIn 0.8s ease both;
 }
 @keyframes logoFadeIn {
-  from { opacity: 0; transform: scale(0.92); }
-  to   { opacity: 1; transform: scale(1); }
+ from { opacity: 0; transform: scale(0.92); }
+ to { opacity: 1; transform: scale(1); }
 }
 .loader-bar {
-  width: 200px;
-  height: 2px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 2px;
-  margin-top: 0;
-  overflow: hidden;
+ width: 200px;
+ height: 2px;
+ background: rgba(255,255,255,0.1);
+ border-radius: 2px;
+ margin-top: 0;
+ overflow: hidden;
 }
 .loader-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--saffron), var(--gold));
-  animation: loadBar 1.5s ease forwards;
+ height: 100%;
+ background: linear-gradient(90deg, var(--saffron), var(--gold));
+ animation: loadBar 1.5s ease forwards;
 }
 @keyframes loadBar {
-  from { width: 0; }
-  to { width: 100%; }
+ from { width: 0; }
+ to { width: 100%; }
 }
 
 /* ===== SCROLL TO TOP BUTTON ===== */
 #scrollTop {
-  position: fixed;
-  bottom: 32px; right: 32px;
-  width: 48px; height: 48px;
-  background: linear-gradient(135deg, var(--saffron), var(--gold));
-  color: var(--white);
-  border: none;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px rgba(232,114,42,0.4);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s, transform 0.4s;
-  z-index: 500;
+ position: fixed;
+ bottom: 32px; right: 32px;
+ width: 48px; height: 48px;
+ background: linear-gradient(135deg, var(--saffron), var(--gold));
+ color: var(--white);
+ border: none;
+ border-radius: 50%;
+ font-size: 1.2rem;
+ cursor: pointer;
+ display: flex; align-items: center; justify-content: center;
+ box-shadow: 0 4px 20px rgba(232,114,42,0.4);
+ opacity: 0;
+ transform: translateY(20px);
+ transition: opacity 0.4s, transform 0.4s;
+ z-index: 500;
 }
 #scrollTop.visible { opacity: 1; transform: translateY(0); }
 #scrollTop:hover { transform: translateY(-3px); }

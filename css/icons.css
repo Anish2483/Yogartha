@@ -1,53 +1,53 @@
 /* =============================================
-   YOGARTHA — SVG ICON SYSTEM
-   Thin-stroke line art icons for benefit cards
-   and forwhom tags across all program pages.
-   ============================================= */
+ YOGARTHA — SVG ICON SYSTEM
+ Thin-stroke line art icons for benefit cards
+ and forwhom tags across all program pages.
+ ============================================= */
 
 /* ===== BENEFIT ICON CONTAINER ===== */
 .benefit-icon {
-  width: 52px;
-  height: 52px;
-  margin-bottom: 18px;
-  color: var(--saffron-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s ease, filter 0.4s ease;
+ width: 52px;
+ height: 52px;
+ margin-bottom: 18px;
+ color: var(--saffron-light);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ transition: transform 0.4s ease, filter 0.4s ease;
 }
 .benefit-icon svg {
-  width: 44px;
-  height: 44px;
-  display: block;
+ width: 44px;
+ height: 44px;
+ display: block;
 }
-.benefit-card:hover .benefit-icon {
-  transform: translateY(-3px);
-  filter: drop-shadow(0 0 10px rgba(240,144,64,0.45));
+.benefit-card:hover.benefit-icon {
+ transform: translateY(-3px);
+ filter: drop-shadow(0 0 10px rgba(240,144,64,0.45));
 }
 
 /* ===== FORWHOM TAG ICON ===== */
-.forwhom-tag .tag-icon {
-  width: 20px;
-  height: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--saffron);
-  flex-shrink: 0;
+.forwhom-tag.tag-icon {
+ width: 20px;
+ height: 20px;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ color: var(--saffron);
+ flex-shrink: 0;
 }
-.forwhom-tag .tag-icon svg {
-  width: 18px;
-  height: 18px;
+.forwhom-tag.tag-icon svg {
+ width: 18px;
+ height: 18px;
 }
 
 /* ===== GURU BADGE ICON ===== */
-.guru-img-badge .badge-icon {
-  width: 18px;
-  height: 18px;
-  display: inline-flex;
-  align-items: center;
-  color: var(--saffron-light);
-  vertical-align: middle;
-  margin-right: 6px;
+.guru-img-badge.badge-icon {
+ width: 18px;
+ height: 18px;
+ display: inline-flex;
+ align-items: center;
+ color: var(--saffron-light);
+ vertical-align: middle;
+ margin-right: 6px;
 }
-.guru-img-badge .badge-icon svg { width: 16px; height: 16px; }
+.guru-img-badge.badge-icon svg { width: 16px; height: 16px; }
