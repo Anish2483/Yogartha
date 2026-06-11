@@ -567,12 +567,25 @@
       { name:'rest',   dur:1000, label:''             },
     ];
     let phaseIdx = 0, phaseStart = null, animId = null, running = false;
+    let isVisible = false;
+    let pauseTime = 0;
 
     function easeOut(t) { return t*(2-t); }
     function easeIn(t) { return t*t*t; }
 
     function tick(ts) {
-      if (!phaseStart) phaseStart = ts;
+      if (!isVisible) {
+        animId = null;
+        return;
+      }
+      if (!phaseStart) {
+        phaseStart = ts;
+        if (pauseTime) {
+          phaseStart -= pauseTime;
+          pauseTime = 0;
+        }
+      }
+
       const phase = PHASES[phaseIdx];
       const elapsed = ts - phaseStart;
       const t  = Math.min(elapsed / phase.dur, 1);
@@ -586,14 +599,14 @@
         });
         // Grow leaves
         leaves.forEach(l => {
-          l.el.style.transform = 'translate(' + l.x + 'px, ' + (52 + l.y) + 'px) scale(' + te + ') rotate(' + l.rot + 'deg)';
+          l.el.style.transform = 'translate3d(' + l.x + 'px, ' + (52 + l.y) + 'px, 0) scale(' + te + ') rotate(' + l.rot + 'deg)';
           l.el.style.opacity = te * 2 > 1 ? 1 : te * 2;
         });
         sec = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
       } else if (phase.name === 'hold') {
         const sway = Math.sin(ts / 600) * 2.5;
         leaves.forEach(l => {
-          l.el.style.transform = 'translate(' + l.x + 'px, ' + (52 + l.y) + 'px) scale(1) rotate(' + (l.rot + sway) + 'deg)';
+          l.el.style.transform = 'translate3d(' + l.x + 'px, ' + (52 + l.y) + 'px, 0) scale(1) rotate(' + (l.rot + sway) + 'deg)';
           l.el.style.opacity = 1;
         });
         branches.forEach(b => b.el.style.strokeDashoffset = 0);
@@ -604,7 +617,7 @@
           const fallX = l.x + (te * 40 * (l.x > 0 ? 1 : -1));
           const fallY = (52 + l.y) + (te * 80);
           const rot = l.rot + (te * 120 * (l.x > 0 ? 1 : -1));
-          l.el.style.transform = 'translate(' + fallX + 'px, ' + fallY + 'px) scale(1) rotate(' + rot + 'deg)';
+          l.el.style.transform = 'translate3d(' + fallX + 'px, ' + fallY + 'px, 0) scale(1) rotate(' + rot + 'deg)';
           l.el.style.opacity = 1 - Math.pow(te, 4);
         });
         // Undraw tree
@@ -615,7 +628,7 @@
       } else if (phase.name === 'rest') {
         leaves.forEach(l => {
           l.el.style.opacity = 0;
-          l.el.style.transform = 'translate(' + l.x + 'px, ' + (52 + l.y) + 'px) scale(0) rotate(' + l.rot + 'deg)';
+          l.el.style.transform = 'translate3d(' + l.x + 'px, ' + (52 + l.y) + 'px, 0) scale(0) rotate(' + l.rot + 'deg)';
         });
         branches.forEach(b => {
           b.el.style.strokeDashoffset = b.len;
@@ -636,14 +649,32 @@
     function startBreath() {
       if (running) return;
       running = true;
-      phaseStart = null; phaseIdx = 0;
+      phaseStart = null; phaseIdx = 0; pauseTime = 0;
       if (phaseEl) phaseEl.textContent = PHASES[0].label;
       if (countEl) countEl.textContent = '';
-      animId = requestAnimationFrame(tick);
+      if (isVisible) animId = requestAnimationFrame(tick);
     }
 
     const wrap = document.querySelector('.lotus-breath-wrap');
-    if (wrap) wrap.addEventListener('pointerdown', startBreath, { once:true, passive:true });
+    if (wrap) {
+      wrap.addEventListener('pointerdown', startBreath, { once:true, passive:true });
+      
+      const observer = new IntersectionObserver((entries) => {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible && running && !animId) {
+          animId = requestAnimationFrame(tick);
+        } else if (!isVisible && animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+          if (phaseStart) {
+            pauseTime = performance.now() - phaseStart;
+            phaseStart = null;
+          }
+        }
+      }, { threshold: 0.1 });
+      observer.observe(wrap);
+    }
+    
     setTimeout(startBreath, 900);
   }
   // ── END KALPA VRIKSHA ENGINE ─────────────────────────────────────
@@ -664,7 +695,7 @@
               '<svg class="tree-side-svg" id="treeSVG" viewBox="-100 -130 200 260" aria-label="Kalpa Vriksha breathing guide">' +
                 '<defs>' +
                   '<filter id="chalkFilter" x="-20%" y="-20%" width="140%" height="140%">' +
-                    '<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />' +
+                    '<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="1" result="noise" />' +
                     '<feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />' +
                   '</filter>' +
                 '</defs>' +

@@ -835,6 +835,7 @@ ul { list-style: none; }
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: url(#chalkFilter);
+  will-change: stroke-dashoffset;
 }
 
 .chalk-leaf {
@@ -844,6 +845,7 @@ ul { list-style: none; }
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: url(#chalkFilter);
+  will-change: transform, opacity;
 }
 
 /* Breath text block */
