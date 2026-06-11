@@ -485,84 +485,259 @@
   const calIcon  = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
   const seatIcon = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
 
-  function renderBatches(batches) {
-   const grid = document.getElementById('batches-grid');
-   if (!grid) return;
-   const today = new Date(); today.setHours(0,0,0,0);
-   // Filter: only upcoming or ongoing (endDate >= today)
-   const upcoming = batches
-    .filter(b => b.endDate && new Date(b.endDate + 'T00:00:00') >= today)
-    .sort((a,b) => a.startDate.localeCompare(b.startDate));
+  // ── LOTUS BREATH ENGINE ──────────────────────────────────────────
+  function initLotusBreath() {
+    const svgEl   = document.getElementById('lotusSVG');
+    const ringEl  = document.getElementById('lotusRing');
+    const phaseEl = document.getElementById('lbPhase');
+    const countEl = document.getElementById('lbCount');
+    if (!svgEl || !ringEl) return;
 
-   if (!upcoming.length) {
-    grid.innerHTML = `
-    <div class="batches-empty" style="grid-column:1/-1;">
-      <div class="meditate-wrap">
-        <svg class="meditate-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <radialGradient id="glow" cx="50%" cy="60%" r="50%">
-              <stop offset="0%" stop-color="rgba(232,114,42,0.18)"/>
-              <stop offset="100%" stop-color="rgba(232,114,42,0)"/>
-            </radialGradient>
-          </defs>
-          <!-- Glow base -->
-          <ellipse cx="100" cy="170" rx="70" ry="22" fill="url(#glow)"/>
-          <!-- Ripple rings -->
-          <circle class="ripple r1" cx="100" cy="168" r="44" fill="none" stroke="rgba(232,114,42,0.22)" stroke-width="1"/>
-          <circle class="ripple r2" cx="100" cy="168" r="60" fill="none" stroke="rgba(232,114,42,0.14)" stroke-width="1"/>
-          <circle class="ripple r3" cx="100" cy="168" r="76" fill="none" stroke="rgba(232,114,42,0.08)" stroke-width="1"/>
-          <!-- Body: lotus legs -->
-          <path class="figure" d="M72 168 Q68 158 58 162 Q52 164 54 170 Q66 172 80 168Z" fill="rgba(232,114,42,0.55)"/>
-          <path class="figure" d="M128 168 Q132 158 142 162 Q148 164 146 170 Q134 172 120 168Z" fill="rgba(232,114,42,0.55)"/>
-          <!-- Dhyana foot left -->
-          <ellipse cx="74" cy="169" rx="12" ry="5" fill="rgba(232,114,42,0.4)"/>
-          <!-- Dhyana foot right -->
-          <ellipse cx="126" cy="169" rx="12" ry="5" fill="rgba(232,114,42,0.4)"/>
-          <!-- Torso -->
-          <path class="figure breathe" d="M88 128 Q88 115 100 113 Q112 115 112 128 L110 162 Q100 165 90 162Z" fill="rgba(232,114,42,0.65)"/>
-          <!-- Hands in chin mudra -->
-          <ellipse class="breathe" cx="90" cy="163" rx="7" ry="4" fill="rgba(240,201,110,0.7)"/>
-          <ellipse class="breathe" cx="110" cy="163" rx="7" ry="4" fill="rgba(240,201,110,0.7)"/>
-          <!-- Neck -->
-          <rect class="breathe" x="96" y="108" width="8" height="10" rx="4" fill="rgba(232,114,42,0.65)"/>
-          <!-- Head -->
-          <circle class="breathe" cx="100" cy="100" r="16" fill="rgba(232,114,42,0.7)"/>
-          <!-- Hair bun -->
-          <ellipse cx="100" cy="85" rx="7" ry="5" fill="rgba(232,114,42,0.5)"/>
-          <circle cx="100" cy="81" r="3" fill="rgba(240,201,110,0.6)"/>
-          <!-- Floating particles -->
-          <circle class="particle p1" cx="60" cy="110" r="2.5" fill="rgba(240,201,110,0.55)"/>
-          <circle class="particle p2" cx="148" cy="120" r="2"   fill="rgba(240,201,110,0.45)"/>
-          <circle class="particle p3" cx="78"  cy="78"  r="1.5" fill="rgba(232,114,42,0.5)"/>
-          <circle class="particle p4" cx="130" cy="82"  r="2"   fill="rgba(232,114,42,0.4)"/>
-          <circle class="particle p5" cx="52"  cy="148" r="1.5" fill="rgba(240,201,110,0.35)"/>
-          <circle class="particle p6" cx="155" cy="150" r="2"   fill="rgba(240,201,110,0.3)"/>
-        </svg>
-        <p class="meditate-label">New programs are being scheduled</p>
-        <a href="#contact" class="meditate-cta">Enquire to Register &rarr;</a>
-      </div>
-    </div>`;
-    return;
-   }
-   grid.innerHTML = upcoming.map((b, i) => {
-    const days = daysBetween(b.startDate, b.endDate);
-    const seats = b.seats ? `<p class="batch-seats">${seatIcon} ${b.seats}</p>` : '';
-    const color = b.color || 'saffron';
-    return `<div class="batch-card" style="animation-delay:${i * 0.07}s">
-     <div class="batch-card-top">
-      <span class="batch-pill ${color}">${b.program}</span>
-      <span class="batch-dates">${fmtDate(b.startDate)} &ndash; ${fmtDate(b.endDate)}</span>
-     </div>
-     <p class="batch-name">${b.program}</p>
-     <div class="batch-meta">
-      <span class="batch-meta-item">${clockIcon} ${b.time || 'Time TBA'}</span>
-      <span class="batch-meta-item">${calIcon} ${days} day${days !== 1 ? 's' : ''}</span>
-     </div>
-     ${seats}
-     <a href="#contact" class="batch-cta">Enquire &amp; Book &rarr;</a>
-    </div>`;
-   }).join('');
+    const NS = 'http://www.w3.org/2000/svg';
+    const CIRC = 2 * Math.PI * 88; // ≈ 552.9
+
+    // ── Build lotus petals programmatically ──
+    const outerAngles = [0,45,90,135,180,225,270,315];
+    const innerAngles = [22.5,67.5,112.5,157.5,202.5,247.5,292.5,337.5];
+
+    // Petal paths (local space, tip points "up" = negative Y)
+    const outerD = 'M 0 9 C 13 -3 15 -44 0 -58 C -15 -44 -13 -3 0 9';
+    const innerD = 'M 0 6 C 8 -2 9 -26 0 -34 C -9 -26 -8 -2 0 6';
+
+    function makePetalGroup(angle, pathD, cls, fill, stroke) {
+      const g = document.createElementNS(NS, 'g');
+      g.style.transformOrigin = '0px 0px';
+      g.style.transform = 'rotate(' + angle + 'deg)';
+      const p = document.createElementNS(NS, 'path');
+      p.classList.add(cls);
+      p.setAttribute('d', pathD);
+      p.style.fill   = fill;
+      p.style.stroke = stroke;
+      p.style.strokeWidth = '0.6';
+      p.style.transformOrigin = '0px 0px';
+      g.appendChild(p);
+      return { g, p };
+    }
+
+    // Insert layers back-to-front
+    const frag = document.createDocumentFragment();
+
+    // Glow disc behind everything
+    const glow = document.createElementNS(NS, 'ellipse');
+    Object.assign(glow, {});
+    glow.setAttribute('rx','58'); glow.setAttribute('ry','18');
+    glow.setAttribute('cx','0');  glow.setAttribute('cy','46');
+    glow.style.fill = 'rgba(232,114,42,0.10)';
+    glow.style.filter = 'blur(8px)';
+    frag.appendChild(glow);
+
+    // Outer petals
+    const outerPetals = outerAngles.map(a =>
+      makePetalGroup(a, outerD, 'lpOuter', 'rgba(210,82,22,0.62)', 'rgba(232,114,42,0.25)')
+    );
+    outerPetals.forEach(({g}) => frag.appendChild(g));
+
+    // Inner petals
+    const innerPetals = innerAngles.map(a =>
+      makePetalGroup(a, innerD, 'lpInner', 'rgba(242,185,60,0.72)', 'rgba(240,201,110,0.30)')
+    );
+    innerPetals.forEach(({g}) => frag.appendChild(g));
+
+    // Center glow
+    const cGlow = document.createElementNS(NS, 'circle');
+    cGlow.setAttribute('r','18');
+    cGlow.style.fill = 'rgba(240,201,110,0.18)';
+    cGlow.style.filter = 'blur(6px)';
+    frag.appendChild(cGlow);
+
+    // Center circle
+    const cCirc = document.createElementNS(NS, 'circle');
+    cCirc.setAttribute('r','12');
+    cCirc.style.fill = 'rgba(248,210,80,0.90)';
+    frag.appendChild(cCirc);
+
+    // Stamens: 8 tiny dots
+    for (let i = 0; i < 8; i++) {
+      const ang = (i / 8) * 2 * Math.PI;
+      const dot = document.createElementNS(NS, 'circle');
+      dot.setAttribute('cx', (Math.sin(ang) * 7.5).toFixed(2));
+      dot.setAttribute('cy', (-Math.cos(ang) * 7.5).toFixed(2));
+      dot.setAttribute('r', '1.6');
+      dot.style.fill = 'rgba(255,235,120,0.95)';
+      frag.appendChild(dot);
+    }
+
+    // Floating particles: 8 dots at various positions
+    const particleData = [
+      {cx:-52,cy:-28,r:2.2,delay:0},   {cx:52,cy:-28,r:1.7,delay:0.7},
+      {cx:-38,cy:-50,r:1.5,delay:1.3}, {cx:38,cy:-50,r:2.0,delay:0.4},
+      {cx:-64,cy:4,r:1.8,delay:1.9},   {cx:64,cy:4,r:1.5,delay:1.1},
+      {cx:-22,cy:-64,r:1.4,delay:2.2}, {cx:22,cy:-64,r:1.9,delay:0.9},
+    ];
+    const particleEls = particleData.map(({cx,cy,r,delay}) => {
+      const el = document.createElementNS(NS, 'circle');
+      el.setAttribute('cx', cx); el.setAttribute('cy', cy); el.setAttribute('r', r);
+      el.style.fill = 'rgba(240,201,110,0.55)';
+      el.style.opacity = '0';
+      frag.appendChild(el);
+      return { el, delay };
+    });
+
+    svgEl.appendChild(frag);
+
+    // ── Ring setup ──
+    ringEl.style.strokeDasharray  = CIRC;
+    ringEl.style.strokeDashoffset = CIRC;
+
+    // ── Breath cycle ──
+    //  inhale 4 s → hold 4 s → exhale 6 s → rest 1 s
+    const PHASES = [
+      { name:'inhale', dur:4000, label:'Breathe In'   },
+      { name:'hold',   dur:4000, label:'Hold'         },
+      { name:'exhale', dur:6000, label:'Breathe Out'  },
+      { name:'rest',   dur:1000, label:''             },
+    ];
+    let phaseIdx = 0, phaseStart = null, animId = null, running = false;
+
+    function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+    function applyOpen(open) {   // open: 0–1
+      const oTY = (-10 * open).toFixed(2);
+      const oSY = (0.76 + 0.34 * open).toFixed(3);
+      const oSX = (0.86 + 0.18 * open).toFixed(3);
+      const iTY = (-7  * open).toFixed(2);
+      const iSY = (0.76 + 0.28 * open).toFixed(3);
+      outerPetals.forEach(({p}) =>
+        p.style.transform = `translateY(${oTY}px) scaleY(${oSY}) scaleX(${oSX})`);
+      innerPetals.forEach(({p}) =>
+        p.style.transform = `translateY(${iTY}px) scaleY(${iSY})`);
+    }
+
+    function applyRing(prog) {
+      ringEl.style.strokeDashoffset = (CIRC * (1 - Math.max(0, Math.min(1, prog)))).toFixed(2);
+    }
+
+    let particleAnimStart = null;
+    function animateParticles(ts) {
+      if (!particleAnimStart) particleAnimStart = ts;
+      const elapsed = ts - particleAnimStart;
+      particleEls.forEach(({el, delay}) => {
+        const t = ((elapsed / 3000 + delay) % 1);
+        const op = t < 0.15 ? t/0.15 : t > 0.75 ? (1-t)/0.25 : 1;
+        const ty = -28 * t;
+        el.style.opacity = (op * 0.7).toFixed(2);
+        el.style.transform = `translateY(${ty.toFixed(1)}px)`;
+      });
+    }
+
+    function tick(ts) {
+      if (!phaseStart) phaseStart = ts;
+      const phase = PHASES[phaseIdx];
+      const elapsed = ts - phaseStart;
+      const t  = Math.min(elapsed / phase.dur, 1);
+      const te = ease(t);
+
+      let open = 0, ring = 0, sec = 0;
+
+      if (phase.name === 'inhale') {
+        open = te; ring = t;
+        sec  = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
+      } else if (phase.name === 'hold') {
+        open = 1 + 0.022 * Math.sin(elapsed / 380); ring = 1;
+        sec  = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
+      } else if (phase.name === 'exhale') {
+        open = 1 - te; ring = 1 - t;
+        sec  = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
+      } else {
+        open = 0; ring = 0;
+      }
+
+      applyOpen(Math.max(0, Math.min(1.05, open)));
+      applyRing(ring);
+      animateParticles(ts);
+
+      if (countEl) countEl.textContent = sec || '';
+
+      if (t >= 1) {
+        phaseIdx = (phaseIdx + 1) % PHASES.length;
+        phaseStart = ts;
+        if (phaseEl) phaseEl.textContent = PHASES[phaseIdx].label;
+      }
+      animId = requestAnimationFrame(tick);
+    }
+
+    function startBreath() {
+      if (running) return;
+      running = true;
+      phaseStart = null; phaseIdx = 0;
+      if (phaseEl) phaseEl.textContent = PHASES[0].label;
+      if (countEl) countEl.textContent = '';
+      animId = requestAnimationFrame(tick);
+    }
+
+    // Tap to sync / auto-start
+    const wrap = document.querySelector('.lotus-breath-wrap');
+    if (wrap) wrap.addEventListener('pointerdown', startBreath, { once:true, passive:true });
+    setTimeout(startBreath, 900);
   }
+  // ── END LOTUS BREATH ENGINE ──────────────────────────────────────
+
+  function renderBatches(batches) {
+    const grid = document.getElementById('batches-grid');
+    if (!grid) return;
+    const today = new Date(); today.setHours(0,0,0,0);
+    const upcoming = batches
+      .filter(b => b.endDate && new Date(b.endDate + 'T00:00:00') >= today)
+      .sort((a,b) => a.startDate.localeCompare(b.startDate));
+
+    if (!upcoming.length) {
+      grid.innerHTML =
+        '<div class="batches-empty" style="grid-column:1/-1">' +
+          '<div class="lotus-breath-wrap">' +
+            '<div class="lotus-ring-container">' +
+              '<svg class="lotus-ring-svg" viewBox="0 0 220 220" aria-hidden="true">' +
+                '<circle class="lring-track" cx="110" cy="110" r="88"/>' +
+                '<circle class="lring-fill"  cx="110" cy="110" r="88" id="lotusRing"/>' +
+              '</svg>' +
+              '<svg class="lotus-main-svg" id="lotusSVG" viewBox="-80 -80 160 160" aria-label="Lotus breathing guide">' +
+                '<defs><radialGradient id="lcGrad" cx="50%" cy="50%" r="50%">' +
+                  '<stop offset="0%" stop-color="rgba(255,230,90,1)"/>' +
+                  '<stop offset="100%" stop-color="rgba(230,100,20,0.75)"/>' +
+                '</radialGradient></defs>' +
+              '</svg>' +
+            '</div>' +
+            '<div class="breath-ui">' +
+              '<p class="breath-phase-txt" id="lbPhase">Tap to Begin</p>' +
+              '<p class="breath-count-txt" id="lbCount"></p>' +
+            '</div>' +
+            '<p class="lotus-tagline">New programs are being scheduled</p>' +
+            '<a href="#contact" class="meditate-cta">Enquire to Register &rarr;</a>' +
+          '</div>' +
+        '</div>';
+      requestAnimationFrame(function() { setTimeout(initLotusBreath, 60); });
+      return;
+    }
+
+    grid.innerHTML = upcoming.map((b, i) => {
+      const days  = daysBetween(b.startDate, b.endDate);
+      const seats = b.seats ? '<p class="batch-seats">' + seatIcon + ' ' + b.seats + '</p>' : '';
+      const color = b.color || 'saffron';
+      return '<div class="batch-card" style="animation-delay:' + (i * 0.07) + 's">' +
+        '<div class="batch-card-top">' +
+          '<span class="batch-pill ' + color + '">' + b.program + '</span>' +
+          '<span class="batch-dates">' + fmtDate(b.startDate) + ' &ndash; ' + fmtDate(b.endDate) + '</span>' +
+        '</div>' +
+        '<p class="batch-name">' + b.program + '</p>' +
+        '<div class="batch-meta">' +
+          '<span class="batch-meta-item">' + clockIcon + ' ' + (b.time || 'Time TBA') + '</span>' +
+          '<span class="batch-meta-item">' + calIcon + ' ' + days + ' day' + (days !== 1 ? 's' : '') + '</span>' +
+        '</div>' +
+        seats +
+        '<a href="#contact" class="batch-cta">Enquire &amp; Book &rarr;</a>' +
+      '</div>';
+    }).join('');
+  }
+
 
   // Try Firebase real-time, else show empty state
   function initBatches() {
