@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
  <meta charset="UTF-8" />
@@ -453,35 +453,95 @@
  </div>
  </section>
 
- <!-- ===== SCHEDULE ===== -->
+ <!-- ===== UPCOMING BATCHES ===== -->
  <section id="schedule" class="schedule-section section-pad">
  <div class="container">
- <div class="section-header reveal">
- <p class="section-eyebrow">Weekly Schedule</p>
- <h2 class="section-title">Find Your Batch</h2>
- <p class="section-sub" style="color:rgba(255,255,255,0.5)">All classes at Yogartha. Online sessions also available.</p>
- </div>
- <div class="schedule-table-wrap reveal">
- <table class="schedule-table">
- <thead>
- <tr>
- <th>Day</th><th>6:00 AM</th><th>8:00 AM</th><th>5:30 PM</th><th>7:00 PM</th>
- </tr>
- </thead>
- <tbody>
- <tr><td>Monday</td><td class="cls hatha">Hatha Yoga</td><td class="cls pranayama">Pranayama</td><td class="cls hatha">Hatha Yoga</td><td class="cls med">Meditation</td></tr>
- <tr><td>Tuesday</td><td class="cls surya">Surya Kriya</td><td class="cls angam">Angamardhana</td><td class="cls yin">Upa Yoga</td><td class="cls pranayama">Pranayama</td></tr>
- <tr><td>Wednesday</td><td class="cls hatha">Hatha Yoga</td><td class="cls pranayama">Pranayama</td><td class="cls hatha">Hatha Yoga</td><td class="cls med">Meditation</td></tr>
- <tr><td>Thursday</td><td class="cls surya">Surya Kriya</td><td class="cls angam">Angamardhana</td><td class="cls yin">Upa Yoga</td><td class="cls hatha">Hatha Yoga</td></tr>
- <tr><td>Friday</td><td class="cls hatha">Hatha Yoga</td><td class="cls pranayama">Pranayama</td><td class="cls surya">Surya Kriya</td><td class="cls med">Meditation</td></tr>
- <tr><td>Saturday</td><td class="cls surya">Surya Kriya</td><td class="cls hatha">Hatha Yoga</td><td class="cls angam">Angamardhana</td><td class="cls med">Meditation</td></tr>
- <tr><td>Sunday</td><td class="cls med">Deep Meditation</td><td class="cls hatha">Hatha Yoga</td><td colspan="2" class="cls rest">— Rest &middot; Monthly Special Workshops —</td></tr>
- </tbody>
- </table>
- </div>
- <p class="schedule-note reveal">*Reeta teaches all weekday morning batches. Guest instructors on evenings &amp; weekends.</p>
+  <div class="section-header reveal">
+   <p class="section-eyebrow">Upcoming Batches</p>
+   <h2 class="section-title">Register for a Program</h2>
+   <p class="section-sub">Each program runs over 4–5 days. Join a batch, learn, then practice on your own.</p>
+  </div>
+  <div class="batches-grid reveal" id="batches-grid">
+   <!-- Cards injected by JS -->
+   <div class="batches-empty">
+    <strong>Loading upcoming batches…</strong>
+   </div>
+  </div>
  </div>
  </section>
+
+ <script>
+ (function() {
+  // Day-count helper
+  function daysBetween(a, b) {
+   return Math.round((new Date(b) - new Date(a)) / 86400000) + 1;
+  }
+  // Format date: "Jun 15"
+  function fmtDate(iso) {
+   const d = new Date(iso + 'T00:00:00');
+   return d.toLocaleDateString('en-IN', { day:'numeric', month:'short' });
+  }
+  // Icon SVGs
+  const clockIcon = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+  const calIcon  = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const seatIcon = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
+
+  function renderBatches(batches) {
+   const grid = document.getElementById('batches-grid');
+   if (!grid) return;
+   const today = new Date(); today.setHours(0,0,0,0);
+   // Filter: only upcoming or ongoing (endDate >= today)
+   const upcoming = batches
+    .filter(b => b.endDate && new Date(b.endDate + 'T00:00:00') >= today)
+    .sort((a,b) => a.startDate.localeCompare(b.startDate));
+
+   if (!upcoming.length) {
+    grid.innerHTML = `<div class="batches-empty"><strong>New batches coming soon</strong>Check back shortly or enquire to register your interest.</div>`;
+    return;
+   }
+   grid.innerHTML = upcoming.map((b, i) => {
+    const days = daysBetween(b.startDate, b.endDate);
+    const seats = b.seats ? `<p class="batch-seats">${seatIcon} ${b.seats}</p>` : '';
+    const color = b.color || 'saffron';
+    return `<div class="batch-card" style="animation-delay:${i * 0.07}s">
+     <div class="batch-card-top">
+      <span class="batch-pill ${color}">${b.program}</span>
+      <span class="batch-dates">${fmtDate(b.startDate)} &ndash; ${fmtDate(b.endDate)}</span>
+     </div>
+     <p class="batch-name">${b.program}</p>
+     <div class="batch-meta">
+      <span class="batch-meta-item">${clockIcon} ${b.time || 'Time TBA'}</span>
+      <span class="batch-meta-item">${calIcon} ${days} day${days !== 1 ? 's' : ''}</span>
+     </div>
+     ${seats}
+     <a href="#contact" class="batch-cta">Enquire &amp; Book &rarr;</a>
+    </div>`;
+   }).join('');
+  }
+
+  // Try Firebase real-time, else show empty state
+  function initBatches() {
+   if (typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) {
+    firebase.database().ref('batches').on('value', snap => {
+     const raw = snap.val();
+     renderBatches(raw ? Object.values(raw) : []);
+    });
+   } else {
+    // No Firebase connected — show empty state after tiny delay
+    setTimeout(() => renderBatches([]), 400);
+   }
+  }
+
+  // Wait for Firebase to initialise (scripts load after this inline script)
+  if (document.readyState === 'loading') {
+   document.addEventListener('DOMContentLoaded', initBatches);
+  } else {
+   // Scripts already loaded (unlikely for inline, but safe)
+   setTimeout(initBatches, 100);
+  }
+ })();
+ </script>
+
 
  <!-- ===== GALLERY ===== -->
  <section id="gallery" class="gallery-section section-pad" style="display:none;">

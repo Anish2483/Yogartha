@@ -282,7 +282,21 @@
  .siu-url-input:focus { outline:none; border-color:var(--saffron); }
 
 
+ /* ---- COLOUR SWATCHES (batch colour picker) ---- */
+ .color-swatch-label { cursor:pointer; }
+ .color-swatch {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:50%; font-size:1.1rem;
+  cursor:pointer; transition:transform .15s, box-shadow .15s;
+ }
+ .color-swatch:hover { transform:scale(1.15); }
+ input[name="batch-color"]:checked + .color-swatch {
+  box-shadow:0 0 0 3px var(--maroon);
+  transform:scale(1.2);
+ }
+
  .toggle-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+
  .toggle { position:relative; width:46px; height:26px; background:var(--surface2); border:1.5px solid var(--border); border-radius:100px; cursor:pointer; transition:background.3s; flex-shrink:0; }
  .toggle.on { background:var(--maroon); border-color:var(--maroon); }
  .toggle::after { content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; background:#fff; border-radius:50%; transition:transform.3s; box-shadow:0 1px 4px rgba(0,0,0,0.2); }
@@ -455,30 +469,92 @@
 
  <!-- ===== SCHEDULE ===== -->
  <div class="panel active" id="panel-schedule">
- <div class="page-header"><div class="page-title">Weekly Schedule</div><div class="page-desc">Edit class timings for each day</div></div>
+ <div class="page-header"><div class="page-title">Program Batches</div><div class="page-desc">Schedule upcoming yoga programs — add start/end dates and timings</div></div>
  <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode — connect Firebase to save changes live</span></div>
+
+ <!-- ADD BATCH FORM -->
  <div class="card">
- <div class="card-title">Class Timetable</div>
- <div class="schedule-editor-wrap">
- <table class="schedule-edit-table">
- <thead><tr id="schedule-head"><th>Day</th></tr></thead>
- <tbody id="schedule-body"></tbody>
- </table>
+  <div class="card-title">Add a New Batch</div>
+  <div class="form-row">
+   <div class="form-group">
+    <label>Program</label>
+    <select id="batch-program-select" onchange="toggleCustomProgram(this.value)" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font);font-size:.9rem;background:var(--surface);color:var(--text);">
+     <option value="Surya Kriya">Surya Kriya</option>
+     <option value="Hatha Yoga">Hatha Yoga</option>
+     <option value="Upa Yoga">Upa Yoga</option>
+     <option value="Angamardhana">Angamardhana</option>
+     <option value="Bhuta Shuddhi">Bhuta Shuddhi</option>
+     <option value="Yogasanas">Yogasanas</option>
+     <option value="Shanmukhi Mudra">Shanmukhi Mudra</option>
+     <option value="Surya Shakti">Surya Shakti</option>
+     <option value="custom">Other (custom name)</option>
+    </select>
+   </div>
+   <div class="form-group" id="batch-custom-wrap" style="display:none;">
+    <label>Custom Program Name</label>
+    <input type="text" id="batch-custom-name" placeholder="e.g. Eye Care Workshop" />
+   </div>
+  </div>
+  <div class="form-row">
+   <div class="form-group">
+    <label>Start Date</label>
+    <input type="date" id="batch-start" />
+   </div>
+   <div class="form-group">
+    <label>End Date</label>
+    <input type="date" id="batch-end" />
+   </div>
+  </div>
+  <div class="form-row">
+   <div class="form-group">
+    <label>Timing</label>
+    <input type="text" id="batch-time" placeholder="e.g. 6:00 AM – 7:30 AM" />
+   </div>
+   <div class="form-group">
+    <label>Seats Note <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+    <input type="text" id="batch-seats" placeholder="e.g. Limited seats — 12 max" />
+   </div>
+  </div>
+  <!-- Colour picker -->
+  <div class="form-group">
+   <label>Colour Tag</label>
+   <div id="batch-color-picker" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+    <label class="color-swatch-label" title="Saffron">
+     <input type="radio" name="batch-color" value="saffron" checked style="display:none;" />
+     <span class="color-swatch" style="background:rgba(232,114,42,0.35);border:2px solid rgba(232,114,42,0.7);color:#e8721a;" data-label="Saffron">●</span>
+    </label>
+    <label class="color-swatch-label" title="Gold">
+     <input type="radio" name="batch-color" value="gold" style="display:none;" />
+     <span class="color-swatch" style="background:rgba(240,201,110,0.3);border:2px solid rgba(240,201,110,0.6);color:#dab94a;" data-label="Gold">●</span>
+    </label>
+    <label class="color-swatch-label" title="Rose">
+     <input type="radio" name="batch-color" value="rose" style="display:none;" />
+     <span class="color-swatch" style="background:rgba(196,50,80,0.25);border:2px solid rgba(196,50,80,0.55);color:#e0607a;" data-label="Rose">●</span>
+    </label>
+    <label class="color-swatch-label" title="Blue">
+     <input type="radio" name="batch-color" value="blue" style="display:none;" />
+     <span class="color-swatch" style="background:rgba(74,144,226,0.25);border:2px solid rgba(74,144,226,0.55);color:#7ab4f5;" data-label="Blue">●</span>
+    </label>
+    <label class="color-swatch-label" title="Green">
+     <input type="radio" name="batch-color" value="green" style="display:none;" />
+     <span class="color-swatch" style="background:rgba(60,160,100,0.25);border:2px solid rgba(60,160,100,0.55);color:#5dbb8a;" data-label="Green">●</span>
+    </label>
+   </div>
+  </div>
+  <div class="btn-row" style="margin-top:8px;">
+   <button class="btn btn-primary" onclick="addBatch()">+ Add Batch</button>
+  </div>
  </div>
- <div class="btn-row" style="margin-top:18px;">
- <button class="btn btn-primary" onclick="saveSchedule()">Save Schedule</button>
- <button class="btn btn-ghost" onclick="addColumn()">+ Add Slot</button>
- </div>
- </div>
+
+ <!-- BATCH LIST -->
  <div class="card">
- <div class="card-title">Schedule Note</div>
- <div class="form-group">
- <label>Footer note below the table</label>
- <input type="text" id="schedule-note" value="*Reeta teaches all weekday morning batches. Guest instructors on evenings &amp; weekends." />
- </div>
- <button class="btn btn-primary" onclick="saveSchedule()">Save</button>
+  <div class="card-title">All Scheduled Batches</div>
+  <div id="batch-list-admin">
+   <p style="color:var(--muted);font-size:.88rem;">No batches yet. Add one above.</p>
+  </div>
  </div>
  </div>
+
 
  <!-- ===== GALLERY ===== -->
  <div class="panel" id="panel-gallery">
@@ -1128,7 +1204,7 @@ function enterDash(fb) {
  bar.innerHTML='<div class="status-dot"></div><span>Connected to Firebase — changes publish live instantly</span>';
  loadFirebase();
  }
- updateImgbbStatus(); renderSchedule(); renderTestiList(); renderGallery();
+ updateImgbbStatus(); renderBatchListAdmin(); renderTestiList(); renderGallery();
 }
 // ===== ENQUIRIES =====
 function loadEnquiries() {
@@ -1201,28 +1277,124 @@ document.addEventListener("DOMContentLoaded",()=>{
 // ---- SCHEDULE ----
 function t2i(s){const m=s.match(/(\d+):(\d+)\s*(AM|PM)/i);if(!m)return"06:00";let h=parseInt(m[1]);const ap=m[3].toUpperCase();if(ap==="PM"&&h!==12)h+=12;if(ap==="AM"&&h===12)h=0;return`${String(h).padStart(2,"0")}:${m[2]}`;}
 function i2t(v){const[h,m]=v.split(":").map(Number);return`${h%12||12}:${String(m).padStart(2,"0")} ${h<12?"AM":"PM"}`;}
-function renderSchedule(){
- const head=document.getElementById("schedule-head");
- const body=document.getElementById("schedule-body");
- head.innerHTML="<th>Day</th>";
- schedule.columns.forEach((col,ci)=>{
- head.innerHTML+=`<th><div class="col-time"><input type="time" value="${t2i(col)}" onchange="schedule.columns[${ci}]=i2t(this.value)" style="flex:1;padding:6px 8px;font-size:.75rem;"/><button class="btn-del-col" onclick="delCol(${ci})">&times;</button></div></th>`;
- });
- body.innerHTML="";
- schedule.rows.forEach((row,ri)=>{
- let tr=`<tr><td>${row.day}</td>`;
- schedule.columns.forEach((_,ci)=>{tr+=`<td><input type="text" value="${row.slots[ci]||""}" onchange="schedule.rows[${ri}].slots[${ci}]=this.value" placeholder="—"/></td>`;});
- body.innerHTML+=tr+`</tr>`;
- });
- document.getElementById("schedule-note").value=schedule.note;
+// ---- PROGRAM BATCHES ----
+let batches = {}; // keyed by id
+
+function toggleCustomProgram(val) {
+  document.getElementById('batch-custom-wrap').style.display = val === 'custom' ? '' : 'none';
 }
-function addColumn(){schedule.columns.push("9:00 AM");schedule.rows.forEach(r=>r.slots.push(""));renderSchedule();}
-function delCol(ci){if(schedule.columns.length<=1){toast("Need at least 1 column",true);return;}schedule.columns.splice(ci,1);schedule.rows.forEach(r=>r.slots.splice(ci,1));renderSchedule();}
-function saveSchedule(){
- schedule.note=document.getElementById("schedule-note").value;
- if(isFirebase)firebase.database().ref("schedule").set(schedule).then(()=>toast("Schedule live!")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase to publish");
+
+function fmtDateAdmin(iso) {
+  if (!iso) return '';
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 }
+
+function daysBetweenAdmin(a, b) {
+  return Math.round((new Date(b) - new Date(a)) / 86400000) + 1;
+}
+
+function addBatch() {
+  const sel = document.getElementById('batch-program-select').value;
+  const program = sel === 'custom'
+    ? (document.getElementById('batch-custom-name').value.trim())
+    : sel;
+  const startDate = document.getElementById('batch-start').value;
+  const endDate   = document.getElementById('batch-end').value;
+  const time      = document.getElementById('batch-time').value.trim();
+  const seats     = document.getElementById('batch-seats').value.trim();
+  const color     = (document.querySelector('input[name="batch-color"]:checked') || {}).value || 'saffron';
+
+  if (!program)   { toast('Please enter a program name', true); return; }
+  if (!startDate) { toast('Please set a start date', true); return; }
+  if (!endDate)   { toast('Please set an end date', true); return; }
+  if (endDate < startDate) { toast('End date must be on or after start date', true); return; }
+
+  const id = 'b' + Date.now();
+  const batch = { id, program, startDate, endDate, time, seats, color };
+
+  if (isFirebase) {
+    firebase.database().ref('batches/' + id).set(batch)
+      .then(() => {
+        toast('Batch added live! ✓');
+        resetBatchForm();
+      })
+      .catch(() => toast('Error saving batch', true));
+  } else {
+    batches[id] = batch;
+    renderBatchListAdmin();
+    toast('Batch added (Demo mode — connect Firebase to publish)');
+    resetBatchForm();
+  }
+}
+
+function resetBatchForm() {
+  document.getElementById('batch-program-select').value = 'Surya Kriya';
+  document.getElementById('batch-custom-wrap').style.display = 'none';
+  document.getElementById('batch-custom-name').value = '';
+  document.getElementById('batch-start').value = '';
+  document.getElementById('batch-end').value = '';
+  document.getElementById('batch-time').value = '';
+  document.getElementById('batch-seats').value = '';
+  const firstColor = document.querySelector('input[name="batch-color"]');
+  if (firstColor) firstColor.checked = true;
+}
+
+function deleteBatch(id) {
+  if (!confirm('Remove this batch from the schedule?')) return;
+  if (isFirebase) {
+    firebase.database().ref('batches/' + id).remove()
+      .then(() => toast('Batch removed'))
+      .catch(() => toast('Error removing batch', true));
+  } else {
+    delete batches[id];
+    renderBatchListAdmin();
+    toast('Batch removed (Demo mode)');
+  }
+}
+
+function renderBatchListAdmin() {
+  const container = document.getElementById('batch-list-admin');
+  if (!container) return;
+  const list = Object.values(batches).sort((a, b) => a.startDate.localeCompare(b.startDate));
+  if (!list.length) {
+    container.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">No batches yet. Add one above.</p>';
+    return;
+  }
+  const today = new Date(); today.setHours(0,0,0,0);
+  const pillColors = { saffron:'#e8721a', gold:'#dab94a', rose:'#e0607a', blue:'#7ab4f5', green:'#5dbb8a' };
+  container.innerHTML = list.map(b => {
+    const isPast = b.endDate && new Date(b.endDate + 'T00:00:00') < today;
+    const days   = b.startDate && b.endDate ? daysBetweenAdmin(b.startDate, b.endDate) : '?';
+    const col    = b.color || 'saffron';
+    const dotColor = pillColors[col] || '#e8721a';
+    return `<div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);">
+      <span style="width:10px;height:10px;border-radius:50%;background:${dotColor};flex-shrink:0;"></span>
+      <div style="flex:1;min-width:0;">
+        <div style="font-weight:600;font-size:.9rem;color:var(--text);">${b.program}
+          ${isPast ? '<span style="margin-left:6px;font-size:.65rem;background:rgba(0,0,0,0.08);color:var(--muted);padding:2px 8px;border-radius:20px;font-weight:500;">Completed</span>' : ''}
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:2px;">
+          ${fmtDateAdmin(b.startDate)} → ${fmtDateAdmin(b.endDate)} &nbsp;·&nbsp; ${days} days
+          ${b.time ? '&nbsp;·&nbsp; ' + b.time : ''}
+          ${b.seats ? '&nbsp;·&nbsp; ' + b.seats : ''}
+        </div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="deleteBatch('${b.id}')">Remove</button>
+    </div>`;
+  }).join('');
+}
+
+// Real-time listener for batches (set up on Firebase connect)
+function initBatchListener() {
+  if (!isFirebase) return;
+  firebase.database().ref('batches').on('value', snap => {
+    batches = snap.val() || {};
+    renderBatchListAdmin();
+  });
+}
+
+
 
 // ====================================================================
 // CROP MODAL ENGINE
@@ -1641,7 +1813,7 @@ function saveContact(){
 // ---- FIREBASE LOAD ----
 function loadFirebase(){
  const db=firebase.database();
- db.ref("schedule").once("value").then(s=>{if(s.val()){schedule=s.val();renderSchedule();}});
+ db.ref('batches').on('value', snap => { batches = snap.val() || {}; renderBatchListAdmin(); });
  db.ref("testimonials").once("value").then(s=>{if(s.val()){testimonials=Object.values(s.val());renderTestiList();}});
  db.ref("gallery").once("value").then(s=>{if(s.val()){gallery=Array.isArray(s.val())?s.val():Object.values(s.val());renderGallery();}});
  db.ref("announcement").once("value").then(s=>{
