@@ -495,42 +495,83 @@
     const NS = 'http://www.w3.org/2000/svg';
     const frag = document.createDocumentFragment();
 
-    // Stem
+    // 1. Stem
     const stem = document.createElementNS(NS, 'path');
     stem.setAttribute('d', 'M 0 0 Q 15 60 0 120');
     stem.style.fill = 'none';
     stem.style.stroke = 'url(#stemGrad)';
-    stem.style.strokeWidth = '3.5';
+    stem.style.strokeWidth = '4';
     stem.style.strokeLinecap = 'round';
     frag.appendChild(stem);
 
-    // Receptacle (Base)
-    const base = document.createElementNS(NS, 'path');
-    base.setAttribute('d', 'M -14 -6 Q 0 12 14 -6 Q 0 4 -14 -6 Z');
-    base.style.fill = 'rgba(100,160,100,0.85)';
-    frag.appendChild(base);
-
-    // Petals Data
-    const petalData = [
-      { id: 'p_bl', d: 'M 0 0 C -30 -30 -15 -70 0 -80 C 10 -70 20 -30 0 0', fill: 'rgba(232,114,42,0.6)', openRot: -55, fallRot: -100, fallX: -40, fallY: 60 },
-      { id: 'p_br', d: 'M 0 0 C -20 -30 -10 -70 0 -80 C 15 -70 30 -30 0 0', fill: 'rgba(232,114,42,0.6)', openRot: 55, fallRot: 100, fallX: 40, fallY: 60 },
-      { id: 'p_ml', d: 'M 0 0 C -26 -35 -10 -80 0 -90 C 8 -80 20 -35 0 0', fill: 'rgba(240,150,60,0.8)', openRot: -30, fallRot: -60, fallX: -20, fallY: 80 },
-      { id: 'p_mr', d: 'M 0 0 C -20 -35 -8 -80 0 -90 C 10 -80 26 -35 0 0', fill: 'rgba(240,150,60,0.8)', openRot: 30, fallRot: 60, fallX: 20, fallY: 80 },
-      { id: 'p_c',  d: 'M 0 0 C -20 -40 -5 -90 0 -100 C 5 -90 20 -40 0 0', fill: 'rgba(248,210,80,0.9)', openRot: 0, fallRot: 30, fallX: 10, fallY: 90 }
-    ];
+    // Realistic Petal Definition: M 0 0 C -W*1.1 -H*0.3 -W*0.6 -H*0.85 0 -H C W*0.6 -H*0.85 W*1.1 -H*0.3 0 0
+    function getPetalD(w, h) {
+      return 'M 0 0 C ' + (-w*1.1) + ' ' + (-h*0.3) + ' ' + (-w*0.6) + ' ' + (-h*0.85) + ' 0 ' + (-h) + ' C ' + (w*0.6) + ' ' + (-h*0.85) + ' ' + (w*1.1) + ' ' + (-h*0.3) + ' 0 0';
+    }
 
     const petals = [];
-    petalData.forEach(pd => {
-      const p = document.createElementNS(NS, 'path');
-      p.setAttribute('d', pd.d);
-      p.style.fill = pd.fill;
-      p.style.transformOrigin = '0px 0px';
-      // start state: closed bud
-      p.style.transform = 'scale(0.1) rotate(0deg)';
-      p.style.opacity = '0';
-      frag.appendChild(p);
-      petals.push({ el: p, ...pd });
-    });
+    function addPetals(layerData) {
+      layerData.forEach(pd => {
+        const p = document.createElementNS(NS, 'path');
+        p.setAttribute('d', pd.d);
+        p.style.fill = pd.fill;
+        p.style.stroke = 'rgba(255,255,255,0.3)';
+        p.style.strokeWidth = '0.5';
+        p.style.filter = 'url(#petalShadow)';
+        p.style.transformOrigin = '0px 0px';
+        p.style.transform = 'scale(0.1) rotate(0deg)';
+        p.style.opacity = '0';
+        frag.appendChild(p);
+        petals.push(Object.assign({ el: p }, pd));
+      });
+    }
+
+    // 2. Back petals
+    addPetals([
+      { d: getPetalD(18,70), fill:'url(#petalDarkPink)', openRot:-75, fallRot:-120, fallX:-60, fallY:70 },
+      { d: getPetalD(20,80), fill:'url(#petalDarkPink)', openRot:-50, fallRot:-90, fallX:-45, fallY:80 },
+      { d: getPetalD(20,80), fill:'url(#petalDarkPink)', openRot:50, fallRot:90, fallX:45, fallY:80 },
+      { d: getPetalD(18,70), fill:'url(#petalDarkPink)', openRot:75, fallRot:120, fallX:60, fallY:70 }
+    ]);
+
+    // 3. Middle petals
+    addPetals([
+      { d: getPetalD(22,75), fill:'url(#petalPink)', openRot:-60, fallRot:-100, fallX:-50, fallY:60 },
+      { d: getPetalD(24,90), fill:'url(#petalPink)', openRot:-35, fallRot:-70, fallX:-30, fallY:75 },
+      { d: getPetalD(26,95), fill:'url(#petalPink)', openRot:0, fallRot:-20, fallX:-10, fallY:90 },
+      { d: getPetalD(24,90), fill:'url(#petalPink)', openRot:35, fallRot:70, fallX:30, fallY:75 },
+      { d: getPetalD(22,75), fill:'url(#petalPink)', openRot:60, fallRot:100, fallX:50, fallY:60 }
+    ]);
+
+    // 4. Stamens
+    const stamens = [];
+    for(let i=0; i<11; i++) {
+      const s = document.createElementNS(NS, 'line');
+      const angle = -45 + (90 * i / 10);
+      s.setAttribute('x1', '0'); s.setAttribute('y1', '0');
+      s.setAttribute('x2', '0'); s.setAttribute('y2', '-35');
+      s.style.stroke = '#FFD700';
+      s.style.strokeWidth = '1.5';
+      s.style.strokeLinecap = 'round';
+      s.style.transformOrigin = '0px 0px';
+      s.style.transform = 'scale(0.1) rotate(' + angle + 'deg)';
+      s.style.opacity = '0';
+      frag.appendChild(s);
+      stamens.push({ el: s, rot: angle });
+    }
+
+    // 5. Front petals
+    addPetals([
+      { d: getPetalD(22,85), fill:'url(#petalLight)', openRot:-20, fallRot:-50, fallX:-20, fallY:80 },
+      { d: getPetalD(24,90), fill:'url(#petalLight)', openRot:0, fallRot:10, fallX:5, fallY:100 },
+      { d: getPetalD(22,85), fill:'url(#petalLight)', openRot:20, fallRot:50, fallX:20, fallY:80 }
+    ]);
+
+    // 6. Base (Receptacle)
+    const base = document.createElementNS(NS, 'path');
+    base.setAttribute('d', 'M -14 -4 Q 0 12 14 -4 Q 0 4 -14 -4 Z');
+    base.style.fill = '#4CAF50';
+    frag.appendChild(base);
 
     svgEl.appendChild(frag);
 
@@ -544,14 +585,13 @@
     let phaseIdx = 0, phaseStart = null, animId = null, running = false;
 
     function easeOut(t) { return t*(2-t); }
-    function easeIn(t) { return t*t*t; } // stronger acceleration for falling
+    function easeIn(t) { return t*t*t; }
 
     function tick(ts) {
       if (!phaseStart) phaseStart = ts;
       const phase = PHASES[phaseIdx];
       const elapsed = ts - phaseStart;
       const t  = Math.min(elapsed / phase.dur, 1);
-      
       let sec = 0;
 
       if (phase.name === 'inhale') {
@@ -560,7 +600,11 @@
           const scale = 0.3 + 0.7 * te; // bud to full
           const rot = p.openRot * te;
           p.el.style.transform = 'translate(0px, 0px) scale(' + scale + ') rotate(' + rot + 'deg)';
-          p.el.style.opacity = te * 2 > 1 ? 1 : te * 2; // fade in quickly
+          p.el.style.opacity = te * 2 > 1 ? 1 : te * 2;
+        });
+        stamens.forEach(s => {
+          s.el.style.transform = 'scale(' + (0.3 + 0.7 * te) + ') rotate(' + s.rot + 'deg)';
+          s.el.style.opacity = te * 2 > 1 ? 1 : te * 2;
         });
         sec = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
       } else if (phase.name === 'hold') {
@@ -569,23 +613,33 @@
           p.el.style.transform = 'translate(0px, 0px) scale(1) rotate(' + (p.openRot + sway) + 'deg)';
           p.el.style.opacity = 1;
         });
+        stamens.forEach(s => {
+          s.el.style.transform = 'scale(1) rotate(' + (s.rot + sway) + 'deg)';
+          s.el.style.opacity = 1;
+        });
         sec = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
       } else if (phase.name === 'exhale') {
         const te = easeIn(t);
         petals.forEach((p) => {
-          // Petals detach, fall outwards and downwards
           const fallX = p.fallX * te;
-          const fallY = p.fallY * te + (te * 20); // Gravity
+          const fallY = p.fallY * te + (te * 20); // gravity
           const rot = p.openRot + (p.fallRot - p.openRot) * te;
-          const opacity = 1 - Math.pow(te, 4); // stay visible until the end, then fade
+          const opacity = 1 - Math.pow(te, 4);
           p.el.style.transform = 'translate(' + fallX + 'px, ' + fallY + 'px) scale(1) rotate(' + rot + 'deg)';
           p.el.style.opacity = opacity;
+        });
+        stamens.forEach(s => {
+          s.el.style.opacity = 1 - Math.pow(te, 4);
         });
         sec = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
       } else if (phase.name === 'rest') {
         petals.forEach(p => {
           p.el.style.opacity = 0;
           p.el.style.transform = 'scale(0.1) rotate(0deg)';
+        });
+        stamens.forEach(s => {
+          s.el.style.opacity = 0;
+          s.el.style.transform = 'scale(0.1) rotate(0deg)';
         });
         sec = '';
       }
@@ -631,9 +685,27 @@
               '<svg class="lotus-side-svg" id="lotusSVG" viewBox="-120 -130 240 260" aria-label="Lotus breathing guide">' +
                 '<defs>' +
                   '<linearGradient id="stemGrad" x1="0" y1="0" x2="0" y2="1">' +
-                    '<stop offset="0%" stop-color="rgba(100,160,100,0.85)"/>' +
-                    '<stop offset="100%" stop-color="rgba(60,120,60,0.1)"/>' +
+                    '<stop offset="0%" stop-color="#4CAF50"/>' +
+                    '<stop offset="100%" stop-color="rgba(76,175,80,0.1)"/>' +
                   '</linearGradient>' +
+                  '<linearGradient id="petalDarkPink" x1="0" y1="1" x2="0" y2="0">' +
+                    '<stop offset="0%" stop-color="#fff5f0" />' +
+                    '<stop offset="50%" stop-color="#ff7eb3" />' +
+                    '<stop offset="100%" stop-color="#ff1493" />' +
+                  '</linearGradient>' +
+                  '<linearGradient id="petalPink" x1="0" y1="1" x2="0" y2="0">' +
+                    '<stop offset="0%" stop-color="#ffffff" />' +
+                    '<stop offset="60%" stop-color="#ffb6c1" />' +
+                    '<stop offset="100%" stop-color="#ff69b4" />' +
+                  '</linearGradient>' +
+                  '<linearGradient id="petalLight" x1="0" y1="1" x2="0" y2="0">' +
+                    '<stop offset="0%" stop-color="#ffffff" />' +
+                    '<stop offset="40%" stop-color="#ffe4e1" />' +
+                    '<stop offset="100%" stop-color="#ffb6c1" />' +
+                  '</linearGradient>' +
+                  '<filter id="petalShadow" x="-20%" y="-20%" width="140%" height="140%">' +
+                    '<feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000" flood-opacity="0.12"/>' +
+                  '</filter>' +
                 '</defs>' +
               '</svg>' +
             '</div>' +
