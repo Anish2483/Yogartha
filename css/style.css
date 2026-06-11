@@ -807,22 +807,43 @@ ul { list-style: none; }
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Side view lotus container */
-.lotus-side-container {
+/* Tree view container */
+.tree-side-container {
   position: relative;
-  width: 220px;
-  height: 240px;
+  width: 260px;
+  height: 320px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Lotus SVG */
-.lotus-side-svg {
+/* Tree SVG */
+.tree-side-svg {
   width: 100%;
   height: 100%;
   overflow: visible;
+  /* Ensure stroke scales nicely */
+  vector-effect: non-scaling-stroke;
+}
+
+/* Chalk stroke utility applied dynamically via JS */
+.chalk-stroke {
+  fill: none;
+  stroke: rgba(232,114,42,0.85); /* Saffron ink */
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url(#chalkFilter);
+}
+
+.chalk-leaf {
+  fill: rgba(232,114,42,0.15); /* Light saffron wash */
+  stroke: rgba(232,114,42,0.85);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url(#chalkFilter);
 }
 
 /* Breath text block */
@@ -885,13 +906,13 @@ ul { list-style: none; }
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .lotus-side-container { width: 180px; height: 200px; }
-  .breath-count-txt     { font-size: 2.2rem; }
+  .tree-side-container { width: 220px; height: 280px; }
+  .breath-count-txt    { font-size: 2.2rem; }
 }
 @media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
-  .lotus-breath-wrap    { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 16px; }
-  .lotus-side-container { width: 140px; height: 160px; }
-  .breath-count-txt     { font-size: 1.8rem; }
+  .lotus-breath-wrap   { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .tree-side-container { width: 160px; height: 200px; }
+  .breath-count-txt    { font-size: 1.8rem; }
 }
 
 

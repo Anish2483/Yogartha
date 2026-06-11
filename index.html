@@ -485,9 +485,9 @@
   const calIcon  = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
   const seatIcon = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
 
-  // ── LOTUS BREATH ENGINE ──────────────────────────────────────────
-  function initLotusBreath() {
-    const svgEl   = document.getElementById('lotusSVG');
+  // ── KALPA VRIKSHA CHALK ENGINE ─────────────────────────────────────────
+  function initTreeBreath() {
+    const svgEl   = document.getElementById('treeSVG');
     const phaseEl = document.getElementById('lbPhase');
     const countEl = document.getElementById('lbCount');
     if (!svgEl) return;
@@ -495,87 +495,71 @@
     const NS = 'http://www.w3.org/2000/svg';
     const frag = document.createDocumentFragment();
 
-    // 1. Stem
-    const stem = document.createElementNS(NS, 'path');
-    stem.setAttribute('d', 'M 0 0 Q 15 60 0 120');
-    stem.style.fill = 'none';
-    stem.style.stroke = 'url(#stemGrad)';
-    stem.style.strokeWidth = '4';
-    stem.style.strokeLinecap = 'round';
-    frag.appendChild(stem);
+    // 1. Meditator Base (Head, shoulders, arms in mudra)
+    const personD = 'M -12 -5 C -18 -15 18 -15 12 -5 C 12 5 -12 5 -12 -5 ' + // head
+                    'M -12 8 C -35 15 -45 35 -30 50 C -20 50 -10 40 0 45 C 10 40 20 50 30 50 C 45 35 35 15 12 8';
+    const person = document.createElementNS(NS, 'path');
+    person.setAttribute('d', personD);
+    person.setAttribute('class', 'chalk-stroke');
+    person.style.transform = 'translate(0px, 60px)'; // Anchor near bottom
+    frag.appendChild(person);
 
-    // Realistic Petal Definition: M 0 0 C -W*1.1 -H*0.3 -W*0.6 -H*0.85 0 -H C W*0.6 -H*0.85 W*1.1 -H*0.3 0 0
-    function getPetalD(w, h) {
-      return 'M 0 0 C ' + (-w*1.1) + ' ' + (-h*0.3) + ' ' + (-w*0.6) + ' ' + (-h*0.85) + ' 0 ' + (-h) + ' C ' + (w*0.6) + ' ' + (-h*0.85) + ' ' + (w*1.1) + ' ' + (-h*0.3) + ' 0 0';
-    }
+    // 2. Tree Trunk and Branches growing from head (starts at 0, 50 relative to viewBox, which is top of head)
+    const treePaths = [
+      'M 0 0 Q 5 -30 0 -55', // main trunk
+      'M 0 -20 Q 30 -30 45 -50', // right lower branch
+      'M -2 -25 Q -30 -35 -45 -55', // left lower branch
+      'M 1 -35 Q 25 -50 35 -75', // right mid branch
+      'M -1 -40 Q -25 -55 -35 -80', // left mid branch
+      'M 0 -50 Q 15 -75 5 -95', // top branch 1
+      'M 0 -50 Q -15 -75 -5 -95' // top branch 2
+    ];
 
-    const petals = [];
-    function addPetals(layerData) {
-      layerData.forEach(pd => {
-        const p = document.createElementNS(NS, 'path');
-        p.setAttribute('d', pd.d);
-        p.style.fill = pd.fill;
-        p.style.stroke = 'rgba(255,255,255,0.3)';
-        p.style.strokeWidth = '0.5';
-        p.style.filter = 'url(#petalShadow)';
-        p.style.transformOrigin = '0px 0px';
-        p.style.transform = 'scale(0.1) rotate(0deg)';
-        p.style.opacity = '0';
-        frag.appendChild(p);
-        petals.push(Object.assign({ el: p }, pd));
-      });
-    }
+    const branches = [];
+    treePaths.forEach(d => {
+      const b = document.createElementNS(NS, 'path');
+      b.setAttribute('d', d);
+      b.setAttribute('class', 'chalk-stroke');
+      b.style.transform = 'translate(0px, 52px)';
+      frag.appendChild(b);
+      branches.push({ el: b });
+    });
 
-    // 2. Back petals
-    addPetals([
-      { d: getPetalD(18,70), fill:'url(#petalDarkPink)', openRot:-75, fallRot:-120, fallX:-60, fallY:70 },
-      { d: getPetalD(20,80), fill:'url(#petalDarkPink)', openRot:-50, fallRot:-90, fallX:-45, fallY:80 },
-      { d: getPetalD(20,80), fill:'url(#petalDarkPink)', openRot:50, fallRot:90, fallX:45, fallY:80 },
-      { d: getPetalD(18,70), fill:'url(#petalDarkPink)', openRot:75, fallRot:120, fallX:60, fallY:70 }
-    ]);
+    // 3. Leaves
+    const leafD = 'M 0 0 C 8 -5 12 -15 0 -22 C -12 -15 -8 -5 0 0';
+    const leafLocs = [
+      { x: 45, y: -50, rot: 55 },
+      { x: -45, y: -55, rot: -55 },
+      { x: 35, y: -75, rot: 35 },
+      { x: -35, y: -80, rot: -35 },
+      { x: 5, y: -95, rot: 15 },
+      { x: -5, y: -95, rot: -15 },
+      { x: 25, y: -35, rot: 75 },
+      { x: -25, y: -40, rot: -75 }
+    ];
 
-    // 3. Middle petals
-    addPetals([
-      { d: getPetalD(22,75), fill:'url(#petalPink)', openRot:-60, fallRot:-100, fallX:-50, fallY:60 },
-      { d: getPetalD(24,90), fill:'url(#petalPink)', openRot:-35, fallRot:-70, fallX:-30, fallY:75 },
-      { d: getPetalD(26,95), fill:'url(#petalPink)', openRot:0, fallRot:-20, fallX:-10, fallY:90 },
-      { d: getPetalD(24,90), fill:'url(#petalPink)', openRot:35, fallRot:70, fallX:30, fallY:75 },
-      { d: getPetalD(22,75), fill:'url(#petalPink)', openRot:60, fallRot:100, fallX:50, fallY:60 }
-    ]);
-
-    // 4. Stamens
-    const stamens = [];
-    for(let i=0; i<11; i++) {
-      const s = document.createElementNS(NS, 'line');
-      const angle = -45 + (90 * i / 10);
-      s.setAttribute('x1', '0'); s.setAttribute('y1', '0');
-      s.setAttribute('x2', '0'); s.setAttribute('y2', '-35');
-      s.style.stroke = '#FFD700';
-      s.style.strokeWidth = '1.5';
-      s.style.strokeLinecap = 'round';
-      s.style.transformOrigin = '0px 0px';
-      s.style.transform = 'scale(0.1) rotate(' + angle + 'deg)';
-      s.style.opacity = '0';
-      frag.appendChild(s);
-      stamens.push({ el: s, rot: angle });
-    }
-
-    // 5. Front petals
-    addPetals([
-      { d: getPetalD(22,85), fill:'url(#petalLight)', openRot:-20, fallRot:-50, fallX:-20, fallY:80 },
-      { d: getPetalD(24,90), fill:'url(#petalLight)', openRot:0, fallRot:10, fallX:5, fallY:100 },
-      { d: getPetalD(22,85), fill:'url(#petalLight)', openRot:20, fallRot:50, fallX:20, fallY:80 }
-    ]);
-
-    // 6. Base (Receptacle)
-    const base = document.createElementNS(NS, 'path');
-    base.setAttribute('d', 'M -14 -4 Q 0 12 14 -4 Q 0 4 -14 -4 Z');
-    base.style.fill = '#4CAF50';
-    frag.appendChild(base);
+    const leaves = [];
+    leafLocs.forEach(loc => {
+      const l = document.createElementNS(NS, 'path');
+      l.setAttribute('d', leafD);
+      l.setAttribute('class', 'chalk-leaf');
+      l.style.transformOrigin = '0px 0px';
+      l.style.transform = 'translate(' + loc.x + 'px, ' + (52 + loc.y) + 'px) scale(0) rotate(' + loc.rot + 'deg)';
+      frag.appendChild(l);
+      leaves.push(Object.assign({ el: l }, loc));
+    });
 
     svgEl.appendChild(frag);
 
-    // Breath cycle: inhale 4s (bloom) -> hold 4s (full) -> exhale 6s (fall) -> rest 1s (new bud)
+    // Initialize lengths for drawing effect
+    branches.forEach(b => {
+      const len = b.el.getTotalLength() + 5;
+      b.el.style.strokeDasharray = len;
+      b.el.style.strokeDashoffset = len; // Hidden at start
+      b.len = len;
+    });
+
+    // Breath cycle
     const PHASES = [
       { name:'inhale', dur:4000, label:'Breathe In'   },
       { name:'hold',   dur:4000, label:'Hold'         },
@@ -596,50 +580,45 @@
 
       if (phase.name === 'inhale') {
         const te = easeOut(t);
-        petals.forEach(p => {
-          const scale = 0.3 + 0.7 * te; // bud to full
-          const rot = p.openRot * te;
-          p.el.style.transform = 'translate(0px, 0px) scale(' + scale + ') rotate(' + rot + 'deg)';
-          p.el.style.opacity = te * 2 > 1 ? 1 : te * 2;
+        // Draw tree
+        branches.forEach(b => {
+          b.el.style.strokeDashoffset = b.len * (1 - te);
         });
-        stamens.forEach(s => {
-          s.el.style.transform = 'scale(' + (0.3 + 0.7 * te) + ') rotate(' + s.rot + 'deg)';
-          s.el.style.opacity = te * 2 > 1 ? 1 : te * 2;
+        // Grow leaves
+        leaves.forEach(l => {
+          l.el.style.transform = 'translate(' + l.x + 'px, ' + (52 + l.y) + 'px) scale(' + te + ') rotate(' + l.rot + 'deg)';
+          l.el.style.opacity = te * 2 > 1 ? 1 : te * 2;
         });
         sec = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
       } else if (phase.name === 'hold') {
-        const sway = Math.sin(ts / 600) * 1.5;
-        petals.forEach(p => {
-          p.el.style.transform = 'translate(0px, 0px) scale(1) rotate(' + (p.openRot + sway) + 'deg)';
-          p.el.style.opacity = 1;
+        const sway = Math.sin(ts / 600) * 2.5;
+        leaves.forEach(l => {
+          l.el.style.transform = 'translate(' + l.x + 'px, ' + (52 + l.y) + 'px) scale(1) rotate(' + (l.rot + sway) + 'deg)';
+          l.el.style.opacity = 1;
         });
-        stamens.forEach(s => {
-          s.el.style.transform = 'scale(1) rotate(' + (s.rot + sway) + 'deg)';
-          s.el.style.opacity = 1;
-        });
+        branches.forEach(b => b.el.style.strokeDashoffset = 0);
         sec = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
       } else if (phase.name === 'exhale') {
         const te = easeIn(t);
-        petals.forEach((p) => {
-          const fallX = p.fallX * te;
-          const fallY = p.fallY * te + (te * 20); // gravity
-          const rot = p.openRot + (p.fallRot - p.openRot) * te;
-          const opacity = 1 - Math.pow(te, 4);
-          p.el.style.transform = 'translate(' + fallX + 'px, ' + fallY + 'px) scale(1) rotate(' + rot + 'deg)';
-          p.el.style.opacity = opacity;
+        leaves.forEach(l => {
+          const fallX = l.x + (te * 40 * (l.x > 0 ? 1 : -1));
+          const fallY = (52 + l.y) + (te * 80);
+          const rot = l.rot + (te * 120 * (l.x > 0 ? 1 : -1));
+          l.el.style.transform = 'translate(' + fallX + 'px, ' + fallY + 'px) scale(1) rotate(' + rot + 'deg)';
+          l.el.style.opacity = 1 - Math.pow(te, 4);
         });
-        stamens.forEach(s => {
-          s.el.style.opacity = 1 - Math.pow(te, 4);
+        // Undraw tree
+        branches.forEach(b => {
+          b.el.style.strokeDashoffset = b.len * te;
         });
         sec = Math.max(1, Math.ceil((phase.dur - elapsed) / 1000));
       } else if (phase.name === 'rest') {
-        petals.forEach(p => {
-          p.el.style.opacity = 0;
-          p.el.style.transform = 'scale(0.1) rotate(0deg)';
+        leaves.forEach(l => {
+          l.el.style.opacity = 0;
+          l.el.style.transform = 'translate(' + l.x + 'px, ' + (52 + l.y) + 'px) scale(0) rotate(' + l.rot + 'deg)';
         });
-        stamens.forEach(s => {
-          s.el.style.opacity = 0;
-          s.el.style.transform = 'scale(0.1) rotate(0deg)';
+        branches.forEach(b => {
+          b.el.style.strokeDashoffset = b.len;
         });
         sec = '';
       }
@@ -667,7 +646,7 @@
     if (wrap) wrap.addEventListener('pointerdown', startBreath, { once:true, passive:true });
     setTimeout(startBreath, 900);
   }
-  // ── END LOTUS BREATH ENGINE ──────────────────────────────────────
+  // ── END KALPA VRIKSHA ENGINE ─────────────────────────────────────
 
   function renderBatches(batches) {
     const grid = document.getElementById('batches-grid');
@@ -681,30 +660,12 @@
       grid.innerHTML =
         '<div class="batches-empty" style="grid-column:1/-1">' +
           '<div class="lotus-breath-wrap">' +
-            '<div class="lotus-side-container">' +
-              '<svg class="lotus-side-svg" id="lotusSVG" viewBox="-120 -130 240 260" aria-label="Lotus breathing guide">' +
+            '<div class="tree-side-container">' +
+              '<svg class="tree-side-svg" id="treeSVG" viewBox="-100 -130 200 260" aria-label="Kalpa Vriksha breathing guide">' +
                 '<defs>' +
-                  '<linearGradient id="stemGrad" x1="0" y1="0" x2="0" y2="1">' +
-                    '<stop offset="0%" stop-color="#4CAF50"/>' +
-                    '<stop offset="100%" stop-color="rgba(76,175,80,0.1)"/>' +
-                  '</linearGradient>' +
-                  '<linearGradient id="petalDarkPink" x1="0" y1="1" x2="0" y2="0">' +
-                    '<stop offset="0%" stop-color="#fff5f0" />' +
-                    '<stop offset="50%" stop-color="#ff7eb3" />' +
-                    '<stop offset="100%" stop-color="#ff1493" />' +
-                  '</linearGradient>' +
-                  '<linearGradient id="petalPink" x1="0" y1="1" x2="0" y2="0">' +
-                    '<stop offset="0%" stop-color="#ffffff" />' +
-                    '<stop offset="60%" stop-color="#ffb6c1" />' +
-                    '<stop offset="100%" stop-color="#ff69b4" />' +
-                  '</linearGradient>' +
-                  '<linearGradient id="petalLight" x1="0" y1="1" x2="0" y2="0">' +
-                    '<stop offset="0%" stop-color="#ffffff" />' +
-                    '<stop offset="40%" stop-color="#ffe4e1" />' +
-                    '<stop offset="100%" stop-color="#ffb6c1" />' +
-                  '</linearGradient>' +
-                  '<filter id="petalShadow" x="-20%" y="-20%" width="140%" height="140%">' +
-                    '<feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000" flood-opacity="0.12"/>' +
+                  '<filter id="chalkFilter" x="-20%" y="-20%" width="140%" height="140%">' +
+                    '<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />' +
+                    '<feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />' +
                   '</filter>' +
                 '</defs>' +
               '</svg>' +
@@ -717,7 +678,7 @@
             '<a href="#contact" class="meditate-cta">Enquire to Register &rarr;</a>' +
           '</div>' +
         '</div>';
-      requestAnimationFrame(function() { setTimeout(initLotusBreath, 60); });
+      requestAnimationFrame(function() { setTimeout(initTreeBreath, 60); });
       return;
     }
 
