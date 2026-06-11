@@ -807,44 +807,21 @@ ul { list-style: none; }
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Ring + lotus stacked container */
-.lotus-ring-container {
+/* Side view lotus container */
+.lotus-side-container {
   position: relative;
-  width: 240px;
+  width: 220px;
   height: 240px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Progress ring SVG fills the container */
-.lotus-ring-svg {
-  position: absolute;
-  inset: 0;
+/* Lotus SVG */
+.lotus-side-svg {
   width: 100%;
   height: 100%;
-}
-.lring-track {
-  fill: none;
-  stroke: rgba(255,255,255,0.06);
-  stroke-width: 1.5;
-}
-.lring-fill {
-  fill: none;
-  stroke: rgba(232,114,42,0.55);
-  stroke-width: 2;
-  stroke-linecap: round;
-  /* dasharray/offset set by JS */
-  transform: rotate(-90deg);
-  transform-origin: 110px 110px;
-}
-
-/* Lotus SVG centered on top of ring */
-.lotus-main-svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 148px;
-  height: 148px;
   overflow: visible;
 }
 
@@ -908,14 +885,12 @@ ul { list-style: none; }
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .lotus-ring-container { width: 196px; height: 196px; }
-  .lotus-main-svg       { width: 120px; height: 120px; }
+  .lotus-side-container { width: 180px; height: 200px; }
   .breath-count-txt     { font-size: 2.2rem; }
 }
 @media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
   .lotus-breath-wrap    { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 16px; }
-  .lotus-ring-container { width: 160px; height: 160px; }
-  .lotus-main-svg       { width: 100px; height: 100px; }
+  .lotus-side-container { width: 140px; height: 160px; }
   .breath-count-txt     { font-size: 1.8rem; }
 }
 
