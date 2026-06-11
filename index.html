@@ -459,7 +459,6 @@
   <div class="section-header reveal">
    <p class="section-eyebrow">Upcoming Batches</p>
    <h2 class="section-title">Register for a Program</h2>
-   <p class="section-sub">Each program runs over 4–5 days. Join a batch, learn, then practice on your own.</p>
   </div>
   <div class="batches-grid reveal" id="batches-grid">
    <!-- Cards injected by JS -->
@@ -496,7 +495,53 @@
     .sort((a,b) => a.startDate.localeCompare(b.startDate));
 
    if (!upcoming.length) {
-    grid.innerHTML = `<div class="batches-empty"><strong>New batches coming soon</strong>Check back shortly or enquire to register your interest.</div>`;
+    grid.innerHTML = `
+    <div class="batches-empty" style="grid-column:1/-1;">
+      <div class="meditate-wrap">
+        <svg class="meditate-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="60%" r="50%">
+              <stop offset="0%" stop-color="rgba(232,114,42,0.18)"/>
+              <stop offset="100%" stop-color="rgba(232,114,42,0)"/>
+            </radialGradient>
+          </defs>
+          <!-- Glow base -->
+          <ellipse cx="100" cy="170" rx="70" ry="22" fill="url(#glow)"/>
+          <!-- Ripple rings -->
+          <circle class="ripple r1" cx="100" cy="168" r="44" fill="none" stroke="rgba(232,114,42,0.22)" stroke-width="1"/>
+          <circle class="ripple r2" cx="100" cy="168" r="60" fill="none" stroke="rgba(232,114,42,0.14)" stroke-width="1"/>
+          <circle class="ripple r3" cx="100" cy="168" r="76" fill="none" stroke="rgba(232,114,42,0.08)" stroke-width="1"/>
+          <!-- Body: lotus legs -->
+          <path class="figure" d="M72 168 Q68 158 58 162 Q52 164 54 170 Q66 172 80 168Z" fill="rgba(232,114,42,0.55)"/>
+          <path class="figure" d="M128 168 Q132 158 142 162 Q148 164 146 170 Q134 172 120 168Z" fill="rgba(232,114,42,0.55)"/>
+          <!-- Dhyana foot left -->
+          <ellipse cx="74" cy="169" rx="12" ry="5" fill="rgba(232,114,42,0.4)"/>
+          <!-- Dhyana foot right -->
+          <ellipse cx="126" cy="169" rx="12" ry="5" fill="rgba(232,114,42,0.4)"/>
+          <!-- Torso -->
+          <path class="figure breathe" d="M88 128 Q88 115 100 113 Q112 115 112 128 L110 162 Q100 165 90 162Z" fill="rgba(232,114,42,0.65)"/>
+          <!-- Hands in chin mudra -->
+          <ellipse class="breathe" cx="90" cy="163" rx="7" ry="4" fill="rgba(240,201,110,0.7)"/>
+          <ellipse class="breathe" cx="110" cy="163" rx="7" ry="4" fill="rgba(240,201,110,0.7)"/>
+          <!-- Neck -->
+          <rect class="breathe" x="96" y="108" width="8" height="10" rx="4" fill="rgba(232,114,42,0.65)"/>
+          <!-- Head -->
+          <circle class="breathe" cx="100" cy="100" r="16" fill="rgba(232,114,42,0.7)"/>
+          <!-- Hair bun -->
+          <ellipse cx="100" cy="85" rx="7" ry="5" fill="rgba(232,114,42,0.5)"/>
+          <circle cx="100" cy="81" r="3" fill="rgba(240,201,110,0.6)"/>
+          <!-- Floating particles -->
+          <circle class="particle p1" cx="60" cy="110" r="2.5" fill="rgba(240,201,110,0.55)"/>
+          <circle class="particle p2" cx="148" cy="120" r="2"   fill="rgba(240,201,110,0.45)"/>
+          <circle class="particle p3" cx="78"  cy="78"  r="1.5" fill="rgba(232,114,42,0.5)"/>
+          <circle class="particle p4" cx="130" cy="82"  r="2"   fill="rgba(232,114,42,0.4)"/>
+          <circle class="particle p5" cx="52"  cy="148" r="1.5" fill="rgba(240,201,110,0.35)"/>
+          <circle class="particle p6" cx="155" cy="150" r="2"   fill="rgba(240,201,110,0.3)"/>
+        </svg>
+        <p class="meditate-label">New programs are being scheduled</p>
+        <a href="#contact" class="meditate-cta">Enquire to Register &rarr;</a>
+      </div>
+    </div>`;
     return;
    }
    grid.innerHTML = upcoming.map((b, i) => {
