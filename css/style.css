@@ -411,7 +411,7 @@ ul { list-style: none; }
  text-align: center;
  box-shadow: var(--shadow);
 }
-.badge-num { display: block; font-family: var(--font-display); font-size: 2rem; font-weight: 700; }
+.badge-num { display: block; font-family: 'IM Fell English', serif; font-style: italic; font-size: 2.4rem; font-weight: normal; letter-spacing: 0.05em; line-height: 1; }
 .badge-lbl { display: block; font-size: 0.75rem; letter-spacing: 0.1em; opacity: 0.9; }
 .about-text p { color: var(--text-light); margin-bottom: 20px; font-size: 1rem; }
 .about-mission {
@@ -441,10 +441,13 @@ ul { list-style: none; }
 .stat { text-align: center; flex: 1; }
 .stat-num {
  display: block;
- font-family: var(--font-display);
- font-size: 2rem;
+ font-family: 'IM Fell English', serif;
+ font-style: italic;
+ font-size: 2.4rem;
  color: var(--saffron);
- font-weight: 700;
+ font-weight: normal;
+ letter-spacing: 0.05em;
+ line-height: 1;
 }
 .stat-lbl { font-size: 0.75rem; color: var(--text-light); letter-spacing: 0.05em; }
 

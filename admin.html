@@ -415,8 +415,11 @@
  <button class="nav-item active" onclick="showPanel('schedule',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Schedule</span>
  </button>
- <button class="nav-item" onclick="showPanel('gallery',this)">
- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Gallery</span>
+ <button class="nav-item" onclick="openGalleryTab('main',this)">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Main Gallery</span>
+ </button>
+ <button class="nav-item" onclick="openGalleryTab('programs',this)">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="M3 15h6"/><path d="M3 18h6"/></svg><span>Program Galleries</span>
  </button>
  <button class="nav-item" onclick="showPanel('testimonials',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Testimonials</span>
@@ -562,11 +565,10 @@
     <div class="page-title">Photo Gallery</div>
     <div class="page-desc">Upload or link photos for the gallery</div>
  </div>
- <div class="card" style="margin-bottom:20px;">
+ <div class="card" id="admin-gallery-selector-wrap" style="margin-bottom:20px; display:none;">
     <div class="form-group" style="margin-bottom:0;">
-      <label for="admin-gallery-selector">Select Page Gallery</label>
+      <label for="admin-gallery-selector">Select Program</label>
       <select id="admin-gallery-selector" onchange="switchAdminGallery()" class="input" style="max-width:300px;">
-        <option value="gallery">Home Page</option>
         <option value="gallery_surya_kriya">Surya Kriya</option>
         <option value="gallery_yogasanas">Yogasanas</option>
         <option value="gallery_angamardhana">Angamardhana</option>
@@ -1594,6 +1596,35 @@ function renderGallery(){
  <button class="gallery-preview-del" onclick="delGallery(${g.id})">&times;</button>
  </div>`).join("");
 }
+
+function openGalleryTab(type, btn) {
+    showPanel('gallery', btn);
+    const wrap = document.getElementById("admin-gallery-selector-wrap");
+    const title = document.querySelector("#panel-gallery .page-title");
+    const selector = document.getElementById("admin-gallery-selector");
+    
+    if (type === 'main') {
+        wrap.style.display = 'none';
+        title.textContent = 'Main Gallery';
+        // Temporarily inject the main gallery option to switch to it, then remove it so it doesn't show in the UI if it becomes visible
+        const opt = document.createElement("option");
+        opt.value = "gallery";
+        opt.id = "temp-main-opt";
+        selector.appendChild(opt);
+        selector.value = 'gallery';
+        switchAdminGallery();
+        document.getElementById("temp-main-opt").remove();
+    } else {
+        wrap.style.display = 'block';
+        title.textContent = 'Program Galleries';
+        // Default to first option if empty or if currently set to main
+        if (selector.value === 'gallery' || !selector.value) {
+            selector.value = 'gallery_surya_kriya';
+        }
+        switchAdminGallery();
+    }
+}
+
 function switchAdminGallery() {
   gallery = [];
   renderGallery();

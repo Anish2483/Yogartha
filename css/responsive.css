@@ -140,7 +140,7 @@ html, body {
  bottom: -14px; right: 12px;
  padding: 14px 20px;
  }
- .badge-num { font-size: 1.6rem; }
+ .badge-num { font-size: 2.1rem; }
  .about-stats {
  flex-direction: row;
  flex-wrap: wrap;
@@ -152,7 +152,7 @@ html, body {
  padding: 8px;
  min-width: 90px;
  }
- .stat-num { font-size: 1.5rem; }
+ .stat-num { font-size: 2.1rem; }
  .isha-tag { flex-wrap: wrap; text-align: center; justify-content: center; }
 
  /* ---------- SADHGURU SECTION ---------- */
