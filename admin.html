@@ -558,7 +558,31 @@
 
  <!-- ===== GALLERY ===== -->
  <div class="panel" id="panel-gallery">
- <div class="page-header"><div class="page-title">Photo Gallery</div><div class="page-desc">Upload or link photos for the gallery</div></div>
+ <div class="page-header">
+    <div class="page-title">Photo Gallery</div>
+    <div class="page-desc">Upload or link photos for the gallery</div>
+ </div>
+ <div class="card" style="margin-bottom:20px;">
+    <div class="form-group" style="margin-bottom:0;">
+      <label for="admin-gallery-selector">Select Page Gallery</label>
+      <select id="admin-gallery-selector" onchange="switchAdminGallery()" class="input" style="max-width:300px;">
+        <option value="gallery">Home Page</option>
+        <option value="gallery_surya_kriya">Surya Kriya</option>
+        <option value="gallery_yogasanas">Yogasanas</option>
+        <option value="gallery_angamardhana">Angamardhana</option>
+        <option value="gallery_bhuta_shuddhi">Bhuta Shuddhi</option>
+        <option value="gallery_upa_yoga">Upa Yoga</option>
+        <option value="gallery_shanmuki_mudra">Shanmuki Mudra</option>
+        <option value="gallery_jala_neti">Jala Neti</option>
+        <option value="gallery_eye_care_workshop">Eye Care Workshop</option>
+        <option value="gallery_yoga_for_wellbeing">Yoga for Wellbeing</option>
+        <option value="gallery_yoga_for_kids">Yoga for Kids</option>
+        <option value="gallery_yoga_for_pregnant_women">Yoga for Pregnant Women</option>
+        <option value="gallery_bhastrika">Bhastrika</option>
+        <option value="gallery_sacred_walks">Sacred Walks</option>
+      </select>
+    </div>
+ </div>
  <div class="imgbb-bar notset" id="gallery-imgbb-bar">
  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
  <span id="gallery-imgbb-msg">ImgBB not set — go to "Image API Setup" to enable direct uploads</span>
@@ -1570,8 +1594,22 @@ function renderGallery(){
  <button class="gallery-preview-del" onclick="delGallery(${g.id})">&times;</button>
  </div>`).join("");
 }
+function switchAdminGallery() {
+  gallery = [];
+  renderGallery();
+  if(!isFirebase) return;
+  const gRef = document.getElementById("admin-gallery-selector").value;
+  firebase.database().ref(gRef).once("value").then(s => {
+    if(s.val()) {
+      gallery = Array.isArray(s.val()) ? s.val() : Object.values(s.val());
+    }
+    renderGallery();
+  });
+}
+
 function saveGallery(){
- if(isFirebase)firebase.database().ref("gallery").set(gallery).then(()=>toast("Gallery live!")).catch(()=>toast("Error",true));
+ const gRef = document.getElementById("admin-gallery-selector").value;
+ if(isFirebase)firebase.database().ref(gRef).set(gallery).then(()=>toast("Gallery live!")).catch(()=>toast("Error",true));
  else toast("Demo mode — connect Firebase to publish");
 }
 
@@ -1815,7 +1853,7 @@ function loadFirebase(){
  const db=firebase.database();
  db.ref('batches').on('value', snap => { batches = snap.val() || {}; renderBatchListAdmin(); });
  db.ref("testimonials").once("value").then(s=>{if(s.val()){testimonials=Object.values(s.val());renderTestiList();}});
- db.ref("gallery").once("value").then(s=>{if(s.val()){gallery=Array.isArray(s.val())?s.val():Object.values(s.val());renderGallery();}});
+ switchAdminGallery();
  db.ref("announcement").once("value").then(s=>{
  if(s.val()){announcement=s.val();document.getElementById("ann-text").value=announcement.text||"";if(announcement.active)toggleAnn();}
  });

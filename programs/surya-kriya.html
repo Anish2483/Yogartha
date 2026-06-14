@@ -10,7 +10,7 @@
  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
  <link rel="stylesheet" href="../css/program-page.css" />`n <link rel="stylesheet" href="../css/icons.css" />
 </head>
-<body>
+<body data-page-id="surya-kriya">
  <div id="loader">
  <img src="../images/yogartha_logo.png" alt="Yogartha" class="loader-logo-img" />
  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
@@ -205,7 +205,22 @@
  </div>
  </section>
 
- <footer class="footer">
+ 
+    <!-- ===== GALLERY ===== -->
+    <section id="gallery" class="gallery-section section-pad" style="display:none;">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-eyebrow">Our Studio</p>
+          <h2 class="section-title">Life at Yogartha</h2>
+          <p class="section-sub">Moments from our classes, retreats, and community</p>
+        </div>
+        <div class="gallery-masonry reveal" id="gallery-masonry">
+          <!-- Photos loaded dynamically from admin panel -->
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
  <div class="footer-mandala"><img src="../images/isha_hatha_symbol.png" alt="" /></div>
  <div class="footer-inner">
  <div class="footer-logo-wrap">
@@ -228,6 +243,7 @@
  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
  <script src="../js/firebase-config.js"></script>
+  <script src="../js/site-loader.js"></script>
 </body>
 </html>
 

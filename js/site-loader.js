@@ -212,12 +212,16 @@
  if (typeof firebase === "undefined" || !firebase.app) return false;
  const db = firebase.database();
  db.ref("schedule").once("value").then(s => { if (s.val()) renderSchedule(s.val()); }).catch(() => {});
- db.ref("gallery").once("value").then(s => {
+ 
+ const pageId = document.body.getAttribute("data-page-id") || "home";
+ const galleryRef = pageId === "home" ? "gallery" : ("gallery_" + pageId.replace(/-/g, "_"));
+ db.ref(galleryRef).once("value").then(s => {
  if (s.val()) {
  const items = Array.isArray(s.val()) ? s.val() : Object.values(s.val());
  renderGallery(items);
  }
  }).catch(() => {});
+ 
  db.ref("testimonials").once("value").then(s => {
  if (s.val()) renderTestimonials(Object.values(s.val()));
  }).catch(() => { /* keep static reviews on permission error */ });
@@ -246,10 +250,29 @@
  } catch (e) { return false; }
  }
 
+ // ---- Apply data-fallback to any images still showing placeholder ----
+ function applyFallbackImages() {
+ document.querySelectorAll('img[data-fallback]').forEach(img => {
+ const rawSrc = img.getAttribute('src') || '';
+ // If src is empty or still the transparent GIF placeholder
+ const isPlaceholder = !rawSrc ||
+ rawSrc.startsWith('data:image/gif;base64,R0lGODlhAQABAA') ||
+ rawSrc === '' || rawSrc === 'about:blank';
+ if (isPlaceholder) {
+ img.src = img.getAttribute('data-fallback');
+ }
+ });
+ }
+
  document.addEventListener("DOMContentLoaded", () => {
+ // Apply local fallback images immediately so they show while Firebase loads
+ applyFallbackImages();
  if (!tryFirebase()) {
  console.log("Yogartha: Firebase not connected — using static content.");
  }
+ // Also apply fallbacks after a small delay to catch any Firebase-overridden ones
+ // that might not have been in siteImages
+ setTimeout(applyFallbackImages, 2500);
  });
 
 })();

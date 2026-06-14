@@ -70,19 +70,32 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 reveals.forEach(el => observer.observe(el));
 
-// ===== ACTIVE NAV LINK ON SCROLL =====
+// ===== ACTIVE NAV LINK ON SCROLL (OPTIMIZED) =====
 const sections = document.querySelectorAll('section[id]');
 const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
-window.addEventListener('scroll', () => {
- let current = '';
- sections.forEach(sec => {
- if (window.scrollY >= sec.offsetTop - 120) current = sec.getAttribute('id');
- });
+
+// Use IntersectionObserver instead of a heavy scroll event
+const navObserverOptions = {
+ root: null,
+ rootMargin: '-120px 0px -40% 0px',
+ threshold: 0
+};
+
+const navObserver = new IntersectionObserver((entries) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ const currentId = entry.target.getAttribute('id');
  navAnchors.forEach(a => {
  a.classList.remove('active-link');
- if (a.getAttribute('href') === '#' + current) a.classList.add('active-link');
+ if (a.getAttribute('href') === '#' + currentId) {
+ a.classList.add('active-link');
+ }
  });
-});
+ }
+ });
+}, navObserverOptions);
+
+sections.forEach(sec => navObserver.observe(sec));
 
 // ===== FORM SUBMISSION =====
 function handleFormSubmit(e) {
