@@ -1210,11 +1210,9 @@ ul { list-style: none; }
  .about-badge { bottom: -10px; right: -10px; }
  .guru-doodle { display: none; }
  
- /* Fix: backdrop-filter creates a containing block that traps position:fixed children. 
- We remove it on mobile so the full-screen menu can cover the viewport properly. */
- .navbar.scrolled {
- backdrop-filter: none;
- background: rgba(26,18,9,0.99);
+ /* Scrolled navbar on mobile: keep pill shape, just darken the container */
+ .navbar.scrolled .nav-container {
+ background: rgba(22,14,6,0.92);
  }
 }
 @media (max-width: 480px) {

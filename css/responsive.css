@@ -54,11 +54,17 @@ html, body {
  .navbar { top: 12px; padding: 0 12px; }
  .nav-container { padding: 7px 8px 7px 18px; }
  .nav-custom-logo { height: 44px; }
- /* Dropdown opens full-width on mobile */
+ /* Dropdown: sits neatly below the pill, right-aligned, never fullscreen */
  .nav-links {
-  right: 0; left: 0;
-  min-width: unset;
-  border-radius: 14px;
+  right: 4px;
+  left: auto;
+  min-width: 200px;
+  max-width: 260px;
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  background: rgba(16,10,4,0.98);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
  }
  .hamburger { z-index: 1001; position: relative; }
  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
