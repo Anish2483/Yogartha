@@ -706,21 +706,72 @@
  <div class="panel" id="panel-images">
  <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Tap any card to replace a photo on the website</div></div>
 
- <!-- Hero -->
- <div class="card site-img-upload-card" onclick="document.getElementById('file-img-hero').click()">
-  <div class="siu-left">
-    <img id="prev-img-hero" src="images/adiyogi_hero.jpg" class="siu-thumb" style="border-radius:6px;" alt="Hero" />
-    <span class="siu-spinner" id="spin-img-hero" style="display:none;">⏳</span>
+ <!-- Hero Background — Device-Specific Crops -->
+ <div class="card" style="margin-bottom:20px;">
+  <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+   <div class="siu-title" style="font-size:1rem;font-weight:600;">🖼️ Hero Background Image</div>
+   <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device. Each will show only on that screen size.</div>
   </div>
-  <div class="siu-right">
-    <div class="siu-title">Hero Background</div>
-    <div class="siu-hint">Landscape · 1920×1080 recommended</div>
-    <div class="siu-btn">📂 Choose Photo</div>
-    <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-hero" placeholder="…or paste a URL" class="siu-url-input" />
-      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('hero')">Set</button>
+
+  <!-- Hidden file input —triggers startHeroCropFlow -->
+  <input type="file" id="file-img-hero" accept="image/*" style="display:none;" onchange="startHeroCropFlow(this.files[0]); this.value='';" />
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+
+   <!-- DESKTOP -->
+   <div class="site-img-upload-card" style="cursor:default;border:1.5px solid var(--border);border-radius:10px;padding:16px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+     <span style="font-size:1.3rem;">🖥️</span>
+     <div>
+      <div style="font-weight:600;font-size:.9rem;">Desktop</div>
+      <div class="siu-hint">16:9 · e.g. 1920×1080 · Laptops &amp; monitors</div>
+     </div>
     </div>
+    <img id="prev-hero-desktop" src="images/adiyogi_hero.jpg" alt="Desktop" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:10px;" />
+    <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:6px;" onclick="triggerHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
+    <div style="display:flex;gap:6px;">
+     <input type="url" id="url-hero-desktop" placeholder="…or paste URL" class="siu-url-input" style="flex:1;" />
+     <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('desktop')">Set</button>
+    </div>
+   </div>
+
+   <!-- TABLET -->
+   <div class="site-img-upload-card" style="cursor:default;border:1.5px solid var(--border);border-radius:10px;padding:16px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+     <span style="font-size:1.3rem;">📱</span>
+     <div>
+      <div style="font-weight:600;font-size:.9rem;">Tablet</div>
+      <div class="siu-hint">4:3 · e.g. 1024×768 · iPads &amp; tablets</div>
+     </div>
+    </div>
+    <img id="prev-hero-tablet" src="images/adiyogi_hero.jpg" alt="Tablet" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:10px;" />
+    <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:6px;" onclick="triggerHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
+    <div style="display:flex;gap:6px;">
+     <input type="url" id="url-hero-tablet" placeholder="…or paste URL" class="siu-url-input" style="flex:1;" />
+     <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('tablet')">Set</button>
+    </div>
+   </div>
+
+   <!-- MOBILE -->
+   <div class="site-img-upload-card" style="cursor:default;border:1.5px solid var(--border);border-radius:10px;padding:16px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+     <span style="font-size:1.3rem;">📲</span>
+     <div>
+      <div style="font-weight:600;font-size:.9rem;">Mobile / Phone</div>
+      <div class="siu-hint">9:16 · e.g. 390×844 · Phones (portrait)</div>
+     </div>
+    </div>
+    <img id="prev-hero-mobile" src="images/adiyogi_hero.jpg" alt="Mobile" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:10px;" />
+    <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:6px;" onclick="triggerHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
+    <div style="display:flex;gap:6px;">
+     <input type="url" id="url-hero-mobile" placeholder="…or paste URL" class="siu-url-input" style="flex:1;" />
+     <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('mobile')">Set</button>
+    </div>
+   </div>
+
   </div>
+
+  <p style="font-size:.78rem;color:var(--muted);margin-top:14px;">💡 Tip: Upload the same photo for all three. The crop tool lets you pick the best framing for each screen size.</p>
  </div>
 
  <!-- About -->
@@ -1774,6 +1825,58 @@ async function uploadSiteImg(type, file, previewId) {
     }
   }, cfg.ratio, cfg.isRound);
 }
+
+// ---- HERO DEVICE-SPECIFIC CROP FLOW ----
+let _heroCropFile = null; // stores the chosen file between device crop calls
+const _heroCropConfigs = {
+  desktop: { ratio: 16/9,  label: '🖥️  Desktop Crop — 16:9  (e.g. 1920×1080 · Laptops & monitors)',   previewId: 'prev-hero-desktop', dbKey: 'hero_desktop' },
+  tablet:  { ratio: 4/3,   label: '📱  Tablet Crop — 4:3  (e.g. 1024×768 · iPads & tablets)',            previewId: 'prev-hero-tablet',  dbKey: 'hero_tablet'  },
+  mobile:  { ratio: 9/16,  label: '📲  Mobile Crop — 9:16  (e.g. 390×844 · Phones, portrait)',           previewId: 'prev-hero-mobile',  dbKey: 'hero_mobile'  },
+};
+
+function triggerHeroCrop(device) {
+  // If we already have a file loaded, crop it directly for this device
+  if (_heroCropFile) {
+    _cropHeroDevice(device, _heroCropFile);
+  } else {
+    // Otherwise ask the user to pick a file first, storing the device for after selection
+    document.getElementById('file-img-hero').dataset.targetDevice = device;
+    document.getElementById('file-img-hero').click();
+  }
+}
+
+function startHeroCropFlow(file) {
+  if (!file) return;
+  _heroCropFile = file;
+  const targetDevice = document.getElementById('file-img-hero').dataset.targetDevice || 'desktop';
+  _cropHeroDevice(targetDevice, file);
+}
+
+async function _cropHeroDevice(device, file) {
+  const cfg = _heroCropConfigs[device];
+  openCropModal(file, cfg.label, async (fileOrBlob) => {
+    const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
+    toast('Uploading ' + device + ' crop…');
+    try {
+      const url = await uploadImageFile(uploadFile, 'siteImages/hero_' + device + '_' + Date.now());
+      if (url) {
+        document.getElementById(cfg.previewId).src = url;
+        await saveSiteImgToDb(cfg.dbKey, url);
+        toast('Hero ' + device + ' image updated live! ✓');
+      }
+    } catch(e) { toast('Upload failed — ' + e, true); }
+  }, cfg.ratio, false);
+}
+
+async function setHeroUrl(device) {
+  const cfg = _heroCropConfigs[device];
+  const url = document.getElementById('url-hero-' + device).value.trim();
+  if (!url) { toast('Paste an image URL first', true); return; }
+  document.getElementById(cfg.previewId).src = url;
+  document.getElementById('url-hero-' + device).value = '';
+  await saveSiteImgToDb(cfg.dbKey, url);
+  toast(isFirebase ? 'Hero ' + device + ' updated live!' : 'Updated (Demo Mode)');
+}
 async function updateSiteImgUrl(type,previewId,inputId){
  const pid=previewId||"prev-img-"+type;
  const iid=inputId||"url-img-"+type;
@@ -1890,7 +1993,15 @@ function loadFirebase(){
  });
  db.ref("siteImages").once("value").then(s=>{
  if(s.val()){const i=s.val();
- if(i.hero) { const el = document.getElementById("prev-img-hero"); if(el) el.src=i.hero; }
+ // Hero device-specific previews
+ if(i.hero_desktop) { const el = document.getElementById("prev-hero-desktop"); if(el) el.src=i.hero_desktop; }
+ if(i.hero_tablet)  { const el = document.getElementById("prev-hero-tablet");  if(el) el.src=i.hero_tablet;  }
+ if(i.hero_mobile)  { const el = document.getElementById("prev-hero-mobile");  if(el) el.src=i.hero_mobile;  }
+ // Fallback: if no device crops yet, use old hero key for all previews
+ else if(i.hero) {
+   ['desktop','tablet','mobile'].forEach(d => { const el = document.getElementById('prev-hero-'+d); if(el) el.src=i.hero; });
+ }
+ // Other images
  if(i.about) { const el = document.getElementById("prev-img-about"); if(el) el.src=i.about; }
  if(i.sadhguru) { const el = document.getElementById("prev-img-sadhguru"); if(el) el.src=i.sadhguru; }
  if(i.guru) { 

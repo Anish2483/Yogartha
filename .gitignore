@@ -1,0 +1,19 @@
+# Ignore large binary executables
+*.exe
+*.dll
+*.msi
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore downloaded page captures
+images/newpageheroimg.html
+images/newpageheroimg_files/
+
+# Ignore WhatsApp / camera dumps in images folder
+images/WhatsApp*
+
+# Ignore Python cache
+__pycache__/
+*.pyc

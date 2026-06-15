@@ -227,24 +227,45 @@
  }).catch(() => { /* keep static reviews on permission error */ });
  db.ref("announcement").once("value").then(s => { if (s.val()) renderAnnouncement(s.val()); }).catch(() => {});
  db.ref("siteImages").once("value").then(s => {
- const imgs = s.val();
- if (imgs) {
- // Hero: preload image silently first, then swap — eliminates flash of old image
- if (imgs.hero) {
-   const h = document.querySelector(".hero-img");
-   if (h && imgs.hero !== h.src) {
-     const preload = new Image();
-     preload.onload = () => { h.src = imgs.hero; };
-     preload.src = imgs.hero;
-   }
- }
- if (imgs.about) { const a = document.querySelector(".about-img"); if (a) a.src = imgs.about; }
- if (imgs.sadhguru){const sg = document.querySelector(".sadhguru-photo"); if (sg) sg.src = imgs.sadhguru; }
- if (imgs.guru) { const g = document.querySelector(".guru-img"); if (g) g.src = imgs.guru; }
- if (imgs.shala) { const sh = document.querySelector(".experience-img"); if (sh) sh.src = imgs.shala; }
- if (imgs.symbol) { document.querySelectorAll(".site-symbol").forEach(el => el.src = imgs.symbol); }
- }
- }).catch(() => {});
+  const imgs = s.val();
+  if (imgs) {
+  // Hero: device-specific crops (hero_desktop, hero_tablet, hero_mobile)
+  // Each updates the corresponding <source> or <img> in the <picture> element
+  function preloadAndSet(newUrl, setter) {
+    const preload = new Image();
+    preload.onload = setter;
+    preload.src = newUrl;
+  }
+  if (imgs.hero_desktop) {
+    const el = document.getElementById("hero-src-desktop");
+    if (el && imgs.hero_desktop !== el.src) preloadAndSet(imgs.hero_desktop, () => { el.src = imgs.hero_desktop; });
+  }
+  if (imgs.hero_tablet) {
+    const el = document.getElementById("hero-src-tablet");
+    if (el && imgs.hero_tablet !== el.getAttribute("srcset")) preloadAndSet(imgs.hero_tablet, () => { el.srcset = imgs.hero_tablet; });
+  }
+  if (imgs.hero_mobile) {
+    const el = document.getElementById("hero-src-mobile");
+    if (el && imgs.hero_mobile !== el.getAttribute("srcset")) preloadAndSet(imgs.hero_mobile, () => { el.srcset = imgs.hero_mobile; });
+  }
+  // Fallback: if only old single hero key exists (no device crops yet), apply to all
+  if (!imgs.hero_desktop && !imgs.hero_tablet && !imgs.hero_mobile && imgs.hero) {
+    const desktop = document.getElementById("hero-src-desktop");
+    const tablet  = document.getElementById("hero-src-tablet");
+    const mobile  = document.getElementById("hero-src-mobile");
+    if (desktop && imgs.hero !== desktop.src) preloadAndSet(imgs.hero, () => {
+      if (desktop) desktop.src = imgs.hero;
+      if (tablet)  tablet.srcset = imgs.hero;
+      if (mobile)  mobile.srcset = imgs.hero;
+    });
+  }
+  if (imgs.about) { const a = document.querySelector(".about-img"); if (a) a.src = imgs.about; }
+  if (imgs.sadhguru){const sg = document.querySelector(".sadhguru-photo"); if (sg) sg.src = imgs.sadhguru; }
+  if (imgs.guru) { const g = document.querySelector(".guru-img"); if (g) g.src = imgs.guru; }
+  if (imgs.shala) { const sh = document.querySelector(".experience-img"); if (sh) sh.src = imgs.shala; }
+  if (imgs.symbol) { document.querySelectorAll(".site-symbol").forEach(el => el.src = imgs.symbol); }
+  }
+  }).catch(() => {});
  db.ref("teacher").once("value").then(s => {
  const t = s.val();
  if (t) {
