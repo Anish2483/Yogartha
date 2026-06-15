@@ -280,13 +280,18 @@ ul { list-style: none; }
 /* Hero Yogartha logo image — large, prominent, with glow */
 .hero-logo-img {
  display: block;
- width: clamp(260px, 60vw, 580px);
+ width: clamp(200px, 45vw, 420px);
  height: auto;
- margin: 0 auto 16px;
+ margin: 0 auto 40px;
+ transform: translateY(-30px);
  /* Convert dark text to cream/white so it shows on dark hero bg */
  filter: invert(1) sepia(1) saturate(0.3) brightness(2.0)
  drop-shadow(0 4px 24px rgba(0,0,0,0.7));
- animation: fadeSlideUp 1.2s ease both;
+ animation: fadeSlideUpLogo 1.2s ease both;
+}
+@keyframes fadeSlideUpLogo {
+ from { opacity:0; transform: translateY(0); }
+ to { opacity:1; transform: translateY(-30px); }
 }
 @keyframes fadeSlideUp {
  from { opacity:0; transform: translateY(30px); }
