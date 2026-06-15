@@ -229,7 +229,15 @@
  db.ref("siteImages").once("value").then(s => {
  const imgs = s.val();
  if (imgs) {
- if (imgs.hero) { const h = document.querySelector(".hero-img"); if (h) h.src = imgs.hero; }
+ // Hero: preload image silently first, then swap — eliminates flash of old image
+ if (imgs.hero) {
+   const h = document.querySelector(".hero-img");
+   if (h && imgs.hero !== h.src) {
+     const preload = new Image();
+     preload.onload = () => { h.src = imgs.hero; };
+     preload.src = imgs.hero;
+   }
+ }
  if (imgs.about) { const a = document.querySelector(".about-img"); if (a) a.src = imgs.about; }
  if (imgs.sadhguru){const sg = document.querySelector(".sadhguru-photo"); if (sg) sg.src = imgs.sadhguru; }
  if (imgs.guru) { const g = document.querySelector(".guru-img"); if (g) g.src = imgs.guru; }

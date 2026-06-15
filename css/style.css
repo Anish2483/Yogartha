@@ -130,24 +130,17 @@ ul { list-style: none; }
  align-items: center;
  gap: 10px;
 }
-/* Nav logo image — bright golden-white at top, stays bright when scrolled */
+/* Nav logo image — larger, golden, the primary brand mark */
 .nav-custom-logo {
- height: 44px;
+ height: 60px;
  width: auto;
  object-fit: contain;
- /* Invert to golden-white so it shows clearly over the dark hero */
- filter: invert(1) sepia(1) saturate(0.4) brightness(2.2)
- drop-shadow(0 1px 8px rgba(0,0,0,0.6))
- drop-shadow(0 0 20px rgba(212,160,60,0.3));
- transition: filter 0.5s ease, opacity 0.3s ease;
+ filter: invert(1) sepia(1) saturate(0.5) brightness(2.4)
+  drop-shadow(0 2px 12px rgba(0,0,0,0.7))
+  drop-shadow(0 0 28px rgba(212,160,60,0.5));
+ transition: filter 0.5s ease, opacity 0.3s ease, transform 0.3s ease;
 }
-/* When scrolled, keep it bright but slightly warmer/softer glow */
-.navbar.scrolled.nav-custom-logo {
- filter: invert(1) sepia(1) saturate(0.5) brightness(2.0)
- drop-shadow(0 1px 6px rgba(0,0,0,0.5))
- drop-shadow(0 0 12px rgba(212,160,60,0.4));
-}
-.nav-custom-logo:hover { opacity: 0.85; }
+.nav-custom-logo:hover { opacity: 0.9; transform: scale(1.03); }
 .custom-logo {
  height: 48px;
  width: auto;
@@ -237,10 +230,10 @@ ul { list-style: none; }
 .hero-overlay {
  position: absolute; inset: 0;
  background: linear-gradient(
- to bottom,
- rgba(26,18,9,0.55) 0%,
- rgba(26,18,9,0.4) 50%,
- rgba(26,18,9,0.75) 100%
+  to bottom,
+  rgba(26,18,9,0.30) 0%,
+  rgba(26,18,9,0.15) 45%,
+  rgba(26,18,9,0.65) 100%
  );
 }
 .hero-top-bar {
@@ -298,6 +291,23 @@ ul { list-style: none; }
 @keyframes fadeSlideUp {
  from { opacity:0; transform: translateY(30px); }
  to { opacity:1; transform: translateY(0); }
+}
+/* Elegant brand name replacing the centre logo image */
+.hero-brand-text {
+ display: block;
+ font-family: 'Cormorant Garamond', serif;
+ font-style: italic;
+ font-weight: 300;
+ font-size: clamp(4rem, 12vw, 9rem);
+ color: rgba(255,255,255,0.97);
+ letter-spacing: 0.15em;
+ line-height: 1;
+ margin-bottom: 8px;
+ text-shadow:
+  0 2px 40px rgba(212,160,60,0.4),
+  0 0 80px rgba(212,160,60,0.15),
+  0 4px 24px rgba(0,0,0,0.5);
+ animation: fadeSlideUp 1.2s ease both;
 }
 .hero-tagline {
  font-family: var(--font-sans);

@@ -100,10 +100,10 @@ html, body {
  letter-spacing: 0.2em;
  margin-bottom: 20px;
  }
- /* Logo — centered, good breathing room */
- .hero-logo-img {
- width: clamp(220px, 70vw, 320px);
- margin: 0 auto 24px;
+ /* Hero brand text — scale down on small screens */
+ .hero-brand-text {
+ font-size: clamp(3rem, 16vw, 5.5rem);
+ letter-spacing: 0.10em;
  }
  /* Description — compact, 2 lines max feel */
  .hero-desc {
