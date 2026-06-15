@@ -50,21 +50,31 @@ html, body {
  .section-title { font-size: 1.9rem; }
 
  /* ---------- NAV (mobile/tablet) ---------- */
- /* Pill narrows a bit on small screens */
  .navbar { top: 12px; padding: 0 12px; }
  .nav-container { padding: 7px 8px 7px 18px; }
  .nav-custom-logo { height: 44px; }
- /* Dropdown: sits neatly below the pill, right-aligned, never fullscreen */
+ /* On mobile: dropdown uses fixed positioning so nothing clips it */
  .nav-links {
-  right: 4px;
-  left: auto;
-  min-width: 200px;
-  max-width: 260px;
-  max-height: 70vh;
+  position: fixed;
+  top: 72px;
+  right: 12px;
+  left: 12px;
+  min-width: unset;
+  max-width: unset;
+  max-height: calc(100vh - 90px);
   overflow-y: auto;
-  border-radius: 16px;
-  background: rgba(16,10,4,0.98);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+  border-radius: 18px;
+  background: rgba(14,9,4,0.98);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  z-index: 9999;
+ }
+ .nav-links li { width: 100%; }
+ .nav-links a {
+  font-size: 1rem;
+  padding: 14px 24px;
+ }
+ .nav-links li:last-child {
+  padding: 8px 14px 10px;
  }
  .hamburger { z-index: 1001; position: relative; }
  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }

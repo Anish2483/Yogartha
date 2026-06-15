@@ -28,15 +28,21 @@ window.addEventListener('scroll', () => {
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
+// Create a backdrop element to close menu when tapping outside
+const navBackdrop = document.createElement('div');
+navBackdrop.id = 'nav-backdrop';
+navBackdrop.style.cssText = 'display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.3);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);';
+document.body.appendChild(navBackdrop);
+
 function openNav() {
  navLinks.classList.add('open');
  hamburger.classList.add('active');
- document.body.style.overflow = 'hidden'; // prevent background scroll
+ navBackdrop.style.display = 'block';
 }
 function closeNav() {
  navLinks.classList.remove('open');
  hamburger.classList.remove('active');
- document.body.style.overflow = '';
+ navBackdrop.style.display = 'none';
 }
 
 hamburger?.addEventListener('click', () => {
@@ -46,10 +52,8 @@ hamburger?.addEventListener('click', () => {
 navLinks?.querySelectorAll('a').forEach(link => {
  link.addEventListener('click', closeNav);
 });
-// Close when tapping the dark overlay area (outside the menu items)
-navLinks?.addEventListener('click', (e) => {
- if (e.target === navLinks) closeNav();
-});
+// Close when tapping outside (the backdrop)
+navBackdrop.addEventListener('click', closeNav);
 
 // ===== SCROLL TO TOP =====
 const scrollTopBtn = document.createElement('button');
