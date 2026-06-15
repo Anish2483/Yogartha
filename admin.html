@@ -696,7 +696,7 @@
 
  <!-- ===== SITE IMAGES ===== -->
  <!-- Hidden file inputs placed OUTSIDE click targets to avoid double-fire bug -->
- <input type="file" id="file-img-hero"     accept="image/*" style="display:none;" onchange="uploadSiteImg('hero',    this.files[0],'prev-img-hero');    this.value='';" />
+ <!-- file-img-hero is now inside the hero card below, with the new device-crop handler -->
  <input type="file" id="file-img-about"    accept="image/*" style="display:none;" onchange="uploadSiteImg('about',   this.files[0],'prev-img-about');   this.value='';" />
  <input type="file" id="file-img-guru"     accept="image/*" style="display:none;" onchange="uploadSiteImg('guru',    this.files[0],'prev-img-guru');    this.value='';" />
  <input type="file" id="file-img-sadhguru" accept="image/*" style="display:none;" onchange="uploadSiteImg('sadhguru',this.files[0],'prev-img-sadhguru'); this.value='';" />
@@ -713,65 +713,58 @@
    <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device. Each will show only on that screen size.</div>
   </div>
 
-  <!-- Hidden file input —triggers startHeroCropFlow -->
+  <!-- Hidden file input — triggers startHeroCropFlow -->
   <input type="file" id="file-img-hero" accept="image/*" style="display:none;" onchange="startHeroCropFlow(this.files[0]); this.value='';" />
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-
-   <!-- DESKTOP -->
-   <div class="site-img-upload-card" style="cursor:default;border:1.5px solid var(--border);border-radius:10px;padding:16px;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-     <span style="font-size:1.3rem;">🖥️</span>
-     <div>
-      <div style="font-weight:600;font-size:.9rem;">Desktop</div>
-      <div class="siu-hint">16:9 · e.g. 1920×1080 · Laptops &amp; monitors</div>
-     </div>
-    </div>
-    <img id="prev-hero-desktop" src="images/adiyogi_hero.jpg" alt="Desktop" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:10px;" />
-    <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:6px;" onclick="triggerHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
-    <div style="display:flex;gap:6px;">
-     <input type="url" id="url-hero-desktop" placeholder="…or paste URL" class="siu-url-input" style="flex:1;" />
+  <!-- DESKTOP ROW -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
+   <div class="siu-left">
+    <img id="prev-hero-desktop" src="images/adiyogi_hero.jpg" alt="Desktop" class="siu-thumb" style="border-radius:6px;" />
+   </div>
+   <div class="siu-right">
+    <div class="siu-title">🖥️ Desktop</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;·&nbsp; e.g. 1920×1080 &nbsp;·&nbsp; Laptops &amp; monitors</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('desktop')">Set</button>
     </div>
    </div>
+  </div>
 
-   <!-- TABLET -->
-   <div class="site-img-upload-card" style="cursor:default;border:1.5px solid var(--border);border-radius:10px;padding:16px;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-     <span style="font-size:1.3rem;">📱</span>
-     <div>
-      <div style="font-weight:600;font-size:.9rem;">Tablet</div>
-      <div class="siu-hint">4:3 · e.g. 1024×768 · iPads &amp; tablets</div>
-     </div>
-    </div>
-    <img id="prev-hero-tablet" src="images/adiyogi_hero.jpg" alt="Tablet" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:10px;" />
-    <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:6px;" onclick="triggerHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
-    <div style="display:flex;gap:6px;">
-     <input type="url" id="url-hero-tablet" placeholder="…or paste URL" class="siu-url-input" style="flex:1;" />
+  <!-- TABLET ROW -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
+   <div class="siu-left">
+    <img id="prev-hero-tablet" src="images/adiyogi_hero.jpg" alt="Tablet" class="siu-thumb" style="border-radius:6px;" />
+   </div>
+   <div class="siu-right">
+    <div class="siu-title">📱 Tablet</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;·&nbsp; e.g. 1024×768 &nbsp;·&nbsp; iPads &amp; tablets</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('tablet')">Set</button>
     </div>
    </div>
+  </div>
 
-   <!-- MOBILE -->
-   <div class="site-img-upload-card" style="cursor:default;border:1.5px solid var(--border);border-radius:10px;padding:16px;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-     <span style="font-size:1.3rem;">📲</span>
-     <div>
-      <div style="font-weight:600;font-size:.9rem;">Mobile / Phone</div>
-      <div class="siu-hint">9:16 · e.g. 390×844 · Phones (portrait)</div>
-     </div>
-    </div>
-    <img id="prev-hero-mobile" src="images/adiyogi_hero.jpg" alt="Mobile" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:10px;" />
-    <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:6px;" onclick="triggerHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
-    <div style="display:flex;gap:6px;">
-     <input type="url" id="url-hero-mobile" placeholder="…or paste URL" class="siu-url-input" style="flex:1;" />
+  <!-- MOBILE ROW -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:0;">
+   <div class="siu-left">
+    <img id="prev-hero-mobile" src="images/adiyogi_hero.jpg" alt="Mobile" class="siu-thumb" style="border-radius:6px;" />
+   </div>
+   <div class="siu-right">
+    <div class="siu-title">📲 Mobile / Phone</div>
+    <div class="siu-hint">Ratio: 9:16 &nbsp;·&nbsp; e.g. 390×844 &nbsp;·&nbsp; Phones (portrait)</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('mobile')">Set</button>
     </div>
    </div>
-
   </div>
 
-  <p style="font-size:.78rem;color:var(--muted);margin-top:14px;">💡 Tip: Upload the same photo for all three. The crop tool lets you pick the best framing for each screen size.</p>
+  <p style="font-size:.78rem;color:var(--muted);margin-top:14px;">💡 Tip: Pick the same photo for all three — the crop tool lets you choose the best framing per device.</p>
  </div>
 
  <!-- About -->
