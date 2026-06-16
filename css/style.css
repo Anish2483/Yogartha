@@ -186,7 +186,8 @@ ul { list-style: none; }
  align-items: stretch;
  gap: 0;
  padding: 8px 0;
- z-index: 1002;
+ z-index: 10000;
+ isolation: isolate;
  animation: dropIn 0.22s ease;
  list-style: none;
  margin: 0;
@@ -1258,18 +1259,19 @@ ul { list-style: none; }
  display: flex;
  position: fixed;
  inset: 0;
- background: rgba(26,18,9,0.97);
- backdrop-filter: blur(8px);
- -webkit-backdrop-filter: blur(8px);
+ background: rgba(18,12,6,0.92);
+ backdrop-filter: blur(12px);
+ -webkit-backdrop-filter: blur(12px);
  flex-direction: column;
  justify-content: center;
  align-items: center;
  gap: 36px;
- z-index: 999;
+ z-index: 10000;
+ isolation: isolate;
  /* Smooth open/close via opacity — no display toggle lag */
  opacity: 0;
  pointer-events: none;
- transition: opacity 0.25s ease;
+ transition: opacity 0.28s ease;
  will-change: opacity;
  }
  .nav-links.open {
@@ -1277,7 +1279,7 @@ ul { list-style: none; }
  pointer-events: auto;
  }
  .nav-links a { font-size: 1.25rem; }
- .hamburger { display: flex; z-index: 1001; position: relative; }
+ .hamburger { display: flex; z-index: 10001; position: relative; }
  .about-badge { bottom: -10px; right: -10px; }
  .guru-doodle { display: none; }
  

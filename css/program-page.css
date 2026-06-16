@@ -1,4 +1,4 @@
-/* ===== PROGRAM PAGE SHARED STYLES ===== */
+ï»¿/* ===== PROGRAM PAGE SHARED STYLES ===== */
 :root {
   --saffron: #D4782A;
   --saffron-light: #F09040;
@@ -740,7 +740,7 @@ ul { list-style: none; }
   line-height: 1.7;
   margin-top: 12px;
 }
-/* Card — horizontal on desktop, stacked on mobile */
+/* Card ï¿½ horizontal on desktop, stacked on mobile */
 .wisdom-article-card {
   display: flex;
   gap: 0;
@@ -955,6 +955,7 @@ ul { list-style: none; }
 @media (max-width: 768px) {
   .gallery-masonry-item { height: 220px; }
 }
+
 
 
 

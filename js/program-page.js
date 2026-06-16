@@ -23,12 +23,31 @@ window.addEventListener('scroll', () => {
 // ===== HAMBURGER =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
+
+// Backdrop to close on outside tap (same as main.js)
+const navBackdrop = document.createElement('div');
+navBackdrop.id = 'nav-backdrop';
+navBackdrop.style.cssText = 'display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.45);';
+document.body.appendChild(navBackdrop);
+
+function openNav() {
+ navLinks.classList.add('open');
+ hamburger.classList.add('active');
+ navBackdrop.style.display = 'block';
+}
+function closeNav() {
+ navLinks.classList.remove('open');
+ hamburger.classList.remove('active');
+ navBackdrop.style.display = 'none';
+}
+
 hamburger?.addEventListener('click', () => {
- navLinks.classList.toggle('open');
+ navLinks.classList.contains('open') ? closeNav() : openNav();
 });
 navLinks?.querySelectorAll('a').forEach(link => {
- link.addEventListener('click', () => navLinks.classList.remove('open'));
+ link.addEventListener('click', closeNav);
 });
+navBackdrop.addEventListener('click', closeNav);
 
 // ===== SCROLL TO TOP =====
 const scrollTopBtn = document.createElement('button');

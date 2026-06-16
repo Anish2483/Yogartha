@@ -31,7 +31,7 @@ const navLinks = document.getElementById('navLinks');
 // Create a backdrop element to close menu when tapping outside
 const navBackdrop = document.createElement('div');
 navBackdrop.id = 'nav-backdrop';
-navBackdrop.style.cssText = 'display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.3);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);';
+navBackdrop.style.cssText = 'display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.45);';
 document.body.appendChild(navBackdrop);
 
 function openNav() {
