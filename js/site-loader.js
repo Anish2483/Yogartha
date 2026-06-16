@@ -368,3 +368,4 @@ function submitEnquiry(e) {
  note.textContent = "Something went wrong. Please try again or contact us directly.";
  });
 }
+

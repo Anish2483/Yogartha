@@ -36,7 +36,11 @@
 
  <section class="program-hero">
  <div class="program-hero-bg">
- <img src="../images/suryakriya.jpeg" alt="Surya Kriya" />
+  <picture class="prog-hero-picture">
+   <source media="(max-width: 480px)"  id="prog-hero-mobile"  srcset="../images/suryakriya.jpeg" />
+   <source media="(max-width: 1024px)" id="prog-hero-tablet"  srcset="../images/suryakriya.jpeg" />
+   <img src="../images/suryakriya.jpeg" id="prog-hero-desktop" data-fallback="../images/suryakriya.jpeg" alt="surya-kriya hero" />
+  </picture>
  </div>
  <div class="program-hero-overlay"></div>
  <div class="program-hero-top-bar"></div>
@@ -246,4 +250,5 @@
   <script src="../js/site-loader.js"></script>
 </body>
 </html>
+
 

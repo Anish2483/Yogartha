@@ -36,7 +36,11 @@
 
  <section class="program-hero">
  <div class="program-hero-bg">
- <img src="../images/eyecare.jpeg" alt="Eye Care Workshop" />
+  <picture class="prog-hero-picture">
+   <source media="(max-width: 480px)"  id="prog-hero-mobile"  srcset="../images/eyecare.jpeg" />
+   <source media="(max-width: 1024px)" id="prog-hero-tablet"  srcset="../images/eyecare.jpeg" />
+   <img src="../images/eyecare.jpeg" id="prog-hero-desktop" data-fallback="../images/eyecare.jpeg" alt="eye-care-workshop hero" />
+  </picture>
  </div>
  <div class="program-hero-overlay"></div>
  <div class="program-hero-top-bar"></div>
@@ -234,4 +238,5 @@
   <script src="../js/site-loader.js"></script>
 </body>
 </html>
+
 

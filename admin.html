@@ -882,24 +882,54 @@
  </select>
  </div>
 
- <!-- Program Hero -->
- <div class="card">
- <div class="card-title">Program Hero Image</div>
- <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">The large banner at the top of the program page.</p>
- <div class="site-img-card">
- <img id="prev-prog-hero" src="images/placeholder.png" style="width:130px;height:80px;object-fit:cover;" class="site-img-preview" alt="Hero" />
- <div class="site-img-actions">
- <div class="upload-zone" style="padding:14px;" onclick="document.getElementById('file-prog-hero').click()">
- <input type="file" id="file-prog-hero" accept="image/*" style="display:none;" onchange="uploadProgramImg('hero',this.files[0],'prev-prog-hero')" />
- <p style="font-size:.82rem;"><strong>Tap to upload hero photo</strong></p>
- </div>
- <div class="or-divider">or paste URL</div>
- <div style="display:flex;gap:8px;">
- <input type="url" id="url-prog-hero" placeholder="Image URL…" style="flex:1;" />
- <button class="btn btn-ghost btn-sm" onclick="updateProgramImgUrl('hero')">Set</button>
- </div>
- </div>
- </div>
+ <!-- Program Hero — Device-Specific Crops -->
+ <div class="card" style="margin-bottom:12px;">
+  <div class="page-header" style="margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);">
+   <div class="siu-title" style="font-size:.95rem;font-weight:600;">🖼️ Program Hero Image</div>
+   <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device. Each framing will show only on that screen size.</div>
+  </div>
+  <!-- Hidden shared file input for prog hero crops -->
+  <input type="file" id="file-prog-hero-crop" accept="image/*" style="display:none;" onchange="startProgHeroCropFlow(this.files[0]); this.value='';" />
+  <!-- DESKTOP -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:10px;">
+   <div class="siu-left"><img id="prev-prog-hero-desktop" src="images/placeholder.png" alt="Desktop" class="siu-thumb" style="border-radius:6px;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">🖥️ Desktop</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;·&nbsp; Laptops &amp; monitors</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-prog-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('desktop')">Set</button>
+    </div>
+   </div>
+  </div>
+  <!-- TABLET -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:10px;">
+   <div class="siu-left"><img id="prev-prog-hero-tablet" src="images/placeholder.png" alt="Tablet" class="siu-thumb" style="border-radius:6px;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">📱 Tablet</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;·&nbsp; iPads &amp; tablets</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-prog-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('tablet')">Set</button>
+    </div>
+   </div>
+  </div>
+  <!-- MOBILE -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:0;">
+   <div class="siu-left"><img id="prev-prog-hero-mobile" src="images/placeholder.png" alt="Mobile" class="siu-thumb" style="border-radius:6px;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">📲 Mobile / Phone</div>
+    <div class="siu-hint">Ratio: 9:16 &nbsp;·&nbsp; Phones (portrait)</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-prog-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('mobile')">Set</button>
+    </div>
+   </div>
+  </div>
+  <p style="font-size:.78rem;color:var(--muted);margin-top:12px;">💡 Pick the same photo for all three — the crop tool lets you choose the best framing per device.</p>
  </div>
 
  <!-- Program Overview -->
@@ -1883,20 +1913,90 @@ async function saveSiteImgToDb(type,url){
  if(isFirebase)await firebase.database().ref("siteImages/"+type).set(url).catch(()=>toast("DB error",true));
 }
 
-// ---- PROGRAM IMAGES ----
+let _progHeroCropFile = null;
+const _progHeroCropConfigs = {
+  desktop: { ratio: 16/9,  label: '🖥️ Desktop Crop — 16:9  (e.g. 1920×1080 · Laptops & monitors)',  previewId: 'prev-prog-hero-desktop', device: 'desktop' },
+  tablet:  { ratio: 4/3,   label: '📱 Tablet Crop — 4:3  (e.g. 1024×768 · iPads & tablets)',          previewId: 'prev-prog-hero-tablet',  device: 'tablet'  },
+  mobile:  { ratio: 9/16,  label: '📲 Mobile Crop — 9:16  (e.g. 390×844 · Phones, portrait)',         previewId: 'prev-prog-hero-mobile',  device: 'mobile'  },
+};
+
+function triggerProgHeroCrop(device) {
+  const pId = document.getElementById('program-select').value;
+  if (!pId) { toast('Select a program first', true); return; }
+  if (_progHeroCropFile) {
+    _cropProgHeroDevice(device, _progHeroCropFile);
+  } else {
+    document.getElementById('file-prog-hero-crop').dataset.targetDevice = device;
+    document.getElementById('file-prog-hero-crop').click();
+  }
+}
+
+function startProgHeroCropFlow(file) {
+  if (!file) return;
+  _progHeroCropFile = file;
+  const targetDevice = document.getElementById('file-prog-hero-crop').dataset.targetDevice || 'desktop';
+  _cropProgHeroDevice(targetDevice, file);
+}
+
+async function _cropProgHeroDevice(device, file) {
+  const pId = document.getElementById('program-select').value;
+  if (!pId) { toast('Select a program first', true); return; }
+  const cfg = _progHeroCropConfigs[device];
+  const pid = pId.replace(/-/g, '_');
+  const dbKey = 'prog_' + pid + '_' + device;
+  openCropModal(file, cfg.label, async (fileOrBlob) => {
+    const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
+    toast('Uploading ' + device + ' crop…');
+    try {
+      const url = await uploadImageFile(uploadFile, 'siteImages/prog_' + pid + '_' + device + '_' + Date.now());
+      if (url) {
+        document.getElementById(cfg.previewId).src = url;
+        await saveSiteImgToDb(dbKey, url);
+        toast('Program hero ' + device + ' updated live! 🎉');
+      }
+    } catch(e) { toast('Upload failed — ' + e, true); }
+  }, cfg.ratio, false);
+}
+
+async function setProgHeroUrl(device) {
+  const pId = document.getElementById('program-select').value;
+  if (!pId) { toast('Select a program first', true); return; }
+  const cfg = _progHeroCropConfigs[device];
+  const pid = pId.replace(/-/g, '_');
+  const dbKey = 'prog_' + pid + '_' + device;
+  const url = document.getElementById('url-prog-hero-' + device).value.trim();
+  if (!url) { toast('Paste an image URL first', true); return; }
+  document.getElementById(cfg.previewId).src = url;
+  document.getElementById('url-prog-hero-' + device).value = '';
+  await saveSiteImgToDb(dbKey, url);
+  toast(isFirebase ? 'Program hero ' + device + ' updated live!' : 'Updated (Demo Mode)');
+}
+
 function loadProgramImages() {
- const pId = document.getElementById('program-select').value;
- document.getElementById('prev-prog-hero').src = 'images/placeholder.png';
- document.getElementById('prev-prog-overview').src = 'images/placeholder.png';
- if(pId && isFirebase) {
- firebase.database().ref("programs/"+pId+"/images").once("value").then(s=>{
- if(s.val()) {
- const i = s.val();
- if(i.hero) document.getElementById('prev-prog-hero').src = i.hero;
- if(i.overview) document.getElementById('prev-prog-overview').src = i.overview;
- }
- });
- }
+  const pId = document.getElementById('program-select').value;
+  // Reset all previews
+  ['desktop','tablet','mobile'].forEach(d => {
+    const el = document.getElementById('prev-prog-hero-' + d);
+    if (el) el.src = 'images/placeholder.png';
+  });
+  const prevOv = document.getElementById('prev-prog-overview');
+  if (prevOv) prevOv.src = 'images/placeholder.png';
+  _progHeroCropFile = null;
+  if (pId && isFirebase) {
+    const pid = pId.replace(/-/g, '_');
+    firebase.database().ref('siteImages').once('value').then(s => {
+      const imgs = s.val() || {};
+      ['desktop','tablet','mobile'].forEach(d => {
+        const key = 'prog_' + pid + '_' + d;
+        const el = document.getElementById('prev-prog-hero-' + d);
+        if (el && imgs[key]) el.src = imgs[key];
+      });
+    }).catch(() => {});
+    // Still load overview from programs/{pId}/images/overview
+    firebase.database().ref('programs/' + pId + '/images').once('value').then(s => {
+      if (s.val() && s.val().overview && prevOv) prevOv.src = s.val().overview;
+    }).catch(() => {});
+  }
 }
 
 async function uploadProgramImg(type, file, previewId) {

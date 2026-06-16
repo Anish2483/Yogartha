@@ -36,7 +36,11 @@
 
  <section class="program-hero">
  <div class="program-hero-bg">
- <img src="../images/angamardana.jpeg" alt="Angamardhana" />
+  <picture class="prog-hero-picture">
+   <source media="(max-width: 480px)"  id="prog-hero-mobile"  srcset="../images/angamardana.jpeg" />
+   <source media="(max-width: 1024px)" id="prog-hero-tablet"  srcset="../images/angamardana.jpeg" />
+   <img src="../images/angamardana.jpeg" id="prog-hero-desktop" data-fallback="../images/angamardana.jpeg" alt="angamardhana hero" />
+  </picture>
  </div>
  <div class="program-hero-overlay"></div>
  <div class="program-hero-top-bar"></div>
@@ -246,4 +250,5 @@
   <script src="../js/site-loader.js"></script>
 </body>
 </html>
+
 

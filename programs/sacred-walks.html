@@ -37,8 +37,12 @@
 
  <section class="program-hero">
   <div class="program-hero-bg">
-   <img src="../images/sacred_walks_hero.jpg" alt="Sacred Walks" />
-  </div>
+  <picture class="prog-hero-picture">
+   <source media="(max-width: 480px)"  id="prog-hero-mobile"  srcset="../images/sacred_walks_hero.jpg" />
+   <source media="(max-width: 1024px)" id="prog-hero-tablet"  srcset="../images/sacred_walks_hero.jpg" />
+   <img src="../images/sacred_walks_hero.jpg" id="prog-hero-desktop" data-fallback="../images/sacred_walks_hero.jpg" alt="sacred-walks hero" />
+  </picture>
+ </div>
   <div class="program-hero-overlay"></div>
   <div class="program-hero-top-bar"></div>
   <div class="container program-hero-content">
@@ -239,3 +243,4 @@
  <script src="../js/site-loader.js"></script>
 </body>
 </html>
+

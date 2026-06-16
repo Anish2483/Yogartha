@@ -36,7 +36,11 @@
 
  <section class="program-hero">
  <div class="program-hero-bg">
- <img src="../images/shanmuki_mudra.jpeg" alt="Shanmukhi Mudra" />
+  <picture class="prog-hero-picture">
+   <source media="(max-width: 480px)"  id="prog-hero-mobile"  srcset="../images/shanmuki_mudra.jpeg" />
+   <source media="(max-width: 1024px)" id="prog-hero-tablet"  srcset="../images/shanmuki_mudra.jpeg" />
+   <img src="../images/shanmuki_mudra.jpeg" id="prog-hero-desktop" data-fallback="../images/shanmuki_mudra.jpeg" alt="shanmuki-mudra hero" />
+  </picture>
  </div>
  <div class="program-hero-overlay"></div>
  <div class="program-hero-top-bar"></div>
@@ -234,4 +238,5 @@
   <script src="../js/site-loader.js"></script>
 </body>
 </html>
+
 
