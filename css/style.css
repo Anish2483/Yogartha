@@ -1880,21 +1880,11 @@ cite.sadhguru-attr { font-style: normal; }
 }
 @keyframes loadBar { from{ width:0; } to{ width:100%; } }
 
-/* ===== PREVIOUS PHONE & TABLET HERO TEXT OVERRIDES (≤1024px) ===== */
+/* ===== PHONE & TABLET HERO OVERRIDES (≤1024px) ===== */
 @media (max-width: 1024px) {
+  /* Description hidden on phone/tablet — user decision */
   p.hero-desc {
-    font-size: 12px;
-    line-height: 1.2;
-    margin-top: 20px;
-    transform: translateY(140px);
-  }
-  .hero-desc-main {
-    font-size: 0.9rem;
-    line-height: 1.2;
-  }
-  .hero-desc-sub {
-    font-size: 0.7rem;
-    line-height: 1.2;
+    display: none;
   }
   .hero-btns { 
     margin-top: 150px;
