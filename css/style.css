@@ -405,23 +405,19 @@ ul { list-style: none; }
  text-shadow: 0 0 20px rgba(232,184,96,0.45), 0 0 40px rgba(232,184,96,0.2);
 }
 .hero-desc {
- font-size: 12px;
- line-height: 1.2;
- margin-top: 20px;
- margin-bottom: 40px;
+ font-size: 1rem;
  color: rgba(255,255,255,0.8);
- transform: translateY(140px);
+ margin-bottom: 40px;
+ line-height: 1.8;
 }
 .hero-desc-main {
- font-size: 0.9rem;
- line-height: 1.2;
+ font-size: 1rem;
  color: rgba(255,255,255,0.85);
  letter-spacing: 0.03em;
  font-weight: 400;
 }
 .hero-desc-sub {
- font-size: 0.7rem;
- line-height: 1.2;
+ font-size: 0.78rem;
  color: rgba(255,255,255,0.5);
  letter-spacing: 0.12em;
  text-transform: uppercase;
@@ -432,7 +428,6 @@ ul { list-style: none; }
  gap: 16px; 
  justify-content: center; 
  flex-wrap: wrap; 
- margin-top: 150px;
 }
 .hero-scroll-hint {
  position: absolute;
@@ -1290,49 +1285,21 @@ ul { list-style: none; }
 
 /* ===== RESPONSIVE ===== */
 /* ===== TABLET (769px–1024px) ===== */
+/* ===== TABLET (769px–1024px) ===== */
 @media (min-width: 769px) and (max-width: 1024px) {
  .offerings-grid { grid-template-columns: repeat(2,1fr); }
  .footer-grid { grid-template-columns: 1fr 1fr; }
- /* Solid bar on tablet too — matches program pages */
- .nav-container {
-  background: rgba(17,12,6,0.88) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border-bottom: 1px solid rgba(212,120,42,0.10) !important;
-  padding: 18px 24px !important;
- }
- .navbar.scrolled .nav-container {
-  background: rgba(14,9,4,0.97) !important;
-  padding: 13px 24px !important;
- }
+ .nav-container { padding: 0 24px !important; }
 }
 /* ===== PHONE & TABLET NAVBAR (≤768px) ===== */
 @media (max-width: 768px) {
  nav#navbar {
-  top: 0 !important;
   width: 100% !important;
-  height: 50px !important;
-  min-height: unset !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
  }
  .nav-container {
-  height: 100% !important;
   padding: 0 20px !important;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-bottom: 1px solid transparent !important;
-  box-shadow: none !important;
  }
- .navbar.scrolled .nav-container {
-  background: rgba(14,9,4,0.97) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border-bottom: 1px solid rgba(212,120,42,0.12) !important;
-  box-shadow: 0 2px 30px rgba(0,0,0,0.5) !important;
- }
- /* Logo — compact to fit inside 50px bar */
+ /* Logo — compact to fit inside normalized bar */
  .nav-custom-logo { height: 32px !important; }
  /* Full-screen overlay menu — instant display toggle, zero lag */
  .nav-links {
@@ -1884,4 +1851,46 @@ cite.sadhguru-attr { font-style: normal; }
  animation: loadBar 1.4s ease forwards;
 }
 @keyframes loadBar { from{ width:0; } to{ width:100%; } }
+
+/* ===== PREVIOUS PHONE & TABLET HERO TEXT OVERRIDES (≤1024px) ===== */
+@media (max-width: 1024px) {
+  p.hero-desc {
+    font-size: 12px;
+    line-height: 1.2;
+    margin-top: 20px;
+    transform: translateY(140px);
+  }
+  .hero-desc-main {
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+  .hero-desc-sub {
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+  .hero-btns { 
+    margin-top: 150px;
+  }
+}
+
+/* ===== NEW DESKTOP HERO TEXT OVERRIDES (≥1025px) ===== */
+@media (min-width: 1025px) {
+  h1.hero-title {
+    font-size: 24px;
+    transform: translateY(-40px);
+  }
+  h1.hero-title img.hero-logo-img {
+    max-height: 40px;
+    width: auto;
+    margin-bottom: 0;
+  }
+  p.hero-desc {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    transform: translateY(180px);
+  }
+  .hero-btns {
+    transform: translateY(60px);
+  }
+}
 
