@@ -198,9 +198,7 @@ ul { list-style: none; }
  height: 55px;
  width: auto;
  object-fit: contain;
- filter: invert(1) sepia(1) saturate(0.4) brightness(2.2)
-  drop-shadow(0 1px 8px rgba(0,0,0,0.6))
-  drop-shadow(0 0 20px rgba(212,160,60,0.3));
+ filter: invert(1) sepia(1) saturate(0.4) brightness(2.2);
  transition: filter 0.5s ease, opacity 0.3s ease;
 }
 .footer-cert-img:hover { opacity: 0.9; }
@@ -1771,7 +1769,7 @@ cite.sadhguru-attr { font-style: normal; }
  flex-direction: column;
  align-items: center;
  justify-content: center;
- z-index: 9999;
+ z-index: 99999;
  transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 #loader.hidden { opacity: 0; visibility: hidden; }
