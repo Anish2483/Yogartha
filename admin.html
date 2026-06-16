@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
  <meta charset="UTF-8" />
@@ -472,8 +472,8 @@
 
  <!-- ===== SCHEDULE ===== -->
  <div class="panel active" id="panel-schedule">
- <div class="page-header"><div class="page-title">Program Batches</div><div class="page-desc">Schedule upcoming yoga programs — add start/end dates and timings</div></div>
- <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode — connect Firebase to save changes live</span></div>
+ <div class="page-header"><div class="page-title">Program Batches</div><div class="page-desc">Schedule upcoming yoga programs â€” add start/end dates and timings</div></div>
+ <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode â€” connect Firebase to save changes live</span></div>
 
  <!-- ADD BATCH FORM -->
  <div class="card">
@@ -511,11 +511,11 @@
   <div class="form-row">
    <div class="form-group">
     <label>Timing</label>
-    <input type="text" id="batch-time" placeholder="e.g. 6:00 AM – 7:30 AM" />
+    <input type="text" id="batch-time" placeholder="e.g. 6:00 AM â€“ 7:30 AM" />
    </div>
    <div class="form-group">
     <label>Seats Note <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-    <input type="text" id="batch-seats" placeholder="e.g. Limited seats — 12 max" />
+    <input type="text" id="batch-seats" placeholder="e.g. Limited seats â€” 12 max" />
    </div>
   </div>
   <!-- Colour picker -->
@@ -524,23 +524,23 @@
    <div id="batch-color-picker" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
     <label class="color-swatch-label" title="Saffron">
      <input type="radio" name="batch-color" value="saffron" checked style="display:none;" />
-     <span class="color-swatch" style="background:rgba(232,114,42,0.35);border:2px solid rgba(232,114,42,0.7);color:#e8721a;" data-label="Saffron">●</span>
+     <span class="color-swatch" style="background:rgba(232,114,42,0.35);border:2px solid rgba(232,114,42,0.7);color:#e8721a;" data-label="Saffron">â—</span>
     </label>
     <label class="color-swatch-label" title="Gold">
      <input type="radio" name="batch-color" value="gold" style="display:none;" />
-     <span class="color-swatch" style="background:rgba(240,201,110,0.3);border:2px solid rgba(240,201,110,0.6);color:#dab94a;" data-label="Gold">●</span>
+     <span class="color-swatch" style="background:rgba(240,201,110,0.3);border:2px solid rgba(240,201,110,0.6);color:#dab94a;" data-label="Gold">â—</span>
     </label>
     <label class="color-swatch-label" title="Rose">
      <input type="radio" name="batch-color" value="rose" style="display:none;" />
-     <span class="color-swatch" style="background:rgba(196,50,80,0.25);border:2px solid rgba(196,50,80,0.55);color:#e0607a;" data-label="Rose">●</span>
+     <span class="color-swatch" style="background:rgba(196,50,80,0.25);border:2px solid rgba(196,50,80,0.55);color:#e0607a;" data-label="Rose">â—</span>
     </label>
     <label class="color-swatch-label" title="Blue">
      <input type="radio" name="batch-color" value="blue" style="display:none;" />
-     <span class="color-swatch" style="background:rgba(74,144,226,0.25);border:2px solid rgba(74,144,226,0.55);color:#7ab4f5;" data-label="Blue">●</span>
+     <span class="color-swatch" style="background:rgba(74,144,226,0.25);border:2px solid rgba(74,144,226,0.55);color:#7ab4f5;" data-label="Blue">â—</span>
     </label>
     <label class="color-swatch-label" title="Green">
      <input type="radio" name="batch-color" value="green" style="display:none;" />
-     <span class="color-swatch" style="background:rgba(60,160,100,0.25);border:2px solid rgba(60,160,100,0.55);color:#5dbb8a;" data-label="Green">●</span>
+     <span class="color-swatch" style="background:rgba(60,160,100,0.25);border:2px solid rgba(60,160,100,0.55);color:#5dbb8a;" data-label="Green">â—</span>
     </label>
    </div>
   </div>
@@ -582,12 +582,14 @@
         <option value="gallery_yoga_for_pregnant_women">Yoga for Pregnant Women</option>
         <option value="gallery_bhastrika">Bhastrika</option>
         <option value="gallery_sacred_walks">Sacred Walks</option>
+        <option value="gallery_how_we_offer">How We Offer</option>
+        <option value="gallery_corporate_institutions">Corporate &amp; Institutions</option>
       </select>
     </div>
  </div>
  <div class="imgbb-bar notset" id="gallery-imgbb-bar">
  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
- <span id="gallery-imgbb-msg">ImgBB not set — go to "Image API Setup" to enable direct uploads</span>
+ <span id="gallery-imgbb-msg">ImgBB not set â€” go to "Image API Setup" to enable direct uploads</span>
  </div>
  <div class="card">
  <div class="card-title">Upload Photos</div>
@@ -596,13 +598,13 @@
  ondragleave="this.classList.remove('dragging')"
  ondrop="handleGalleryDrop(event)">
  <input type="file" id="gallery-file-input" accept="image/*" multiple onchange="handleGalleryFiles(this.files)" />
- <div class="upload-zone-icon">🖼️</div>
+ <div class="upload-zone-icon">ðŸ–¼ï¸</div>
  <p><strong>Tap to choose or drag photos here</strong></p>
  <p>You can pick multiple at once</p>
- <small>JPG, PNG, WEBP • Max 10MB each</small>
+ <small>JPG, PNG, WEBP â€¢ Max 10MB each</small>
  </div>
  <div class="upload-progress" id="gallery-progress">
- <div class="upload-status-text" id="gallery-progress-text">Uploading…</div>
+ <div class="upload-status-text" id="gallery-progress-text">Uploadingâ€¦</div>
  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="gallery-progress-bar" style="width:0%"></div></div>
  </div>
  </div>
@@ -623,7 +625,7 @@
 
  <!-- ===== TESTIMONIALS ===== -->
  <div class="panel" id="panel-testimonials">
- <div class="page-header"><div class="page-title">Testimonials</div><div class="page-desc">Add student reviews or Google reviews — all appear live on the site</div></div>
+ <div class="page-header"><div class="page-title">Testimonials</div><div class="page-desc">Add student reviews or Google reviews â€” all appear live on the site</div></div>
 
  <!-- Google Reviews Card -->
  <div class="card google-review-card">
@@ -667,12 +669,12 @@
  ondragleave="this.classList.remove('dragging')"
  ondrop="handleTestiDrop(event)">
  <input type="file" id="testi-photo-file" accept="image/*" onchange="handleTestiFile(this.files[0])" />
- <div class="upload-zone-icon">🧑</div>
+ <div class="upload-zone-icon">ðŸ§‘</div>
  <p><strong>Tap to upload student photo</strong></p>
- <small>JPG, PNG • Max 5MB</small>
+ <small>JPG, PNG â€¢ Max 5MB</small>
  </div>
  <div class="upload-progress" id="testi-progress">
- <div class="upload-status-text" id="testi-progress-text">Uploading…</div>
+ <div class="upload-status-text" id="testi-progress-text">Uploadingâ€¦</div>
  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="testi-progress-bar" style="width:0%"></div></div>
  </div>
  <div class="or-divider" style="margin:10px 0;">or paste a URL</div>
@@ -706,14 +708,14 @@
  <div class="panel" id="panel-images">
  <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Tap any card to replace a photo on the website</div></div>
 
- <!-- Hero Background — Device-Specific Crops -->
+ <!-- Hero Background â€” Device-Specific Crops -->
  <div class="card" style="margin-bottom:20px;">
   <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
-   <div class="siu-title" style="font-size:1rem;font-weight:600;">🖼️ Hero Background Image</div>
+   <div class="siu-title" style="font-size:1rem;font-weight:600;">ðŸ–¼ï¸ Hero Background Image</div>
    <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device. Each will show only on that screen size.</div>
   </div>
 
-  <!-- Hidden file input — triggers startHeroCropFlow -->
+  <!-- Hidden file input â€” triggers startHeroCropFlow -->
   <input type="file" id="file-img-hero" accept="image/*" style="display:none;" onchange="startHeroCropFlow(this.files[0]); this.value='';" />
 
   <!-- DESKTOP ROW -->
@@ -722,11 +724,11 @@
     <img id="prev-hero-desktop" src="images/adiyogi_hero.jpg" alt="Desktop" class="siu-thumb" style="border-radius:6px;" />
    </div>
    <div class="siu-right">
-    <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 16:9 &nbsp;·&nbsp; e.g. 1920×1080 &nbsp;·&nbsp; Laptops &amp; monitors</div>
-    <button class="siu-btn" onclick="triggerHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
+    <div class="siu-title">ðŸ–¥ï¸ Desktop</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;Â·&nbsp; e.g. 1920Ã—1080 &nbsp;Â·&nbsp; Laptops &amp; monitors</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('desktop')">ðŸ“‚ Upload &amp; Crop (16:9)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-hero-desktop" placeholder="â€¦or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('desktop')">Set</button>
     </div>
    </div>
@@ -738,11 +740,11 @@
     <img id="prev-hero-tablet" src="images/adiyogi_hero.jpg" alt="Tablet" class="siu-thumb" style="border-radius:6px;" />
    </div>
    <div class="siu-right">
-    <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;·&nbsp; e.g. 1024×768 &nbsp;·&nbsp; iPads &amp; tablets</div>
-    <button class="siu-btn" onclick="triggerHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
+    <div class="siu-title">ðŸ“± Tablet</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;Â·&nbsp; e.g. 1024Ã—768 &nbsp;Â·&nbsp; iPads &amp; tablets</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('tablet')">ðŸ“‚ Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-hero-tablet" placeholder="â€¦or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('tablet')">Set</button>
     </div>
    </div>
@@ -754,31 +756,31 @@
     <img id="prev-hero-mobile" src="images/adiyogi_hero.jpg" alt="Mobile" class="siu-thumb" style="border-radius:6px;" />
    </div>
    <div class="siu-right">
-    <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 9:16 &nbsp;·&nbsp; e.g. 390×844 &nbsp;·&nbsp; Phones (portrait)</div>
-    <button class="siu-btn" onclick="triggerHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
+    <div class="siu-title">ðŸ“² Mobile / Phone</div>
+    <div class="siu-hint">Ratio: 9:16 &nbsp;Â·&nbsp; e.g. 390Ã—844 &nbsp;Â·&nbsp; Phones (portrait)</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('mobile')">ðŸ“‚ Upload &amp; Crop (9:16)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-hero-mobile" placeholder="â€¦or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('mobile')">Set</button>
     </div>
    </div>
   </div>
 
-  <p style="font-size:.78rem;color:var(--muted);margin-top:14px;">💡 Tip: Pick the same photo for all three — the crop tool lets you choose the best framing per device.</p>
+  <p style="font-size:.78rem;color:var(--muted);margin-top:14px;">ðŸ’¡ Tip: Pick the same photo for all three â€” the crop tool lets you choose the best framing per device.</p>
  </div>
 
  <!-- About -->
  <div class="card site-img-upload-card" onclick="document.getElementById('file-img-about').click()">
   <div class="siu-left">
     <img id="prev-img-about" src="images/ashram_courtyard.png" class="siu-thumb" style="border-radius:6px;" alt="About" />
-    <span class="siu-spinner" id="spin-img-about" style="display:none;">⏳</span>
+    <span class="siu-spinner" id="spin-img-about" style="display:none;">â³</span>
   </div>
   <div class="siu-right">
     <div class="siu-title">About Section Image</div>
     <div class="siu-hint">Any ratio works</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-btn">ðŸ“‚ Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-about" placeholder="…or paste a URL" class="siu-url-input" />
+      <input type="url" id="url-img-about" placeholder="â€¦or paste a URL" class="siu-url-input" />
       <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('about')">Set</button>
     </div>
   </div>
@@ -788,14 +790,14 @@
  <div class="card site-img-upload-card" onclick="document.getElementById('file-img-guru').click()">
   <div class="siu-left">
     <img id="prev-img-guru" src="images/reeta_yoga_teacher.png" class="siu-thumb" style="border-radius:50%;" alt="Teacher" />
-    <span class="siu-spinner" id="spin-img-guru" style="display:none;">⏳</span>
+    <span class="siu-spinner" id="spin-img-guru" style="display:none;">â³</span>
   </div>
   <div class="siu-right">
     <div class="siu-title">Teacher Portrait</div>
     <div class="siu-hint">Square / 1:1 recommended</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-btn">ðŸ“‚ Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-guru" placeholder="…or paste a URL" class="siu-url-input" />
+      <input type="url" id="url-img-guru" placeholder="â€¦or paste a URL" class="siu-url-input" />
       <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru')">Set</button>
     </div>
   </div>
@@ -805,14 +807,14 @@
  <div class="card site-img-upload-card" onclick="document.getElementById('file-img-sadhguru').click()">
   <div class="siu-left">
     <img id="prev-img-sadhguru" src="images/sadhguru_portrait.png" class="siu-thumb" style="border-radius:6px;" alt="Sadhguru" />
-    <span class="siu-spinner" id="spin-img-sadhguru" style="display:none;">⏳</span>
+    <span class="siu-spinner" id="spin-img-sadhguru" style="display:none;">â³</span>
   </div>
   <div class="siu-right">
     <div class="siu-title">Sadhguru Portrait</div>
     <div class="siu-hint">Any ratio works</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-btn">ðŸ“‚ Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-sadhguru" placeholder="…or paste a URL" class="siu-url-input" />
+      <input type="url" id="url-img-sadhguru" placeholder="â€¦or paste a URL" class="siu-url-input" />
       <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('sadhguru')">Set</button>
     </div>
   </div>
@@ -822,14 +824,14 @@
  <div class="card site-img-upload-card" onclick="document.getElementById('file-img-shala').click()">
   <div class="siu-left">
     <img id="prev-img-shala" src="images/yoga_class_shala.png" class="siu-thumb" style="border-radius:6px;" alt="Shala" />
-    <span class="siu-spinner" id="spin-img-shala" style="display:none;">⏳</span>
+    <span class="siu-spinner" id="spin-img-shala" style="display:none;">â³</span>
   </div>
   <div class="siu-right">
     <div class="siu-title">Class / Experience Photo</div>
     <div class="siu-hint">Any ratio works</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-btn">ðŸ“‚ Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-shala" placeholder="…or paste a URL" class="siu-url-input" />
+      <input type="url" id="url-img-shala" placeholder="â€¦or paste a URL" class="siu-url-input" />
       <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('shala')">Set</button>
     </div>
   </div>
@@ -839,14 +841,14 @@
  <div class="card site-img-upload-card" onclick="document.getElementById('file-img-symbol').click()">
   <div class="siu-left">
     <img id="prev-img-symbol" src="images/isha_hatha_symbol.png" class="siu-thumb" style="border-radius:6px;object-fit:contain;" alt="Symbol" />
-    <span class="siu-spinner" id="spin-img-symbol" style="display:none;">⏳</span>
+    <span class="siu-spinner" id="spin-img-symbol" style="display:none;">â³</span>
   </div>
   <div class="siu-right">
     <div class="siu-title">Decorative Symbol</div>
     <div class="siu-hint">Square recommended</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-btn">ðŸ“‚ Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-symbol" placeholder="…or paste a URL" class="siu-url-input" />
+      <input type="url" id="url-img-symbol" placeholder="â€¦or paste a URL" class="siu-url-input" />
       <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('symbol')">Set</button>
     </div>
   </div>
@@ -879,13 +881,16 @@
  <option value="yoga-for-pregnant-women">Pregnancy Yoga</option>
  <option value="yoga-for-wellbeing">Yoga for Wellbeing</option>
  <option value="bhastrika">Bhastrika</option>
+  <option value="sacred-walks">Sacred Walks</option>
+  <option value="how-we-offer">How We Offer</option>
+  <option value="corporate-institutions">Corporate &amp; Institutions</option>
  </select>
  </div>
 
- <!-- Program Hero — Device-Specific Crops -->
+ <!-- Program Hero â€” Device-Specific Crops -->
  <div class="card" style="margin-bottom:12px;">
   <div class="page-header" style="margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);">
-   <div class="siu-title" style="font-size:.95rem;font-weight:600;">🖼️ Program Hero Image</div>
+   <div class="siu-title" style="font-size:.95rem;font-weight:600;">ðŸ–¼ï¸ Program Hero Image</div>
    <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device. Each framing will show only on that screen size.</div>
   </div>
   <!-- Hidden shared file input for prog hero crops -->
@@ -894,11 +899,11 @@
   <div class="site-img-upload-card" style="cursor:default;margin-bottom:10px;">
    <div class="siu-left"><img id="prev-prog-hero-desktop" src="images/placeholder.png" alt="Desktop" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
-    <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 16:9 &nbsp;·&nbsp; Laptops &amp; monitors</div>
-    <button class="siu-btn" onclick="triggerProgHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
+    <div class="siu-title">ðŸ–¥ï¸ Desktop</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;Â·&nbsp; Laptops &amp; monitors</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('desktop')">ðŸ“‚ Upload &amp; Crop (16:9)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-prog-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-prog-hero-desktop" placeholder="â€¦or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('desktop')">Set</button>
     </div>
    </div>
@@ -907,11 +912,11 @@
   <div class="site-img-upload-card" style="cursor:default;margin-bottom:10px;">
    <div class="siu-left"><img id="prev-prog-hero-tablet" src="images/placeholder.png" alt="Tablet" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
-    <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;·&nbsp; iPads &amp; tablets</div>
-    <button class="siu-btn" onclick="triggerProgHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
+    <div class="siu-title">ðŸ“± Tablet</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;Â·&nbsp; iPads &amp; tablets</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('tablet')">ðŸ“‚ Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-prog-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-prog-hero-tablet" placeholder="â€¦or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('tablet')">Set</button>
     </div>
    </div>
@@ -920,16 +925,16 @@
   <div class="site-img-upload-card" style="cursor:default;margin-bottom:0;">
    <div class="siu-left"><img id="prev-prog-hero-mobile" src="images/placeholder.png" alt="Mobile" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
-    <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 9:16 &nbsp;·&nbsp; Phones (portrait)</div>
-    <button class="siu-btn" onclick="triggerProgHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
+    <div class="siu-title">ðŸ“² Mobile / Phone</div>
+    <div class="siu-hint">Ratio: 9:16 &nbsp;Â·&nbsp; Phones (portrait)</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('mobile')">ðŸ“‚ Upload &amp; Crop (9:16)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-prog-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-prog-hero-mobile" placeholder="â€¦or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('mobile')">Set</button>
     </div>
    </div>
   </div>
-  <p style="font-size:.78rem;color:var(--muted);margin-top:12px;">💡 Pick the same photo for all three — the crop tool lets you choose the best framing per device.</p>
+  <p style="font-size:.78rem;color:var(--muted);margin-top:12px;">ðŸ’¡ Pick the same photo for all three â€” the crop tool lets you choose the best framing per device.</p>
  </div>
 
  <!-- Program Overview -->
@@ -945,7 +950,7 @@
  </div>
  <div class="or-divider">or paste URL</div>
  <div style="display:flex;gap:8px;">
- <input type="url" id="url-prog-overview" placeholder="Image URL…" style="flex:1;" />
+ <input type="url" id="url-prog-overview" placeholder="Image URLâ€¦" style="flex:1;" />
  <button class="btn btn-ghost btn-sm" onclick="updateProgramImgUrl('overview')">Set</button>
  </div>
  </div>
@@ -967,7 +972,7 @@
  </div>
  <div class="or-divider">or paste URL</div>
  <div style="display:flex;gap:8px;">
- <input type="url" id="url-teacher-photo" placeholder="Photo URL…" style="flex:1;" />
+ <input type="url" id="url-teacher-photo" placeholder="Photo URLâ€¦" style="flex:1;" />
  <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru','prev-teacher-photo','url-teacher-photo')">Set</button>
  </div>
  </div>
@@ -992,15 +997,15 @@
  <div class="toggle" id="ann-toggle" onclick="toggleAnn()"></div>
  <span class="toggle-label" id="ann-label">Banner is OFF</span>
  </div>
- <div class="form-group"><label>Announcement Text</label><input type="text" id="ann-text" placeholder="e.g. Studio closed on 15th August — Independence Day" /></div>
+ <div class="form-group"><label>Announcement Text</label><input type="text" id="ann-text" placeholder="e.g. Studio closed on 15th August â€” Independence Day" /></div>
  <button class="btn btn-primary btn-full" onclick="saveAnnouncement()">Save &amp; Publish</button>
  </div>
  <div class="card">
  <div class="card-title">Quick Examples</div>
  <div style="display:flex;flex-direction:column;gap:8px;">
- <button class="btn btn-ghost btn-sm" onclick="setEx(this)">New batch starting 1st July — Enroll now!</button>
- <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Studio closed 15th Aug — Happy Independence Day!</button>
- <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Special Surya Kriya workshop this Sunday — Limited seats</button>
+ <button class="btn btn-ghost btn-sm" onclick="setEx(this)">New batch starting 1st July â€” Enroll now!</button>
+ <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Studio closed 15th Aug â€” Happy Independence Day!</button>
+ <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Special Surya Kriya workshop this Sunday â€” Limited seats</button>
  <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Diwali special: Free trial class on 20th Oct!</button>
  </div>
  </div>
@@ -1013,7 +1018,7 @@
  <div class="card-title">Studio Details</div>
  <div class="form-group"><label>Phone Number</label><input type="tel" id="contact-phone" value="+91 78200 96554" /></div>
  <div class="form-group"><label>Email Address</label><input type="email" id="contact-email" placeholder="e.g. contact@yogartha.com" /></div>
- <div class="form-group"><label>Studio Address</label><textarea id="contact-address">12, Shanti Vihar Colony, Rajpur Road, Uttarakhand — 248001</textarea></div>
+ <div class="form-group"><label>Studio Address</label><textarea id="contact-address">12, Shanti Vihar Colony, Rajpur Road, Uttarakhand â€” 248001</textarea></div>
  <div class="form-row">
  <div class="form-group"><label>Opening Time</label><input type="time" id="contact-open" value="05:30" /></div>
  <div class="form-group"><label>Closing Time</label><input type="time" id="contact-close" value="21:00" /></div>
@@ -1029,9 +1034,9 @@
  <div class="card">
  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
  <div class="card-title" style="margin:0;">All Submissions <span id="enquiry-count" style="font-size:.8rem;color:var(--muted);font-weight:400;"></span></div>
- <button class="btn btn-ghost btn-sm" onclick="loadEnquiries()">↻ Refresh</button>
+ <button class="btn btn-ghost btn-sm" onclick="loadEnquiries()">â†» Refresh</button>
  </div>
- <div id="enquiry-list"><p style="color:var(--muted);font-size:.88rem;">Loading enquiries…</p></div>
+ <div id="enquiry-list"><p style="color:var(--muted);font-size:.88rem;">Loading enquiriesâ€¦</p></div>
  </div>
  </div>
 
@@ -1039,19 +1044,19 @@
  <div class="panel" id="panel-imgbb">
  <div class="page-header"><div class="page-title">Image API Setup</div><div class="page-desc">One-time setup for direct photo uploads</div></div>
  <div class="card">
- <div class="card-title">ImgBB — Free Image Hosting</div>
+ <div class="card-title">ImgBB â€” Free Image Hosting</div>
  <div class="tip-box">
  <strong>What is this?</strong><br>
- ImgBB is a free image hosting service. When you upload a photo, this app sends it to ImgBB and stores the link. <strong>Completely free — no credit card needed.</strong><br><br>
+ ImgBB is a free image hosting service. When you upload a photo, this app sends it to ImgBB and stores the link. <strong>Completely free â€” no credit card needed.</strong><br><br>
  <strong>How to get your free API key:</strong><br>
- 1. Go to <strong>imgbb.com</strong> → Sign Up (free)<br>
+ 1. Go to <strong>imgbb.com</strong> â†’ Sign Up (free)<br>
  2. Go to <strong>api.imgbb.com</strong><br>
  3. Click <strong>"Get API Key"</strong><br>
  4. Copy and paste the key below
  </div>
  <div class="form-group">
  <label>Your ImgBB API Key</label>
- <input type="password" id="imgbb-key-input" placeholder="Paste your key here…" />
+ <input type="password" id="imgbb-key-input" placeholder="Paste your key hereâ€¦" />
  </div>
  <div class="btn-row">
  <button class="btn btn-primary" onclick="saveImgbbKey()">Save Key</button>
@@ -1084,7 +1089,7 @@
       flex-shrink:0;
     ">
       <div>
-        <div style="font-family:'Cinzel',serif;font-size:1rem;color:#e0a830;font-weight:600;">✂ Crop Photo</div>
+        <div style="font-family:'Cinzel',serif;font-size:1rem;color:#e0a830;font-weight:600;">âœ‚ Crop Photo</div>
         <div id="crop-label" style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:2px;">Drag to select the area you want</div>
       </div>
       <button onclick="closeCropModal()" style="
@@ -1139,7 +1144,7 @@
             color:#fff; border:none; border-radius:8px; font-family:'Jost',sans-serif;
             font-size:0.88rem; font-weight:600; cursor:pointer; letter-spacing:0.5px;
             transition:opacity .2s;
-          " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">✓ Use This Crop</button>
+          " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">âœ“ Use This Crop</button>
           <button onclick="skipCrop()" style="
             padding:12px 14px; background:rgba(255,255,255,0.07);
             color:rgba(255,255,255,0.7); border:1px solid rgba(255,255,255,0.2);
@@ -1172,7 +1177,7 @@
 
 <script src="js/firebase-config.js"></script>
 <script>
-// ============ YOGARTHA ADMIN v7 — Mobile + Desktop ============
+// ============ YOGARTHA ADMIN v7 â€” Mobile + Desktop ============
 
 let schedule = {
  columns:["6:00 AM","8:00 AM","5:30 PM","7:00 PM"],
@@ -1183,7 +1188,7 @@ let schedule = {
  {day:"Thursday", slots:["Surya Kriya","Angamardhana","Upa Yoga","Hatha Yoga"]},
  {day:"Friday", slots:["Hatha Yoga","Pranayama","Surya Kriya","Meditation"]},
  {day:"Saturday", slots:["Surya Kriya","Hatha Yoga","Angamardhana","Meditation"]},
- {day:"Sunday", slots:["Deep Meditation","Hatha Yoga","—","—"]}
+ {day:"Sunday", slots:["Deep Meditation","Hatha Yoga","â€”","â€”"]}
  ],
  note:"*Reeta teaches all weekday morning batches. Guest instructors on evenings & weekends."
 };
@@ -1244,27 +1249,27 @@ function testImgbbKey() {
  const k = getImgbbKey();
  const res = document.getElementById("imgbb-test-result");
  if (!k) { res.style.color="#f87171"; res.textContent="No API key saved yet."; return; }
- res.style.color="var(--muted)"; res.textContent="Testing…";
+ res.style.color="var(--muted)"; res.textContent="Testingâ€¦";
  const tiny="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==";
  const fd=new FormData(); fd.append("image",tiny);
  fetch(`https://api.imgbb.com/1/upload?key=${k}`,{method:"POST",body:fd})
  .then(r=>r.json()).then(d=>{
- if(d.success){res.style.color="#6ee89a";res.textContent="✓ Connected! Uploads enabled.";updateImgbbStatus();}
- else{res.style.color="#f87171";res.textContent="✗ Invalid key. Please check.";}
- }).catch(()=>{res.style.color="#f87171";res.textContent="✗ Network error.";});
+ if(d.success){res.style.color="#6ee89a";res.textContent="âœ“ Connected! Uploads enabled.";updateImgbbStatus();}
+ else{res.style.color="#f87171";res.textContent="âœ— Invalid key. Please check.";}
+ }).catch(()=>{res.style.color="#f87171";res.textContent="âœ— Network error.";});
 }
 function updateImgbbStatus() {
  const k=getImgbbKey();
  const bar=document.getElementById("gallery-imgbb-bar");
  const msg=document.getElementById("gallery-imgbb-msg");
- if(k){bar.className="imgbb-bar ready";msg.textContent="✓ ImgBB connected — direct photo upload enabled!";}
- else{bar.className="imgbb-bar notset";msg.textContent='ImgBB not set — go to "Image API Setup" to enable direct uploads.';}
+ if(k){bar.className="imgbb-bar ready";msg.textContent="âœ“ ImgBB connected â€” direct photo upload enabled!";}
+ else{bar.className="imgbb-bar notset";msg.textContent='ImgBB not set â€” go to "Image API Setup" to enable direct uploads.';}
  if(!document.getElementById("imgbb-key-input").value) document.getElementById("imgbb-key-input").value=k;
 }
 async function uploadToImgbb(file, onProgress) {
  const k=getImgbbKey();
  if(!k){toast("Set up ImgBB key first (Image API Setup tab)",true);return null;}
- if(file.size>10*1024*1024){toast("File too large — max 10MB",true);return null;}
+ if(file.size>10*1024*1024){toast("File too large â€” max 10MB",true);return null;}
  return new Promise((resolve,reject)=>{
  const fd=new FormData(); fd.append("image",file);
  const xhr=new XMLHttpRequest();
@@ -1301,7 +1306,7 @@ function enterDash(fb) {
  const bar=document.getElementById("firebase-status");
  if(fb){
  bar.className="status-bar connected";
- bar.innerHTML='<div class="status-dot"></div><span>Connected to Firebase — changes publish live instantly</span>';
+ bar.innerHTML='<div class="status-dot"></div><span>Connected to Firebase â€” changes publish live instantly</span>';
  loadFirebase();
  }
  updateImgbbStatus(); renderBatchListAdmin(); renderTestiList(); renderGallery();
@@ -1315,7 +1320,7 @@ function loadEnquiries() {
  list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">Firebase not connected. Enquiries will appear here once connected.</p>';
  return;
  }
- list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">Loading…</p>';
+ list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">Loadingâ€¦</p>';
  firebase.database().ref('enquiries').orderByChild('timestamp').once('value').then(snap => {
  const raw = snap.val();
  if (!raw) {
@@ -1332,12 +1337,12 @@ function loadEnquiries() {
  const dt = e.timestamp ? new Date(e.timestamp).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'}) : '';
  return `<div style="border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;background:${isUnread?'rgba(242,103,34,0.05)':'var(--surface2)'};position:relative;">
  ${isUnread ? '<span style="position:absolute;top:12px;right:12px;background:#F26722;color:#fff;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:50px;">NEW</span>' : ''}
- <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:4px;">${e.name || '—'}</div>
+ <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:4px;">${e.name || 'â€”'}</div>
  <div style="font-size:.82rem;color:var(--muted);margin-bottom:8px;">${dt}</div>
  <div style="font-size:.84rem;color:var(--text-mid);display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
- ${e.email ? `<span>✉ ${e.email}</span>` : ''}
- ${e.phone ? `<span>📞 ${e.phone}</span>` : ''}
- ${e.program ? `<span>🧘 ${e.program}</span>` : ''}
+ ${e.email ? `<span>âœ‰ ${e.email}</span>` : ''}
+ ${e.phone ? `<span>ðŸ“ž ${e.phone}</span>` : ''}
+ ${e.program ? `<span>ðŸ§˜ ${e.program}</span>` : ''}
  </div>
  ${e.message ? `<div style="font-size:.88rem;color:var(--text);border-left:3px solid var(--saffron);padding-left:10px;margin-bottom:10px;font-style:italic;">"${e.message}"</div>` : ''}
  <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1416,14 +1421,14 @@ function addBatch() {
   if (isFirebase) {
     firebase.database().ref('batches/' + id).set(batch)
       .then(() => {
-        toast('Batch added live! ✓');
+        toast('Batch added live! âœ“');
         resetBatchForm();
       })
       .catch(() => toast('Error saving batch', true));
   } else {
     batches[id] = batch;
     renderBatchListAdmin();
-    toast('Batch added (Demo mode — connect Firebase to publish)');
+    toast('Batch added (Demo mode â€” connect Firebase to publish)');
     resetBatchForm();
   }
 }
@@ -1475,9 +1480,9 @@ function renderBatchListAdmin() {
           ${isPast ? '<span style="margin-left:6px;font-size:.65rem;background:rgba(0,0,0,0.08);color:var(--muted);padding:2px 8px;border-radius:20px;font-weight:500;">Completed</span>' : ''}
         </div>
         <div style="font-size:.78rem;color:var(--muted);margin-top:2px;">
-          ${fmtDateAdmin(b.startDate)} → ${fmtDateAdmin(b.endDate)} &nbsp;·&nbsp; ${days} days
-          ${b.time ? '&nbsp;·&nbsp; ' + b.time : ''}
-          ${b.seats ? '&nbsp;·&nbsp; ' + b.seats : ''}
+          ${fmtDateAdmin(b.startDate)} â†’ ${fmtDateAdmin(b.endDate)} &nbsp;Â·&nbsp; ${days} days
+          ${b.time ? '&nbsp;Â·&nbsp; ' + b.time : ''}
+          ${b.seats ? '&nbsp;Â·&nbsp; ' + b.seats : ''}
         </div>
       </div>
       <button class="btn btn-danger btn-sm" onclick="deleteBatch('${b.id}')">Remove</button>
@@ -1610,7 +1615,7 @@ async function uploadImageFile(file, _storagePath) {
   const k = getImgbbKey();
   if (!k) {
     // Show a helpful nudge instead of silent fail
-    toast('⚠ Paste your ImgBB API key in "Image API Setup" to enable uploads', true);
+    toast('âš  Paste your ImgBB API key in "Image API Setup" to enable uploads', true);
     // Navigate user to the setup panel
     setTimeout(() => showPanel('imgbb', document.querySelector('[onclick*="imgbb"]')), 1500);
     throw new Error('API key missing');
@@ -1628,13 +1633,13 @@ async function handleGalleryFiles(files){
   async function cropAndUploadNext(index) {
     if (index >= fileArray.length) return;
     const file = fileArray[index];
-    openCropModal(file, `Crop photo ${index+1} of ${fileArray.length} — drag to adjust`, async (blob) => {
+    openCropModal(file, `Crop photo ${index+1} of ${fileArray.length} â€” drag to adjust`, async (blob) => {
       const croppedFile = blobToFile(blob, file.name);
       const prog=document.getElementById("gallery-progress");
       const progBar=document.getElementById("gallery-progress-bar");
       const progText=document.getElementById("gallery-progress-text");
       prog.classList.add("show");
-      progText.textContent = `Uploading ${index+1}/${fileArray.length}…`;
+      progText.textContent = `Uploading ${index+1}/${fileArray.length}â€¦`;
       try {
         const url = await uploadToImgbb(croppedFile, pct=>{ progBar.style.width=pct+"%"; });
         if(url) gallery.push({id:Date.now()+index, url, caption:""});
@@ -1715,15 +1720,15 @@ function switchAdminGallery() {
 function saveGallery(){
  const gRef = document.getElementById("admin-gallery-selector").value;
  if(isFirebase)firebase.database().ref(gRef).set(gallery).then(()=>toast("Gallery live!")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase to publish");
+ else toast("Demo mode â€” connect Firebase to publish");
 }
 
 // ---- TESTIMONIALS ----
 function handleTestiDrop(e){e.preventDefault();document.getElementById("testi-drop-zone").classList.remove("dragging");if(e.dataTransfer.files[0])handleTestiFile(e.dataTransfer.files[0]);}
 async function handleTestiFile(file){
   if(!file)return;
-  // Open crop modal — square/round for portrait photo
-  openCropModal(file, 'Crop student photo — square works best for the avatar', async (blob) => {
+  // Open crop modal â€” square/round for portrait photo
+  openCropModal(file, 'Crop student photo â€” square works best for the avatar', async (blob) => {
     const croppedFile = blobToFile(blob, file.name);
     if(!getImgbbKey()){
       const url=URL.createObjectURL(croppedFile);
@@ -1733,9 +1738,9 @@ async function handleTestiFile(file){
     const prog=document.getElementById("testi-progress");
     const progBar=document.getElementById("testi-progress-bar");
     const progText=document.getElementById("testi-progress-text");
-    prog.classList.add("show"); progText.textContent="Uploading…";
+    prog.classList.add("show"); progText.textContent="Uploadingâ€¦";
     try{
-      const url=await uploadToImgbb(croppedFile,pct=>{progBar.style.width=pct+"%";progText.textContent=`Uploading… ${pct}%`;});
+      const url=await uploadToImgbb(croppedFile,pct=>{progBar.style.width=pct+"%";progText.textContent=`Uploadingâ€¦ ${pct}%`;});
       if(url){pendingTestiPhotoUrl=url;showTestiPhotoPreview(url,file.name);toast("Photo uploaded!");}
     }catch(e){toast("Upload failed",true);}
     prog.classList.remove("show"); progBar.style.width="0%";
@@ -1813,12 +1818,12 @@ async function uploadSiteImg(type, file, previewId) {
   if (!file) return;
 
   const cropConfigs = {
-    hero:     { ratio: 16/9, label: 'Crop hero background — 16:9 wide recommended', isRound: false },
+    hero:     { ratio: 16/9, label: 'Crop hero background â€” 16:9 wide recommended', isRound: false },
     about:    { ratio: NaN,  label: 'Crop about section image',                      isRound: false },
-    guru:     { ratio: 1,    label: 'Crop teacher portrait — square works best',    isRound: true  },
+    guru:     { ratio: 1,    label: 'Crop teacher portrait â€” square works best',    isRound: true  },
     sadhguru: { ratio: NaN,  label: 'Crop Sadhguru portrait',                       isRound: false },
     shala:    { ratio: NaN,  label: 'Crop class / studio photo',                    isRound: false },
-    symbol:   { ratio: 1,    label: 'Crop decorative symbol — square recommended', isRound: false },
+    symbol:   { ratio: 1,    label: 'Crop decorative symbol â€” square recommended', isRound: false },
   };
   const cfg = cropConfigs[type] || { ratio: NaN, label: 'Crop image', isRound: false };
 
@@ -1832,17 +1837,17 @@ async function uploadSiteImg(type, file, previewId) {
     // Show spinner
     const spinner = document.getElementById('spin-img-' + type);
     if (spinner) spinner.style.display = 'flex';
-    toast('Uploading…');
+    toast('Uploadingâ€¦');
 
     try {
       const url = await uploadImageFile(uploadFile, 'siteImages/' + type + '_' + Date.now());
       if (url) {
         document.getElementById(previewId).src = url;
         await saveSiteImgToDb(type, url);
-        toast('Image updated live! ✓');
+        toast('Image updated live! âœ“');
       }
     } catch(e) {
-      toast('Upload failed — ' + e, true);
+      toast('Upload failed â€” ' + e, true);
     } finally {
       if (spinner) spinner.style.display = 'none';
     }
@@ -1852,9 +1857,9 @@ async function uploadSiteImg(type, file, previewId) {
 // ---- HERO DEVICE-SPECIFIC CROP FLOW ----
 let _heroCropFile = null; // stores the chosen file between device crop calls
 const _heroCropConfigs = {
-  desktop: { ratio: 3/1,   label: '??? Desktop Crop � 3:1  (e.g. 1440�480 � Laptops & monitors)' },
-  tablet:  { ratio: 2/1,   label: '?? Tablet Crop � 2:1  (e.g. 1024�512 � iPads & tablets)'  },
-  mobile:  { ratio: 4/3,   label: '?? Mobile Crop � 4:3  (e.g. 480�360 � Phones portrait)'  },
+  desktop: { ratio: 3/1,   label: '??? Desktop Crop — 3:1  (e.g. 1440×480 · Laptops & monitors)' },
+  tablet:  { ratio: 2/1,   label: '?? Tablet Crop — 2:1  (e.g. 1024×512 · iPads & tablets)'  },
+  mobile:  { ratio: 4/3,   label: '?? Mobile Crop — 4:3  (e.g. 480×360 · Phones portrait)'  },
 };
 
 function triggerHeroCrop(device) {
@@ -1879,15 +1884,15 @@ async function _cropHeroDevice(device, file) {
   const cfg = _heroCropConfigs[device];
   openCropModal(file, cfg.label, async (fileOrBlob) => {
     const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
-    toast('Uploading ' + device + ' crop…');
+    toast('Uploading ' + device + ' cropâ€¦');
     try {
       const url = await uploadImageFile(uploadFile, 'siteImages/hero_' + device + '_' + Date.now());
       if (url) {
         document.getElementById(cfg.previewId).src = url;
         await saveSiteImgToDb(cfg.dbKey, url);
-        toast('Hero ' + device + ' image updated live! ✓');
+        toast('Hero ' + device + ' image updated live! âœ“');
       }
-    } catch(e) { toast('Upload failed — ' + e, true); }
+    } catch(e) { toast('Upload failed â€” ' + e, true); }
   }, cfg.ratio, false);
 }
 
@@ -1946,15 +1951,15 @@ async function _cropProgHeroDevice(device, file) {
   const dbKey = 'prog_' + pid + '_' + device;
   openCropModal(file, cfg.label, async (fileOrBlob) => {
     const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
-    toast('Uploading ' + device + ' crop…');
+    toast('Uploading ' + device + ' cropâ€¦');
     try {
       const url = await uploadImageFile(uploadFile, 'siteImages/prog_' + pid + '_' + device + '_' + Date.now());
       if (url) {
         document.getElementById(cfg.previewId).src = url;
         await saveSiteImgToDb(dbKey, url);
-        toast('Program hero ' + device + ' updated live! 🎉');
+        toast('Program hero ' + device + ' updated live! ðŸŽ‰');
       }
-    } catch(e) { toast('Upload failed — ' + e, true); }
+    } catch(e) { toast('Upload failed â€” ' + e, true); }
   }, cfg.ratio, false);
 }
 
@@ -2007,18 +2012,18 @@ async function uploadProgramImg(type, file, previewId) {
   // Show local preview immediately
   document.getElementById(previewId).src = URL.createObjectURL(file);
 
-  const cropLabel = type === 'hero' ? 'Crop program hero banner — 16:9 recommended' : 'Crop program overview image';
+  const cropLabel = type === 'hero' ? 'Crop program hero banner â€” 16:9 recommended' : 'Crop program overview image';
   const cropRatio = type === 'hero' ? 16/9 : NaN;
 
   openCropModal(file, cropLabel, async (fileOrBlob) => {
     const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
-    toast('Uploading program image…');
+    toast('Uploading program imageâ€¦');
     try {
       const url = await uploadImageFile(uploadFile, 'programs/' + pId + '/' + type + '_' + Date.now());
       if (url) {
         document.getElementById(previewId).src = url;
         if (isFirebase) await firebase.database().ref('programs/' + pId + '/images/' + type).set(url);
-        toast('Program image updated! ✓');
+        toast('Program image updated! âœ“');
       }
     } catch(e) { if (e.message !== 'API key missing') toast('Upload failed', true); }
   }, cropRatio, false);
@@ -2045,7 +2050,7 @@ function saveTeacherInfo(){
  bio:document.getElementById("teacher-bio").value.trim()
  };
  if(isFirebase)firebase.database().ref("teacher").set(d).then(()=>toast("Bio saved & live!")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase to publish");
+ else toast("Demo mode â€” connect Firebase to publish");
 }
 
 // ---- ANNOUNCEMENT ----
@@ -2057,7 +2062,7 @@ function toggleAnn(){
 function saveAnnouncement(){
  announcement.text=document.getElementById("ann-text").value.trim();
  if(isFirebase)firebase.database().ref("announcement").set(announcement).then(()=>toast(announcement.active?"Banner LIVE!":"Banner hidden")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase");
+ else toast("Demo mode â€” connect Firebase");
 }
 function setEx(btn){document.getElementById("ann-text").value=btn.textContent.trim();}
 
@@ -2072,7 +2077,7 @@ function saveContact(){
  landmark:document.getElementById("contact-landmark").value
  };
  if(isFirebase)firebase.database().ref("contact").set(d).then(()=>toast("Contact info live!")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase");
+ else toast("Demo mode â€” connect Firebase");
 }
 
 // ---- FIREBASE LOAD ----
@@ -2121,7 +2126,7 @@ function loadFirebase(){
 // ---- TOAST ----
 function toast(msg,isErr){
  const t=document.getElementById("toast");
- t.textContent=(isErr?"⚠ ":"✓ ")+msg;
+ t.textContent=(isErr?"âš  ":"âœ“ ")+msg;
  t.style.background=isErr?"#c0392b":"#27ae60";
  t.classList.add("show");
  setTimeout(()=>t.classList.remove("show"),3000);
@@ -2129,4 +2134,6 @@ function toast(msg,isErr){
 </script>
 </body>
 </html>
+
+
 
