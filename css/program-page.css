@@ -152,7 +152,8 @@ ul { list-style: none; }
 /* ===== PROGRAM HERO ===== */
 .program-hero {
   position: relative;
-  min-height: 480px;
+  aspect-ratio: 3/1;
+  min-height: 280px;
   display: flex;
   align-items: flex-end;
   padding-bottom: 60px;
@@ -623,6 +624,7 @@ ul { list-style: none; }
   .hamburger { display: flex; z-index: 1000; }
 }
 @media (max-width: 480px) {
+  .program-hero { aspect-ratio: 4/3; min-height: 160px; padding-top: 80px; padding-bottom: 30px; }
   .benefits-grid { grid-template-columns: 1fr; }
   .program-hero-title { font-size: 2.2rem; }
 }
@@ -711,7 +713,7 @@ ul { list-style: none; }
 /* Tablet & Landscape Optimizations */
 @media (max-width: 1024px) {
   .overview-grid { gap: 40px; }
-  .program-hero { min-height: 400px; padding-top: 100px; padding-bottom: 40px; }
+  .program-hero { aspect-ratio: 2/1; min-height: 200px; padding-top: 100px; padding-bottom: 40px; }
   .section-pad { padding: 60px 0; }
 }
 @media (max-height: 500px) and (orientation: landscape) {
@@ -953,4 +955,8 @@ ul { list-style: none; }
 @media (max-width: 768px) {
   .gallery-masonry-item { height: 220px; }
 }
+
+
+
+
 

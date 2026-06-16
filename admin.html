@@ -1852,9 +1852,9 @@ async function uploadSiteImg(type, file, previewId) {
 // ---- HERO DEVICE-SPECIFIC CROP FLOW ----
 let _heroCropFile = null; // stores the chosen file between device crop calls
 const _heroCropConfigs = {
-  desktop: { ratio: 16/9,  label: '🖥️  Desktop Crop — 16:9  (e.g. 1920×1080 · Laptops & monitors)',   previewId: 'prev-hero-desktop', dbKey: 'hero_desktop' },
-  tablet:  { ratio: 4/3,   label: '📱  Tablet Crop — 4:3  (e.g. 1024×768 · iPads & tablets)',            previewId: 'prev-hero-tablet',  dbKey: 'hero_tablet'  },
-  mobile:  { ratio: 9/16,  label: '📲  Mobile Crop — 9:16  (e.g. 390×844 · Phones, portrait)',           previewId: 'prev-hero-mobile',  dbKey: 'hero_mobile'  },
+  desktop: { ratio: 3/1,   label: '??? Desktop Crop � 3:1  (e.g. 1440�480 � Laptops & monitors)' },
+  tablet:  { ratio: 2/1,   label: '?? Tablet Crop � 2:1  (e.g. 1024�512 � iPads & tablets)'  },
+  mobile:  { ratio: 4/3,   label: '?? Mobile Crop � 4:3  (e.g. 480�360 � Phones portrait)'  },
 };
 
 function triggerHeroCrop(device) {
@@ -1915,9 +1915,9 @@ async function saveSiteImgToDb(type,url){
 
 let _progHeroCropFile = null;
 const _progHeroCropConfigs = {
-  desktop: { ratio: 16/9,  label: '🖥️ Desktop Crop — 16:9  (e.g. 1920×1080 · Laptops & monitors)',  previewId: 'prev-prog-hero-desktop', device: 'desktop' },
-  tablet:  { ratio: 4/3,   label: '📱 Tablet Crop — 4:3  (e.g. 1024×768 · iPads & tablets)',          previewId: 'prev-prog-hero-tablet',  device: 'tablet'  },
-  mobile:  { ratio: 9/16,  label: '📲 Mobile Crop — 9:16  (e.g. 390×844 · Phones, portrait)',         previewId: 'prev-prog-hero-mobile',  device: 'mobile'  },
+  desktop: { ratio: 3/1,   label: 'Desktop Crop - 3:1  (e.g. 1440x480, Laptops & monitors)',  previewId: 'prev-prog-hero-desktop', device: 'desktop' },
+  tablet:  { ratio: 2/1,   label: 'Tablet Crop - 2:1  (e.g. 1024x512, iPads & tablets)',          previewId: 'prev-prog-hero-tablet',  device: 'tablet'  },
+  mobile:  { ratio: 4/3,   label: 'Mobile Crop - 4:3  (e.g. 480x360, Phones portrait)',           previewId: 'prev-prog-hero-mobile',  device: 'mobile'  },
 };
 
 function triggerProgHeroCrop(device) {
@@ -2129,3 +2129,4 @@ function toast(msg,isErr){
 </script>
 </body>
 </html>
+
