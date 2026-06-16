@@ -181,9 +181,11 @@ ul { list-style: none; }
 .cert-logo-img {
  height: 40px;
  width: auto;
- mix-blend-mode: screen;
- opacity: 1;
- transition: opacity 0.3s ease;
+ object-fit: contain;
+ filter: invert(1) sepia(1) saturate(0.5) brightness(2.4)
+  drop-shadow(0 2px 12px rgba(0,0,0,0.7))
+  drop-shadow(0 0 28px rgba(212,160,60,0.5));
+ transition: filter 0.5s ease, opacity 0.3s ease;
 }
 
 /* ---- Certification Logo: Footer ---- */
@@ -193,13 +195,15 @@ ul { list-style: none; }
  border-top: 1px solid rgba(255,255,255,0.08);
 }
 .footer-cert-img {
- width: 200px;
- height: auto;
- mix-blend-mode: screen;
- opacity: 1;
- transition: opacity 0.3s ease;
+ height: 55px;
+ width: auto;
+ object-fit: contain;
+ filter: invert(1) sepia(1) saturate(0.4) brightness(2.2)
+  drop-shadow(0 1px 8px rgba(0,0,0,0.6))
+  drop-shadow(0 0 20px rgba(212,160,60,0.3));
+ transition: filter 0.5s ease, opacity 0.3s ease;
 }
-.footer-cert-img:hover { opacity: 0.88; }
+.footer-cert-img:hover { opacity: 0.9; }
 
 /* ---- Nav links: dropdown below pill on ALL screen sizes ---- */
 .nav-links {
