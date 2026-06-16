@@ -169,6 +169,38 @@ ul { list-style: none; }
  letter-spacing: 0.05em;
 }
 
+/* ---- Certification Logo: Navbar Center ---- */
+.nav-cert-logo {
+ position: absolute;
+ left: 50%;
+ transform: translateX(-50%);
+ display: flex;
+ align-items: center;
+ pointer-events: none;
+}
+.cert-logo-img {
+ height: 38px;
+ width: auto;
+ mix-blend-mode: screen;
+ opacity: 0.92;
+ transition: opacity 0.3s ease;
+}
+
+/* ---- Certification Logo: Footer ---- */
+.footer-cert-logo {
+ margin-top: 18px;
+ padding-top: 16px;
+ border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-cert-img {
+ width: 190px;
+ height: auto;
+ mix-blend-mode: screen;
+ opacity: 0.90;
+ transition: opacity 0.3s ease;
+}
+.footer-cert-img:hover { opacity: 1; }
+
 /* ---- Nav links: dropdown below pill on ALL screen sizes ---- */
 .nav-links {
  display: none;
@@ -1243,6 +1275,8 @@ ul { list-style: none; }
  .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 768px) {
+ .nav-cert-logo { display: none; }
+ .footer-cert-img { width: 150px; }
  .grid-2 { grid-template-columns: 1fr; gap: 40px; }
  .guru-grid { align-items: stretch; }
  .offerings-grid { grid-template-columns: 1fr; }
