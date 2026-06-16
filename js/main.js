@@ -1,12 +1,3 @@
-// ===== PAGE LOADER =====
-window.addEventListener('load', () => {
- const loader = document.getElementById('loader');
- if (loader) {
- setTimeout(() => loader.classList.add('hidden'), 800); // Shorter delay since it was already visible
- setTimeout(() => loader.remove(), 1400);
- }
-});
-
 // ===== NAVBAR SCROLL =====
 const navbar = document.getElementById('navbar');
 let lastScrollState = false;
@@ -121,4 +112,5 @@ function handleFormSubmit(e) {
 const style = document.createElement('style');
 style.textContent = `.nav-links a.active-link { color: var(--saffron-light) !important; }`;
 document.head.appendChild(style);
+
 
