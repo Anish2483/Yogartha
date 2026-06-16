@@ -249,7 +249,7 @@
   }
 
   const pageId = document.body.getAttribute("data-page-id") || "home";
-  const galleryPath = pageId === "home" ? "gallery" : ("gallery_" + pageId.replace(/-/g, "_"));
+  const galleryPath = pageId === "home" ? "gallery" : ("programs/" + pageId + "/gallery");
 
   // Fire all reads in parallel — YG.get() handles cache + retry
   Promise.allSettled([
