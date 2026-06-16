@@ -67,7 +67,7 @@ ul { list-style: none; }
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 1000;
+  z-index: 10000;
   padding: 18px 0;
   background: rgba(17,16,8,0.88);
   backdrop-filter: blur(14px);
@@ -955,6 +955,8 @@ ul { list-style: none; }
 @media (max-width: 768px) {
   .gallery-masonry-item { height: 220px; }
 }
+
+
 
 
 

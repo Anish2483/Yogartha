@@ -27,7 +27,7 @@ const navLinks = document.getElementById('navLinks');
 // Backdrop to close on outside tap (same as main.js)
 const navBackdrop = document.createElement('div');
 navBackdrop.id = 'nav-backdrop';
-navBackdrop.style.cssText = 'display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.45);';
+navBackdrop.style.cssText = 'display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.2);';
 document.body.appendChild(navBackdrop);
 
 function openNav() {
@@ -93,3 +93,4 @@ window.addEventListener('DOMContentLoaded', () => {
  }
  }
 });
+

@@ -108,7 +108,7 @@ ul { list-style: none; }
  position: fixed;
  top: 20px;
  left: 0; right: 0;
- z-index: 1000;
+ z-index: 10000;
  padding: 0 20px;
  transition: all 0.4s ease;
 }
@@ -186,10 +186,8 @@ ul { list-style: none; }
  align-items: stretch;
  gap: 0;
  padding: 8px 0;
- z-index: 10000;
- isolation: isolate;
+ z-index: 500;
  animation: dropIn 0.22s ease;
- list-style: none;
  margin: 0;
 }
 @keyframes dropIn {
@@ -1259,15 +1257,14 @@ ul { list-style: none; }
  display: flex;
  position: fixed;
  inset: 0;
- background: rgba(18,12,6,0.92);
- backdrop-filter: blur(12px);
- -webkit-backdrop-filter: blur(12px);
+ background: rgba(18,12,6,0.75);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
  flex-direction: column;
  justify-content: center;
  align-items: center;
  gap: 36px;
- z-index: 10000;
- isolation: isolate;
+ z-index: 500;
  /* Smooth open/close via opacity — no display toggle lag */
  opacity: 0;
  pointer-events: none;
@@ -1773,3 +1770,4 @@ cite.sadhguru-attr { font-style: normal; }
  animation: loadBar 1.4s ease forwards;
 }
 @keyframes loadBar { from{ width:0; } to{ width:100%; } }
+
