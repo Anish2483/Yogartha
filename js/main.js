@@ -117,8 +117,4 @@ function handleFormSubmit(e) {
  `;
 }
 
-// ===== SMOOTH ACTIVE LINK STYLE =====
-const style = document.createElement('style');
-style.textContent = `.nav-links a.active-link { color: var(--saffron-light) !important; }`;
-document.head.appendChild(style);
-
+// Active-link style lives in style.css — no runtime injection needed.

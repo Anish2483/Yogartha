@@ -1283,8 +1283,20 @@ ul { list-style: none; }
 }
 .footer-bottom p { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
 
-/* ===== RESPONSIVE ===== */
-/* ===== TABLET (769px–1024px) ===== */
+
+/* ╔══════════════════════════════════════════════════════════╗
+   ║  RESPONSIVE ZONES — SCOPING RULES                       ║
+   ║  Only put rules inside the correct media query below.   ║
+   ║  DESKTOP  : @media (min-width: 1025px)                  ║
+   ║  TABLET   : @media (min-width: 769px) and               ║
+   ║             (max-width: 1024px)                          ║
+   ║  MOBILE   : @media (max-width: 768px)                   ║
+   ║  ALL VIEWS: base styles above this block                ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+/* Active nav link — permanent rule (removes runtime style injection from main.js) */
+.nav-links a.active-link { color: var(--saffron-light) !important; }
+
 /* ===== TABLET (769px–1024px) ===== */
 @media (min-width: 769px) and (max-width: 1024px) {
  .offerings-grid { grid-template-columns: repeat(2,1fr); }
@@ -1295,6 +1307,22 @@ ul { list-style: none; }
 @media (max-width: 768px) {
  nav#navbar {
   width: 100% !important;
+  top: 0 !important;
+  padding: 14px 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid transparent !important;
+  transition: background 0.4s ease, box-shadow 0.4s ease,
+              border-color 0.4s ease, backdrop-filter 0.4s ease !important;
+ }
+ nav#navbar.scrolled {
+  background: rgba(17,16,8,0.97) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid rgba(212,120,42,0.12) !important;
+  padding: 10px 0 !important;
+  box-shadow: 0 2px 30px rgba(0,0,0,0.5) !important;
  }
  .nav-container {
   padding: 0 20px !important;
@@ -1873,24 +1901,40 @@ cite.sadhguru-attr { font-style: normal; }
   }
 }
 
-/* ===== NEW DESKTOP HERO TEXT OVERRIDES (≥1025px) ===== */
+/* ===== DESKTOP HERO LAYOUT (≥1025px) ===== */
 @media (min-width: 1025px) {
+  /* Title: centered, scaled down, shifted up */
   h1.hero-title {
-    font-size: 24px;
-    transform: translateY(-40px);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    transform: translateY(-60px) scale(0.5);
+    transform-origin: center center;
+    margin-bottom: 16px;
   }
+
+  /* Logo: natural proportions, no forced sizing */
   h1.hero-title img.hero-logo-img {
-    max-height: 40px;
-    width: auto;
-    margin-bottom: 0;
+    width: initial;
+    height: initial;
+    max-width: none;
+    max-height: none;
+    object-fit: initial;
   }
+
+  /* Description: pushed down with margin, fine-tuned with transform */
   p.hero-desc {
-    margin-top: 5px;
-    margin-bottom: 10px;
-    transform: translateY(180px);
+    margin-top: 125px;
+    transform: translateY(-40px);
+    text-align: center;
   }
+
+  /* Buttons: centered and shifted up slightly */
   .hero-btns {
-    transform: translateY(60px);
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    transform: translateY(-45px);
   }
 }
 

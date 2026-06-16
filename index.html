@@ -3,11 +3,19 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Yogartha – Classical Hatha Yoga</title>
- <meta name="description" content="Yogartha — a Classical Hatha Yoga studio inspired by the Isha tradition. Learn classical yoga, pranayama, and meditation under Reeta's guidance." />
+ <title>Yogartha – Classical Hatha Yoga | Dehradun</title>
+ <meta name="description" content="Yogartha — Classical Hatha Yoga studio in Dehradun. Led by a certified teacher trained under Sadhguru Gurukulam. Authentic Hatha Yoga, Surya Kriya, Pranayama and more." />
+ <!-- DNS prefetch for external services -->
+ <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+ <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+ <link rel="dns-prefetch" href="https://www.gstatic.com" />
+ <link rel="dns-prefetch" href="https://yogartha-3a5cd-default-rtdb.asia-southeast1.firebasedatabase.app" />
+ <!-- Preconnect for fonts -->
  <link rel="preconnect" href="https://fonts.googleapis.com" />
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
- <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
+ <!-- Fonts -->
+ <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+ <!-- Styles -->
  <link rel="stylesheet" href="css/style.css" />
  <link rel="stylesheet" href="css/animations.css" />
  <link rel="stylesheet" href="css/responsive.css" />
@@ -108,7 +116,7 @@
  <p class="section-eyebrow">Who We Are</p>
  <h2 class="section-title">YOGARTHA</h2>
  <p>YOGARTHA is a Classical Hatha Yoga studio located in Dehradun, led by a certified Hatha Yoga teacher trained under the prestigious Sadhguru Gurukulam. We are dedicated to preserving and imparting the authentic teachings of Hatha Yoga, offering a space for individuals to experience its profound benefits.</p>
- <p class="about-mission"><span class="mission-label">Our Mission</span> — To nurture holistic well-being by offering Classical Hatha Yoga exactly as Sadhguru has structured it. We walk with each student on a deeply personal journey toward physical vitality, mental clarity, and spiritual balance — empowering them to discover the transformative power that lives within their own body and breath.</p>
+ <p class="about-mission"><span class="mission-label">Our mission</span> is to promote holistic well-being by teaching Hatha Yoga in its purest form, following practices structured by Sadhguru. We aim to guide individuals on a journey of physical, mental, and spiritual balance, empowering them to lead healthier, more fulfilling lives through the transformative power of Classical Hatha Yoga.</p>
  <div class="about-stats">
  <div class="stat"><span class="stat-num">2000+</span><span class="stat-lbl">Students Guided</span></div>
  <div class="stat"><span class="stat-num">50+</span><span class="stat-lbl">Programs Done</span></div>
@@ -954,15 +962,15 @@
  </div>
  </footer>
 
- <script src="js/main.js"></script>
- <script src="js/animations.js"></script>
- <!-- Firebase SDKs -->
- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
- <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
- 
- <script src="js/firebase-config.js"></script>
- <script src="js/site-loader.js"></script>
+ <!-- Local scripts: deferred so they don't block page paint -->
+ <script src="js/main.js" defer></script>
+ <script src="js/animations.js" defer></script>
+ <!-- Firebase SDK must load before firebase-config and site-loader -->
+ <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js" defer></script>
+ <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js" defer></script>
+ <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js" defer></script>
+ <script src="js/firebase-config.js" defer></script>
+ <script src="js/site-loader.js" defer></script>
 </body>
 </html>
 
