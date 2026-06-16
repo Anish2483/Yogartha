@@ -1287,10 +1287,11 @@ ul { list-style: none; }
 /* ===== CLASSICAL HATHA YOGA FEATURE SECTION ===== */
 .hatha-intro-section {
   background: linear-gradient(160deg, rgba(17,10,3,1) 0%, rgba(28,16,5,1) 50%, rgba(17,10,3,1) 100%);
-  border-top: 1px solid rgba(212,120,42,0.12);
+  border-top: none;
   border-bottom: 1px solid rgba(212,120,42,0.12);
   position: relative;
   overflow: hidden;
+  padding-top: 30px;
 }
 .hatha-intro-section::before {
   content: '';
@@ -1589,7 +1590,7 @@ ul { list-style: none; }
  position: relative;
  background: linear-gradient(160deg, #110A03 0%, #1C1005 40%, #251508 70%, #1C1005 100%);
  overflow: hidden;
- padding: 100px 0;
+ padding: 60px 0 20px 0;
 }
 .sadhguru-section::before {
  content: '';
