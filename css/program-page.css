@@ -68,29 +68,40 @@ ul { list-style: none; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 10000;
-  padding: 18px 0;
-  background: rgba(17,16,8,0.88);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(212,120,42,0.12);
-  transition: var(--transition);
-}
-.navbar.scrolled {
-  background: rgba(17,16,8,0.97);
-  padding: 13px 0;
-  box-shadow: 0 2px 30px rgba(0,0,0,0.4);
+  padding: 0;
+  transition: background 0.5s ease, box-shadow 0.5s ease,
+              border-color 0.5s ease, backdrop-filter 0.5s ease;
 }
 .nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+  max-width: 100%;
+  margin: 0;
+  padding: 12px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  /* Dark glass bar from the start (matches index.html scrolled state) */
+  background: rgba(14,9,4,0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+  border-radius: 0;
+  transition: background 0.5s ease, box-shadow 0.5s ease,
+              border-color 0.5s ease, backdrop-filter 0.5s ease,
+              padding 0.5s ease;
 }
+/* Keep .navbar.scrolled for any legacy JS but it does nothing extra */
+.navbar.scrolled .nav-container {
+  padding: 12px 32px;
+}
+
 .nav-logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 .nav-symbol {
   width: 34px; height: 34px;
@@ -103,51 +114,105 @@ ul { list-style: none; }
   color: var(--white);
   letter-spacing: 0.05em;
 }
-/* Custom logo image in nav - with glow filter for dark background */
-.custom-logo {
-  height: 40px;
+.nav-custom-logo {
+  height: 52px;
   width: auto;
   object-fit: contain;
-  filter: invert(1) sepia(1) saturate(0.3) brightness(2.0)
-          drop-shadow(0 1px 6px rgba(0,0,0,0.5));
-  transition: opacity 0.3s;
+  filter: invert(1) sepia(1) saturate(0.5) brightness(2.4)
+          drop-shadow(0 2px 12px rgba(0,0,0,0.7))
+          drop-shadow(0 0 28px rgba(212,160,60,0.5));
+  transition: filter 0.5s ease, opacity 0.3s ease, transform 0.3s ease;
 }
-.custom-logo:hover { opacity: 0.85; }
+.nav-custom-logo:hover { opacity: 0.9; transform: scale(1.03); }
+.custom-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: invert(1) sepia(1) saturate(0.4) brightness(2.2)
+          drop-shadow(0 1px 8px rgba(0,0,0,0.6))
+          drop-shadow(0 0 20px rgba(212,160,60,0.3));
+  transition: filter 0.5s ease, opacity 0.3s ease;
+}
+
+/* ---- Nav links: desktop dropdown (hidden by default, shown on open) ---- */
 .nav-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-.nav-links a {
-  color: rgba(255,255,255,0.75);
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.03em;
-  transition: color 0.3s;
-}
-.nav-links a:hover { color: var(--saffron-light); }
-.nav-cta {
-  background: linear-gradient(135deg, var(--saffron), var(--gold)) !important;
-  color: var(--white) !important;
-  padding: 9px 22px;
-  border-radius: 50px;
-  font-weight: 500 !important;
-}
-.hamburger {
   display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 220px;
+  background: rgba(14,9,4,0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
   flex-direction: column;
-  gap: 5px;
+  align-items: stretch;
+  gap: 0;
+  padding: 8px 0;
+  z-index: 9999;
+  animation: dropIn 0.18s ease;
+  margin: 0;
+}
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.nav-links.open { display: flex; }
+.nav-links li { list-style: none; }
+.nav-links a {
+  display: block;
+  padding: 12px 24px;
+  color: rgba(255,255,255,0.82);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.nav-links a:hover {
+  color: var(--saffron-light);
+  background: rgba(255,255,255,0.05);
+}
+.nav-links li:first-child a { border-radius: 8px 8px 0 0; }
+.nav-links li:last-child { padding: 6px 10px 8px; }
+.nav-links li:last-child a {
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  color: var(--white) !important;
+  border-radius: 50px;
+  text-align: center;
+  font-weight: 500;
+  padding: 10px 20px;
+}
+.nav-links li:last-child a:hover { opacity: 0.88; }
+
+/* ---- Hamburger button ---- */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 4px;
+  flex-shrink: 0;
+  z-index: 10002;
+  position: relative;
+}
+.hamburger:hover {
+  opacity: 0.8;
 }
 .hamburger span {
   display: block;
-  width: 24px; height: 2px;
+  width: 20px; height: 2px;
   background: var(--white);
   border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
 }
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ===== PROGRAM HERO ===== */
 .program-hero {

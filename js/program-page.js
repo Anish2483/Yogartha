@@ -8,23 +8,24 @@ window.addEventListener('load', () => {
 });
 
 // ===== NAVBAR SCROLL =====
-const navbar = document.getElementById('navbar');
+// Since program pages should have a permanently dark navbar, we keep it styled
+// with the .navbar class directly. No scroll‑based class toggling is needed.
+const navbar = document.getElementById('navbar'); // kept for other logic only
 let lastScrollState = false;
 window.addEventListener('scroll', () => {
  const isScrolled = window.scrollY > 50;
- if (isScrolled !== lastScrollState) {
- if (navbar) navbar.classList.toggle('scrolled', isScrolled);
+ // Intentionally NOT toggling .scrolled class – navbar is always dark.
  lastScrollState = isScrolled;
- }
+
  const scrollTopBtn = document.getElementById('scrollTop');
- if (scrollTopBtn) scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+ if (scrollTopBtn) scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
 }, { passive: true });
 
 // ===== HAMBURGER =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 
-// Backdrop to close on outside tap (same as main.js)
+// Create a backdrop element to close menu when tapping outside
 const navBackdrop = document.createElement('div');
 navBackdrop.id = 'nav-backdrop';
 navBackdrop.style.cssText = 'display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.2);';
@@ -61,9 +62,11 @@ document.body.appendChild(scrollTopBtn);
 const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
 const observer = new IntersectionObserver((entries) => {
  entries.forEach(entry => {
- if (entry.isIntersecting) entry.target.classList.add('visible');
+ if (entry.isIntersecting) {
+ entry.target.classList.add('visible');
+ }
  });
-}, { threshold: 0.1 });
+}, { threshold: 0.12 });
 reveals.forEach(el => observer.observe(el));
 
 // ===== FIREBASE IMAGE LOADER =====
