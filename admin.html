@@ -956,6 +956,17 @@
  </div>
  </div>
  </div>
+
+ <!-- Registration Form Link -->
+ <div class="card">
+ <div class="card-title">📋 Registration Form Link</div>
+ <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">Paste your Google Form URL for this program. A "Register Now" button will appear on the program page only when this is set.</p>
+ <div style="display:flex;gap:8px;align-items:center;">
+ <input type="url" id="prog-reg-form-url" placeholder="https://forms.gle/..." class="form-input" style="flex:1;" />
+ <button class="btn btn-primary btn-sm" onclick="saveProgRegFormUrl()">Save</button>
+ <button class="btn btn-ghost btn-sm" onclick="clearProgRegFormUrl()" title="Remove form link">✕ Remove</button>
+ </div>
+ <p id="prog-reg-form-status" style="font-size:.78rem;color:var(--muted);margin-top:8px;"></p>
  </div>
 
  <!-- ===== ABOUT TEACHER ===== -->
@@ -1964,6 +1975,41 @@ async function _cropProgHeroDevice(device, file) {
         document.getElementById(cfg.previewId).src = url;
         await saveSiteImgToDb(dbKey, url);
         toast('Program hero ' + device + ' updated live! 🎉');
+};
+
+function triggerProgHeroCrop(device) {
+  const pId = document.getElementById('program-select').value;
+  if (!pId) { toast('Select a program first', true); return; }
+  if (_progHeroCropFile) {
+    _cropProgHeroDevice(device, _progHeroCropFile);
+  } else {
+    document.getElementById('file-prog-hero-crop').dataset.targetDevice = device;
+    document.getElementById('file-prog-hero-crop').click();
+  }
+}
+
+function startProgHeroCropFlow(file) {
+  if (!file) return;
+  _progHeroCropFile = file;
+  const targetDevice = document.getElementById('file-prog-hero-crop').dataset.targetDevice || 'desktop';
+  _cropProgHeroDevice(targetDevice, file);
+}
+
+async function _cropProgHeroDevice(device, file) {
+  const pId = document.getElementById('program-select').value;
+  if (!pId) { toast('Select a program first', true); return; }
+  const cfg = _progHeroCropConfigs[device];
+  const pid = pId.replace(/-/g, '_');
+  const dbKey = 'prog_' + pid + '_' + device;
+  openCropModal(file, cfg.label, async (fileOrBlob) => {
+    const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
+    toast('Uploading ' + device + ' crop…');
+    try {
+      const url = await uploadImageFile(uploadFile, 'siteImages/prog_' + pid + '_' + device + '_' + Date.now());
+      if (url) {
+        document.getElementById(cfg.previewId).src = url;
+        await saveSiteImgToDb(dbKey, url);
+        toast('Program hero ' + device + ' updated live! 🎉');
       }
     } catch(e) { toast('Upload failed — ' + e, true); }
   }, cfg.ratio, false);
@@ -1993,22 +2039,66 @@ function loadProgramImages() {
   const prevOv = document.getElementById('prev-prog-overview');
   if (prevOv) prevOv.src = 'images/placeholder.png';
   _progHeroCropFile = null;
+
+  // Reset reg form field
+  const regInput  = document.getElementById('prog-reg-form-url');
+  const regStatus = document.getElementById('prog-reg-form-status');
+  if (regInput)  regInput.value = '';
+  if (regStatus) { regStatus.style.color = 'var(--muted)'; regStatus.textContent = ''; }
+
   if (pId && isFirebase) {
     const pid = pId.replace(/-/g, '_');
     firebase.database().ref('siteImages').once('value').then(s => {
       const imgs = s.val() || {};
       ['desktop','tablet','mobile'].forEach(d => {
         const key = 'prog_' + pid + '_' + d;
-        const el = document.getElementById('prev-prog-hero-' + d);
+        const el  = document.getElementById('prev-prog-hero-' + d);
         if (el && imgs[key]) el.src = imgs[key];
       });
     }).catch(() => {});
-    // Still load overview from programs/{pId}/images/overview
-    firebase.database().ref('programs/' + pId + '/images').once('value').then(s => {
-      if (s.val() && s.val().overview && prevOv) prevOv.src = s.val().overview;
+    // Load overview image + regFormUrl from programs/{pId}
+    firebase.database().ref('programs/' + pId).once('value').then(s => {
+      const data = s.val() || {};
+      if (data.images && data.images.overview && prevOv) prevOv.src = data.images.overview;
+      if (data.regFormUrl && regInput) {
+        regInput.value = data.regFormUrl;
+        if (regStatus) { regStatus.style.color = '#43A047'; regStatus.textContent = '✓ Form link active'; }
+      }
     }).catch(() => {});
   }
 }
+
+function saveProgRegFormUrl() {
+  const pId = document.getElementById('program-select').value;
+  if (!pId) return toast('Select a program first', true);
+  const url    = document.getElementById('prog-reg-form-url').value.trim();
+  if (!url) return toast('Paste a Google Form URL first', true);
+  const status = document.getElementById('prog-reg-form-status');
+  if (isFirebase) {
+    firebase.database().ref('programs/' + pId + '/regFormUrl').set(url)
+      .then(() => {
+        if (status) { status.style.color = '#43A047'; status.textContent = '✓ Form link saved & live!'; }
+        toast('Registration form link saved!');
+      })
+      .catch(() => toast('Failed to save', true));
+  }
+}
+
+function clearProgRegFormUrl() {
+  const pId = document.getElementById('program-select').value;
+  if (!pId) return toast('Select a program first', true);
+  const status = document.getElementById('prog-reg-form-status');
+  if (isFirebase) {
+    firebase.database().ref('programs/' + pId + '/regFormUrl').remove()
+      .then(() => {
+        document.getElementById('prog-reg-form-url').value = '';
+        if (status) { status.style.color = 'var(--muted)'; status.textContent = 'Form link removed — button hidden on program page.'; }
+        toast('Registration form link removed.');
+      })
+      .catch(() => toast('Failed to remove', true));
+  }
+}
+
 
 async function uploadProgramImg(type, file, previewId) {
   if (!file) return;

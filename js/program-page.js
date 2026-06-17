@@ -72,43 +72,72 @@ reveals.forEach(el => observer.observe(el));
 // ===== FIREBASE IMAGE LOADER =====
 window.addEventListener('DOMContentLoaded', () => {
  if (typeof firebase !== 'undefined' && firebase.app) {
- const db = firebase.database();
+  const db = firebase.database();
 
- // Get program ID from URL (e.g. "surya-kriya" from "/programs/surya-kriya.html")
- let pathname = window.location.pathname;
- let filename = pathname.split('/').pop() || '';
- let programId = filename.replace('.html', '');
+  // Get program ID from URL (e.g. "surya-kriya" from "/programs/surya-kriya.html")
+  let pathname = window.location.pathname;
+  let filename = pathname.split('/').pop() || '';
+  let programId = filename.replace('.html', '');
 
- if (programId && programId !== 'index' && programId !== 'admin') {
-  db.ref('siteImages').once('value').then(s => {
-   const imgs = s.val();
-   if (!imgs) return;
-   const pid = programId.replace(/-/g, '_');
+  if (programId && programId !== 'index' && programId !== 'admin') {
 
-   // --- Hero images: device-specific crops ---
-   const desktopUrl = imgs['prog_' + pid + '_desktop'];
-   const tabletUrl  = imgs['prog_' + pid + '_tablet'];
-   const mobileUrl  = imgs['prog_' + pid + '_mobile'];
+   // --- Hero + overview images ---
+   db.ref('siteImages').once('value').then(s => {
+    const imgs = s.val();
+    if (!imgs) return;
+    const pid = programId.replace(/-/g, '_');
 
-   const heroDesktop = document.getElementById('prog-hero-desktop');
-   const heroTablet  = document.getElementById('prog-hero-tablet');
-   const heroMobile  = document.getElementById('prog-hero-mobile');
+    // Hero images: device-specific crops
+    const desktopUrl = imgs['prog_' + pid + '_desktop'];
+    const tabletUrl  = imgs['prog_' + pid + '_tablet'];
+    const mobileUrl  = imgs['prog_' + pid + '_mobile'];
 
-   if (desktopUrl && heroDesktop) heroDesktop.src = desktopUrl;
-   if (tabletUrl  && heroTablet)  heroTablet.srcset  = tabletUrl;
-   if (mobileUrl  && heroMobile)  heroMobile.srcset  = mobileUrl;
+    const heroDesktop = document.getElementById('prog-hero-desktop');
+    const heroTablet  = document.getElementById('prog-hero-tablet');
+    const heroMobile  = document.getElementById('prog-hero-mobile');
 
-   // Fallback: if no device-specific crops uploaded yet, use desktop for all
-   if (desktopUrl && !tabletUrl && heroTablet) heroTablet.srcset = desktopUrl;
-   if (desktopUrl && !mobileUrl && heroMobile) heroMobile.srcset = desktopUrl;
+    if (desktopUrl && heroDesktop) heroDesktop.src = desktopUrl;
+    if (tabletUrl  && heroTablet)  heroTablet.srcset  = tabletUrl;
+    if (mobileUrl  && heroMobile)  heroMobile.srcset  = mobileUrl;
 
-   // --- Overview / side image ---
-   const overviewUrl = imgs['prog_' + pid + '_overview'];
-   if (overviewUrl) {
-    const o = document.querySelector('.overview-image img');
-    if (o) o.src = overviewUrl;
-   }
-  }).catch(e => console.log('Firebase image load error:', e));
- }
+    // Fallback: if no device-specific crops uploaded yet, use desktop for all
+    if (desktopUrl && !tabletUrl && heroTablet) heroTablet.srcset = desktopUrl;
+    if (desktopUrl && !mobileUrl && heroMobile) heroMobile.srcset = desktopUrl;
+
+    // Overview / side image
+    const overviewUrl = imgs['prog_' + pid + '_overview'];
+    if (overviewUrl) {
+     const o = document.querySelector('.overview-image img');
+     if (o) o.src = overviewUrl;
+    }
+   }).catch(e => console.log('Firebase image load error:', e));
+
+   // --- Registration Form Link ---
+   db.ref('programs/' + programId + '/regFormUrl').once('value').then(snap => {
+    const formUrl = snap.val();
+    if (!formUrl) return; // No link set — nothing shown
+
+    // Avoid duplicate injection
+    if (document.getElementById('prog-reg-form-wrap')) return;
+
+    const ctaSection = document.querySelector('.program-cta');
+    if (!ctaSection) return;
+
+    const wrap = document.createElement('div');
+    wrap.id = 'prog-reg-form-wrap';
+    wrap.className = 'prog-reg-form-wrap';
+    wrap.innerHTML =
+     '<a href="' + formUrl + '" target="_blank" rel="noopener" id="prog-reg-form-btn" class="prog-reg-form-btn">' +
+      '<svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor" aria-hidden="true" style="flex-shrink:0;">' +
+       '<path d="M4 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6H4zm7 1.5L17.5 10H13a2 2 0 0 1-2-2V3.5zM6 11h8v1.5H6V11zm0 3h5v1.5H6V14z"/>' +
+      '</svg>' +
+      'Register via Google Form' +
+     '</a>';
+
+    const container = ctaSection.querySelector('.container') || ctaSection;
+    container.appendChild(wrap);
+   }).catch(() => {});
+
+  }
  }
 });
