@@ -1297,9 +1297,9 @@ async function uploadToImgbb(file, onProgress) {
 
 // ---- LOGIN ----
 function doLogin() {
- const email=document.getElementById("login-email").value;
- const pass=document.getElementById("login-pass").value;
- const err=document.getElementById("login-err");
+ const email = document.getElementById("login-email").value.trim();
+ const pass = document.getElementById("login-pass").value.trim();
+ const err = document.getElementById("login-err");
  if(!email){err.textContent="Please enter your email.";return;}
  if(typeof firebase!=="undefined"&&firebase.apps.length>0){
  firebase.auth().signInWithEmailAndPassword(email,pass)
@@ -1388,6 +1388,15 @@ document.addEventListener("DOMContentLoaded",()=>{
  const url=this.value.trim();
  if(url){pendingTestiPhotoUrl=url;showTestiPhotoPreview(url,"URL photo");}
  });
+
+ // Auto-login if already authenticated
+ if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
+  firebase.auth().onAuthStateChanged(user => {
+   if (user) {
+    enterDash(true);
+   }
+  });
+ }
 });
 
 // ---- SCHEDULE ----
