@@ -378,6 +378,21 @@ function submitEnquiry(e) {
    note.textContent = "✓ Your enquiry has been received. Reeta will reach out within 24 hours. Namaste!";
    // Invalidate enquiries cache so admin panel sees fresh data
    if (typeof YG !== "undefined") YG.invalidate("enquiries");
+
+   // ---- Send WhatsApp summary ----
+   const waNum = "917820096554";
+   const waLines = [
+    "🙏 *New Enquiry from Yogartha*",
+    "",
+    "*Name:* " + (data.name || "—"),
+    "*Email:* " + (data.email || "—"),
+    "*Phone:* " + (data.phone || "—"),
+    "*Program:* " + (data.program || "Not specified"),
+    data.message ? "*Message:* " + data.message : "",
+   ].filter(l => l !== undefined);
+   const waMsg = encodeURIComponent(waLines.join("\n"));
+   window.open("https://wa.me/" + waNum + "?text=" + waMsg, "_blank", "noopener");
+
    setTimeout(() => {
     btn.disabled = false;
     btn.textContent = "Send Enquiry →";
