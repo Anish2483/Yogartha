@@ -219,6 +219,35 @@
   if (imgs.guru)     { const g  = document.querySelector(".guru-img");       if (g)  g.src  = imgs.guru; }
   if (imgs.shala)    { const sh = document.querySelector(".experience-img"); if (sh) sh.src = imgs.shala; }
   if (imgs.symbol)   { document.querySelectorAll(".site-symbol").forEach(el => el.src = imgs.symbol); }
+
+  // ---- Update program card thumbnails on homepage ----
+  // Maps card element ID -> Firebase siteImages key prefix (prog_{key}_desktop)
+  const cardMap = {
+   'card-surya':         'surya_kriya',
+   'card-yogasanas':     'yogasanas',
+   'card-angamardhana':  'angamardhana',
+   'card-bhuta':         'bhuta_shuddhi',
+   'card-upa':           'upa_yoga',
+   'card-shanmuki':      'shanmuki_mudra',
+   'card-jala-neti':     'jala_neti',
+   'card-eye-care':      'eye_care_workshop',
+   'card-wellbeing':     'yoga_for_wellbeing',
+   'card-kids':          'yoga_for_kids',
+   'card-prenatal':      'yoga_for_pregnant_women',
+   'card-bhastrika':     'bhastrika',
+   'card-retreat':       'sacred_walks',
+   'card-how-we-offer':  'how_we_offer',
+   'card-corporate':     'corporate_institutions',
+   'card-hatha':         'hatha_yoga',
+  };
+  Object.entries(cardMap).forEach(([cardId, pid]) => {
+   const url = imgs['prog_' + pid + '_desktop'];
+   if (!url) return;
+   const card = document.getElementById(cardId);
+   if (!card) return;
+   const thumb = card.querySelector('.card-img-wrap img');
+   if (thumb && thumb.src !== url) thumb.src = url;
+  });
  }
 
  // ---- Apply teacher data ----

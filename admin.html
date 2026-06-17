@@ -725,7 +725,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 16:9 &nbsp;�&nbsp; Laptops &amp; monitors</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;�&nbsp; Laptops &amp; monitors</div>
     <button class="siu-btn" onclick="triggerHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
@@ -741,7 +741,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;�&nbsp; iPads &amp; tablets</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;�&nbsp; iPads &amp; tablets</div>
     <button class="siu-btn" onclick="triggerHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
@@ -757,7 +757,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 9:16 &nbsp;�&nbsp; Phones (portrait)</div>
+    <div class="siu-hint">Ratio: 9:16 &nbsp;�&nbsp; Phones (portrait)</div>
     <button class="siu-btn" onclick="triggerHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
@@ -900,7 +900,7 @@
    <div class="siu-left"><img id="prev-prog-hero-desktop" src="images/placeholder.png" alt="Desktop" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 3:1 &nbsp;�&nbsp; Laptops &amp; monitors</div>
+    <div class="siu-hint">Ratio: 3:1 &nbsp;�&nbsp; Laptops &amp; monitors</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('desktop')">?? Upload &amp; Crop (3:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
@@ -913,7 +913,7 @@
    <div class="siu-left"><img id="prev-prog-hero-tablet" src="images/placeholder.png" alt="Tablet" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 2:1 &nbsp;�&nbsp; iPads &amp; tablets</div>
+    <div class="siu-hint">Ratio: 2:1 &nbsp;�&nbsp; iPads &amp; tablets</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('tablet')">?? Upload &amp; Crop (2:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
@@ -926,7 +926,7 @@
    <div class="siu-left"><img id="prev-prog-hero-mobile" src="images/placeholder.png" alt="Mobile" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;�&nbsp; Phones (portrait)</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;�&nbsp; Phones (portrait)</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('mobile')">?? Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
@@ -2018,8 +2018,8 @@ async function uploadProgramImg(type, file, previewId) {
   // Show local preview immediately
   document.getElementById(previewId).src = URL.createObjectURL(file);
 
-  const cropLabel = type === 'hero' ? 'Crop program hero banner — 16:9 recommended' : 'Crop program overview image';
-  const cropRatio = type === 'hero' ? 16/9 : NaN;
+  const cropLabel = type === 'overview' ? 'Crop overview / side image (4:3 works best)' : 'Crop program image';
+  const cropRatio = type === 'overview' ? 4/3 : NaN;
 
   openCropModal(file, cropLabel, async (fileOrBlob) => {
     const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
@@ -2028,7 +2028,13 @@ async function uploadProgramImg(type, file, previewId) {
       const url = await uploadImageFile(uploadFile, 'programs/' + pId + '/' + type + '_' + Date.now());
       if (url) {
         document.getElementById(previewId).src = url;
-        if (isFirebase) await firebase.database().ref('programs/' + pId + '/images/' + type).set(url);
+        if (isFirebase) {
+          const pid = pId.replace(/-/g, '_');
+          // Save to siteImages so program pages + cards can read it
+          await saveSiteImgToDb('prog_' + pid + '_' + type, url);
+          // Legacy path for backwards compat
+          firebase.database().ref('programs/' + pId + '/images/' + type).set(url);
+        }
         toast('Program image updated! ✓');
       }
     } catch(e) { if (e.message !== 'API key missing') toast('Upload failed', true); }
@@ -2037,14 +2043,17 @@ async function uploadProgramImg(type, file, previewId) {
 
 function updateProgramImgUrl(type) {
  const pId = document.getElementById('program-select').value;
- if(!pId) return toast("Select a program first",true);
- const url = document.getElementById(`url-prog-${type}`).value.trim();
- if(!url) return toast("Please enter a valid URL", true);
- document.getElementById(`prev-prog-${type}`).src = url;
- if(isFirebase) firebase.database().ref("programs/"+pId+"/images/"+type).set(url).then(()=>{
- toast("Program image updated!");
- document.getElementById(`url-prog-${type}`).value = '';
- });
+ if (!pId) return toast('Select a program first', true);
+ const url = document.getElementById('url-prog-' + type).value.trim();
+ if (!url) return toast('Please enter a valid URL', true);
+ document.getElementById('prev-prog-' + type).src = url;
+ if (isFirebase) {
+  const pid = pId.replace(/-/g, '_');
+  saveSiteImgToDb('prog_' + pid + '_' + type, url);
+  firebase.database().ref('programs/' + pId + '/images/' + type).set(url);
+  toast('Program image updated!');
+  document.getElementById('url-prog-' + type).value = '';
+ }
 }
 
 // ---- TEACHER ----

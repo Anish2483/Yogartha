@@ -73,27 +73,42 @@ reveals.forEach(el => observer.observe(el));
 window.addEventListener('DOMContentLoaded', () => {
  if (typeof firebase !== 'undefined' && firebase.app) {
  const db = firebase.database();
- 
+
  // Get program ID from URL (e.g. "surya-kriya" from "/programs/surya-kriya.html")
  let pathname = window.location.pathname;
  let filename = pathname.split('/').pop() || '';
  let programId = filename.replace('.html', '');
- 
+
  if (programId && programId !== 'index' && programId !== 'admin') {
- db.ref("programs/" + programId + "/images").once("value").then(s => {
- const imgs = s.val();
- if (imgs) {
- if (imgs.hero) {
- const h = document.querySelector(".program-hero-bg img");
- if (h) h.src = imgs.hero;
- }
- if (imgs.overview) {
- const o = document.querySelector(".overview-image img");
- if (o) o.src = imgs.overview;
- }
- }
- }).catch(e => console.log("Firebase image load error:", e));
+  db.ref('siteImages').once('value').then(s => {
+   const imgs = s.val();
+   if (!imgs) return;
+   const pid = programId.replace(/-/g, '_');
+
+   // --- Hero images: device-specific crops ---
+   const desktopUrl = imgs['prog_' + pid + '_desktop'];
+   const tabletUrl  = imgs['prog_' + pid + '_tablet'];
+   const mobileUrl  = imgs['prog_' + pid + '_mobile'];
+
+   const heroDesktop = document.getElementById('prog-hero-desktop');
+   const heroTablet  = document.getElementById('prog-hero-tablet');
+   const heroMobile  = document.getElementById('prog-hero-mobile');
+
+   if (desktopUrl && heroDesktop) heroDesktop.src = desktopUrl;
+   if (tabletUrl  && heroTablet)  heroTablet.srcset  = tabletUrl;
+   if (mobileUrl  && heroMobile)  heroMobile.srcset  = mobileUrl;
+
+   // Fallback: if no device-specific crops uploaded yet, use desktop for all
+   if (desktopUrl && !tabletUrl && heroTablet) heroTablet.srcset = desktopUrl;
+   if (desktopUrl && !mobileUrl && heroMobile) heroMobile.srcset = desktopUrl;
+
+   // --- Overview / side image ---
+   const overviewUrl = imgs['prog_' + pid + '_overview'];
+   if (overviewUrl) {
+    const o = document.querySelector('.overview-image img');
+    if (o) o.src = overviewUrl;
+   }
+  }).catch(e => console.log('Firebase image load error:', e));
  }
  }
 });
-
