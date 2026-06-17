@@ -725,7 +725,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 16:9 &nbsp;·&nbsp; e.g. 1920×1080 &nbsp;·&nbsp; Laptops &amp; monitors</div>
+    <div class="siu-hint">Ratio: 3:1 &nbsp;�&nbsp; Laptops &amp; monitors</div>
     <button class="siu-btn" onclick="triggerHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
@@ -741,7 +741,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;·&nbsp; e.g. 1024×768 &nbsp;·&nbsp; iPads &amp; tablets</div>
+    <div class="siu-hint">Ratio: 2:1 &nbsp;�&nbsp; iPads &amp; tablets</div>
     <button class="siu-btn" onclick="triggerHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
@@ -757,7 +757,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 9:16 &nbsp;·&nbsp; e.g. 390×844 &nbsp;·&nbsp; Phones (portrait)</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;�&nbsp; Phones (portrait)</div>
     <button class="siu-btn" onclick="triggerHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
@@ -900,8 +900,8 @@
    <div class="siu-left"><img id="prev-prog-hero-desktop" src="images/placeholder.png" alt="Desktop" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 16:9 &nbsp;·&nbsp; Laptops &amp; monitors</div>
-    <button class="siu-btn" onclick="triggerProgHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
+    <div class="siu-hint">Ratio: 3:1 &nbsp;�&nbsp; Laptops &amp; monitors</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('desktop')">?? Upload &amp; Crop (3:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('desktop')">Set</button>
@@ -913,8 +913,8 @@
    <div class="siu-left"><img id="prev-prog-hero-tablet" src="images/placeholder.png" alt="Tablet" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;·&nbsp; iPads &amp; tablets</div>
-    <button class="siu-btn" onclick="triggerProgHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
+    <div class="siu-hint">Ratio: 2:1 &nbsp;�&nbsp; iPads &amp; tablets</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('tablet')">?? Upload &amp; Crop (2:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('tablet')">Set</button>
@@ -926,8 +926,8 @@
    <div class="siu-left"><img id="prev-prog-hero-mobile" src="images/placeholder.png" alt="Mobile" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 9:16 &nbsp;·&nbsp; Phones (portrait)</div>
-    <button class="siu-btn" onclick="triggerProgHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;�&nbsp; Phones (portrait)</div>
+    <button class="siu-btn" onclick="triggerProgHeroCrop('mobile')">?? Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('mobile')">Set</button>
@@ -1920,9 +1920,9 @@ async function saveSiteImgToDb(type,url){
 
 let _progHeroCropFile = null;
 const _progHeroCropConfigs = {
-  desktop: { ratio: 16/9, label: 'Desktop Crop - 16:9', previewId: 'prev-prog-hero-desktop', device: 'desktop' },
-  tablet:  { ratio: 4/3,  label: 'Tablet Crop - 4:3', previewId: 'prev-prog-hero-tablet',  device: 'tablet'  },
-  mobile:  { ratio: 9/16, label: 'Mobile Crop - 9:16', previewId: 'prev-prog-hero-mobile',  device: 'mobile'  },
+  desktop: { ratio: 3/1, label: 'Desktop Crop - 3:1', previewId: 'prev-prog-hero-desktop', device: 'desktop' },
+  tablet:  { ratio: 2/1, label: 'Tablet Crop - 2:1', previewId: 'prev-prog-hero-tablet',  device: 'tablet'  },
+  mobile:  { ratio: 4/3, label: 'Mobile Crop - 4:3', previewId: 'prev-prog-hero-mobile',  device: 'mobile'  },
 };
 
 function triggerProgHeroCrop(device) {
