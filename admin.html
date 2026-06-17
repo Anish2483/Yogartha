@@ -725,7 +725,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">ğŸ–¥ï¸ Desktop</div>
-    <div class="siu-hint">Ratio: 3:1 &nbsp;—&nbsp; Laptops &amp; monitors</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;—&nbsp; Laptops &amp; monitors</div>
     <button class="siu-btn" onclick="triggerHeroCrop('desktop')">ğŸ“‚ Upload &amp; Crop (16:9)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-desktop" placeholder="â€¦or paste URL" class="siu-url-input" />
@@ -741,7 +741,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">ğŸ“± Tablet</div>
-    <div class="siu-hint">Ratio: 2:1 &nbsp;—&nbsp; iPads &amp; tablets</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;—&nbsp; iPads &amp; tablets</div>
     <button class="siu-btn" onclick="triggerHeroCrop('tablet')">ğŸ“‚ Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-tablet" placeholder="â€¦or paste URL" class="siu-url-input" />
@@ -757,7 +757,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">ğŸ“² Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;—&nbsp; Phones (portrait)</div>
+    <div class="siu-hint">Ratio: 9:16 &nbsp;—&nbsp; Phones (portrait)</div>
     <button class="siu-btn" onclick="triggerHeroCrop('mobile')">ğŸ“‚ Upload &amp; Crop (9:16)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-mobile" placeholder="â€¦or paste URL" class="siu-url-input" />
@@ -1092,7 +1092,7 @@
         <div style="font-family:'Cinzel',serif;font-size:1rem;color:#e0a830;font-weight:600;">âœ‚ Crop Photo</div>
         <div id="crop-label" style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:2px;">Drag to select the area you want</div>
       </div>
-      <button onclick="closeCropModal()" style="
+      <button onclick="cancelCrop()" style="
         background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
         color:#fff; font-size:1.2rem; width:36px; height:36px; border-radius:50%;
         cursor:pointer; display:flex; align-items:center; justify-content:center;
@@ -1151,7 +1151,7 @@
             border-radius:8px; font-family:'Jost',sans-serif; font-size:0.82rem;
             cursor:pointer; transition:background .2s; white-space:nowrap;
           " onmouseover="this.style.background='rgba(255,255,255,0.14)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">Skip &amp; Upload As-Is</button>
-          <button onclick="closeCropModal()" style="
+          <button onclick="cancelCrop()" style="
             padding:12px 12px; background:rgba(255,255,255,0.04);
             color:rgba(255,255,255,0.4); border:1px solid rgba(255,255,255,0.08);
             border-radius:8px; font-family:'Jost',sans-serif; font-size:0.82rem;
@@ -1576,6 +1576,12 @@ function setCropRatio(ratio) {
   else if (Math.abs(ratio - 4/3)  < 0.01) btnId = 'ratio-43';
   else if (Math.abs(ratio - 3/4)  < 0.01) btnId = 'ratio-34';
   if (btnId) document.getElementById(btnId).classList.add('crop-ratio-active');
+}
+
+function cancelCrop() {
+  if (typeof _heroCropFile !== 'undefined') _heroCropFile = null;
+  if (typeof _progHeroCropFile !== 'undefined') _progHeroCropFile = null;
+  closeCropModal();
 }
 
 function closeCropModal() {
