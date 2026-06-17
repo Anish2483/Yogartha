@@ -1301,13 +1301,21 @@ function doLogin() {
  const pass = document.getElementById("login-pass").value.trim();
  const err = document.getElementById("login-err");
  if(!email){err.textContent="Please enter your email.";return;}
- if(typeof firebase!=="undefined"&&firebase.apps.length>0){
- firebase.auth().signInWithEmailAndPassword(email,pass)
- .then(()=>enterDash(true))
- .catch(e=>{err.textContent=e.message;});
- } else {
- if(!pass){err.textContent="Please enter a password.";return;}
- enterDash(false);
+ try {
+  if(typeof firebase!=="undefined"&&firebase.apps.length>0){
+   if (typeof firebase.auth !== "function") {
+    err.textContent="Error: Firebase Auth blocked by your browser (check Adblock/Brave Shields).";
+    return;
+   }
+   firebase.auth().signInWithEmailAndPassword(email,pass)
+   .then(()=>enterDash(true))
+   .catch(e=>{err.textContent=e.message;});
+  } else {
+   if(!pass){err.textContent="Please enter a password.";return;}
+   enterDash(false);
+  }
+ } catch(e) {
+  err.textContent="Unexpected error: " + e.message;
  }
 }
 function enterDash(fb) {
