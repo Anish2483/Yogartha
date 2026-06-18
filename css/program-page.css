@@ -468,28 +468,107 @@ ul { list-style: none; }
 }
 
 /* ===== WHO IT'S FOR ===== */
+/* ===== HOW WE OFFER SECTION (replaces "Who Can Join") ===== */
 .forwhom-section {
-  background: var(--cream);
-  padding: 80px 0;
+  background: linear-gradient(160deg, #1a0a00 0%, #2d1200 55%, #1a0800 100%);
+  padding: 90px 0 80px;
+  position: relative;
+  overflow: hidden;
 }
+.forwhom-section::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(212,120,42,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* heading overrides for dark bg */
+.forwhom-section .section-eyebrow { color: var(--saffron); opacity: 0.85; }
+.forwhom-section .section-title   { color: #f5ede0; }
+
+/* ---- Grid of offer-mode cards ---- */
 .forwhom-grid {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 48px;
 }
+@media (max-width: 900px) {
+  .forwhom-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .forwhom-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+}
+
+/* ---- Individual card ---- */
 .forwhom-tag {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, rgba(212,120,42,0.08), rgba(184,130,42,0.05));
-  border: 1px solid rgba(212,120,42,0.25);
-  border-radius: 50px;
-  padding: 12px 22px;
-  font-size: 0.9rem;
-  color: var(--text);
+  gap: 14px;
+  padding: 28px 20px 22px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,120,42,0.22);
+  border-radius: 16px;
+  text-align: center;
+  cursor: default;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
 }
-.forwhom-tag span { font-size: 1.1rem; }
+.forwhom-tag::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212,120,42,0.12), rgba(184,130,42,0.06));
+  opacity: 0;
+  transition: opacity 0.35s;
+  border-radius: 16px;
+}
+.forwhom-tag:hover {
+  background: rgba(212,120,42,0.09);
+  border-color: rgba(212,120,42,0.55);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(212,120,42,0.18);
+}
+.forwhom-tag:hover::after { opacity: 1; }
+
+/* ---- Icon ring ---- */
+.tag-icon {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(212,120,42,0.18), rgba(184,130,42,0.10));
+  border: 1.5px solid rgba(212,120,42,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #e8a44a;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+  z-index: 1;
+}
+.forwhom-tag:hover .tag-icon {
+  background: linear-gradient(135deg, rgba(212,120,42,0.35), rgba(184,130,42,0.22));
+  border-color: rgba(212,120,42,0.7);
+  box-shadow: 0 0 16px rgba(212,120,42,0.35);
+}
+.tag-icon svg { width: 26px; height: 26px; display: block; }
+
+/* ---- Label ---- */
+.tag-label {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: #f0dfc0;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+}
+
+
 
 /* ===== SADHGURU QUOTE ===== */
 .program-quote-section {
