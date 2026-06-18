@@ -528,12 +528,6 @@ ul { list-style: none; }
   line-height: 1.35;
 }
 
-
-
-}
-
-
-
 /* ===== SADHGURU QUOTE ===== */
 .program-quote-section {
   background: linear-gradient(135deg, var(--maroon), var(--dark-bg) 60%);
