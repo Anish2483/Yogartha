@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
  <meta charset="UTF-8" />
@@ -1976,23 +1976,6 @@ function startProgHeroCropFlow(file) {
   const targetDevice = document.getElementById('file-prog-hero-crop').dataset.targetDevice || 'desktop';
   _cropProgHeroDevice(targetDevice, file);
 }
-
-async function _cropProgHeroDevice(device, file) {
-  const pId = document.getElementById('program-select').value;
-  if (!pId) { toast('Select a program first', true); return; }
-  const cfg = _progHeroCropConfigs[device];
-  const pid = pId.replace(/-/g, '_');
-  const dbKey = 'prog_' + pid + '_' + device;
-  openCropModal(file, cfg.label, async (fileOrBlob) => {
-    const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
-    toast('Uploading ' + device + ' crop…');
-    try {
-      const url = await uploadImageFile(uploadFile, 'siteImages/prog_' + pid + '_' + device + '_' + Date.now());
-      if (url) {
-        document.getElementById(cfg.previewId).src = url;
-        await saveSiteImgToDb(dbKey, url);
-        toast('Program hero ' + device + ' updated live! 🎉');
-};
 
 function triggerProgHeroCrop(device) {
   const pId = document.getElementById('program-select').value;
