@@ -115,9 +115,9 @@ ul { list-style: none; }
              border-color 0.5s ease, backdrop-filter 0.5s ease;
 }
 .nav-container {
- max-width: 1200px;        /* ← Added max-width for content gap */
- margin: 0 auto;            /* ← Centers with auto margins */
- padding: 18px 32px;        /* ← Keeps side padding for desktop */
+ max-width: 100%;
+ margin: 0;
+ padding: 18px 32px;
  display: flex;
  align-items: center;
  justify-content: space-between;
