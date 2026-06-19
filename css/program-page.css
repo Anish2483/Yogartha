@@ -222,9 +222,14 @@ ul { list-style: none; }
   display: flex;
   align-items: flex-end;
   padding-bottom: 60px;
-  padding-top: 120px;
+  padding-top: 120px;         /* Space for fixed navbar */
   overflow: hidden;
   background: var(--dark-bg);
+}
+.program-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: none;
 }
 .program-hero-bg {
   position: absolute;
