@@ -82,6 +82,19 @@
  /* ===================== DASHBOARD ===================== */
  #dashboard { display:none; }
 
+ /* ---- AUTH LOADING GATE ---- */
+ #auth-loading {
+  position:fixed; inset:0; background:var(--bg); z-index:9999;
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px;
+ }
+ .auth-spinner {
+  width:40px; height:40px; border-radius:50%;
+  border:3px solid rgba(107,16,32,0.15); border-top-color:var(--maroon);
+  animation:spin .8s linear infinite;
+ }
+ @keyframes spin { to { transform:rotate(360deg); } }
+ .auth-loading-text { font-size:.8rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase; }
+
  /* ---- DESKTOP SIDEBAR ---- */
  .sidebar {
  position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w);
@@ -383,8 +396,14 @@
 </head>
 <body>
 
+<!-- ===== AUTH LOADING GATE (shown until Firebase resolves) ===== -->
+<div id="auth-loading">
+ <div class="auth-spinner"></div>
+ <span class="auth-loading-text">Checking authentication…</span>
+</div>
+
 <!-- ===== LOGIN ===== -->
-<div id="login-screen">
+<div id="login-screen" style="display:none;">
  <div class="login-box">
  <img src="images/yogartha_logo.png" alt="Yogartha" style="width:180px; height:auto; margin:0 auto 24px; display:block;" />
  <input class="login-field" type="email" id="login-email" placeholder="Email address" autocomplete="email" />
@@ -1386,24 +1405,57 @@ function deleteEnquiry(key) {
 }
 
 function doLogout() {
- if(isFirebase)firebase.auth().signOut();
+ if(isFirebase) firebase.auth().signOut();
  document.getElementById("dashboard").style.display="none";
  document.getElementById("login-screen").style.display="flex";
 }
-document.addEventListener("DOMContentLoaded",()=>{
- document.getElementById("login-pass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
- document.getElementById("new-testi-photo").addEventListener("input",function(){
- const url=this.value.trim();
- if(url){pendingTestiPhotoUrl=url;showTestiPhotoPreview(url,"URL photo");}
+
+function _hideAuthGate() {
+ const gate = document.getElementById("auth-loading");
+ if (gate) gate.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+ document.getElementById("login-pass").addEventListener("keydown", e => { if(e.key==="Enter") doLogin(); });
+ document.getElementById("new-testi-photo").addEventListener("input", function() {
+  const url = this.value.trim();
+  if(url) { pendingTestiPhotoUrl=url; showTestiPhotoPreview(url,"URL photo"); }
  });
 
- // Auto-login if already authenticated
+ // ---- SECURE AUTH GATE ----
+ // Only Firebase can open the dashboard. The loading screen hides everything
+ // until onAuthStateChanged fires. If not logged in, show login. If logged in,
+ // go straight to dashboard. No bypass is possible.
  if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
-  firebase.auth().onAuthStateChanged(user => {
-   if (user) {
-    enterDash(true);
-   }
-  });
+  // Use SESSION persistence — login won't carry over after browser is fully closed
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+   .then(() => {
+    firebase.auth().onAuthStateChanged(user => {
+     _hideAuthGate();
+     if (user) {
+      enterDash(true);
+     } else {
+      // Not logged in — show the login screen
+      document.getElementById("login-screen").style.display = "flex";
+     }
+    });
+   })
+   .catch(() => {
+    // setPersistence failed (e.g. private browsing) — still gate properly
+    firebase.auth().onAuthStateChanged(user => {
+     _hideAuthGate();
+     if (user) {
+      enterDash(true);
+     } else {
+      document.getElementById("login-screen").style.display = "flex";
+     }
+    });
+   });
+ } else {
+  // Firebase failed to load entirely — show error on login screen, never open dashboard
+  _hideAuthGate();
+  document.getElementById("login-screen").style.display = "flex";
+  document.getElementById("login-err").textContent = "Firebase failed to initialize. Check your connection or disable adblockers.";
  }
 });
 
