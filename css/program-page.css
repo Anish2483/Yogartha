@@ -243,7 +243,7 @@ ul { list-style: none; }
 }
 .program-hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(17,16,8,0.75) 0%, rgba(17,16,8,0.35) 50%, rgba(17,16,8,0.1) 100%);
+  background: linear-gradient(to top, rgba(17,16,8,0.5) 0%, rgba(17,16,8,0.2) 50%, rgba(17,16,8,0.05) 100%);
 }
 .program-hero-top-bar {
   position: absolute;
