@@ -1558,23 +1558,23 @@ ul { list-style: none; }
  .hatha-intro-inner { grid-template-columns: 1fr; gap: 40px; }
  .hatha-intro-text { padding-right: 0; }
 }
-/* ===== PHONE & TABLET NAVBAR (≤1024px) ===== */
+/* ===== PHONE & TABLET NAVBAR (<=1024px) ===== */
 @media (max-width: 768px) {
  /* Hatha intro: single column, iframe on mobile */
  .hatha-intro-inner { grid-template-columns: 1fr; gap: 32px; }
  .hatha-intro-text { padding-right: 0; }
  .yt-desktop-only { display: none !important; }
  .yt-mobile-only  { display: block !important; }
+ /* REWRITTEN MOBILE NAVBAR SPECIFICALLY MATCHING PHONE VIEW DIMENSIONS */
  nav#navbar {
   width: 100% !important;
   top: 0 !important;
-  padding: 14px 0 0 0 !important;
+  padding: 14px 0 0 0 !important; /* Total unscrolled height becomes 46px (14px + 32px logo) */
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   border-bottom: 1px solid transparent !important;
-  transition: background 0.4s ease, box-shadow 0.4s ease,
-              border-color 0.4s ease, backdrop-filter 0.4s ease !important;
+  transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease !important;
  }
  nav#navbar.scrolled {
   background: rgba(17,16,8,0.97) !important;
@@ -1586,9 +1586,15 @@ ul { list-style: none; }
  }
  .nav-container {
   padding: 0 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
  }
- /* Logo — compact to fit inside normalized bar */
- .nav-custom-logo { height: 32px !important; }
+ /* Logo - exactly 32px to match offering pages */
+ .nav-custom-logo { 
+  height: 32px !important; 
+  width: auto !important; 
+ }
  /* Full-screen overlay menu — instant display toggle, zero lag */
  .nav-links {
   display: none;
