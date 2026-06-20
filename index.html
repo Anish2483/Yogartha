@@ -777,8 +777,8 @@
     if (!grid) return;
     const today = new Date(); today.setHours(0,0,0,0);
     const upcoming = batches
-      .filter(b => b.endDate && new Date(b.endDate + 'T00:00:00') >= today)
-      .sort((a,b) => a.startDate.localeCompare(b.startDate));
+      .filter(b => b && b.endDate && new Date(b.endDate + 'T00:00:00') >= today)
+      .sort((a,b) => (a.startDate || "").localeCompare(b.startDate || ""));
 
     if (!upcoming.length) {
       grid.innerHTML =
@@ -812,10 +812,10 @@
       const color = b.color || 'saffron';
       return '<div class="batch-card" style="animation-delay:' + (i * 0.07) + 's">' +
         '<div class="batch-card-top">' +
-          '<span class="batch-pill ' + color + '">' + b.program + '</span>' +
+          '<span class="batch-pill ' + color + '">' + (b.program || "Program") + '</span>' +
           '<span class="batch-dates">' + fmtDate(b.startDate) + ' &ndash; ' + fmtDate(b.endDate) + '</span>' +
         '</div>' +
-        '<p class="batch-name">' + b.program + '</p>' +
+        '<p class="batch-name">' + (b.program || "Program") + '</p>' +
         '<div class="batch-meta">' +
           '<span class="batch-meta-item">' + clockIcon + ' ' + (b.time || 'Time TBA') + '</span>' +
           '<span class="batch-meta-item">' + calIcon + ' ' + days + ' day' + (days !== 1 ? 's' : '') + '</span>' +
@@ -833,6 +833,9 @@
     firebase.database().ref('batches').on('value', snap => {
      const raw = snap.val();
      renderBatches(raw ? Object.values(raw) : []);
+    }, err => {
+     console.error("Firebase read failed:", err);
+     renderBatches([]);
     });
    } else {
     // No Firebase connected — show empty state after tiny delay
