@@ -50,8 +50,48 @@ html, body {
  .section-title { font-size: 1.9rem; }
 
  /* ---------- NAV (mobile/tablet) ---------- */
- /* Completely removed to ensure 100% identical replica of the offering pages' navbar from style.css */
-
+ nav#navbar {
+  height: 72.8px !important;
+  padding: 0 !important; /* Reset padding to strictly rely on fixed height */
+  display: flex !important;
+  align-items: center !important;
+ }
+ nav#navbar.scrolled {
+  height: 72.8px !important; /* Keep it the exact same height when scrolled */
+  padding: 0 !important;
+ }
+ .nav-container {
+  height: 72.8px !important;
+  width: 100% !important;
+  padding: 0 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+ }
+ .nav-logo {
+  display: flex !important;
+  align-items: center !important;
+  height: 48px !important;
+ }
+ .nav-custom-logo { 
+  height: 48px !important; 
+  width: auto !important; 
+  display: block !important;
+ }
+ .hamburger {
+  width: 28px !important;
+  height: 26px !important;
+  padding: 4px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  box-sizing: border-box !important;
+ }
+ .hamburger span {
+  width: 20px !important;
+  height: 2px !important;
+  display: block !important;
+ }
  /* ---------- HERO ---------- */
  .hero {
  min-height: 100svh;
