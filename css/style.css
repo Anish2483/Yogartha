@@ -1595,20 +1595,27 @@ ul { list-style: none; }
   height: 32px !important; 
   width: auto !important; 
  }
- /* Full-screen overlay menu — instant display toggle, zero lag */
+ /* Elegant right-aligned floating menu */
  .nav-links {
   display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(14,9,4,0.97);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  position: fixed !important;
+  top: 78px !important;
+  right: 3px !important; /* Pushed 5px closer to the right, leaving an ultra-tight 3px gap */
+  left: auto !important;
+  bottom: auto !important;
+  width: 240px !important;
+  max-height: calc(100vh - 100px) !important;
+  overflow-y: auto !important;
+  background: rgba(14,9,4,0.98) !important;
+  border: 1px solid rgba(212,160,60,0.15) !important;
+  border-radius: 16px !important; /* Restored all 4 beautifully rounded corners */
+  padding: 20px 16px !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8) !important;
+  z-index: 10001 !important;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start !important;
   align-items: center;
   gap: 8px;
-  z-index: 10001;
-  padding: 40px 24px;
   animation: none;
  }
  .nav-links.open { display: flex; }

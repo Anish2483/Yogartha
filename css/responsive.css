@@ -59,6 +59,8 @@ html, body {
  nav#navbar.scrolled {
   height: 72.8px !important; /* Keep it the exact same height when scrolled */
   padding: 0 !important;
+  backdrop-filter: none !important; /* CRITICAL: Prevents trapping the fixed full-screen menu */
+  -webkit-backdrop-filter: none !important;
  }
  .nav-container {
   height: 72.8px !important;

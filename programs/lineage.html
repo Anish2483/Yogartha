@@ -10,6 +10,27 @@
  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet" />
  <link rel="stylesheet" href="../css/program-page.css" />
  <link rel="stylesheet" href="../css/icons.css" />
+ <style>
+  /* Phone view only: Align hero content to the lower left */
+  @media (max-width: 768px) {
+    .program-hero {
+      margin-top: 44px !important; /* Force exact 44px start from top */
+      align-items: flex-end !important;
+      padding-bottom: 24px !important;
+    }
+    .program-hero-content {
+      transform: scale(0.75) !important;
+      transform-origin: left bottom !important;
+      margin-left: 0 !important;
+      margin-bottom: 0 !important;
+      text-align: left !important;
+    }
+    .program-hero .container {
+      padding-left: 16px !important;
+      margin: 0 !important;
+    }
+  }
+ </style>
 </head>
 <body data-page-id="lineage">
  <div id="loader">
