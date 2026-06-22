@@ -1028,7 +1028,7 @@
  <div class="toggle" id="ann-toggle" onclick="toggleAnn()"></div>
  <span class="toggle-label" id="ann-label">Banner is OFF</span>
  </div>
- <div class="form-group"><label>Announcement Text</label><input type="text" id="ann-text" placeholder="e.g. Studio closed on 15th August — Independence Day" /></div>
+ <div class="form-group"><label>Announcement Text <span id="ann-warning" style="display:none; color:#d32f2f; font-size:0.75rem; margin-left:10px; font-weight:600;">Max limit reached!</span></label><input type="text" id="ann-text" placeholder="e.g. Studio closed on 15th August - Independence Day" maxlength="100" oninput="document.getElementById('ann-warning').style.display = this.value.length >= 100 ? 'inline' : 'none';" /></div>
  <button class="btn btn-primary btn-full" onclick="saveAnnouncement()">Save &amp; Publish</button>
  </div>
  <div class="card">
