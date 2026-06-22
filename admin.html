@@ -2403,7 +2403,8 @@ async function addCorporateGallery() {
             toast("Corporate photo added");
         }
     } catch(e) {
-        toast("Upload failed", true);
+        console.error("Corporate Gallery Upload Error:", e);
+        toast("Upload failed: " + (e.message || e), true);
     }
     btn.disabled = false; btn.textContent = "+ Upload to Corporate Gallery";
 }
@@ -2445,7 +2446,8 @@ async function addCorporateReview() {
             toast("Corporate review added");
         } else toast("Demo mode - connect Firebase");
     } catch(e) {
-        toast("Upload failed", true);
+        console.error("Corporate Review Upload Error:", e);
+        toast("Upload failed: " + (e.message || e), true);
     }
     btn.disabled = false; btn.textContent = "+ Add Corporate Review";
 }
