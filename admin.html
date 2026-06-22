@@ -1081,10 +1081,10 @@
   <div class="card">
    <div class="card-title">Corporate Gallery</div>
    <div class="form-group">
-    <label>Add New Photo (URL)</label>
-    <input type="text" id="corp-gallery-url" placeholder="https://i.ibb.co/..." />
+    <label>Add New Photo</label>
+    <input type="file" id="corp-gallery-file" accept="image/*" />
    </div>
-   <button class="btn btn-primary" onclick="addCorporateGallery()">+ Add to Corporate Gallery</button>
+   <button class="btn btn-primary" onclick="addCorporateGallery()" id="btn-corp-gallery">+ Upload to Corporate Gallery</button>
    <div class="table-container" style="margin-top:20px">
     <table class="table">
      <thead><tr><th>Preview</th><th>URL</th><th>Action</th></tr></thead>
@@ -1097,8 +1097,10 @@
    <div class="card-title">Corporate Reviews</div>
    <div class="form-group"><label>Client Name / Organization Name</label><input type="text" id="corp-review-name" placeholder="e.g. Rahul Sharma" /></div>
    <div class="form-group"><label>Company / Designation (Optional)</label><input type="text" id="corp-review-company" placeholder="e.g. HR Manager, TechCorp" /></div>
+   <div class="form-group"><label>Program Information</label><input type="text" id="corp-review-program" placeholder="e.g. Inner Engineering for Leadership" /></div>
+   <div class="form-group"><label>Organization Photo (Optional)</label><input type="file" id="corp-review-file" accept="image/*" /></div>
    <div class="form-group"><label>Review Text</label><textarea id="corp-review-text" rows="3" placeholder="Their feedback..."></textarea></div>
-   <button class="btn btn-primary" onclick="addCorporateReview()">+ Add Corporate Review</button>
+   <button class="btn btn-primary" onclick="addCorporateReview()" id="btn-corp-review">+ Add Corporate Review</button>
    
    <div class="table-container" style="margin-top:20px">
     <table class="table">
@@ -2371,22 +2373,39 @@ function renderCorpReviews() {
     if(corpReviews.length === 0) { tb.innerHTML="<tr><td colspan='3' style='text-align:center;color:var(--muted)'>No corporate reviews yet</td></tr>"; return; }
     corpReviews.forEach((r, i) => {
         tb.innerHTML += `<tr>
-         <td><strong>${r.name}</strong><br><span style="font-size:0.75rem;color:var(--muted)">${r.company||''}</span></td>
+         <td>
+          <div style="display:flex; align-items:center; gap:10px;">
+           ${r.photo_url ? `<img src="${r.photo_url}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">` : ''}
+           <div>
+            <strong>${r.name}</strong><br>
+            <span style="font-size:0.75rem;color:var(--muted)">${r.company||''}</span><br>
+            <span style="font-size:0.7rem;color:#F26722">${r.program||''}</span>
+           </div>
+          </div>
+         </td>
          <td><div style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.8rem;">${r.text}</div></td>
          <td><button class="btn btn-danger btn-sm" onclick="delCorpReview('${r.id}')">Del</button></td>
         </tr>`;
     });
 }
 
-function addCorporateGallery() {
-    const url = document.getElementById("corp-gallery-url").value.trim();
-    if(!url) return toast("Enter image URL", true);
-    if(isFirebase) {
-        db.ref('corporate_gallery').push(url).then(() => {
-            document.getElementById("corp-gallery-url").value = "";
+async function addCorporateGallery() {
+    const fileInput = document.getElementById("corp-gallery-file");
+    const file = fileInput.files[0];
+    if(!file) return toast("Select an image first", true);
+    const btn = document.getElementById("btn-corp-gallery");
+    btn.disabled = true; btn.textContent = "Uploading...";
+    try {
+        const url = await uploadImageFile(file, "corporate_gallery");
+        if(isFirebase && url) {
+            await db.ref('corporate_gallery').push(url);
+            fileInput.value = "";
             toast("Corporate photo added");
-        });
-    } else toast("Demo mode - connect Firebase");
+        }
+    } catch(e) {
+        toast("Upload failed", true);
+    }
+    btn.disabled = false; btn.textContent = "+ Upload to Corporate Gallery";
 }
 
 function delCorpGallery(id) {
@@ -2396,19 +2415,39 @@ function delCorpGallery(id) {
     }
 }
 
-function addCorporateReview() {
+async function addCorporateReview() {
     const name = document.getElementById("corp-review-name").value.trim();
     const company = document.getElementById("corp-review-company").value.trim();
+    const program = document.getElementById("corp-review-program").value.trim();
     const text = document.getElementById("corp-review-text").value.trim();
+    const fileInput = document.getElementById("corp-review-file");
+    const file = fileInput.files[0];
+    
     if(!name || !text) return toast("Name and Review are required", true);
-    if(isFirebase) {
-        db.ref('corporate_reviews').push({name, company, text}).then(() => {
+    
+    const btn = document.getElementById("btn-corp-review");
+    btn.disabled = true; btn.textContent = "Processing...";
+    
+    try {
+        let photo_url = "";
+        if(file) {
+            btn.textContent = "Uploading photo...";
+            photo_url = await uploadImageFile(file, "corporate_reviews");
+        }
+        
+        if(isFirebase) {
+            await db.ref('corporate_reviews').push({name, company, program, photo_url, text});
             document.getElementById("corp-review-name").value = "";
             document.getElementById("corp-review-company").value = "";
+            document.getElementById("corp-review-program").value = "";
             document.getElementById("corp-review-text").value = "";
+            fileInput.value = "";
             toast("Corporate review added");
-        });
-    } else toast("Demo mode - connect Firebase");
+        } else toast("Demo mode - connect Firebase");
+    } catch(e) {
+        toast("Upload failed", true);
+    }
+    btn.disabled = false; btn.textContent = "+ Add Corporate Review";
 }
 
 function delCorpReview(id) {

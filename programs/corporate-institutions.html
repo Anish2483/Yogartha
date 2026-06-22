@@ -134,9 +134,17 @@
        const container = document.getElementById('corp-testimonials-grid');
        if(reviews.length > 0) {
          document.getElementById('corporate-testimonials').style.display = 'block';
-         container.innerHTML = reviews.map(r => 
-           '<div class="testi-card" style="background:#fff; padding:20px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05);"><div class="testi-content" style="font-size:0.95rem; line-height:1.6; color:#4a2c0a; margin-bottom:15px; font-style:italic;">"'+r.text+'"</div><div class="testi-author"><div class="testi-author-info"><h4 style="margin:0; font-size:1rem; color:#F26722;">'+r.name+'</h4><p style="margin:0; font-size:0.8rem; color:#888;">'+(r.company||'')+'</p></div></div></div>'
-         ).join('');
+         container.innerHTML = reviews.map(r => {
+           let imgHtml = '';
+           if (r.photo_url) {
+             imgHtml = '<div style="margin-right:15px; flex-shrink:0;"><img src="'+r.photo_url+'" style="width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid #eee;"></div>';
+           }
+           let progHtml = '';
+           if (r.program) {
+             progHtml = '<p style="margin:4px 0 0 0; font-size:0.75rem; color:#F26722; font-weight:600;">'+r.program+'</p>';
+           }
+           return '<div class="testi-card" style="background:#fff; padding:25px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.05); display:flex; flex-direction:column; justify-content:space-between;"><div class="testi-content" style="font-size:0.95rem; line-height:1.6; color:#4a2c0a; margin-bottom:20px; font-style:italic; flex-grow:1;">"'+r.text+'"</div><div class="testi-author" style="display:flex; align-items:center; border-top:1px solid #f0f0f0; padding-top:15px;">'+imgHtml+'<div class="testi-author-info"><h4 style="margin:0; font-size:1rem; color:#333;">'+r.name+'</h4><p style="margin:2px 0 0 0; font-size:0.8rem; color:#777;">'+(r.company||'')+'</p>'+progHtml+'</div></div></div>';
+         }).join('');
        }
       }
      });
