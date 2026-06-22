@@ -440,6 +440,9 @@
  <button class="nav-item" onclick="openGalleryTab('programs',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="M3 15h6"/><path d="M3 18h6"/></svg><span>Program Galleries</span>
  </button>
+ <button class="nav-item" onclick="showPanel('corporate',this)">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/></svg><span>Corporate Yoga</span>
+ </button>
  <button class="nav-item" onclick="showPanel('testimonials',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Testimonials</span>
  </button>
@@ -1069,6 +1072,41 @@
  </div>
  <div id="enquiry-list"><p style="color:var(--muted);font-size:.88rem;">Loading enquiries…</p></div>
  </div>
+ </div>
+
+<!-- ===== CORPORATE YOGA ===== -->
+ <div class="panel" id="panel-corporate">
+  <div class="page-header"><div class="page-title">Corporate & Institutions</div><div class="page-desc">Manage the dedicated gallery and reviews for corporate yoga.</div></div>
+  
+  <div class="card">
+   <div class="card-title">Corporate Gallery</div>
+   <div class="form-group">
+    <label>Add New Photo (URL)</label>
+    <input type="text" id="corp-gallery-url" placeholder="https://i.ibb.co/..." />
+   </div>
+   <button class="btn btn-primary" onclick="addCorporateGallery()">+ Add to Corporate Gallery</button>
+   <div class="table-container" style="margin-top:20px">
+    <table class="table">
+     <thead><tr><th>Preview</th><th>URL</th><th>Action</th></tr></thead>
+     <tbody id="corp-gallery-table"></tbody>
+    </table>
+   </div>
+  </div>
+
+  <div class="card">
+   <div class="card-title">Corporate Reviews</div>
+   <div class="form-group"><label>Client Name / Organization Name</label><input type="text" id="corp-review-name" placeholder="e.g. Rahul Sharma" /></div>
+   <div class="form-group"><label>Company / Designation (Optional)</label><input type="text" id="corp-review-company" placeholder="e.g. HR Manager, TechCorp" /></div>
+   <div class="form-group"><label>Review Text</label><textarea id="corp-review-text" rows="3" placeholder="Their feedback..."></textarea></div>
+   <button class="btn btn-primary" onclick="addCorporateReview()">+ Add Corporate Review</button>
+   
+   <div class="table-container" style="margin-top:20px">
+    <table class="table">
+     <thead><tr><th>Client</th><th>Review</th><th>Action</th></tr></thead>
+     <tbody id="corp-reviews-table"></tbody>
+    </table>
+   </div>
+  </div>
  </div>
 
  <!-- ===== IMGBB SETUP ===== -->
@@ -2241,6 +2279,7 @@ function saveContact(){
 // ---- FIREBASE LOAD ----
 function loadFirebase(){
  const db=firebase.database();
+ loadCorporateData();
  db.ref('batches').on('value', snap => { batches = snap.val() || {}; renderBatchListAdmin(); });
  db.ref("testimonials").once("value").then(s=>{if(s.val()){testimonials=Object.values(s.val());renderTestiList();}});
  switchAdminGallery();
@@ -2288,6 +2327,95 @@ function toast(msg,isErr){
  t.style.background=isErr?"#c0392b":"#27ae60";
  t.classList.add("show");
  setTimeout(()=>t.classList.remove("show"),3000);
+}
+
+// ---- CORPORATE YOGA ISOLATED LOGIC ----
+let corpGallery = [];
+let corpReviews = [];
+
+function loadCorporateData() {
+    if(isFirebase) {
+        db.ref('corporate_gallery').on('value', s => {
+            if(s.val()) {
+                corpGallery = Object.keys(s.val()).map(k => ({id: k, url: s.val()[k]}));
+            } else { corpGallery = []; }
+            renderCorpGallery();
+        });
+        db.ref('corporate_reviews').on('value', s => {
+            if(s.val()) {
+                corpReviews = Object.keys(s.val()).map(k => ({id: k, ...s.val()[k]}));
+            } else { corpReviews = []; }
+            renderCorpReviews();
+        });
+    }
+}
+
+function renderCorpGallery() {
+    const tb = document.getElementById("corp-gallery-table");
+    if(!tb) return;
+    tb.innerHTML = "";
+    if(corpGallery.length === 0) { tb.innerHTML="<tr><td colspan='3' style='text-align:center;color:var(--muted)'>No corporate photos yet</td></tr>"; return; }
+    corpGallery.forEach((img, i) => {
+        tb.innerHTML += `<tr>
+         <td><img src="${img.url}" style="width:50px;height:50px;object-fit:cover;border-radius:4px;" /></td>
+         <td><div style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.8rem;">${img.url}</div></td>
+         <td><button class="btn btn-danger btn-sm" onclick="delCorpGallery('${img.id}')">Del</button></td>
+        </tr>`;
+    });
+}
+
+function renderCorpReviews() {
+    const tb = document.getElementById("corp-reviews-table");
+    if(!tb) return;
+    tb.innerHTML = "";
+    if(corpReviews.length === 0) { tb.innerHTML="<tr><td colspan='3' style='text-align:center;color:var(--muted)'>No corporate reviews yet</td></tr>"; return; }
+    corpReviews.forEach((r, i) => {
+        tb.innerHTML += `<tr>
+         <td><strong>${r.name}</strong><br><span style="font-size:0.75rem;color:var(--muted)">${r.company||''}</span></td>
+         <td><div style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.8rem;">${r.text}</div></td>
+         <td><button class="btn btn-danger btn-sm" onclick="delCorpReview('${r.id}')">Del</button></td>
+        </tr>`;
+    });
+}
+
+function addCorporateGallery() {
+    const url = document.getElementById("corp-gallery-url").value.trim();
+    if(!url) return toast("Enter image URL", true);
+    if(isFirebase) {
+        db.ref('corporate_gallery').push(url).then(() => {
+            document.getElementById("corp-gallery-url").value = "";
+            toast("Corporate photo added");
+        });
+    } else toast("Demo mode - connect Firebase");
+}
+
+function delCorpGallery(id) {
+    if(confirm("Delete this photo?")) {
+        if(isFirebase) db.ref('corporate_gallery/'+id).remove().then(()=>toast("Deleted"));
+        else toast("Demo mode");
+    }
+}
+
+function addCorporateReview() {
+    const name = document.getElementById("corp-review-name").value.trim();
+    const company = document.getElementById("corp-review-company").value.trim();
+    const text = document.getElementById("corp-review-text").value.trim();
+    if(!name || !text) return toast("Name and Review are required", true);
+    if(isFirebase) {
+        db.ref('corporate_reviews').push({name, company, text}).then(() => {
+            document.getElementById("corp-review-name").value = "";
+            document.getElementById("corp-review-company").value = "";
+            document.getElementById("corp-review-text").value = "";
+            toast("Corporate review added");
+        });
+    } else toast("Demo mode - connect Firebase");
+}
+
+function delCorpReview(id) {
+    if(confirm("Delete this review?")) {
+        if(isFirebase) db.ref('corporate_reviews/'+id).remove().then(()=>toast("Deleted"));
+        else toast("Demo mode");
+    }
 }
 </script>
 </body>
