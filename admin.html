@@ -2337,13 +2337,13 @@ let corpReviews = [];
 
 function loadCorporateData() {
     if(isFirebase) {
-        db.ref('corporate_gallery').on('value', s => {
+        firebase.database().ref('corporate_gallery').on('value', s => {
             if(s.val()) {
                 corpGallery = Object.keys(s.val()).map(k => ({id: k, url: s.val()[k]}));
             } else { corpGallery = []; }
             renderCorpGallery();
         });
-        db.ref('corporate_reviews').on('value', s => {
+        firebase.database().ref('corporate_reviews').on('value', s => {
             if(s.val()) {
                 corpReviews = Object.keys(s.val()).map(k => ({id: k, ...s.val()[k]}));
             } else { corpReviews = []; }
@@ -2398,7 +2398,7 @@ async function addCorporateGallery() {
     try {
         const url = await uploadImageFile(file, "corporate_gallery");
         if(isFirebase && url) {
-            await db.ref('corporate_gallery').push(url);
+            await firebase.database().ref('corporate_gallery').push(url);
             fileInput.value = "";
             toast("Corporate photo added");
         }
@@ -2411,7 +2411,7 @@ async function addCorporateGallery() {
 
 function delCorpGallery(id) {
     if(confirm("Delete this photo?")) {
-        if(isFirebase) db.ref('corporate_gallery/'+id).remove().then(()=>toast("Deleted"));
+        if(isFirebase) firebase.database().ref('corporate_gallery/'+id).remove().then(()=>toast("Deleted"));
         else toast("Demo mode");
     }
 }
@@ -2437,7 +2437,7 @@ async function addCorporateReview() {
         }
         
         if(isFirebase) {
-            await db.ref('corporate_reviews').push({name, company, program, photo_url, text});
+            await firebase.database().ref('corporate_reviews').push({name, company, program, photo_url, text});
             document.getElementById("corp-review-name").value = "";
             document.getElementById("corp-review-company").value = "";
             document.getElementById("corp-review-program").value = "";
@@ -2454,7 +2454,7 @@ async function addCorporateReview() {
 
 function delCorpReview(id) {
     if(confirm("Delete this review?")) {
-        if(isFirebase) db.ref('corporate_reviews/'+id).remove().then(()=>toast("Deleted"));
+        if(isFirebase) firebase.database().ref('corporate_reviews/'+id).remove().then(()=>toast("Deleted"));
         else toast("Demo mode");
     }
 }
