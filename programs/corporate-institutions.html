@@ -119,10 +119,11 @@
       if (data) {
        const urls = Object.values(data);
        const container = document.getElementById('corp-gallery-masonry');
-       if(urls.length > 0) {
-         document.getElementById('corporate-gallery').style.display = 'block';
-         container.innerHTML = urls.map(url => '<div class="gallery-item"><img src="'+url+'" alt="Corporate Yoga" loading="lazy"></div>').join('');
-       }
+         if(urls.length > 0) {
+           document.getElementById('corporate-gallery').style.display = 'block';
+           const galleryHtml = urls.map(url => '<div class="gallery-masonry-item"><img src="'+url+'" alt="Corporate Yoga" loading="lazy"></div>').join('');
+           container.innerHTML = '<div class="gallery-track">' + galleryHtml + '</div>';
+         }
       }
      });
 
