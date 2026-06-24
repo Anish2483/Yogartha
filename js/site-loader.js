@@ -183,6 +183,25 @@
   document.body.appendChild(bar);
  }
 
+// ---- Apply contact from Firebase ----
+ function applyContact(c) {
+  if (!c) return;
+  const update = (id, val) => { const el = document.getElementById(id); if (el && val) el.innerHTML = val.replace(/\n/g, "<br/>"); };
+  const updateT = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
+  update("ui-contact-address", c.address);
+  updateT("ui-contact-phone", c.phone);
+  updateT("ui-contact-email", c.email);
+  if (c.open && c.close) {
+   const t1 = c.open.length <= 5 ? c.open + " AM" : c.open;
+   const t2 = c.close.length <= 5 ? c.close + " PM" : c.close;
+   updateT("ui-contact-time", `Mon-Sat: ${t1} - ${t2}`);
+  }
+  
+  update("ui-footer-address", c.address);
+  updateT("ui-footer-phone", c.phone);
+  updateT("ui-footer-email", c.email);
+ }
+
  // ---- Apply hero / about / guru images from Firebase ----
  function applyImages(imgs) {
   if (!imgs) return;
@@ -288,7 +307,8 @@
    YG.get("announcement"),
    YG.get("siteImages"),
    YG.get("teacher"),
-  ]).then(([schedule, gallery, testimonials, announcement, siteImages, teacher]) => {
+   YG.get("contact"),
+  ]).then(([schedule, gallery, testimonials, announcement, siteImages, teacher, contact]) => {
    if (schedule.value)      renderSchedule(schedule.value);
    if (gallery.value) {
     const items = Array.isArray(gallery.value) ? gallery.value : Object.values(gallery.value);
@@ -298,6 +318,7 @@
    if (announcement.value)  renderAnnouncement(announcement.value);
    if (siteImages.value)    applyImages(siteImages.value);
    if (teacher.value)       applyTeacher(teacher.value);
+   if (contact.value)       applyContact(contact.value);
   });
 
   // Monitor connection state — show/hide offline banner
