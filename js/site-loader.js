@@ -341,6 +341,40 @@
   });
  }
 
+ // ---- Apply siteConfig (stats, lineage toggle, credentials) ----
+ function applySiteConfig(cfg) {
+  if (!cfg) return;
+  // Stats
+  if (cfg.stats) {
+   const s = cfg.stats;
+   if (s.hours)       { const el = document.getElementById('stat-hours');        if(el) el.textContent = s.hours; }
+   if (s.hoursLbl)    { const el = document.getElementById('stat-hours-lbl');    if(el) el.textContent = s.hoursLbl; }
+   if (s.programs)    { const el = document.getElementById('stat-programs');     if(el) el.textContent = s.programs; }
+   if (s.programsLbl) { const el = document.getElementById('stat-programs-lbl'); if(el) el.textContent = s.programsLbl; }
+   if (s.years)       { const el = document.getElementById('stat-years');        if(el) el.textContent = s.years; }
+   if (s.yearsLbl)    { const el = document.getElementById('stat-years-lbl');    if(el) el.textContent = s.yearsLbl; }
+  }
+  // Lineage toggle
+  const lineageBtn = document.getElementById('lineage-btn');
+  const lineageTag = document.getElementById('lineage-tagline');
+  if (lineageBtn && lineageTag) {
+   if (cfg.showLineage === true) {
+    lineageBtn.style.display = '';
+    lineageTag.style.display = 'none';
+   } else {
+    lineageBtn.style.display = 'none';
+    lineageTag.style.display = 'block';
+   }
+  }
+  // Credentials
+  if (cfg.credentials && Array.isArray(cfg.credentials)) {
+   cfg.credentials.forEach((val, i) => {
+    const el = document.getElementById('cred-' + (i + 1));
+    if (el && val) el.textContent = ' ' + val;
+   });
+  }
+ }
+
  // ---- Main loader — batched Firebase reads via YG connection manager ----
  function loadFromFirebase() {
   if (typeof YG === "undefined") {
@@ -360,7 +394,8 @@
    YG.get("siteImages"),
    YG.get("teacher"),
    YG.get("contact"),
-  ]).then(([schedule, gallery, testimonials, announcement, siteImages, teacher, contact]) => {
+   YG.get("siteConfig"),
+  ]).then(([schedule, gallery, testimonials, announcement, siteImages, teacher, contact, siteConfig]) => {
    if (schedule.value)      renderSchedule(schedule.value);
    if (gallery.value) {
     const items = Array.isArray(gallery.value) ? gallery.value : Object.values(gallery.value);
@@ -371,6 +406,7 @@
    if (siteImages.value)    applyImages(siteImages.value);
    if (teacher.value)       applyTeacher(teacher.value);
    if (contact.value)       applyContact(contact.value);
+   if (siteConfig.value)    applySiteConfig(siteConfig.value);
   });
 
   // Monitor connection state — show/hide offline banner

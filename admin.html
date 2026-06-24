@@ -446,11 +446,11 @@
  <button class="nav-item" onclick="showPanel('testimonials',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Testimonials</span>
  </button>
- <button class="nav-item" onclick="showPanel('images',this)">
- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg><span>Site Images</span>
- </button>
- <button class="nav-item" onclick="showPanel('teacher',this)">
+<button class="nav-item" onclick="showPanel('teacher',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>About Teacher</span>
+ </button>
+ <button class="nav-item" onclick="showPanel('siteconfig',this)">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg><span>Site Config</span>
  </button>
  <button class="nav-item" onclick="showPanel('announcement',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Announcement</span>
@@ -747,7 +747,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 16:9 &nbsp;�&nbsp; Laptops &amp; monitors</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;&nbsp; Laptops &amp; monitors</div>
     <button class="siu-btn" onclick="triggerHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
@@ -763,7 +763,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;�&nbsp; iPads &amp; tablets</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;&nbsp; iPads &amp; tablets</div>
     <button class="siu-btn" onclick="triggerHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
@@ -779,7 +779,7 @@
    </div>
    <div class="siu-right">
     <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 9:16 &nbsp;�&nbsp; Phones (portrait)</div>
+    <div class="siu-hint">Ratio: 9:16 &nbsp;&nbsp; Phones (portrait)</div>
     <button class="siu-btn" onclick="triggerHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
@@ -922,7 +922,7 @@
    <div class="siu-left"><img id="prev-prog-hero-desktop" src="images/placeholder.png" alt="Desktop" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 3:1 &nbsp;�&nbsp; Laptops &amp; monitors</div>
+    <div class="siu-hint">Ratio: 3:1 &nbsp;&nbsp; Laptops &amp; monitors</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('desktop')">?? Upload &amp; Crop (3:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
@@ -935,7 +935,7 @@
    <div class="siu-left"><img id="prev-prog-hero-tablet" src="images/placeholder.png" alt="Tablet" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 2:1 &nbsp;�&nbsp; iPads &amp; tablets</div>
+    <div class="siu-hint">Ratio: 2:1 &nbsp;&nbsp; iPads &amp; tablets</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('tablet')">?? Upload &amp; Crop (2:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
@@ -948,7 +948,7 @@
    <div class="siu-left"><img id="prev-prog-hero-mobile" src="images/placeholder.png" alt="Mobile" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
     <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;�&nbsp; Phones (portrait)</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;&nbsp; Phones (portrait)</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('mobile')">?? Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
      <input type="url" id="url-prog-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
@@ -1020,6 +1020,95 @@
  <div class="form-group"><label>Full Bio</label><textarea id="teacher-bio" rows="5">Reeta's journey into yoga began as a personal transformation that led her to the Isha Yoga Center. After completing her teacher training, she established Yogartha as a dedicated space for authentic Hatha Yoga practice in the Himalayan foothills of.</textarea></div>
  <button class="btn btn-primary btn-full" onclick="saveTeacherInfo()">Save &amp; Publish Bio</button>
  </div>
+ </div>
+
+ <!-- ===== SITE CONFIG PANEL ===== -->
+ <div class="panel" id="panel-siteconfig">
+  <div class="page-header"><div class="page-title">Site Config</div><div class="page-desc">Edit stats, lineage button visibility, and teacher credential tags</div></div>
+
+  <!-- ── SECTION A: About Stats ── -->
+  <div class="card" style="margin-bottom:20px;">
+   <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+    <div class="siu-title" style="font-size:.95rem;font-weight:600;">📊 About Section Stats</div>
+    <div class="siu-hint" style="margin-top:4px;">These three numbers appear under the About section on the homepage.</div>
+   </div>
+   <div style="display:grid;gap:12px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;">
+     <div>
+      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 1 — Number</label>
+      <input class="form-input" id="cfg-hours" type="text" placeholder="e.g. 1750" value="1750" />
+     </div>
+     <div>
+      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 1 — Label</label>
+      <input class="form-input" id="cfg-hours-lbl" type="text" placeholder="e.g. hours of training" value="hours of training" />
+     </div>
+     <div>
+      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 2 — Number</label>
+      <input class="form-input" id="cfg-programs" type="text" placeholder="e.g. 50+" value="50+" />
+     </div>
+     <div>
+      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 2 — Label</label>
+      <input class="form-input" id="cfg-programs-lbl" type="text" placeholder="e.g. Programs Done" value="Programs Done" />
+     </div>
+     <div>
+      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 3 — Number</label>
+      <input class="form-input" id="cfg-years" type="text" placeholder="e.g. 8+" value="8+" />
+     </div>
+     <div>
+      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 3 — Label</label>
+      <input class="form-input" id="cfg-years-lbl" type="text" placeholder="e.g. Years" value="Years" />
+     </div>
+    </div>
+    <button class="btn btn-primary" onclick="saveSiteConfigStats()" style="margin-top:4px;">💾 Save Stats</button>
+   </div>
+  </div>
+
+  <!-- ── SECTION B: Lineage Toggle ── -->
+  <div class="card" style="margin-bottom:20px;">
+   <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+    <div class="siu-title" style="font-size:.95rem;font-weight:600;">🔗 Lineage Button</div>
+    <div class="siu-hint" style="margin-top:4px;">Toggle between the <strong>"Discover the Lineage"</strong> button and the elegant tagline <em>"Transmitted as a pure science."</em></div>
+   </div>
+   <div style="display:flex;align-items:center;gap:16px;padding:14px 0;">
+    <label class="toggle-switch" style="position:relative;display:inline-block;width:52px;height:28px;flex-shrink:0;">
+     <input type="checkbox" id="cfg-lineage-toggle" onchange="saveSiteConfigLineage()" style="opacity:0;width:0;height:0;" />
+     <span style="position:absolute;cursor:pointer;inset:0;background:var(--muted,#888);border-radius:28px;transition:.3s;" id="lineage-toggle-track"></span>
+     <span style="position:absolute;content:'';height:20px;width:20px;left:4px;bottom:4px;background:#fff;border-radius:50%;transition:.3s;" id="lineage-toggle-knob"></span>
+    </label>
+    <div>
+     <div style="font-size:.9rem;font-weight:600;color:var(--text);" id="lineage-toggle-label">Button is Hidden — Tagline showing</div>
+     <div style="font-size:.78rem;color:var(--muted);margin-top:2px;">Turn ON to show the Lineage button. Turn OFF to show the tagline.</div>
+    </div>
+   </div>
+   <p style="font-size:.78rem;color:var(--muted);margin-top:4px;">💡 Change saves instantly to Firebase.</p>
+  </div>
+
+  <!-- ── SECTION C: Teacher Credentials ── -->
+  <div class="card">
+   <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+    <div class="siu-title" style="font-size:.95rem;font-weight:600;">🎓 Teacher Credential Tags</div>
+    <div class="siu-hint" style="margin-top:4px;">Edit the 4 credential tags shown next to the teacher's photo.</div>
+   </div>
+   <div style="display:grid;gap:10px;">
+    <div>
+     <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Credential 1</label>
+     <input class="form-input" id="cfg-cred-1" type="text" placeholder="e.g. Classical Hatha Yoga Certified" value="Classical Hatha Yoga Certified" />
+    </div>
+    <div>
+     <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Credential 2</label>
+     <input class="form-input" id="cfg-cred-2" type="text" placeholder="e.g. 13+ Years in Finance" value="13+ Years in Finance" />
+    </div>
+    <div>
+     <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Credential 3</label>
+     <input class="form-input" id="cfg-cred-3" type="text" placeholder="e.g. Classical Singer & Dancer" value="Classical Singer & Dancer" />
+    </div>
+    <div>
+     <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Credential 4</label>
+     <input class="form-input" id="cfg-cred-4" type="text" placeholder="e.g. Himalayan Retreat Guide" value="Himalayan Retreat Guide" />
+    </div>
+    <button class="btn btn-primary" onclick="saveSiteConfigCredentials()" style="margin-top:4px;">💾 Save Credentials</button>
+   </div>
+  </div>
  </div>
 
  <!-- ===== ANNOUNCEMENT ===== -->
@@ -1449,6 +1538,81 @@ function doLogout() {
  if(isFirebase) firebase.auth().signOut();
  document.getElementById("dashboard").style.display="none";
  document.getElementById("login-screen").style.display="flex";
+}
+
+// ============================================================
+// SITE CONFIG FUNCTIONS
+// ============================================================
+
+function _updateLineageToggleUI(isOn) {
+ const track = document.getElementById('lineage-toggle-track');
+ const knob  = document.getElementById('lineage-toggle-knob');
+ const label = document.getElementById('lineage-toggle-label');
+ const chk   = document.getElementById('cfg-lineage-toggle');
+ if (!track) return;
+ if (isOn) {
+  track.style.background = '#F26722';
+  knob.style.left = '28px';
+  if (label) label.textContent = 'Button is Visible — Lineage link showing';
+  if (chk && !chk.checked) chk.checked = true;
+ } else {
+  track.style.background = '#888';
+  knob.style.left = '4px';
+  if (label) label.textContent = 'Button is Hidden — Tagline showing';
+  if (chk && chk.checked) chk.checked = false;
+ }
+}
+
+async function saveSiteConfigStats() {
+ const data = {
+  hours:       (document.getElementById('cfg-hours')?.value || '').trim(),
+  hoursLbl:    (document.getElementById('cfg-hours-lbl')?.value || '').trim(),
+  programs:    (document.getElementById('cfg-programs')?.value || '').trim(),
+  programsLbl: (document.getElementById('cfg-programs-lbl')?.value || '').trim(),
+  years:       (document.getElementById('cfg-years')?.value || '').trim(),
+  yearsLbl:    (document.getElementById('cfg-years-lbl')?.value || '').trim(),
+ };
+ if (isFirebase) {
+  await firebase.database().ref('siteConfig/stats').set(data).catch(() => toast('DB error', true));
+  toast('Stats saved & live ✅');
+ } else { toast('Stats saved (Demo Mode)'); }
+}
+
+async function saveSiteConfigLineage() {
+ const isOn = document.getElementById('cfg-lineage-toggle').checked;
+ _updateLineageToggleUI(isOn);
+ if (isFirebase) {
+  await firebase.database().ref('siteConfig/showLineage').set(isOn).catch(() => toast('DB error', true));
+  toast(isOn ? 'Lineage button now visible ✅' : 'Tagline now showing ✅');
+ } else { toast('Toggle saved (Demo Mode)'); }
+}
+
+async function saveSiteConfigCredentials() {
+ const creds = [1,2,3,4].map(i => (document.getElementById('cfg-cred-' + i)?.value || '').trim());
+ if (isFirebase) {
+  await firebase.database().ref('siteConfig/credentials').set(creds).catch(() => toast('DB error', true));
+  toast('Credentials saved & live ✅');
+ } else { toast('Credentials saved (Demo Mode)'); }
+}
+
+function loadSiteConfig(cfg) {
+ if (!cfg) return;
+ if (cfg.stats) {
+  const s = cfg.stats;
+  if (s.hours)       { const el = document.getElementById('cfg-hours');        if(el) el.value = s.hours; }
+  if (s.hoursLbl)    { const el = document.getElementById('cfg-hours-lbl');    if(el) el.value = s.hoursLbl; }
+  if (s.programs)    { const el = document.getElementById('cfg-programs');     if(el) el.value = s.programs; }
+  if (s.programsLbl) { const el = document.getElementById('cfg-programs-lbl'); if(el) el.value = s.programsLbl; }
+  if (s.years)       { const el = document.getElementById('cfg-years');        if(el) el.value = s.years; }
+  if (s.yearsLbl)    { const el = document.getElementById('cfg-years-lbl');    if(el) el.value = s.yearsLbl; }
+ }
+ _updateLineageToggleUI(cfg.showLineage === true);
+ if (cfg.credentials && Array.isArray(cfg.credentials)) {
+  cfg.credentials.forEach((val, i) => {
+   const el = document.getElementById('cfg-cred-' + (i + 1));
+   if (el) el.value = val;
+  });
+ }
 }
 
 function _hideAuthGate() {
@@ -2417,6 +2581,9 @@ function loadFirebase(){
  });
  db.ref("config/imgbbKey").once("value").then(s=>{
  if(s.val()){imgbbKey=s.val();localStorage.setItem("yogartha_imgbb_key",s.val());updateImgbbStatus();}
+ });
+ db.ref("siteConfig").once("value").then(s=>{
+  if(s.val()) loadSiteConfig(s.val());
  });
 }
 

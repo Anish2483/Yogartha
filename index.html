@@ -123,9 +123,9 @@
  <p>YOGARTHA is a Classical Hatha Yoga studio located in Dehradun, led by a certified Hatha Yoga teacher trained under the prestigious Sadhguru Gurukulam. We are dedicated to preserving and imparting the authentic teachings of Hatha Yoga, offering a space for individuals to experience its profound benefits.</p>
  <p class="about-mission"><span class="mission-label">Our mission</span> is to promote holistic well-being by teaching Hatha Yoga in its purest form, following practices structured by Sadhguru. We aim to guide individuals on a journey of physical, mental, and spiritual balance, empowering them to lead healthier, more fulfilling lives through the transformative power of Classical Hatha Yoga.</p>
  <div class="about-stats">
- <div class="stat"><span class="stat-num">1750</span><span class="stat-lbl">hours of training</span></div>
- <div class="stat"><span class="stat-num">50+</span><span class="stat-lbl">Programs Done</span></div>
- <div class="stat"><span class="stat-num">8+</span><span class="stat-lbl">Years </span></div>
+  <div class="stat"><span class="stat-num" id="stat-hours">1750</span><span class="stat-lbl" id="stat-hours-lbl">hours of training</span></div>
+  <div class="stat"><span class="stat-num" id="stat-programs">50+</span><span class="stat-lbl" id="stat-programs-lbl">Programs Done</span></div>
+  <div class="stat"><span class="stat-num" id="stat-years">8+</span><span class="stat-lbl" id="stat-years-lbl">Years</span></div>
   </div>
   </div>
  </div>
@@ -162,9 +162,10 @@
  <path d="M22 52 Q27 50 32 52 Q37 54 42 52" stroke="rgba(212,120,42,0.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
  </svg>
  </div>
- <div style="margin-top: 30px; display: flex; justify-content: center;">
- <a href="programs/lineage.html" class="btn btn-outline" style="border-color: rgba(212,120,42,0.5); color: #fff;">Discover the Lineage &rarr;</a>
- </div>
+  <div style="margin-top: 30px; display: flex; justify-content: center;">
+  <a id="lineage-btn" href="programs/lineage.html" class="btn btn-outline" style="border-color: rgba(212,120,42,0.5); color: #fff;">Discover the Lineage &rarr;</a>
+  <p id="lineage-tagline" style="display:none; font-style:italic; color:rgba(255,255,255,0.72); font-family:var(--font-serif); font-size:1.05rem; letter-spacing:0.05em; margin:0; padding:10px 0;">Transmitted as a pure science.</p>
+  </div>
  </div>
 
  </div>
@@ -525,10 +526,10 @@
  </div>
 
  <div class="guru-credentials">
- <div class="cred"><span class="cred-icon"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 8 L8 36 Q8 40 12 40 L36 40 L36 8 Q36 4 32 4 L12 4 Q8 4 8 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 36 Q8 32 12 32 L36 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 16 L28 16 M16 22 L24 22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span> Classical Hatha Yoga Certified</div>
- <div class="cred"><span class="cred-icon"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="16" width="32" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M16 16 L16 12 C16 10 18 8 22 8 C26 8 28 10 28 12 L28 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="6" y1="26" x2="38" y2="26" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/></svg></span> 13+ Years in Finance</div>
- <div class="cred"><span class="cred-icon"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 4 C22 4 30 14 30 22 C30 28 26 32 22 32 C18 32 14 28 14 22 C14 16 18 10 22 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 20 C22 20 26 24 26 28 C26 32 24 35 22 36 C20 35 18 32 18 28 C18 24 22 20 22 20Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span> Classical Singer &amp; Dancer</div>
- <div class="cred"><span class="cred-icon"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 38 L16 10 L24 24 L28 18 L42 38 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 10 L20 18" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg></span> Himalayan Retreat Guide</div>
+ <div class="cred"><span class="cred-icon"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 8 L8 36 Q8 40 12 40 L36 40 L36 8 Q36 4 32 4 L12 4 Q8 4 8 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 36 Q8 32 12 32 L36 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 16 L28 16 M16 22 L24 22" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span><span id="cred-1"> Classical Hatha Yoga Certified</span></div>
+ <div class="cred"><span class="cred-icon"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="16" width="32" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M16 16 L16 12 C16 10 18 8 22 8 C26 8 28 10 28 12 L28 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="6" y1="26" x2="38" y2="26" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/></svg></span><span id="cred-2"> 13+ Years in Finance</span></div>
+ <div class="cred"><span class="cred-icon"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 4 C22 4 30 14 30 22 C30 28 26 32 22 32 C18 32 14 28 14 22 C14 16 18 10 22 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 20 C22 20 26 24 26 28 C26 32 24 35 22 36 C20 35 18 32 18 28 C18 24 22 20 22 20Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span><span id="cred-3"> Classical Singer &amp; Dancer</span></div>
+ <div class="cred"><span class="cred-icon"><svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 38 L16 10 L24 24 L28 18 L42 38 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 10 L20 18" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg></span><span id="cred-4"> Himalayan Retreat Guide</span></div>
  </div>
  <a href="#contact" class="btn btn-primary" style="margin-top:28px">Book a Session with Reeta</a>
  </div>
