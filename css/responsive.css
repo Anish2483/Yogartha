@@ -109,7 +109,7 @@ html, body {
  align-items: center;
  justify-content: center;
  text-align: center;
- padding: 80px 24px 60px; /* top: clear navbar, bottom: clear scroll hint */
+ padding: 80px 24px 280px; /* added EVEN MORE bottom padding to push content further up */
  gap: 0;
  width: 100%;
  max-width: 100%;
@@ -133,20 +133,25 @@ html, body {
  max-width: 320px;
  color: rgba(255,255,255,0.75);
  }
- /* Buttons — side by side, smaller */
+ /* Buttons - side by side, smaller */
  .hero-btns {
+ position: absolute;
+ bottom: 5px;
+ left: 0;
+ right: 0;
  flex-direction: row;
  flex-wrap: wrap;
  justify-content: center;
  gap: 10px;
  width: 100%;
+ margin-top: 0;
  }
- .hero-btns.btn {
- padding: 11px 22px;
- font-size: 0.82rem;
+ .hero-btns .btn {
+ padding: 9px 18px;
+ font-size: 0.75rem;
  min-height: unset;
  flex: 1 1 auto;
- max-width: 160px;
+ max-width: 140px;
  }
  .hero-scroll-hint { display: none; }
 
@@ -266,8 +271,9 @@ html, body {
  /* Hero */
  .hero-logo-img { width: clamp(180px, 60vw, 260px); }
  .hero-subtitle { font-size: 0.58rem; }
- .hero-desc { font-size: 0.82rem; margin-bottom: 22px; }
- .hero-btns.btn { max-width: 145px; font-size: 0.8rem; }
+ .hero-desc { font-size: 0.82rem; margin-bottom: 15px; }
+ .hero-btns { margin-top: 0; gap: 8px; bottom: 0; }
+ .hero-btns .btn { max-width: 130px; font-size: 0.72rem; padding: 8px 14px; }
 
  /* About */
  .about-stats { flex-direction: column; gap: 0; }
@@ -307,7 +313,7 @@ html, body {
 @media (max-width: 360px) {
  .hero-title { font-size: 2.6rem; }
  .btn { padding: 12px 24px; font-size: 0.85rem; }
- .hero-btns.btn { width: 190px; }
+ .hero-btns .btn { width: 130px; }
  .offering-card { padding: 22px 18px; }
  .testi-card { padding: 22px 16px; }
  .contact-form-wrap { padding: 18px 14px; }
@@ -318,8 +324,8 @@ html, body {
  .hero { min-height: 100vw; }
  .hero-title { font-size: 3rem; }
  .hero-desc { display: none; }
- .hero-btns { flex-direction: row; }
- .hero-btns.btn { width: auto; }
+ .hero-btns { flex-direction: row; margin-top: 0; bottom: 0; }
+ .hero-btns .btn { width: auto; font-size: 0.75rem; padding: 8px 16px; }
  .sadhguru-inner { grid-template-columns: 200px 1fr; gap: 24px; }
  .sadhguru-photo { width: 160px; height: 160px; }
 }
