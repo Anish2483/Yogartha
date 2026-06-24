@@ -794,37 +794,107 @@
   <p style="font-size:.78rem;color:var(--muted);margin-top:14px;">💡 Tip: Pick the same photo for all three — the crop tool lets you choose the best framing per device.</p>
  </div>
 
- <!-- About -->
- <div class="card site-img-upload-card" onclick="document.getElementById('file-img-about').click()">
-  <div class="siu-left">
-    <img id="prev-img-about" src="images/ashram_courtyard.png" class="siu-thumb" style="border-radius:6px;" alt="About" />
-    <span class="siu-spinner" id="spin-img-about" style="display:none;">⏳</span>
+ <!-- About - Device Specific -->
+ <div class="card" style="margin-bottom:20px;">
+  <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+   <div class="siu-title" style="font-size:1rem;font-weight:600;">🧘 About Section Image</div>
+   <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device for the About section on the homepage.</div>
   </div>
-  <div class="siu-right">
-    <div class="siu-title">About Section Image</div>
-    <div class="siu-hint">Any ratio works</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+
+  <input type="file" id="file-img-about" accept="image/*" style="display:none;" onchange="startAboutCropFlow(this.files[0]); this.value='';" />
+
+  <!-- DESKTOP -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
+   <div class="siu-left"><img id="prev-about-desktop" src="images/ashram_courtyard.png" alt="Desktop" class="siu-thumb" style="border-radius:6px;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">🖥️ Desktop</div>
+    <div class="siu-hint">Ratio: 2.2:1 &nbsp;&nbsp; Laptops &amp; monitors</div>
+    <button class="siu-btn" onclick="triggerAboutCrop('desktop')">📂 Upload &amp; Crop</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-about" placeholder="…or paste a URL" class="siu-url-input" />
-      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('about')">Set</button>
+     <input type="url" id="url-about-desktop" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setAboutUrl('desktop')">Set</button>
     </div>
+   </div>
+  </div>
+
+  <!-- TABLET -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
+   <div class="siu-left"><img id="prev-about-tablet" src="images/ashram_courtyard.png" alt="Tablet" class="siu-thumb" style="border-radius:6px;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">📱 Tablet</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;&nbsp; iPads &amp; tablets</div>
+    <button class="siu-btn" onclick="triggerAboutCrop('tablet')">📂 Upload &amp; Crop</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-about-tablet" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setAboutUrl('tablet')">Set</button>
+    </div>
+   </div>
+  </div>
+
+  <!-- MOBILE -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:0;">
+   <div class="siu-left"><img id="prev-about-mobile" src="images/ashram_courtyard.png" alt="Mobile" class="siu-thumb" style="border-radius:6px;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">📲 Mobile / Phone</div>
+    <div class="siu-hint">Ratio: 16:10 &nbsp;&nbsp; Phones (portrait)</div>
+    <button class="siu-btn" onclick="triggerAboutCrop('mobile')">📂 Upload &amp; Crop</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-about-mobile" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setAboutUrl('mobile')">Set</button>
+    </div>
+   </div>
   </div>
  </div>
 
- <!-- Guru -->
- <div class="card site-img-upload-card" onclick="document.getElementById('file-img-guru').click()">
-  <div class="siu-left">
-    <img id="prev-img-guru" src="images/reeta_yoga_teacher.png" class="siu-thumb" style="border-radius:50%;" alt="Teacher" />
-    <span class="siu-spinner" id="spin-img-guru" style="display:none;">⏳</span>
+ <!-- Guru - Device Specific -->
+ <div class="card" style="margin-bottom:20px;">
+  <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
+   <div class="siu-title" style="font-size:1rem;font-weight:600;">🧘 Teacher Portrait</div>
+   <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device for the Teacher profile image.</div>
   </div>
-  <div class="siu-right">
-    <div class="siu-title">Teacher Portrait</div>
-    <div class="siu-hint">Square / 1:1 recommended</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+
+  <input type="file" id="file-img-guru" accept="image/*" style="display:none;" onchange="startGuruCropFlow(this.files[0]); this.value='';" />
+
+  <!-- DESKTOP -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
+   <div class="siu-left"><img id="prev-guru-desktop" src="images/reeta_yoga_teacher.png" alt="Desktop" class="siu-thumb" style="border-radius:50%;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">🖥️ Desktop</div>
+    <div class="siu-hint">Ratio: 1:1 &nbsp;&nbsp; Laptops &amp; monitors</div>
+    <button class="siu-btn" onclick="triggerGuruCrop('desktop')">📂 Upload &amp; Crop (1:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-guru" placeholder="…or paste a URL" class="siu-url-input" />
-      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru')">Set</button>
+     <input type="url" id="url-guru-desktop" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setGuruUrl('desktop')">Set</button>
     </div>
+   </div>
+  </div>
+
+  <!-- TABLET -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
+   <div class="siu-left"><img id="prev-guru-tablet" src="images/reeta_yoga_teacher.png" alt="Tablet" class="siu-thumb" style="border-radius:50%;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">📱 Tablet</div>
+    <div class="siu-hint">Ratio: 1:1 &nbsp;&nbsp; iPads &amp; tablets</div>
+    <button class="siu-btn" onclick="triggerGuruCrop('tablet')">📂 Upload &amp; Crop (1:1)</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-guru-tablet" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setGuruUrl('tablet')">Set</button>
+    </div>
+   </div>
+  </div>
+
+  <!-- MOBILE -->
+  <div class="site-img-upload-card" style="cursor:default;margin-bottom:0;">
+   <div class="siu-left"><img id="prev-guru-mobile" src="images/reeta_yoga_teacher.png" alt="Mobile" class="siu-thumb" style="border-radius:50%;" /></div>
+   <div class="siu-right">
+    <div class="siu-title">📲 Mobile / Phone</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;&nbsp; Phones (portrait)</div>
+    <button class="siu-btn" onclick="triggerGuruCrop('mobile')">📂 Upload &amp; Crop (4:3)</button>
+    <div class="siu-url-row" onclick="event.stopPropagation()">
+     <input type="url" id="url-guru-mobile" placeholder="…or paste URL" class="siu-url-input" />
+     <button class="btn btn-ghost btn-sm" onclick="setGuruUrl('mobile')">Set</button>
+    </div>
+   </div>
   </div>
  </div>
 
