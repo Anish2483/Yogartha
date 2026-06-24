@@ -37,8 +37,12 @@
 
  <section class="program-hero">
  <div class="program-hero-bg">
- <img src="../images/adiyogi_hero.jpg" alt="Classical Hatha Yoga" />
- </div>
+ <picture class="prog-hero-picture">
+  <source media="(max-width: 480px)"  id="prog-hero-mobile"  srcset="../images/adiyogi_hero.jpg" />
+  <source media="(max-width: 1024px)" id="prog-hero-tablet"  srcset="../images/adiyogi_hero.jpg" />
+  <img src="../images/adiyogi_hero.jpg" id="prog-hero-desktop" data-fallback="../images/adiyogi_hero.jpg" alt="Classical Hatha Yoga" />
+ </picture>
+</div>
  <div class="program-hero-overlay"></div>
  <div class="program-hero-top-bar"></div>
  <div class="container program-hero-content" style="text-align: left; width: 100%; transform: scale(0.85); transform-origin: left bottom;">
