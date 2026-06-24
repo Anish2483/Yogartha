@@ -2045,6 +2045,104 @@ async function saveSiteImgToDb(type,url){
  if(isFirebase)await firebase.database().ref("siteImages/"+type).set(url).catch(()=>toast("DB error",true));
 }
 
+// ---- ABOUT DEVICE-SPECIFIC CROP FLOW ----
+let _aboutCropFile = null;
+const _aboutCropConfigs = {
+  desktop: { ratio: 4/5,   label: 'Desktop Crop - 4:5',   previewId: 'prev-about-desktop', dbKey: 'about_desktop' },
+  tablet:  { ratio: 16/10, label: 'Tablet Crop - 16:10',  previewId: 'prev-about-tablet',  dbKey: 'about_tablet' },
+  mobile:  { ratio: 16/10, label: 'Mobile Crop - 16:10',  previewId: 'prev-about-mobile',  dbKey: 'about_mobile' },
+};
+
+function triggerAboutCrop(device) {
+  if (_aboutCropFile) {
+    _cropAboutDevice(device, _aboutCropFile);
+  } else {
+    document.getElementById('file-about-crop').dataset.targetDevice = device;
+    document.getElementById('file-about-crop').click();
+  }
+}
+
+function startAboutCropFlow(file) {
+  if (!file) return;
+  _aboutCropFile = file;
+  const targetDevice = document.getElementById('file-about-crop').dataset.targetDevice || 'desktop';
+  _cropAboutDevice(targetDevice, file);
+}
+
+function _cropAboutDevice(device, file) {
+  const cfg = _aboutCropConfigs[device];
+  openCropModal(file, cfg.label, async (fileOrBlob) => {
+    const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
+    try {
+      const url = await uploadImageFile(uploadFile, 'siteImages/about_' + device + '_' + Date.now());
+      if (url) {
+        document.getElementById(cfg.previewId).src = url;
+        await saveSiteImgToDb(cfg.dbKey, url);
+        toast('About ' + device + ' image updated live! ✅');
+      }
+    } catch(e) { toast('Upload failed – ' + e, true); }
+  }, cfg.ratio, false);
+}
+
+async function setAboutUrl(device) {
+  const cfg = _aboutCropConfigs[device];
+  const url = document.getElementById('url-about-' + device).value.trim();
+  if (!url) { toast('Paste an image URL first', true); return; }
+  document.getElementById(cfg.previewId).src = url;
+  document.getElementById('url-about-' + device).value = '';
+  await saveSiteImgToDb(cfg.dbKey, url);
+  toast(isFirebase ? 'About ' + device + ' updated live!' : 'Updated (Demo Mode)');
+}
+
+// ---- GURU DEVICE-SPECIFIC CROP FLOW ----
+let _guruCropFile = null;
+const _guruCropConfigs = {
+  desktop: { ratio: 3/4,   label: 'Desktop Crop - 3:4',   previewId: 'prev-guru-desktop', dbKey: 'guru_desktop' },
+  tablet:  { ratio: 4/3,   label: 'Tablet Crop - 4:3',    previewId: 'prev-guru-tablet',  dbKey: 'guru_tablet' },
+  mobile:  { ratio: 4/3,   label: 'Mobile Crop - 4:3',    previewId: 'prev-guru-mobile',  dbKey: 'guru_mobile' },
+};
+
+function triggerGuruCrop(device) {
+  if (_guruCropFile) {
+    _cropGuruDevice(device, _guruCropFile);
+  } else {
+    document.getElementById('file-guru-crop').dataset.targetDevice = device;
+    document.getElementById('file-guru-crop').click();
+  }
+}
+
+function startGuruCropFlow(file) {
+  if (!file) return;
+  _guruCropFile = file;
+  const targetDevice = document.getElementById('file-guru-crop').dataset.targetDevice || 'desktop';
+  _cropGuruDevice(targetDevice, file);
+}
+
+function _cropGuruDevice(device, file) {
+  const cfg = _guruCropConfigs[device];
+  openCropModal(file, cfg.label, async (fileOrBlob) => {
+    const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
+    try {
+      const url = await uploadImageFile(uploadFile, 'siteImages/guru_' + device + '_' + Date.now());
+      if (url) {
+        document.getElementById(cfg.previewId).src = url;
+        await saveSiteImgToDb(cfg.dbKey, url);
+        toast('Teacher ' + device + ' image updated live! ✅');
+      }
+    } catch(e) { toast('Upload failed – ' + e, true); }
+  }, cfg.ratio, false);
+}
+
+async function setGuruUrl(device) {
+  const cfg = _guruCropConfigs[device];
+  const url = document.getElementById('url-guru-' + device).value.trim();
+  if (!url) { toast('Paste an image URL first', true); return; }
+  document.getElementById(cfg.previewId).src = url;
+  document.getElementById('url-guru-' + device).value = '';
+  await saveSiteImgToDb(cfg.dbKey, url);
+  toast(isFirebase ? 'Teacher ' + device + ' updated live!' : 'Updated (Demo Mode)');
+}
+
 let _progHeroCropFile = null;
 const _progHeroCropConfigs = {
   desktop: { ratio: 3/1, label: 'Desktop Crop - 3:1', previewId: 'prev-prog-hero-desktop', device: 'desktop' },

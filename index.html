@@ -111,7 +111,11 @@
  <section id="about" class="about section-pad">
  <div class="container grid-2">
  <div class="about-img-wrap reveal-left">
- <img src="images/ashram_courtyard.png" data-fallback="images/ashram_courtyard.png" alt="Yogartha Shala" class="about-img" />
+ <picture>
+   <source media="(max-width: 480px)"  id="about-src-mobile"  srcset="images/ashram_courtyard.png" />
+   <source media="(max-width: 1024px)" id="about-src-tablet"  srcset="images/ashram_courtyard.png" />
+   <img src="images/ashram_courtyard.png" id="about-src-desktop" data-fallback="images/ashram_courtyard.png" alt="Yogartha Shala" class="about-img" />
+ </picture>
   </div>
  <div class="about-text reveal-right">
  <p class="section-eyebrow">Who We Are</p>
@@ -495,7 +499,11 @@
  <div class="container grid-2 guru-grid">
  <div class="guru-img-wrap reveal-left">
  <div class="guru-frame">
- <img src="images/reeta_yoga_teacher.png" data-fallback="images/reeta_yoga_teacher.png" alt="Reeta — Founder &amp; Classical Hatha Yoga Teacher, Yogartha" class="guru-img" />
+ <picture>
+   <source media="(max-width: 480px)"  id="guru-src-mobile"  srcset="images/reeta_yoga_teacher.png" />
+   <source media="(max-width: 1024px)" id="guru-src-tablet"  srcset="images/reeta_yoga_teacher.png" />
+   <img src="images/reeta_yoga_teacher.png" id="guru-src-desktop" data-fallback="images/reeta_yoga_teacher.png" alt="Reeta - Founder &amp; Classical Hatha Yoga Teacher, Yogartha" class="guru-img" />
+ </picture>
  </div>
 
  <div class="guru-doodle">

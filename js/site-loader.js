@@ -233,9 +233,61 @@
     if (mobile)  mobile.srcset = imgs.hero;
    });
   }
-  if (imgs.about)    { const a  = document.querySelector(".about-img");      if (a)  a.src  = imgs.about; }
+  // About section images
+  if (imgs.about_desktop) {
+   const el = document.getElementById("about-src-desktop");
+   if (el && imgs.about_desktop !== el.src) preloadAndSet(imgs.about_desktop, () => { el.src = imgs.about_desktop; });
+  }
+  if (imgs.about_tablet) {
+   const el = document.getElementById("about-src-tablet");
+   if (el && imgs.about_tablet !== el.getAttribute("srcset")) preloadAndSet(imgs.about_tablet, () => { el.srcset = imgs.about_tablet; });
+  }
+  if (imgs.about_mobile) {
+   const el = document.getElementById("about-src-mobile");
+   if (el && imgs.about_mobile !== el.getAttribute("srcset")) preloadAndSet(imgs.about_mobile, () => { el.srcset = imgs.about_mobile; });
+  }
+  // Fallback for old about key
+  if (!imgs.about_desktop && !imgs.about_tablet && !imgs.about_mobile && imgs.about) {
+   const desktop = document.getElementById("about-src-desktop");
+   const tablet  = document.getElementById("about-src-tablet");
+   const mobile  = document.getElementById("about-src-mobile");
+   if (desktop && imgs.about !== desktop.src) preloadAndSet(imgs.about, () => {
+    if (desktop) desktop.src = imgs.about;
+    if (tablet) tablet.srcset = imgs.about;
+    if (mobile) mobile.srcset = imgs.about;
+   });
+  }
   if (imgs.sadhguru) { const sg = document.querySelector(".sadhguru-photo"); if (sg) sg.src = imgs.sadhguru; }
-  if (imgs.guru)     { const g  = document.querySelector(".guru-img");       if (g)  g.src  = imgs.guru; }
+  
+  // Guru / Teacher section images
+  if (imgs.guru_desktop) {
+   const el = document.getElementById("guru-src-desktop");
+   if (el && imgs.guru_desktop !== el.src) preloadAndSet(imgs.guru_desktop, () => { el.src = imgs.guru_desktop; });
+  }
+  if (imgs.guru_tablet) {
+   const el = document.getElementById("guru-src-tablet");
+   if (el && imgs.guru_tablet !== el.getAttribute("srcset")) preloadAndSet(imgs.guru_tablet, () => { el.srcset = imgs.guru_tablet; });
+  }
+  if (imgs.guru_mobile) {
+   const el = document.getElementById("guru-src-mobile");
+   if (el && imgs.guru_mobile !== el.getAttribute("srcset")) preloadAndSet(imgs.guru_mobile, () => { el.srcset = imgs.guru_mobile; });
+  }
+  // Fallback for old guru key
+  if (!imgs.guru_desktop && !imgs.guru_tablet && !imgs.guru_mobile && imgs.guru) {
+   const desktop = document.getElementById("guru-src-desktop");
+   const tablet  = document.getElementById("guru-src-tablet");
+   const mobile  = document.getElementById("guru-src-mobile");
+   const fallbackG = document.querySelector(".guru-img");
+   if (desktop && imgs.guru !== desktop.src) {
+     preloadAndSet(imgs.guru, () => {
+      desktop.src = imgs.guru;
+      if (tablet) tablet.srcset = imgs.guru;
+      if (mobile) mobile.srcset = imgs.guru;
+     });
+   } else if (fallbackG && !desktop && imgs.guru !== fallbackG.src) {
+     preloadAndSet(imgs.guru, () => { fallbackG.src = imgs.guru; });
+   }
+  }
   if (imgs.shala)    { const sh = document.querySelector(".experience-img"); if (sh) sh.src = imgs.shala; }
   if (imgs.symbol)   { document.querySelectorAll(".site-symbol").forEach(el => el.src = imgs.symbol); }
 
