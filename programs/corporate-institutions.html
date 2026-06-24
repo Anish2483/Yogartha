@@ -10,6 +10,10 @@
  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
  <link rel="stylesheet" href="../css/program-page.css" />
  <link rel="stylesheet" href="../css/icons.css" />
+ <style>
+  .nav-secondary-logo { height: 41px !important; }
+  @media (max-width: 1024px) { .nav-secondary-logo { height: 26px !important; } }
+ </style>
 </head>
 <body data-page-id="corporate-institutions">
  <div id="loader">
@@ -21,6 +25,9 @@
    <a href="../index.html" class="nav-logo">
     <img src="../images/yogartha_logo.png" alt="Yogartha" class="custom-logo nav-custom-logo" />
    </a>
+ <a href="../index.html" class="nav-center-logo" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 10;">
+  <img src="../images/2nd_logo.png" alt="Yogartha Secondary Logo" class="custom-logo nav-custom-logo nav-secondary-logo" />
+ </a>
    <button class="hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
    </button>
@@ -85,6 +92,7 @@
   <div class="footer-inner">
    <div class="footer-logo-wrap">
     <img src="../images/yogartha_logo.png" alt="Yogartha" class="footer-custom-logo" loading="lazy" decoding="async" />
+ <div style="margin-top: 15px; display: flex; justify-content: center;"><img src="../images/2nd_logo.png" alt="Yogartha Secondary Logo" class="footer-cert-img" style="height: 38px !important; filter: invert(1) sepia(1) saturate(0.4) brightness(2.2);" /></div>
    </div>
    <nav class="footer-nav">
     <a href="../index.html">Home</a>
