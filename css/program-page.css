@@ -216,6 +216,7 @@ ul { list-style: none; }
 
 /* ===== PROGRAM HERO ===== */
 .program-hero {
+  margin-top: 72px;
   position: relative;
   aspect-ratio: 3/1;
   min-height: 280px;
