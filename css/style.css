@@ -2202,3 +2202,7 @@ cite.sadhguru-attr { font-style: normal; }
   }
 }
 
+
+
+/* Hide offline banner */
+#ygOfflineBanner { display: none !important; }

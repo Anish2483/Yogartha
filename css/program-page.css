@@ -1123,3 +1123,7 @@ ul { list-style: none; }
 .prog-reg-form-btn:hover svg {
   transform: scale(1.15);
 }
+
+
+/* Hide offline banner */
+#ygOfflineBanner { display: none !important; }
