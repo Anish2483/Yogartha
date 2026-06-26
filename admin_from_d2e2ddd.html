@@ -400,7 +400,7 @@
 <!-- ===== AUTH LOADING GATE (shown until Firebase resolves) ===== -->
 <div id="auth-loading">
  <div class="auth-spinner"></div>
- <span class="auth-loading-text">Checking authentication…</span>
+ <span class="auth-loading-text">Checking authenticationΓÇª</span>
 </div>
 
 <!-- ===== LOGIN ===== -->
@@ -447,14 +447,11 @@
  <button class="nav-item" onclick="showPanel('testimonials',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Testimonials</span>
  </button>
- <button class="nav-item" onclick="showPanel('teacher',this)">
- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>About Teacher</span>
- </button>
  <button class="nav-item" onclick="showPanel('images',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg><span>Site Images</span>
  </button>
- <button class="nav-item" onclick="showPanel('siteconfig',this)">
- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg><span>Site Config</span>
+ <button class="nav-item" onclick="showPanel('teacher',this)">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>About Teacher</span>
  </button>
  <button class="nav-item" onclick="showPanel('announcement',this)">
  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Announcement</span>
@@ -498,8 +495,8 @@
 
  <!-- ===== SCHEDULE ===== -->
  <div class="panel active" id="panel-schedule">
- <div class="page-header"><div class="page-title">Program Batches</div><div class="page-desc">Schedule upcoming yoga programs — add start/end dates and timings</div></div>
- <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode — connect Firebase to save changes live</span></div>
+ <div class="page-header"><div class="page-title">Program Batches</div><div class="page-desc">Schedule upcoming yoga programs ΓÇö add start/end dates and timings</div></div>
+ <div id="firebase-status" class="status-bar demo"><div class="status-dot"></div><span>Demo mode ΓÇö connect Firebase to save changes live</span></div>
 
  <!-- ADD BATCH FORM -->
  <div class="card">
@@ -537,11 +534,11 @@
   <div class="form-row">
    <div class="form-group">
     <label>Timing</label>
-    <input type="text" id="batch-time" placeholder="e.g. 6:00 AM – 7:30 AM" />
+    <input type="text" id="batch-time" placeholder="e.g. 6:00 AM ΓÇô 7:30 AM" />
    </div>
    <div class="form-group">
     <label>Seats Note <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-    <input type="text" id="batch-seats" placeholder="e.g. Limited seats — 12 max" />
+    <input type="text" id="batch-seats" placeholder="e.g. Limited seats ΓÇö 12 max" />
    </div>
   </div>
   <!-- Colour picker -->
@@ -550,23 +547,23 @@
    <div id="batch-color-picker" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
     <label class="color-swatch-label" title="Saffron">
      <input type="radio" name="batch-color" value="saffron" checked style="display:none;" />
-     <span class="color-swatch" style="background:rgba(232,114,42,0.35);border:2px solid rgba(232,114,42,0.7);color:#e8721a;" data-label="Saffron">●</span>
+     <span class="color-swatch" style="background:rgba(232,114,42,0.35);border:2px solid rgba(232,114,42,0.7);color:#e8721a;" data-label="Saffron">ΓùÅ</span>
     </label>
     <label class="color-swatch-label" title="Gold">
      <input type="radio" name="batch-color" value="gold" style="display:none;" />
-     <span class="color-swatch" style="background:rgba(240,201,110,0.3);border:2px solid rgba(240,201,110,0.6);color:#dab94a;" data-label="Gold">●</span>
+     <span class="color-swatch" style="background:rgba(240,201,110,0.3);border:2px solid rgba(240,201,110,0.6);color:#dab94a;" data-label="Gold">ΓùÅ</span>
     </label>
     <label class="color-swatch-label" title="Rose">
      <input type="radio" name="batch-color" value="rose" style="display:none;" />
-     <span class="color-swatch" style="background:rgba(196,50,80,0.25);border:2px solid rgba(196,50,80,0.55);color:#e0607a;" data-label="Rose">●</span>
+     <span class="color-swatch" style="background:rgba(196,50,80,0.25);border:2px solid rgba(196,50,80,0.55);color:#e0607a;" data-label="Rose">ΓùÅ</span>
     </label>
     <label class="color-swatch-label" title="Blue">
      <input type="radio" name="batch-color" value="blue" style="display:none;" />
-     <span class="color-swatch" style="background:rgba(74,144,226,0.25);border:2px solid rgba(74,144,226,0.55);color:#7ab4f5;" data-label="Blue">●</span>
+     <span class="color-swatch" style="background:rgba(74,144,226,0.25);border:2px solid rgba(74,144,226,0.55);color:#7ab4f5;" data-label="Blue">ΓùÅ</span>
     </label>
     <label class="color-swatch-label" title="Green">
      <input type="radio" name="batch-color" value="green" style="display:none;" />
-     <span class="color-swatch" style="background:rgba(60,160,100,0.25);border:2px solid rgba(60,160,100,0.55);color:#5dbb8a;" data-label="Green">●</span>
+     <span class="color-swatch" style="background:rgba(60,160,100,0.25);border:2px solid rgba(60,160,100,0.55);color:#5dbb8a;" data-label="Green">ΓùÅ</span>
     </label>
    </div>
   </div>
@@ -615,7 +612,7 @@
  </div>
  <div class="imgbb-bar notset" id="gallery-imgbb-bar">
  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
- <span id="gallery-imgbb-msg">ImgBB not set — go to "Image API Setup" to enable direct uploads</span>
+ <span id="gallery-imgbb-msg">ImgBB not set ΓÇö go to "Image API Setup" to enable direct uploads</span>
  </div>
  <div class="card">
  <div class="card-title">Upload Photos</div>
@@ -624,13 +621,13 @@
  ondragleave="this.classList.remove('dragging')"
  ondrop="handleGalleryDrop(event)">
  <input type="file" id="gallery-file-input" accept="image/*" multiple onchange="handleGalleryFiles(this.files)" />
- <div class="upload-zone-icon">🖼️</div>
+ <div class="upload-zone-icon">≡ƒû╝∩╕Å</div>
  <p><strong>Tap to choose or drag photos here</strong></p>
  <p>You can pick multiple at once</p>
- <small>JPG, PNG, WEBP • Max 10MB each</small>
+ <small>JPG, PNG, WEBP ΓÇó Max 10MB each</small>
  </div>
  <div class="upload-progress" id="gallery-progress">
- <div class="upload-status-text" id="gallery-progress-text">Uploading…</div>
+ <div class="upload-status-text" id="gallery-progress-text">UploadingΓÇª</div>
  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="gallery-progress-bar" style="width:0%"></div></div>
  </div>
  </div>
@@ -651,7 +648,7 @@
 
  <!-- ===== TESTIMONIALS ===== -->
  <div class="panel" id="panel-testimonials">
- <div class="page-header"><div class="page-title">Testimonials</div><div class="page-desc">Add student reviews or Google reviews — all appear live on the site</div></div>
+ <div class="page-header"><div class="page-title">Testimonials</div><div class="page-desc">Add student reviews or Google reviews ΓÇö all appear live on the site</div></div>
 
  <!-- Google Reviews Card -->
  <div class="card google-review-card">
@@ -695,12 +692,12 @@
  ondragleave="this.classList.remove('dragging')"
  ondrop="handleTestiDrop(event)">
  <input type="file" id="testi-photo-file" accept="image/*" onchange="handleTestiFile(this.files[0])" />
- <div class="upload-zone-icon">🧑</div>
+ <div class="upload-zone-icon">≡ƒºæ</div>
  <p><strong>Tap to upload student photo</strong></p>
- <small>JPG, PNG • Max 5MB</small>
+ <small>JPG, PNG ΓÇó Max 5MB</small>
  </div>
  <div class="upload-progress" id="testi-progress">
- <div class="upload-status-text" id="testi-progress-text">Uploading…</div>
+ <div class="upload-status-text" id="testi-progress-text">UploadingΓÇª</div>
  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="testi-progress-bar" style="width:0%"></div></div>
  </div>
  <div class="or-divider" style="margin:10px 0;">or paste a URL</div>
@@ -734,14 +731,14 @@
  <div class="panel" id="panel-images">
  <div class="page-header"><div class="page-title">Site Images</div><div class="page-desc">Tap any card to replace a photo on the website</div></div>
 
- <!-- Hero Background — Device-Specific Crops -->
+ <!-- Hero Background ΓÇö Device-Specific Crops -->
  <div class="card" style="margin-bottom:20px;">
   <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
-   <div class="siu-title" style="font-size:1rem;font-weight:600;">🖼️ Hero Background Image</div>
+   <div class="siu-title" style="font-size:1rem;font-weight:600;">≡ƒû╝∩╕Å Hero Background Image</div>
    <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device. Each will show only on that screen size.</div>
   </div>
 
-  <!-- Hidden file input — triggers startHeroCropFlow -->
+  <!-- Hidden file input ΓÇö triggers startHeroCropFlow -->
   <input type="file" id="file-img-hero" accept="image/*" style="display:none;" onchange="startHeroCropFlow(this.files[0]); this.value='';" />
 
   <!-- DESKTOP ROW -->
@@ -750,11 +747,11 @@
     <img id="prev-hero-desktop" src="images/adiyogi_hero.jpg" alt="Desktop" class="siu-thumb" style="border-radius:6px;" />
    </div>
    <div class="siu-right">
-    <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 16:9 &nbsp;&nbsp; Laptops &amp; monitors</div>
-    <button class="siu-btn" onclick="triggerHeroCrop('desktop')">📂 Upload &amp; Crop (16:9)</button>
+    <div class="siu-title">≡ƒûÑ∩╕Å Desktop</div>
+    <div class="siu-hint">Ratio: 16:9 &nbsp;∩┐╜&nbsp; Laptops &amp; monitors</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('desktop')">≡ƒôé Upload &amp; Crop (16:9)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-hero-desktop" placeholder="ΓÇªor paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('desktop')">Set</button>
     </div>
    </div>
@@ -766,11 +763,11 @@
     <img id="prev-hero-tablet" src="images/adiyogi_hero.jpg" alt="Tablet" class="siu-thumb" style="border-radius:6px;" />
    </div>
    <div class="siu-right">
-    <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;&nbsp; iPads &amp; tablets</div>
-    <button class="siu-btn" onclick="triggerHeroCrop('tablet')">📂 Upload &amp; Crop (4:3)</button>
+    <div class="siu-title">≡ƒô▒ Tablet</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;∩┐╜&nbsp; iPads &amp; tablets</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('tablet')">≡ƒôé Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-hero-tablet" placeholder="ΓÇªor paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('tablet')">Set</button>
     </div>
    </div>
@@ -782,120 +779,50 @@
     <img id="prev-hero-mobile" src="images/adiyogi_hero.jpg" alt="Mobile" class="siu-thumb" style="border-radius:6px;" />
    </div>
    <div class="siu-right">
-    <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 9:16 &nbsp;&nbsp; Phones (portrait)</div>
-    <button class="siu-btn" onclick="triggerHeroCrop('mobile')">📂 Upload &amp; Crop (9:16)</button>
+    <div class="siu-title">≡ƒô▓ Mobile / Phone</div>
+    <div class="siu-hint">Ratio: 9:16 &nbsp;∩┐╜&nbsp; Phones (portrait)</div>
+    <button class="siu-btn" onclick="triggerHeroCrop('mobile')">≡ƒôé Upload &amp; Crop (9:16)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-hero-mobile" placeholder="ΓÇªor paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setHeroUrl('mobile')">Set</button>
     </div>
    </div>
   </div>
 
-  <p style="font-size:.78rem;color:var(--muted);margin-top:14px;">💡 Tip: Pick the same photo for all three — the crop tool lets you choose the best framing per device.</p>
+  <p style="font-size:.78rem;color:var(--muted);margin-top:14px;">≡ƒÆí Tip: Pick the same photo for all three ΓÇö the crop tool lets you choose the best framing per device.</p>
  </div>
 
- <!-- About - Device Specific -->
- <div class="card" style="margin-bottom:20px;">
-  <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
-   <div class="siu-title" style="font-size:1rem;font-weight:600;">🧘 About Section Image</div>
-   <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device for the About section on the homepage.</div>
+ <!-- About -->
+ <div class="card site-img-upload-card" onclick="document.getElementById('file-img-about').click()">
+  <div class="siu-left">
+    <img id="prev-img-about" src="images/ashram_courtyard.png" class="siu-thumb" style="border-radius:6px;" alt="About" />
+    <span class="siu-spinner" id="spin-img-about" style="display:none;">ΓÅ│</span>
   </div>
-
-  <input type="file" id="file-about-crop" accept="image/*" style="display:none;" onchange="startAboutCropFlow(this.files[0]); this.value='';" />
-
-  <!-- DESKTOP -->
-  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
-   <div class="siu-left"><img id="prev-about-desktop" src="images/ashram_courtyard.png" alt="Desktop" class="siu-thumb" style="border-radius:6px;" /></div>
-   <div class="siu-right">
-    <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 2.2:1 &nbsp;&nbsp; Laptops &amp; monitors</div>
-    <button class="siu-btn" onclick="triggerAboutCrop('desktop')">📂 Upload &amp; Crop</button>
+  <div class="siu-right">
+    <div class="siu-title">About Section Image</div>
+    <div class="siu-hint">Any ratio works</div>
+    <div class="siu-btn">≡ƒôé Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-about-desktop" placeholder="…or paste URL" class="siu-url-input" />
-     <button class="btn btn-ghost btn-sm" onclick="setAboutUrl('desktop')">Set</button>
+      <input type="url" id="url-img-about" placeholder="ΓÇªor paste a URL" class="siu-url-input" />
+      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('about')">Set</button>
     </div>
-   </div>
-  </div>
-
-  <!-- TABLET -->
-  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
-   <div class="siu-left"><img id="prev-about-tablet" src="images/ashram_courtyard.png" alt="Tablet" class="siu-thumb" style="border-radius:6px;" /></div>
-   <div class="siu-right">
-    <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 16:9 &nbsp;&nbsp; iPads &amp; tablets</div>
-    <button class="siu-btn" onclick="triggerAboutCrop('tablet')">📂 Upload &amp; Crop</button>
-    <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-about-tablet" placeholder="…or paste URL" class="siu-url-input" />
-     <button class="btn btn-ghost btn-sm" onclick="setAboutUrl('tablet')">Set</button>
-    </div>
-   </div>
-  </div>
-
-  <!-- MOBILE -->
-  <div class="site-img-upload-card" style="cursor:default;margin-bottom:0;">
-   <div class="siu-left"><img id="prev-about-mobile" src="images/ashram_courtyard.png" alt="Mobile" class="siu-thumb" style="border-radius:6px;" /></div>
-   <div class="siu-right">
-    <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 16:10 &nbsp;&nbsp; Phones (portrait)</div>
-    <button class="siu-btn" onclick="triggerAboutCrop('mobile')">📂 Upload &amp; Crop</button>
-    <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-about-mobile" placeholder="…or paste URL" class="siu-url-input" />
-     <button class="btn btn-ghost btn-sm" onclick="setAboutUrl('mobile')">Set</button>
-    </div>
-   </div>
   </div>
  </div>
 
- <!-- Guru - Device Specific -->
- <div class="card" style="margin-bottom:20px;">
-  <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
-   <div class="siu-title" style="font-size:1rem;font-weight:600;">🧘 Teacher Portrait</div>
-   <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device for the Teacher profile image.</div>
+ <!-- Guru -->
+ <div class="card site-img-upload-card" onclick="document.getElementById('file-img-guru').click()">
+  <div class="siu-left">
+    <img id="prev-img-guru" src="images/reeta_yoga_teacher.png" class="siu-thumb" style="border-radius:50%;" alt="Teacher" />
+    <span class="siu-spinner" id="spin-img-guru" style="display:none;">ΓÅ│</span>
   </div>
-
-  <input type="file" id="file-guru-crop" accept="image/*" style="display:none;" onchange="startGuruCropFlow(this.files[0]); this.value='';" />
-
-  <!-- DESKTOP -->
-  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
-   <div class="siu-left"><img id="prev-guru-desktop" src="images/reeta_yoga_teacher.png" alt="Desktop" class="siu-thumb" style="border-radius:50%;" /></div>
-   <div class="siu-right">
-    <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 1:1 &nbsp;&nbsp; Laptops &amp; monitors</div>
-    <button class="siu-btn" onclick="triggerGuruCrop('desktop')">📂 Upload &amp; Crop (1:1)</button>
+  <div class="siu-right">
+    <div class="siu-title">Teacher Portrait</div>
+    <div class="siu-hint">Square / 1:1 recommended</div>
+    <div class="siu-btn">≡ƒôé Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-guru-desktop" placeholder="…or paste URL" class="siu-url-input" />
-     <button class="btn btn-ghost btn-sm" onclick="setGuruUrl('desktop')">Set</button>
+      <input type="url" id="url-img-guru" placeholder="ΓÇªor paste a URL" class="siu-url-input" />
+      <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru')">Set</button>
     </div>
-   </div>
-  </div>
-
-  <!-- TABLET -->
-  <div class="site-img-upload-card" style="cursor:default;margin-bottom:12px;">
-   <div class="siu-left"><img id="prev-guru-tablet" src="images/reeta_yoga_teacher.png" alt="Tablet" class="siu-thumb" style="border-radius:50%;" /></div>
-   <div class="siu-right">
-    <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 1:1 &nbsp;&nbsp; iPads &amp; tablets</div>
-    <button class="siu-btn" onclick="triggerGuruCrop('tablet')">📂 Upload &amp; Crop (1:1)</button>
-    <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-guru-tablet" placeholder="…or paste URL" class="siu-url-input" />
-     <button class="btn btn-ghost btn-sm" onclick="setGuruUrl('tablet')">Set</button>
-    </div>
-   </div>
-  </div>
-
-  <!-- MOBILE -->
-  <div class="site-img-upload-card" style="cursor:default;margin-bottom:0;">
-   <div class="siu-left"><img id="prev-guru-mobile" src="images/reeta_yoga_teacher.png" alt="Mobile" class="siu-thumb" style="border-radius:50%;" /></div>
-   <div class="siu-right">
-    <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;&nbsp; Phones (portrait)</div>
-    <button class="siu-btn" onclick="triggerGuruCrop('mobile')">📂 Upload &amp; Crop (4:3)</button>
-    <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-guru-mobile" placeholder="…or paste URL" class="siu-url-input" />
-     <button class="btn btn-ghost btn-sm" onclick="setGuruUrl('mobile')">Set</button>
-    </div>
-   </div>
   </div>
  </div>
 
@@ -903,14 +830,14 @@
  <div class="card site-img-upload-card" onclick="document.getElementById('file-img-sadhguru').click()">
   <div class="siu-left">
     <img id="prev-img-sadhguru" src="images/sadhguru_portrait.png" class="siu-thumb" style="border-radius:6px;" alt="Sadhguru" />
-    <span class="siu-spinner" id="spin-img-sadhguru" style="display:none;">⏳</span>
+    <span class="siu-spinner" id="spin-img-sadhguru" style="display:none;">ΓÅ│</span>
   </div>
   <div class="siu-right">
     <div class="siu-title">Sadhguru Portrait</div>
     <div class="siu-hint">Any ratio works</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-btn">≡ƒôé Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-sadhguru" placeholder="…or paste a URL" class="siu-url-input" />
+      <input type="url" id="url-img-sadhguru" placeholder="ΓÇªor paste a URL" class="siu-url-input" />
       <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('sadhguru')">Set</button>
     </div>
   </div>
@@ -920,14 +847,14 @@
  <div class="card site-img-upload-card" onclick="document.getElementById('file-img-shala').click()">
   <div class="siu-left">
     <img id="prev-img-shala" src="images/yoga_class_shala.png" class="siu-thumb" style="border-radius:6px;" alt="Shala" />
-    <span class="siu-spinner" id="spin-img-shala" style="display:none;">⏳</span>
+    <span class="siu-spinner" id="spin-img-shala" style="display:none;">ΓÅ│</span>
   </div>
   <div class="siu-right">
     <div class="siu-title">Class / Experience Photo</div>
     <div class="siu-hint">Any ratio works</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-btn">≡ƒôé Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-shala" placeholder="…or paste a URL" class="siu-url-input" />
+      <input type="url" id="url-img-shala" placeholder="ΓÇªor paste a URL" class="siu-url-input" />
       <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('shala')">Set</button>
     </div>
   </div>
@@ -937,14 +864,14 @@
  <div class="card site-img-upload-card" onclick="document.getElementById('file-img-symbol').click()">
   <div class="siu-left">
     <img id="prev-img-symbol" src="images/isha_hatha_symbol.png" class="siu-thumb" style="border-radius:6px;object-fit:contain;" alt="Symbol" />
-    <span class="siu-spinner" id="spin-img-symbol" style="display:none;">⏳</span>
+    <span class="siu-spinner" id="spin-img-symbol" style="display:none;">ΓÅ│</span>
   </div>
   <div class="siu-right">
     <div class="siu-title">Decorative Symbol</div>
     <div class="siu-hint">Square recommended</div>
-    <div class="siu-btn">📂 Choose Photo</div>
+    <div class="siu-btn">≡ƒôé Choose Photo</div>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-      <input type="url" id="url-img-symbol" placeholder="…or paste a URL" class="siu-url-input" />
+      <input type="url" id="url-img-symbol" placeholder="ΓÇªor paste a URL" class="siu-url-input" />
       <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('symbol')">Set</button>
     </div>
   </div>
@@ -983,10 +910,10 @@
  </select>
  </div>
 
- <!-- Program Hero — Device-Specific Crops -->
+ <!-- Program Hero ΓÇö Device-Specific Crops -->
  <div class="card" style="margin-bottom:12px;">
   <div class="page-header" style="margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);">
-   <div class="siu-title" style="font-size:.95rem;font-weight:600;">🖼️ Program Hero Image</div>
+   <div class="siu-title" style="font-size:.95rem;font-weight:600;">≡ƒû╝∩╕Å Program Hero Image</div>
    <div class="siu-hint" style="margin-top:4px;">Upload a separate crop for each device. Each framing will show only on that screen size.</div>
   </div>
   <!-- Hidden shared file input for prog hero crops -->
@@ -995,11 +922,11 @@
   <div class="site-img-upload-card" style="cursor:default;margin-bottom:10px;">
    <div class="siu-left"><img id="prev-prog-hero-desktop" src="images/placeholder.png" alt="Desktop" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
-    <div class="siu-title">🖥️ Desktop</div>
-    <div class="siu-hint">Ratio: 3:1 &nbsp;&nbsp; Laptops &amp; monitors</div>
+    <div class="siu-title">≡ƒûÑ∩╕Å Desktop</div>
+    <div class="siu-hint">Ratio: 3:1 &nbsp;∩┐╜&nbsp; Laptops &amp; monitors</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('desktop')">?? Upload &amp; Crop (3:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-prog-hero-desktop" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-prog-hero-desktop" placeholder="ΓÇªor paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('desktop')">Set</button>
     </div>
    </div>
@@ -1008,11 +935,11 @@
   <div class="site-img-upload-card" style="cursor:default;margin-bottom:10px;">
    <div class="siu-left"><img id="prev-prog-hero-tablet" src="images/placeholder.png" alt="Tablet" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
-    <div class="siu-title">📱 Tablet</div>
-    <div class="siu-hint">Ratio: 2:1 &nbsp;&nbsp; iPads &amp; tablets</div>
+    <div class="siu-title">≡ƒô▒ Tablet</div>
+    <div class="siu-hint">Ratio: 2:1 &nbsp;∩┐╜&nbsp; iPads &amp; tablets</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('tablet')">?? Upload &amp; Crop (2:1)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-prog-hero-tablet" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-prog-hero-tablet" placeholder="ΓÇªor paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('tablet')">Set</button>
     </div>
    </div>
@@ -1021,16 +948,16 @@
   <div class="site-img-upload-card" style="cursor:default;margin-bottom:0;">
    <div class="siu-left"><img id="prev-prog-hero-mobile" src="images/placeholder.png" alt="Mobile" class="siu-thumb" style="border-radius:6px;" /></div>
    <div class="siu-right">
-    <div class="siu-title">📲 Mobile / Phone</div>
-    <div class="siu-hint">Ratio: 4:3 &nbsp;&nbsp; Phones (portrait)</div>
+    <div class="siu-title">≡ƒô▓ Mobile / Phone</div>
+    <div class="siu-hint">Ratio: 4:3 &nbsp;∩┐╜&nbsp; Phones (portrait)</div>
     <button class="siu-btn" onclick="triggerProgHeroCrop('mobile')">?? Upload &amp; Crop (4:3)</button>
     <div class="siu-url-row" onclick="event.stopPropagation()">
-     <input type="url" id="url-prog-hero-mobile" placeholder="…or paste URL" class="siu-url-input" />
+     <input type="url" id="url-prog-hero-mobile" placeholder="ΓÇªor paste URL" class="siu-url-input" />
      <button class="btn btn-ghost btn-sm" onclick="setProgHeroUrl('mobile')">Set</button>
     </div>
    </div>
   </div>
-  <p style="font-size:.78rem;color:var(--muted);margin-top:12px;">💡 Pick the same photo for all three — the crop tool lets you choose the best framing per device.</p>
+  <p style="font-size:.78rem;color:var(--muted);margin-top:12px;">≡ƒÆí Pick the same photo for all three ΓÇö the crop tool lets you choose the best framing per device.</p>
  </div>
 
  <!-- Program Overview -->
@@ -1046,7 +973,7 @@
  </div>
  <div class="or-divider">or paste URL</div>
  <div style="display:flex;gap:8px;">
- <input type="url" id="url-prog-overview" placeholder="Image URL…" style="flex:1;" />
+ <input type="url" id="url-prog-overview" placeholder="Image URLΓÇª" style="flex:1;" />
  <button class="btn btn-ghost btn-sm" onclick="updateProgramImgUrl('overview')">Set</button>
  </div>
  </div>
@@ -1055,12 +982,12 @@
 
  <!-- Registration Form Link -->
  <div class="card">
- <div class="card-title">📋 Registration Form Link</div>
+ <div class="card-title">≡ƒôï Registration Form Link</div>
  <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">Paste your Google Form URL for this program. A "Register Now" button will appear on the program page only when this is set.</p>
  <div style="display:flex;gap:8px;align-items:center;">
  <input type="url" id="prog-reg-form-url" placeholder="https://forms.gle/..." class="form-input" style="flex:1;" />
  <button class="btn btn-primary btn-sm" onclick="saveProgRegFormUrl()">Save</button>
- <button class="btn btn-ghost btn-sm" onclick="clearProgRegFormUrl()" title="Remove form link">✕ Remove</button>
+ <button class="btn btn-ghost btn-sm" onclick="clearProgRegFormUrl()" title="Remove form link">Γ£ò Remove</button>
  </div>
  <p id="prog-reg-form-status" style="font-size:.78rem;color:var(--muted);margin-top:8px;"></p>
  </div>
@@ -1080,7 +1007,7 @@
  </div>
  <div class="or-divider">or paste URL</div>
  <div style="display:flex;gap:8px;">
- <input type="url" id="url-teacher-photo" placeholder="Photo URL…" style="flex:1;" />
+ <input type="url" id="url-teacher-photo" placeholder="Photo URLΓÇª" style="flex:1;" />
  <button class="btn btn-ghost btn-sm" onclick="updateSiteImgUrl('guru','prev-teacher-photo','url-teacher-photo')">Set</button>
  </div>
  </div>
@@ -1089,100 +1016,11 @@
  <div class="card">
  <div class="card-title">Bio &amp; Introduction</div>
  <div class="form-group"><label>Teacher Name</label><input type="text" id="teacher-name" value="Reeta" /></div>
- <div class="form-group"><label>Title / Certification</label><input type="text" id="teacher-title" value="Classical Hatha Yoga Teacher &middot; Founder, Yogartha &middot;, Uttarakhand" /></div>
- <div class="form-group"><label>Short Introduction</label><textarea id="teacher-intro" rows="4">After dedicating over 13 years to the financial sector, I began to notice how many people around me were struggling with stress, anxiety, and a sense of unrest. Amidst the fast-paced, success-driven lifestyle, I felt something essential was missing - a sense of peace, vitality, and genuine joy in daily life. This realization inspired me to seek a path that could bring balance and fulfillment, not only to myself but also to others.</textarea></div>
- <div class="form-group"><label>Full Bio</label><textarea id="teacher-bio" rows="6">This question led me to explore yoga more deeply, and I eventually discovered Hatha Yoga - an ancient practice focused on cultivating balance, clarity, and vitality. Inspired by Sadhguru's vision of making Hatha Yoga accessible to everyone in its original purity and teaching it as a transformative process, I decided to undergo Classical Hatha Yoga Teacher Training. My goal is not only to transform my own life but also to help others find a path to peace and well-being. Teaching this pure, classical form of yoga has given me a profound sense of purpose, and I am passionate about sharing its transformative benefits.</textarea></div>
+ <div class="form-group"><label>Title / Certification</label><input type="text" id="teacher-title" value="Classical Hatha Yoga Teacher" /></div>
+ <div class="form-group"><label>Short Introduction</label><textarea id="teacher-intro" rows="3">Reeta is a certified Classical Hatha Yoga teacher with over 10 years of practice. She trained at the Isha Yoga Center, Coimbatore under the guidance of Sadhguru, and has been guiding students since 2018.</textarea></div>
+ <div class="form-group"><label>Full Bio</label><textarea id="teacher-bio" rows="5">Reeta's journey into yoga began as a personal transformation that led her to the Isha Yoga Center. After completing her teacher training, she established Yogartha as a dedicated space for authentic Hatha Yoga practice in the Himalayan foothills of.</textarea></div>
  <button class="btn btn-primary btn-full" onclick="saveTeacherInfo()">Save &amp; Publish Bio</button>
  </div>
- </div>
-
- <!-- ===== SITE CONFIG PANEL ===== -->
- <div class="panel" id="panel-siteconfig">
-  <div class="page-header"><div class="page-title">Site Config</div><div class="page-desc">Edit stats, lineage button visibility, and teacher credential tags</div></div>
-
-  <!-- ── SECTION A: About Stats ── -->
-  <div class="card" style="margin-bottom:20px;">
-   <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
-    <div class="siu-title" style="font-size:.95rem;font-weight:600;">📊 About Section Stats</div>
-    <div class="siu-hint" style="margin-top:4px;">These three numbers appear under the About section on the homepage.</div>
-   </div>
-   <div style="display:grid;gap:12px;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;">
-     <div>
-      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 1 — Number</label>
-      <input class="form-input" id="cfg-hours" type="text" placeholder="e.g. 1750" value="1750" />
-     </div>
-     <div>
-      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 1 — Label</label>
-      <input class="form-input" id="cfg-hours-lbl" type="text" placeholder="e.g. hours of training" value="hours of training" />
-     </div>
-     <div>
-      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 2 — Number</label>
-      <input class="form-input" id="cfg-programs" type="text" placeholder="e.g. 50+" value="50+" />
-     </div>
-     <div>
-      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 2 — Label</label>
-      <input class="form-input" id="cfg-programs-lbl" type="text" placeholder="e.g. Programs Done" value="Programs Done" />
-     </div>
-     <div>
-      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 3 — Number</label>
-      <input class="form-input" id="cfg-years" type="text" placeholder="e.g. 8+" value="8+" />
-     </div>
-     <div>
-      <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Stat 3 — Label</label>
-      <input class="form-input" id="cfg-years-lbl" type="text" placeholder="e.g. Years" value="Years" />
-     </div>
-    </div>
-    <button class="btn btn-primary" onclick="saveSiteConfigStats()" style="margin-top:4px;">💾 Save Stats</button>
-   </div>
-  </div>
-
-  <!-- ── SECTION B: Lineage Toggle ── -->
-  <div class="card" style="margin-bottom:20px;">
-   <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
-    <div class="siu-title" style="font-size:.95rem;font-weight:600;">🔗 Lineage Button</div>
-    <div class="siu-hint" style="margin-top:4px;">Toggle between the <strong>"Discover the Lineage"</strong> button and the elegant tagline <em>"Transmitted as a pure science."</em></div>
-   </div>
-   <div style="display:flex;align-items:center;gap:16px;padding:14px 0;">
-    <label class="toggle-switch" style="position:relative;display:inline-block;width:52px;height:28px;flex-shrink:0;">
-     <input type="checkbox" id="cfg-lineage-toggle" onchange="saveSiteConfigLineage()" style="opacity:0;width:0;height:0;" />
-     <span style="position:absolute;cursor:pointer;inset:0;background:var(--muted,#888);border-radius:28px;transition:.3s;" id="lineage-toggle-track"></span>
-     <span style="position:absolute;content:'';height:20px;width:20px;left:4px;bottom:4px;background:#fff;border-radius:50%;transition:.3s;" id="lineage-toggle-knob"></span>
-    </label>
-    <div>
-     <div style="font-size:.9rem;font-weight:600;color:var(--text);" id="lineage-toggle-label">Button is Hidden — Tagline showing</div>
-     <div style="font-size:.78rem;color:var(--muted);margin-top:2px;">Turn ON to show the Lineage button. Turn OFF to show the tagline.</div>
-    </div>
-   </div>
-   <p style="font-size:.78rem;color:var(--muted);margin-top:4px;">💡 Change saves instantly to Firebase.</p>
-  </div>
-
-  <!-- ── SECTION C: Teacher Credentials ── -->
-  <div class="card">
-   <div class="page-header" style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);">
-    <div class="siu-title" style="font-size:.95rem;font-weight:600;">🎓 Teacher Credential Tags</div>
-    <div class="siu-hint" style="margin-top:4px;">Edit the 4 credential tags shown next to the teacher's photo.</div>
-   </div>
-   <div style="display:grid;gap:10px;">
-    <div>
-     <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Credential 1</label>
-     <input class="form-input" id="cfg-cred-1" type="text" placeholder="e.g. Classical Hatha Yoga Certified" value="Classical Hatha Yoga Certified" />
-    </div>
-    <div>
-     <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Credential 2</label>
-     <input class="form-input" id="cfg-cred-2" type="text" placeholder="e.g. 13+ Years in Finance" value="13+ Years in Finance" />
-    </div>
-    <div>
-     <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Credential 3</label>
-     <input class="form-input" id="cfg-cred-3" type="text" placeholder="e.g. Classical Singer & Dancer" value="Classical Singer & Dancer" />
-    </div>
-    <div>
-     <label class="form-label" style="font-size:.78rem;color:var(--muted);display:block;margin-bottom:4px;">Credential 4</label>
-     <input class="form-input" id="cfg-cred-4" type="text" placeholder="e.g. Himalayan Retreat Guide" value="Himalayan Retreat Guide" />
-    </div>
-    <button class="btn btn-primary" onclick="saveSiteConfigCredentials()" style="margin-top:4px;">💾 Save Credentials</button>
-   </div>
-  </div>
  </div>
 
  <!-- ===== ANNOUNCEMENT ===== -->
@@ -1200,9 +1038,9 @@
  <div class="card">
  <div class="card-title">Quick Examples</div>
  <div style="display:flex;flex-direction:column;gap:8px;">
- <button class="btn btn-ghost btn-sm" onclick="setEx(this)">New batch starting 1st July — Enroll now!</button>
- <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Studio closed 15th Aug — Happy Independence Day!</button>
- <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Special Surya Kriya workshop this Sunday — Limited seats</button>
+ <button class="btn btn-ghost btn-sm" onclick="setEx(this)">New batch starting 1st July ΓÇö Enroll now!</button>
+ <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Studio closed 15th Aug ΓÇö Happy Independence Day!</button>
+ <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Special Surya Kriya workshop this Sunday ΓÇö Limited seats</button>
  <button class="btn btn-ghost btn-sm" onclick="setEx(this)">Diwali special: Free trial class on 20th Oct!</button>
  </div>
  </div>
@@ -1215,7 +1053,7 @@
  <div class="card-title">Studio Details</div>
  <div class="form-group"><label>Phone Number</label><input type="tel" id="contact-phone" value="+91 78200 96554" /></div>
  <div class="form-group"><label>Email Address</label><input type="email" id="contact-email" placeholder="e.g. contact@yogartha.com" /></div>
- <div class="form-group"><label>Studio Address</label><textarea id="contact-address">12, Shanti Vihar Colony, Rajpur Road, Uttarakhand — 248001</textarea></div>
+ <div class="form-group"><label>Studio Address</label><textarea id="contact-address">12, Shanti Vihar Colony, Rajpur Road, Uttarakhand ΓÇö 248001</textarea></div>
  <div class="form-row">
  <div class="form-group"><label>Opening Time</label><input type="time" id="contact-open" value="05:30" /></div>
  <div class="form-group"><label>Closing Time</label><input type="time" id="contact-close" value="21:00" /></div>
@@ -1231,9 +1069,9 @@
  <div class="card">
  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
  <div class="card-title" style="margin:0;">All Submissions <span id="enquiry-count" style="font-size:.8rem;color:var(--muted);font-weight:400;"></span></div>
- <button class="btn btn-ghost btn-sm" onclick="loadEnquiries()">↻ Refresh</button>
+ <button class="btn btn-ghost btn-sm" onclick="loadEnquiries()">Γå╗ Refresh</button>
  </div>
- <div id="enquiry-list"><p style="color:var(--muted);font-size:.88rem;">Loading enquiries…</p></div>
+ <div id="enquiry-list"><p style="color:var(--muted);font-size:.88rem;">Loading enquiriesΓÇª</p></div>
  </div>
  </div>
 
@@ -1278,19 +1116,19 @@
  <div class="panel" id="panel-imgbb">
  <div class="page-header"><div class="page-title">Image API Setup</div><div class="page-desc">One-time setup for direct photo uploads</div></div>
  <div class="card">
- <div class="card-title">ImgBB — Free Image Hosting</div>
+ <div class="card-title">ImgBB ΓÇö Free Image Hosting</div>
  <div class="tip-box">
  <strong>What is this?</strong><br>
- ImgBB is a free image hosting service. When you upload a photo, this app sends it to ImgBB and stores the link. <strong>Completely free — no credit card needed.</strong><br><br>
+ ImgBB is a free image hosting service. When you upload a photo, this app sends it to ImgBB and stores the link. <strong>Completely free ΓÇö no credit card needed.</strong><br><br>
  <strong>How to get your free API key:</strong><br>
- 1. Go to <strong>imgbb.com</strong> → Sign Up (free)<br>
+ 1. Go to <strong>imgbb.com</strong> ΓåÆ Sign Up (free)<br>
  2. Go to <strong>api.imgbb.com</strong><br>
  3. Click <strong>"Get API Key"</strong><br>
  4. Copy and paste the key below
  </div>
  <div class="form-group">
  <label>Your ImgBB API Key</label>
- <input type="password" id="imgbb-key-input" placeholder="Paste your key here…" />
+ <input type="password" id="imgbb-key-input" placeholder="Paste your key hereΓÇª" />
  </div>
  <div class="btn-row">
  <button class="btn btn-primary" onclick="saveImgbbKey()">Save Key</button>
@@ -1323,7 +1161,7 @@
       flex-shrink:0;
     ">
       <div>
-        <div style="font-family:'Cinzel',serif;font-size:1rem;color:#e0a830;font-weight:600;">✂ Crop Photo</div>
+        <div style="font-family:'Cinzel',serif;font-size:1rem;color:#e0a830;font-weight:600;">Γ£é Crop Photo</div>
         <div id="crop-label" style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:2px;">Drag to select the area you want</div>
       </div>
       <button onclick="cancelCrop()" style="
@@ -1378,7 +1216,7 @@
             color:#fff; border:none; border-radius:8px; font-family:'Jost',sans-serif;
             font-size:0.88rem; font-weight:600; cursor:pointer; letter-spacing:0.5px;
             transition:opacity .2s;
-          " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">✓ Use This Crop</button>
+          " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Γ£ô Use This Crop</button>
           <button onclick="skipCrop()" style="
             padding:12px 14px; background:rgba(255,255,255,0.07);
             color:rgba(255,255,255,0.7); border:1px solid rgba(255,255,255,0.2);
@@ -1411,7 +1249,7 @@
 
 <script src="js/firebase-config.js"></script>
 <script>
-// ============ YOGARTHA ADMIN v7 — Mobile + Desktop ============
+// ============ YOGARTHA ADMIN v7 ΓÇö Mobile + Desktop ============
 
 let schedule = {
  columns:["6:00 AM","8:00 AM","5:30 PM","7:00 PM"],
@@ -1422,7 +1260,7 @@ let schedule = {
  {day:"Thursday", slots:["Surya Kriya","Angamardhana","Upa Yoga","Hatha Yoga"]},
  {day:"Friday", slots:["Hatha Yoga","Pranayama","Surya Kriya","Meditation"]},
  {day:"Saturday", slots:["Surya Kriya","Hatha Yoga","Angamardhana","Meditation"]},
- {day:"Sunday", slots:["Deep Meditation","Hatha Yoga","—","—"]}
+ {day:"Sunday", slots:["Deep Meditation","Hatha Yoga","ΓÇö","ΓÇö"]}
  ],
  note:"*Reeta teaches all weekday morning batches. Guest instructors on evenings & weekends."
 };
@@ -1483,27 +1321,27 @@ function testImgbbKey() {
  const k = getImgbbKey();
  const res = document.getElementById("imgbb-test-result");
  if (!k) { res.style.color="#f87171"; res.textContent="No API key saved yet."; return; }
- res.style.color="var(--muted)"; res.textContent="Testing…";
+ res.style.color="var(--muted)"; res.textContent="TestingΓÇª";
  const tiny="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI6QAAAABJRU5ErkJggg==";
  const fd=new FormData(); fd.append("image",tiny);
  fetch(`https://api.imgbb.com/1/upload?key=${k}`,{method:"POST",body:fd})
  .then(r=>r.json()).then(d=>{
- if(d.success){res.style.color="#6ee89a";res.textContent="✓ Connected! Uploads enabled.";updateImgbbStatus();}
- else{res.style.color="#f87171";res.textContent="✗ Invalid key. Please check.";}
- }).catch(()=>{res.style.color="#f87171";res.textContent="✗ Network error.";});
+ if(d.success){res.style.color="#6ee89a";res.textContent="Γ£ô Connected! Uploads enabled.";updateImgbbStatus();}
+ else{res.style.color="#f87171";res.textContent="Γ£ù Invalid key. Please check.";}
+ }).catch(()=>{res.style.color="#f87171";res.textContent="Γ£ù Network error.";});
 }
 function updateImgbbStatus() {
  const k=getImgbbKey();
  const bar=document.getElementById("gallery-imgbb-bar");
  const msg=document.getElementById("gallery-imgbb-msg");
- if(k){bar.className="imgbb-bar ready";msg.textContent="✓ ImgBB connected — direct photo upload enabled!";}
- else{bar.className="imgbb-bar notset";msg.textContent='ImgBB not set — go to "Image API Setup" to enable direct uploads.';}
+ if(k){bar.className="imgbb-bar ready";msg.textContent="Γ£ô ImgBB connected ΓÇö direct photo upload enabled!";}
+ else{bar.className="imgbb-bar notset";msg.textContent='ImgBB not set ΓÇö go to "Image API Setup" to enable direct uploads.';}
  if(!document.getElementById("imgbb-key-input").value) document.getElementById("imgbb-key-input").value=k;
 }
 async function uploadToImgbb(file, onProgress) {
  const k=getImgbbKey();
  if(!k){toast("Set up ImgBB key first (Image API Setup tab)",true);return null;}
- if(file.size>10*1024*1024){toast("File too large — max 10MB",true);return null;}
+ if(file.size>10*1024*1024){toast("File too large ΓÇö max 10MB",true);return null;}
  return new Promise((resolve,reject)=>{
  const fd=new FormData(); fd.append("image",file);
  const xhr=new XMLHttpRequest();
@@ -1548,7 +1386,7 @@ function enterDash(fb) {
  const bar=document.getElementById("firebase-status");
  if(fb){
  bar.className="status-bar connected";
- bar.innerHTML='<div class="status-dot"></div><span>Connected to Firebase — changes publish live instantly</span>';
+ bar.innerHTML='<div class="status-dot"></div><span>Connected to Firebase ΓÇö changes publish live instantly</span>';
  loadFirebase();
  }
  updateImgbbStatus(); renderBatchListAdmin(); renderTestiList(); renderGallery();
@@ -1562,7 +1400,7 @@ function loadEnquiries() {
  list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">Firebase not connected. Enquiries will appear here once connected.</p>';
  return;
  }
- list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">Loading…</p>';
+ list.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">LoadingΓÇª</p>';
  firebase.database().ref('enquiries').orderByChild('timestamp').once('value').then(snap => {
  const raw = snap.val();
  if (!raw) {
@@ -1579,12 +1417,12 @@ function loadEnquiries() {
  const dt = e.timestamp ? new Date(e.timestamp).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'}) : '';
  return `<div style="border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;background:${isUnread?'rgba(242,103,34,0.05)':'var(--surface2)'};position:relative;">
  ${isUnread ? '<span style="position:absolute;top:12px;right:12px;background:#F26722;color:#fff;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:50px;">NEW</span>' : ''}
- <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:4px;">${e.name || '—'}</div>
+ <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:4px;">${e.name || 'ΓÇö'}</div>
  <div style="font-size:.82rem;color:var(--muted);margin-bottom:8px;">${dt}</div>
  <div style="font-size:.84rem;color:var(--text-mid);display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
- ${e.email ? `<span>✉ ${e.email}</span>` : ''}
- ${e.phone ? `<span>📞 ${e.phone}</span>` : ''}
- ${e.program ? `<span>🧘 ${e.program}</span>` : ''}
+ ${e.email ? `<span>Γ£ë ${e.email}</span>` : ''}
+ ${e.phone ? `<span>≡ƒô₧ ${e.phone}</span>` : ''}
+ ${e.program ? `<span>≡ƒºÿ ${e.program}</span>` : ''}
  </div>
  ${e.message ? `<div style="font-size:.88rem;color:var(--text);border-left:3px solid var(--saffron);padding-left:10px;margin-bottom:10px;font-style:italic;">"${e.message}"</div>` : ''}
  <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1614,81 +1452,6 @@ function doLogout() {
  document.getElementById("login-screen").style.display="flex";
 }
 
-// ============================================================
-// SITE CONFIG FUNCTIONS
-// ============================================================
-
-function _updateLineageToggleUI(isOn) {
- const track = document.getElementById('lineage-toggle-track');
- const knob  = document.getElementById('lineage-toggle-knob');
- const label = document.getElementById('lineage-toggle-label');
- const chk   = document.getElementById('cfg-lineage-toggle');
- if (!track) return;
- if (isOn) {
-  track.style.background = '#F26722';
-  knob.style.left = '28px';
-  if (label) label.textContent = 'Button is Visible — Lineage link showing';
-  if (chk && !chk.checked) chk.checked = true;
- } else {
-  track.style.background = '#888';
-  knob.style.left = '4px';
-  if (label) label.textContent = 'Button is Hidden — Tagline showing';
-  if (chk && chk.checked) chk.checked = false;
- }
-}
-
-async function saveSiteConfigStats() {
- const data = {
-  hours:       (document.getElementById('cfg-hours')?.value || '').trim(),
-  hoursLbl:    (document.getElementById('cfg-hours-lbl')?.value || '').trim(),
-  programs:    (document.getElementById('cfg-programs')?.value || '').trim(),
-  programsLbl: (document.getElementById('cfg-programs-lbl')?.value || '').trim(),
-  years:       (document.getElementById('cfg-years')?.value || '').trim(),
-  yearsLbl:    (document.getElementById('cfg-years-lbl')?.value || '').trim(),
- };
- if (isFirebase) {
-  await firebase.database().ref('siteConfig/stats').set(data).catch(() => toast('DB error', true));
-  toast('Stats saved & live ✅');
- } else { toast('Stats saved (Demo Mode)'); }
-}
-
-async function saveSiteConfigLineage() {
- const isOn = document.getElementById('cfg-lineage-toggle').checked;
- _updateLineageToggleUI(isOn);
- if (isFirebase) {
-  await firebase.database().ref('siteConfig/showLineage').set(isOn).catch(() => toast('DB error', true));
-  toast(isOn ? 'Lineage button now visible ✅' : 'Tagline now showing ✅');
- } else { toast('Toggle saved (Demo Mode)'); }
-}
-
-async function saveSiteConfigCredentials() {
- const creds = [1,2,3,4].map(i => (document.getElementById('cfg-cred-' + i)?.value || '').trim());
- if (isFirebase) {
-  await firebase.database().ref('siteConfig/credentials').set(creds).catch(() => toast('DB error', true));
-  toast('Credentials saved & live ✅');
- } else { toast('Credentials saved (Demo Mode)'); }
-}
-
-function loadSiteConfig(cfg) {
- if (!cfg) return;
- if (cfg.stats) {
-  const s = cfg.stats;
-  if (s.hours)       { const el = document.getElementById('cfg-hours');        if(el) el.value = s.hours; }
-  if (s.hoursLbl)    { const el = document.getElementById('cfg-hours-lbl');    if(el) el.value = s.hoursLbl; }
-  if (s.programs)    { const el = document.getElementById('cfg-programs');     if(el) el.value = s.programs; }
-  if (s.programsLbl) { const el = document.getElementById('cfg-programs-lbl'); if(el) el.value = s.programsLbl; }
-  if (s.years)       { const el = document.getElementById('cfg-years');        if(el) el.value = s.years; }
-  if (s.yearsLbl)    { const el = document.getElementById('cfg-years-lbl');    if(el) el.value = s.yearsLbl; }
- }
- _updateLineageToggleUI(cfg.showLineage === true);
- if (cfg.credentials && Array.isArray(cfg.credentials)) {
-  cfg.credentials.forEach((val, i) => {
-   const el = document.getElementById('cfg-cred-' + (i + 1));
-   if (el) el.value = val;
-  });
- }
-}
-
 function _hideAuthGate() {
  const gate = document.getElementById("auth-loading");
  if (gate) gate.style.display = "none";
@@ -1706,7 +1469,7 @@ document.addEventListener("DOMContentLoaded", () => {
  // until onAuthStateChanged fires. If not logged in, show login. If logged in,
  // go straight to dashboard. No bypass is possible.
  if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
-  // Use SESSION persistence — login won't carry over after browser is fully closed
+  // Use SESSION persistence ΓÇö login won't carry over after browser is fully closed
   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
    .then(() => {
     firebase.auth().onAuthStateChanged(user => {
@@ -1714,13 +1477,13 @@ document.addEventListener("DOMContentLoaded", () => {
      if (user) {
       enterDash(true);
      } else {
-      // Not logged in — show the login screen
+      // Not logged in ΓÇö show the login screen
       document.getElementById("login-screen").style.display = "flex";
      }
     });
    })
    .catch(() => {
-    // setPersistence failed (e.g. private browsing) — still gate properly
+    // setPersistence failed (e.g. private browsing) ΓÇö still gate properly
     firebase.auth().onAuthStateChanged(user => {
      _hideAuthGate();
      if (user) {
@@ -1731,7 +1494,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
    });
  } else {
-  // Firebase failed to load entirely — show error on login screen, never open dashboard
+  // Firebase failed to load entirely ΓÇö show error on login screen, never open dashboard
   _hideAuthGate();
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("login-err").textContent = "Firebase failed to initialize. Check your connection or disable adblockers.";
@@ -1780,14 +1543,14 @@ function addBatch() {
   if (isFirebase) {
     firebase.database().ref('batches/' + id).set(batch)
       .then(() => {
-        toast('Batch added live! ✓');
+        toast('Batch added live! Γ£ô');
         resetBatchForm();
       })
       .catch(() => toast('Error saving batch', true));
   } else {
     batches[id] = batch;
     renderBatchListAdmin();
-    toast('Batch added (Demo mode — connect Firebase to publish)');
+    toast('Batch added (Demo mode ΓÇö connect Firebase to publish)');
     resetBatchForm();
   }
 }
@@ -1839,9 +1602,9 @@ function renderBatchListAdmin() {
           ${isPast ? '<span style="margin-left:6px;font-size:.65rem;background:rgba(0,0,0,0.08);color:var(--muted);padding:2px 8px;border-radius:20px;font-weight:500;">Completed</span>' : ''}
         </div>
         <div style="font-size:.78rem;color:var(--muted);margin-top:2px;">
-          ${fmtDateAdmin(b.startDate)} → ${fmtDateAdmin(b.endDate)} &nbsp;·&nbsp; ${days} days
-          ${b.time ? '&nbsp;·&nbsp; ' + b.time : ''}
-          ${b.seats ? '&nbsp;·&nbsp; ' + b.seats : ''}
+          ${fmtDateAdmin(b.startDate)} ΓåÆ ${fmtDateAdmin(b.endDate)} &nbsp;┬╖&nbsp; ${days} days
+          ${b.time ? '&nbsp;┬╖&nbsp; ' + b.time : ''}
+          ${b.seats ? '&nbsp;┬╖&nbsp; ' + b.seats : ''}
         </div>
       </div>
       <button class="btn btn-danger btn-sm" onclick="deleteBatch('${b.id}')">Remove</button>
@@ -1980,7 +1743,7 @@ async function uploadImageFile(file, _storagePath) {
   const k = getImgbbKey();
   if (!k) {
     // Show a helpful nudge instead of silent fail
-    toast('⚠ Paste your ImgBB API key in "Image API Setup" to enable uploads', true);
+    toast('ΓÜá Paste your ImgBB API key in "Image API Setup" to enable uploads', true);
     // Navigate user to the setup panel
     setTimeout(() => showPanel('imgbb', document.querySelector('[onclick*="imgbb"]')), 1500);
     throw new Error('API key missing');
@@ -1998,13 +1761,13 @@ async function handleGalleryFiles(files){
   async function cropAndUploadNext(index) {
     if (index >= fileArray.length) return;
     const file = fileArray[index];
-    openCropModal(file, `Crop photo ${index+1} of ${fileArray.length} — drag to adjust`, async (blob) => {
+    openCropModal(file, `Crop photo ${index+1} of ${fileArray.length} ΓÇö drag to adjust`, async (blob) => {
       const croppedFile = blobToFile(blob, file.name);
       const prog=document.getElementById("gallery-progress");
       const progBar=document.getElementById("gallery-progress-bar");
       const progText=document.getElementById("gallery-progress-text");
       prog.classList.add("show");
-      progText.textContent = `Uploading ${index+1}/${fileArray.length}…`;
+      progText.textContent = `Uploading ${index+1}/${fileArray.length}ΓÇª`;
       try {
         const url = await uploadToImgbb(croppedFile, pct=>{ progBar.style.width=pct+"%"; });
         if(url) gallery.push({id:Date.now()+index, url, caption:""});
@@ -2085,15 +1848,15 @@ function switchAdminGallery() {
 function saveGallery(){
  const gRef = document.getElementById("admin-gallery-selector").value;
  if(isFirebase)firebase.database().ref(gRef).set(gallery).then(()=>toast("Gallery live!")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase to publish");
+ else toast("Demo mode ΓÇö connect Firebase to publish");
 }
 
 // ---- TESTIMONIALS ----
 function handleTestiDrop(e){e.preventDefault();document.getElementById("testi-drop-zone").classList.remove("dragging");if(e.dataTransfer.files[0])handleTestiFile(e.dataTransfer.files[0]);}
 async function handleTestiFile(file){
   if(!file)return;
-  // Open crop modal — square/round for portrait photo
-  openCropModal(file, 'Crop student photo — square works best for the avatar', async (blob) => {
+  // Open crop modal ΓÇö square/round for portrait photo
+  openCropModal(file, 'Crop student photo ΓÇö square works best for the avatar', async (blob) => {
     const croppedFile = blobToFile(blob, file.name);
     if(!getImgbbKey()){
       const url=URL.createObjectURL(croppedFile);
@@ -2103,9 +1866,9 @@ async function handleTestiFile(file){
     const prog=document.getElementById("testi-progress");
     const progBar=document.getElementById("testi-progress-bar");
     const progText=document.getElementById("testi-progress-text");
-    prog.classList.add("show"); progText.textContent="Uploading…";
+    prog.classList.add("show"); progText.textContent="UploadingΓÇª";
     try{
-      const url=await uploadToImgbb(croppedFile,pct=>{progBar.style.width=pct+"%";progText.textContent=`Uploading… ${pct}%`;});
+      const url=await uploadToImgbb(croppedFile,pct=>{progBar.style.width=pct+"%";progText.textContent=`UploadingΓÇª ${pct}%`;});
       if(url){pendingTestiPhotoUrl=url;showTestiPhotoPreview(url,file.name);toast("Photo uploaded!");}
     }catch(e){toast("Upload failed",true);}
     prog.classList.remove("show"); progBar.style.width="0%";
@@ -2183,12 +1946,12 @@ async function uploadSiteImg(type, file, previewId) {
   if (!file) return;
 
   const cropConfigs = {
-    hero:     { ratio: 16/9, label: 'Crop hero background — 16:9 wide recommended', isRound: false },
+    hero:     { ratio: 16/9, label: 'Crop hero background ΓÇö 16:9 wide recommended', isRound: false },
     about:    { ratio: NaN,  label: 'Crop about section image',                      isRound: false },
-    guru:     { ratio: 1,    label: 'Crop teacher portrait — square works best',    isRound: true  },
+    guru:     { ratio: 1,    label: 'Crop teacher portrait ΓÇö square works best',    isRound: true  },
     sadhguru: { ratio: NaN,  label: 'Crop Sadhguru portrait',                       isRound: false },
     shala:    { ratio: NaN,  label: 'Crop class / studio photo',                    isRound: false },
-    symbol:   { ratio: 1,    label: 'Crop decorative symbol — square recommended', isRound: false },
+    symbol:   { ratio: 1,    label: 'Crop decorative symbol ΓÇö square recommended', isRound: false },
   };
   const cfg = cropConfigs[type] || { ratio: NaN, label: 'Crop image', isRound: false };
 
@@ -2202,17 +1965,17 @@ async function uploadSiteImg(type, file, previewId) {
     // Show spinner
     const spinner = document.getElementById('spin-img-' + type);
     if (spinner) spinner.style.display = 'flex';
-    toast('Uploading…');
+    toast('UploadingΓÇª');
 
     try {
       const url = await uploadImageFile(uploadFile, 'siteImages/' + type + '_' + Date.now());
       if (url) {
         document.getElementById(previewId).src = url;
         await saveSiteImgToDb(type, url);
-        toast('Image updated live! ✓');
+        toast('Image updated live! Γ£ô');
       }
     } catch(e) {
-      toast('Upload failed — ' + e, true);
+      toast('Upload failed ΓÇö ' + e, true);
     } finally {
       if (spinner) spinner.style.display = 'none';
     }
@@ -2249,15 +2012,15 @@ async function _cropHeroDevice(device, file) {
   const cfg = _heroCropConfigs[device];
   openCropModal(file, cfg.label, async (fileOrBlob) => {
     const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
-    toast('Uploading ' + device + ' crop…');
+    toast('Uploading ' + device + ' cropΓÇª');
     try {
       const url = await uploadImageFile(uploadFile, 'siteImages/hero_' + device + '_' + Date.now());
       if (url) {
         document.getElementById(cfg.previewId).src = url;
         await saveSiteImgToDb(cfg.dbKey, url);
-        toast('Hero ' + device + ' image updated live! ✓');
+        toast('Hero ' + device + ' image updated live! Γ£ô');
       }
-    } catch(e) { toast('Upload failed — ' + e, true); }
+    } catch(e) { toast('Upload failed ΓÇö ' + e, true); }
   }, cfg.ratio, false);
 }
 
@@ -2316,9 +2079,9 @@ function _cropAboutDevice(device, file) {
       if (url) {
         document.getElementById(cfg.previewId).src = url;
         await saveSiteImgToDb(cfg.dbKey, url);
-        toast('About ' + device + ' image updated live! ✅');
+        toast('About ' + device + ' image updated live! Γ£à');
       }
-    } catch(e) { toast('Upload failed – ' + e, true); }
+    } catch(e) { toast('Upload failed ΓÇô ' + e, true); }
   }, cfg.ratio, false);
 }
 
@@ -2365,9 +2128,9 @@ function _cropGuruDevice(device, file) {
       if (url) {
         document.getElementById(cfg.previewId).src = url;
         await saveSiteImgToDb(cfg.dbKey, url);
-        toast('Teacher ' + device + ' image updated live! ✅');
+        toast('Teacher ' + device + ' image updated live! Γ£à');
       }
-    } catch(e) { toast('Upload failed – ' + e, true); }
+    } catch(e) { toast('Upload failed ΓÇô ' + e, true); }
   }, cfg.ratio, false);
 }
 
@@ -2432,15 +2195,15 @@ async function _cropProgHeroDevice(device, file) {
   const dbKey = 'prog_' + pid + '_' + device;
   openCropModal(file, cfg.label, async (fileOrBlob) => {
     const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
-    toast('Uploading ' + device + ' crop…');
+    toast('Uploading ' + device + ' cropΓÇª');
     try {
       const url = await uploadImageFile(uploadFile, 'siteImages/prog_' + pid + '_' + device + '_' + Date.now());
       if (url) {
         document.getElementById(cfg.previewId).src = url;
         await saveSiteImgToDb(dbKey, url);
-        toast('Program hero ' + device + ' updated live! 🎉');
+        toast('Program hero ' + device + ' updated live! ≡ƒÄë');
       }
-    } catch(e) { toast('Upload failed — ' + e, true); }
+    } catch(e) { toast('Upload failed ΓÇö ' + e, true); }
   }, cfg.ratio, false);
 }
 
@@ -2491,7 +2254,7 @@ function loadProgramImages() {
       if (data.images && data.images.overview && prevOv) prevOv.src = data.images.overview;
       if (data.regFormUrl && regInput) {
         regInput.value = data.regFormUrl;
-        if (regStatus) { regStatus.style.color = '#43A047'; regStatus.textContent = '✓ Form link active'; }
+        if (regStatus) { regStatus.style.color = '#43A047'; regStatus.textContent = 'Γ£ô Form link active'; }
       }
     }).catch(() => {});
   }
@@ -2506,7 +2269,7 @@ function saveProgRegFormUrl() {
   if (isFirebase) {
     firebase.database().ref('programs/' + pId + '/regFormUrl').set(url)
       .then(() => {
-        if (status) { status.style.color = '#43A047'; status.textContent = '✓ Form link saved & live!'; }
+        if (status) { status.style.color = '#43A047'; status.textContent = 'Γ£ô Form link saved & live!'; }
         toast('Registration form link saved!');
       })
       .catch(() => toast('Failed to save', true));
@@ -2521,7 +2284,7 @@ function clearProgRegFormUrl() {
     firebase.database().ref('programs/' + pId + '/regFormUrl').remove()
       .then(() => {
         document.getElementById('prog-reg-form-url').value = '';
-        if (status) { status.style.color = 'var(--muted)'; status.textContent = 'Form link removed — button hidden on program page.'; }
+        if (status) { status.style.color = 'var(--muted)'; status.textContent = 'Form link removed ΓÇö button hidden on program page.'; }
         toast('Registration form link removed.');
       })
       .catch(() => toast('Failed to remove', true));
@@ -2542,7 +2305,7 @@ async function uploadProgramImg(type, file, previewId) {
 
   openCropModal(file, cropLabel, async (fileOrBlob) => {
     const uploadFile = (fileOrBlob instanceof File) ? fileOrBlob : blobToFile(fileOrBlob, file.name);
-    toast('Uploading program image…');
+    toast('Uploading program imageΓÇª');
     try {
       const url = await uploadImageFile(uploadFile, 'programs/' + pId + '/' + type + '_' + Date.now());
       if (url) {
@@ -2554,7 +2317,7 @@ async function uploadProgramImg(type, file, previewId) {
           // Legacy path for backwards compat
           firebase.database().ref('programs/' + pId + '/images/' + type).set(url);
         }
-        toast('Program image updated! ✓');
+        toast('Program image updated! Γ£ô');
       }
     } catch(e) { if (e.message !== 'API key missing') toast('Upload failed', true); }
   }, cropRatio, false);
@@ -2584,7 +2347,7 @@ function saveTeacherInfo(){
  bio:document.getElementById("teacher-bio").value.trim()
  };
  if(isFirebase)firebase.database().ref("teacher").set(d).then(()=>toast("Bio saved & live!")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase to publish");
+ else toast("Demo mode ΓÇö connect Firebase to publish");
 }
 
 // ---- ANNOUNCEMENT ----
@@ -2596,7 +2359,7 @@ function toggleAnn(){
 function saveAnnouncement(){
  announcement.text=document.getElementById("ann-text").value.trim();
  if(isFirebase)firebase.database().ref("announcement").set(announcement).then(()=>toast(announcement.active?"Banner LIVE!":"Banner hidden")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase");
+ else toast("Demo mode ΓÇö connect Firebase");
 }
 function setEx(btn){document.getElementById("ann-text").value=btn.textContent.trim();}
 
@@ -2611,7 +2374,7 @@ function saveContact(){
  landmark:document.getElementById("contact-landmark").value
  };
  if(isFirebase)firebase.database().ref("contact").set(d).then(()=>toast("Contact info live!")).catch(()=>toast("Error",true));
- else toast("Demo mode — connect Firebase");
+ else toast("Demo mode ΓÇö connect Firebase");
 }
 
 // ---- FIREBASE LOAD ----
@@ -2656,15 +2419,12 @@ function loadFirebase(){
  db.ref("config/imgbbKey").once("value").then(s=>{
  if(s.val()){imgbbKey=s.val();localStorage.setItem("yogartha_imgbb_key",s.val());updateImgbbStatus();}
  });
- db.ref("siteConfig").once("value").then(s=>{
-  if(s.val()) loadSiteConfig(s.val());
- });
 }
 
 // ---- TOAST ----
 function toast(msg,isErr){
  const t=document.getElementById("toast");
- t.textContent=(isErr?"⚠ ":"✓ ")+msg;
+ t.textContent=(isErr?"ΓÜá ":"Γ£ô ")+msg;
  t.style.background=isErr?"#c0392b":"#27ae60";
  t.classList.add("show");
  setTimeout(()=>t.classList.remove("show"),3000);
