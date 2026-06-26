@@ -755,7 +755,7 @@ ul { list-style: none; }
   .hamburger { display: flex; z-index: 1000; }
 }
 @media (max-width: 480px) {
-  .program-hero { margin-top: 44px; aspect-ratio: 4/3; min-height: 160px; padding-top: 40px; padding-bottom: 30px; }
+  .program-hero { margin-top: 72px; aspect-ratio: 4/3; min-height: 160px; padding-top: 40px; padding-bottom: 30px; }
   .benefits-section { padding: 32px 0; }
   .benefits-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
   .benefit-icon { width: 24px; height: 24px; }
