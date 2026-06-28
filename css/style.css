@@ -45,6 +45,7 @@ ul { list-style: none; }
 /* ===== LAYOUT ===== */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .section-pad { padding: 100px 0; }
+section[id] { scroll-margin-top: 90px; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 
 /* ===== TYPOGRAPHY ===== */
