@@ -1648,8 +1648,10 @@ async function saveSiteConfigStats() {
   yearsLbl:    (document.getElementById('cfg-years-lbl')?.value || '').trim(),
  };
  if (isFirebase) {
-  await firebase.database().ref('siteConfig/stats').set(data).catch(() => toast('DB error', true));
-  toast('Stats saved & live ✅');
+  try {
+   await firebase.database().ref('siteConfig/stats').set(data);
+   toast('Stats saved & live ✅');
+  } catch(e) { toast('DB error (Check Firebase Rules)', true); }
  } else { toast('Stats saved (Demo Mode)'); }
 }
 
@@ -1657,16 +1659,20 @@ async function saveSiteConfigLineage() {
  const isOn = document.getElementById('cfg-lineage-toggle').checked;
  _updateLineageToggleUI(isOn);
  if (isFirebase) {
-  await firebase.database().ref('siteConfig/showLineage').set(isOn).catch(() => toast('DB error', true));
-  toast(isOn ? 'Lineage button now visible ✅' : 'Tagline now showing ✅');
+  try {
+   await firebase.database().ref('siteConfig/showLineage').set(isOn);
+   toast(isOn ? 'Lineage button now visible ✅' : 'Tagline now showing ✅');
+  } catch(e) { toast('DB error (Check Firebase Rules)', true); }
  } else { toast('Toggle saved (Demo Mode)'); }
 }
 
 async function saveSiteConfigCredentials() {
  const creds = [1,2,3,4].map(i => (document.getElementById('cfg-cred-' + i)?.value || '').trim());
  if (isFirebase) {
-  await firebase.database().ref('siteConfig/credentials').set(creds).catch(() => toast('DB error', true));
-  toast('Credentials saved & live ✅');
+  try {
+   await firebase.database().ref('siteConfig/credentials').set(creds);
+   toast('Credentials saved & live ✅');
+  } catch(e) { toast('DB error (Check Firebase Rules)', true); }
  } else { toast('Credentials saved (Demo Mode)'); }
 }
 
