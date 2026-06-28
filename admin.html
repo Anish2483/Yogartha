@@ -2057,14 +2057,16 @@ function openGalleryTab(type, btn) {
     if (type === 'main') {
         wrap.style.display = 'none';
         title.textContent = 'Main Gallery';
-        // Temporarily inject the main gallery option to switch to it, then remove it so it doesn't show in the UI if it becomes visible
-        const opt = document.createElement("option");
-        opt.value = "gallery";
-        opt.id = "temp-main-opt";
-        selector.appendChild(opt);
+        let opt = document.getElementById("temp-main-opt");
+        if (!opt) {
+            opt = document.createElement("option");
+            opt.value = "gallery";
+            opt.id = "temp-main-opt";
+            opt.style.display = "none";
+            selector.appendChild(opt);
+        }
         selector.value = 'gallery';
         switchAdminGallery();
-        document.getElementById("temp-main-opt").remove();
     } else {
         wrap.style.display = 'block';
         title.textContent = 'Program Galleries';
