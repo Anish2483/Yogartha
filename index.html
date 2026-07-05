@@ -1006,42 +1006,168 @@
  <p class="section-sub">Moments from our classes, retreats, and community</p>
  </div>
  <div class="gallery-masonry reveal" id="gallery-masonry">
- <!-- Photos loaded dynamically from admin panel -->
  </div>
  </div>
  </section>
 
- <!-- ===== TESTIMONIALS ===== -->
- <section id="testimonials" class="testimonials section-pad">
- <div class="container">
- <div class="section-header reveal">
- <p class="section-eyebrow">Student Voices</p>
- <h2 class="section-title">Transformed Lives </h2>
- </div>
- <div class="testimonials-grid">
- <div class="testi-card reveal">
- <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
- <p>"Reeta's Hatha Yoga classes are unlike anything I've experienced. The precision, the care, the depth — it's as if the Isha tradition comes alive in every session. My back pain of 5 years is gone."</p>
- <div class="testi-author"><span class="author-avatar">A</span><div><strong>Ananya Sharma</strong><small>Software Engineer</small></div></div>
- </div>
- <div class="testi-card reveal">
- <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
- <p>"I came skeptical and left transformed. Reeta explained the science behind each asana and kriya so beautifully. The Surya Kriya program changed my energy levels and mental clarity completely."</p>
- <div class="testi-author"><span class="author-avatar">R</span><div><strong>Rahul Mehta</strong><small>Entrepreneur, Haridwar</small></div></div>
- </div>
- <div class="testi-card reveal">
- <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
- <p>"The Himalayan retreat was the most profound experience of my life. 7 days in the foothills with Reeta guiding us — pure silence, pure practice. I returned completely renewed from the inside."</p>
- <div class="testi-author"><span class="author-avatar">P</span><div><strong>Priya Nair</strong><small>Educator, Mussoorie</small></div></div>
- </div>
- <div class="testi-card reveal">
- <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
- <p>"As someone who followed Sadhguru's teachings for years, finding Yogartha was a blessing. Reeta brings that same authenticity and depth of the Isha tradition into every class."</p>
- <div class="testi-author"><span class="author-avatar">V</span><div><strong>Vikram Joshi</strong><small>Architect, Rishikesh</small></div></div>
- </div>
- </div>
- </div>
- </section>
+  <!-- ===== TESTIMONIALS ===== -->
+  <section id="testimonials" class="testimonials section-pad">
+  <div class="container">
+  <div class="section-header reveal">
+  <p class="section-eyebrow">Student Voices</p>
+  <h2 class="section-title">Transformed Lives</h2>
+  </div>
+  </div>
+  <!-- Scroll track wrapper (outside container so it bleeds full-width) -->
+  <div class="testi-scroll-outer" id="testiScrollOuter">
+   <div class="testi-scroll-fade testi-scroll-fade--left"></div>
+   <div class="testi-scroll-track" id="testiScrollTrack">
+    <div class="testimonials-grid" id="testiGrid">
+     <!-- Static seed cards — replaced by Firebase if online -->
+     <div class="testi-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"Reeta's Hatha Yoga classes are unlike anything I've experienced. The precision, the care, the depth — it's as if the Isha tradition comes alive in every session. My back pain of 5 years is gone."</p>
+      <div class="testi-author"><span class="author-avatar">A</span><div><strong>Ananya Sharma</strong><small>Software Engineer</small></div></div>
+     </div>
+     <div class="testi-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"I came skeptical and left transformed. Reeta explained the science behind each asana and kriya so beautifully. The Surya Kriya program changed my energy levels and mental clarity completely."</p>
+      <div class="testi-author"><span class="author-avatar">R</span><div><strong>Rahul Mehta</strong><small>Entrepreneur, Haridwar</small></div></div>
+     </div>
+     <div class="testi-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"The Himalayan retreat was the most profound experience of my life. 7 days in the foothills with Reeta guiding us — pure silence, pure practice. I returned completely renewed from the inside."</p>
+      <div class="testi-author"><span class="author-avatar">P</span><div><strong>Priya Nair</strong><small>Educator, Mussoorie</small></div></div>
+     </div>
+     <div class="testi-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"As someone who followed Sadhguru's teachings for years, finding Yogartha was a blessing. Reeta brings that same authenticity and depth of the Isha tradition into every class."</p>
+      <div class="testi-author"><span class="author-avatar">V</span><div><strong>Vikram Joshi</strong><small>Architect, Rishikesh</small></div></div>
+     </div>
+    </div>
+   </div>
+   <div class="testi-scroll-fade testi-scroll-fade--right"></div>
+  </div>
+  </section>
+
+  <script>
+  /* ===== TESTIMONIALS MARQUEE — auto-scroll + drag/touch control ===== */
+  (function() {
+   const track  = document.getElementById('testiScrollTrack');
+   const grid   = document.getElementById('testiGrid');
+   if (!track || !grid) return;
+
+   let speed       = 0.55;   /* px per frame */
+   let pos         = 0;
+   let paused      = false;
+   let pauseTimer  = null;
+   let isDragging  = false;
+   let dragStartX  = 0;
+   let dragStartScroll = 0;
+   let rafId;
+   let myCloning   = false;  /* guard — prevents observer re-entry */
+
+   /* Clone cards for seamless infinite scroll */
+   function cloneCards() {
+    myCloning = true;
+    /* Remove stale clones first */
+    Array.from(grid.querySelectorAll('[aria-hidden="true"]')).forEach(el => el.remove());
+    const cards = Array.from(grid.querySelectorAll('.testi-card:not([aria-hidden])'));
+    if (cards.length === 0) { myCloning = false; return; }
+    cards.forEach(c => {
+     const cl = c.cloneNode(true);
+     cl.setAttribute('aria-hidden', 'true');
+     grid.appendChild(cl);
+    });
+    /* Reset guard AFTER all pending observer callbacks have fired (next macrotask) */
+    setTimeout(() => { myCloning = false; }, 0);
+   }
+
+   /* Wait until Firebase may have populated cards, then clone */
+   function initMarquee() {
+    /* Ensure grid uses flex for horizontal scroll */
+    grid.style.display = 'flex';
+    grid.style.flexWrap = 'nowrap';
+    grid.style.width    = 'max-content';
+
+    cloneCards();
+
+    function tick() {
+     if (!paused && !isDragging) {
+      pos += speed;
+      const half = grid.scrollWidth / 2;
+      if (pos >= half) pos = 0;
+      track.scrollLeft = pos;
+     }
+     rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+   }
+
+   function pauseFor(ms) {
+    paused = true;
+    clearTimeout(pauseTimer);
+    pauseTimer = setTimeout(() => { paused = false; }, ms);
+   }
+
+   /* Pause on hover */
+   track.addEventListener('mouseenter', () => { paused = true; });
+   track.addEventListener('mouseleave', () => { paused = false; });
+
+   /* Drag to scroll (mouse) */
+   track.addEventListener('mousedown', e => {
+    isDragging = true;
+    paused     = true;
+    dragStartX      = e.pageX;
+    dragStartScroll = track.scrollLeft;
+    pos = track.scrollLeft;
+    track.style.cursor = 'grabbing';
+    track.style.userSelect = 'none';
+   });
+   window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = dragStartX - e.pageX;
+    track.scrollLeft = dragStartScroll + dx;
+    pos = track.scrollLeft;
+   });
+   window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    track.style.cursor = 'grab';
+    track.style.userSelect = '';
+    pauseFor(1200);
+   });
+
+   /* Touch */
+   track.addEventListener('touchstart', e => {
+    isDragging = true;
+    paused     = true;
+    dragStartX      = e.touches[0].pageX;
+    dragStartScroll = track.scrollLeft;
+    pos = track.scrollLeft;
+   }, { passive: true });
+   track.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const dx = dragStartX - e.touches[0].pageX;
+    track.scrollLeft = dragStartScroll + dx;
+    pos = track.scrollLeft;
+   }, { passive: true });
+   track.addEventListener('touchend', () => {
+    isDragging = false;
+    pauseFor(1500);
+   });
+
+   /* Init after a brief delay to let Firebase fill cards first */
+   setTimeout(initMarquee, 900);
+
+   /* If Firebase updates the grid, re-clone — guarded to avoid infinite loop */
+   const mo = new MutationObserver(() => {
+    if (myCloning) return;   /* skip — change was made by our own cloneCards() */
+    cloneCards();
+   });
+   mo.observe(grid, { childList: true });
+  })();
+  </script>
 
  <!-- ===== QUOTE BANNER ===== -->
  <div class="quote-banner">

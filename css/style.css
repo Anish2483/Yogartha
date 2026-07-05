@@ -1144,50 +1144,268 @@ section[id] { scroll-margin-top: 90px; }
   .batch-name   { font-size: 1rem; }
 }
 
-
-
-/* ===== TESTIMONIALS ===== */
-.testimonials { background: var(--cream); }
-.testimonials-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 28px; }
-.testi-card {
- background: var(--white);
- border-radius: var(--radius);
- padding: 36px;
- box-shadow: 0 4px 24px rgba(74,44,10,0.07);
- border: 1px solid rgba(201,150,58,0.12);
- transition: var(--transition);
+/* ===== TESTIMONIALS — MARQUEE SCROLL (SADHGURU AMBER LUXE) ===== */
+.testimonials {
+ background: linear-gradient(160deg,
+  #110A03 0%,
+  #1C1005 40%,
+  #251508 70%,
+  #1C1005 100%);
+ position: relative;
+ overflow: hidden;
+ padding-bottom: 90px;
 }
-.testi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-.stars { color: var(--gold); font-size: 1rem; margin-bottom: 16px; letter-spacing: 2px; }
-.testi-card p { color: var(--text-light); font-style: italic; font-family: var(--font-serif); font-size: 1.05rem; margin-bottom: 24px; }
-.testi-author { display: flex; align-items: center; gap: 14px; }
+
+/* ---- Atmospheric glowing orbs ---- */
+.testimonials::before {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background:
+  radial-gradient(ellipse 60% 40% at 20% 50%, rgba(212,120,42,0.07) 0%, transparent 70%),
+  radial-gradient(ellipse 40% 60% at 80% 30%, rgba(180,60,30,0.05) 0%, transparent 70%),
+  radial-gradient(ellipse 30% 40% at 50% 100%, rgba(212,120,42,0.04) 0%, transparent 60%);
+ pointer-events: none;
+ z-index: 0;
+}
+
+/* ---- Subtle animated ring watermark ---- */
+.testimonials::after {
+ content: '';
+ position: absolute;
+ top: 50%; right: -120px;
+ transform: translateY(-50%);
+ width: 480px; height: 480px;
+ background: radial-gradient(circle, rgba(212,120,42,0.04) 0%, transparent 70%);
+ border-radius: 50%;
+ border: 1px solid rgba(212,120,42,0.06);
+ animation: testiPulse 6s ease-in-out infinite;
+ pointer-events: none;
+ z-index: 0;
+}
+@keyframes testiPulse {
+ 0%, 100% { transform: translateY(-50%) scale(1);   opacity: 0.6; }
+ 50%       { transform: translateY(-50%) scale(1.08); opacity: 1;   }
+}
+
+/* ---- Section header overrides ---- */
+.testimonials .section-eyebrow {
+ color: var(--saffron-light) !important;
+ letter-spacing: 0.25em;
+ text-shadow: 0 0 20px rgba(212,120,42,0.4);
+}
+.testimonials .section-title {
+ color: #F5ECE0 !important;
+ text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+}
+.testimonials .section-header {
+ position: relative;
+ z-index: 1;
+}
+
+/* ---- Glowing accent line under heading ---- */
+.testimonials .section-title::after {
+ content: '';
+ display: block;
+ width: 64px;
+ height: 3px;
+ margin: 16px auto 0;
+ background: linear-gradient(90deg, transparent, var(--saffron), var(--gold), transparent);
+ border-radius: 2px;
+ box-shadow: 0 0 14px rgba(212,120,42,0.4);
+}
+
+/* ---- Scroll outer container ---- */
+.testi-scroll-outer {
+ position: relative;
+ width: 100%;
+ margin-top: 56px;
+ z-index: 1;
+}
+.testi-scroll-track {
+ overflow-x: scroll;
+ overflow-y: hidden;
+ scrollbar-width: none;
+ -ms-overflow-style: none;
+ cursor: grab;
+ padding: 20px 0 40px;
+}
+.testi-scroll-track::-webkit-scrollbar { display: none; }
+
+/* ---- Fade edges — match amber bg ---- */
+.testi-scroll-fade {
+ position: absolute;
+ top: 0; bottom: 0;
+ width: 140px;
+ z-index: 2;
+ pointer-events: none;
+}
+.testi-scroll-fade--left  { left: 0;  background: linear-gradient(to right, #110A03 10%, transparent); }
+.testi-scroll-fade--right { right: 0; background: linear-gradient(to left,  #110A03 10%, transparent); }
+
+/* ---- Cards grid ---- */
+.testimonials-grid {
+ display: flex;
+ flex-wrap: nowrap;
+ gap: 28px;
+ padding: 0 80px;
+ width: max-content;
+}
+
+/* ---- Individual card ---- */
+.testi-card {
+ flex: 0 0 380px;
+ background: linear-gradient(145deg,
+  rgba(255,255,255,0.05) 0%,
+  rgba(212,120,42,0.04) 50%,
+  rgba(255,255,255,0.02) 100%);
+ border: 1px solid rgba(212,120,42,0.18);
+ border-radius: 24px;
+ padding: 40px 34px 32px;
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ position: relative;
+ overflow: hidden;
+ transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
+ box-shadow:
+  0 4px 24px rgba(0,0,0,0.35),
+  inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* ---- Animated shimmer sweep on card ---- */
+.testi-card::after {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: linear-gradient(
+  115deg,
+  transparent 40%,
+  rgba(212,120,42,0.07) 50%,
+  transparent 60%
+ );
+ transform: translateX(-100%);
+ transition: transform 0.7s ease;
+ pointer-events: none;
+ border-radius: 24px;
+}
+.testi-card:hover::after { transform: translateX(100%); }
+
+/* ---- Decorative quote mark ---- */
+.testi-card::before {
+ content: '\201C';
+ position: absolute;
+ top: -4px; left: 20px;
+ font-family: 'Playfair Display', Georgia, serif;
+ font-size: 8rem;
+ line-height: 1;
+ background: linear-gradient(135deg, rgba(212,120,42,0.16), rgba(220,160,50,0.1));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ background-clip: text;
+ pointer-events: none;
+ z-index: 0;
+}
+
+/* ---- Hover state — glowing amber border ---- */
+.testi-card:hover {
+ border-color: rgba(212,120,42,0.5);
+ transform: translateY(-8px);
+ box-shadow:
+  0 24px 56px rgba(0,0,0,0.5),
+  0 0 0 1px rgba(212,120,42,0.22),
+  0 0 36px rgba(212,120,42,0.12);
+}
+
+/* ---- Stars — gold gradient ---- */
+.stars {
+ font-size: 1rem;
+ letter-spacing: 4px;
+ margin-bottom: 20px;
+ background: linear-gradient(90deg, #F7C948, #E07020, #F7C948);
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ background-clip: text;
+ animation: starShine 3s linear infinite;
+ position: relative;
+ z-index: 1;
+}
+@keyframes starShine {
+ 0%   { background-position: 0% center; }
+ 100% { background-position: 200% center; }
+}
+
+/* ---- Review text ---- */
+.testi-card > p {
+ color: rgba(245,236,224,0.85);
+ font-style: italic;
+ font-family: var(--font-serif);
+ font-size: 1.02rem;
+ line-height: 1.82;
+ margin-bottom: 28px;
+ position: relative;
+ z-index: 1;
+}
+
+/* ---- Author row ---- */
+.testi-author {
+ display: flex;
+ align-items: center;
+ gap: 14px;
+ border-top: 1px solid rgba(212,120,42,0.18);
+ padding-top: 22px;
+ position: relative;
+ z-index: 1;
+}
+
+/* ---- Avatar circle with amber-gold glow ---- */
 .author-avatar {
  width: 46px; height: 46px;
  background: linear-gradient(135deg, var(--saffron), var(--gold));
  border-radius: 50%;
  display: flex; align-items: center; justify-content: center;
- color: var(--white);
+ color: #fff;
  font-weight: 700;
- font-size: 1.1rem;
+ font-size: 1.05rem;
+ font-family: var(--font-sans);
  flex-shrink: 0;
+ box-shadow:
+  0 0 0 2px rgba(212,120,42,0.3),
+  0 0 16px rgba(212,120,42,0.2),
+  0 4px 12px rgba(0,0,0,0.4);
 }
-.testi-author strong { display: block; color: var(--charcoal); font-size: 0.95rem; }
-.testi-author small { color: var(--text-light); font-size: 0.8rem; }
+.testi-author strong {
+ display: block;
+ color: #F0E4D0;
+ font-size: 0.93rem;
+ font-weight: 600;
+ font-family: var(--font-sans);
+ letter-spacing: 0.01em;
+}
+.testi-author small {
+ color: rgba(240,228,208,0.5);
+ font-size: 0.78rem;
+ font-family: var(--font-sans);
+}
+
+/* ---- Google badge (amber theme) ---- */
 .review-source-badge {
  display: inline-flex;
  align-items: center;
  gap: 5px;
- font-size: 0.72rem;
+ font-size: 0.7rem;
  font-family: var(--font-sans);
  font-weight: 600;
- color: #5f6368;
- background: #f1f3f4;
- border: 1px solid rgba(0,0,0,0.08);
+ color: rgba(240,228,208,0.6);
+ background: rgba(255,255,255,0.06);
+ border: 1px solid rgba(255,255,255,0.10);
  border-radius: 20px;
  padding: 3px 10px 3px 7px;
- margin-bottom: 10px;
+ margin-bottom: 14px;
  width: fit-content;
- letter-spacing: 0.02em;
+ letter-spacing: 0.04em;
+ position: relative;
+ z-index: 1;
 }
 
 /* ===== DOODLE DIVIDER ===== */
@@ -1657,7 +1875,7 @@ section[id] { scroll-margin-top: 90px; }
  .grid-2 { grid-template-columns: 1fr; gap: 40px; }
  .guru-grid { align-items: stretch; }
  .offerings-grid { grid-template-columns: 1fr; }
- .testimonials-grid { grid-template-columns: 1fr; }
+ .testi-card { flex: 0 0 290px; padding: 28px 20px 24px; }
  .guru-credentials { grid-template-columns: 1fr; }
  .about-stats { flex-direction: column; gap: 20px; }
  .experience-features { gap: 16px; }
